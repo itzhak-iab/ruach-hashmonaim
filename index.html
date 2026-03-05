@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>רוח החשמונאים - המעטפת של הלוחם החרדי</title>
-  <meta name="description" content="עמותת רוח החשמונאים (ע״ר) - הזרוע האזרחית המלווה את חטיבת החשמונאים. ליווי רוחני, חינוכי, לוגיסטי ותמיכה בחיילים בודדים.">
+  <meta name="description" content="עמותת רוח החשמונאים - הזרוע האזרחית המלווה את חטיבת החשמונאים. ליווי רוחני, חינוכי, לוגיסטי ותמיכה בחיילים בודדים.">
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
   <meta property="og:title" content="רוח החשמונאים - המעטפת של הלוחם החרדי">
@@ -1698,6 +1698,134 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* About Hero Section Styles */
+    .about-hero {
+      position: relative;
+      min-height: 70vh;
+      overflow: hidden;
+      width: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .about-hero-bg img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: aboutFade 20s ease-in-out infinite;
+    }
+
+    .about-hero-bg img:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .about-hero-bg img:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    .about-hero-bg img:nth-child(3) {
+      animation-delay: 10s;
+    }
+
+    .about-hero-bg img:nth-child(4) {
+      animation-delay: 15s;
+    }
+
+    @keyframes aboutFade {
+      0%, 100% {
+        opacity: 0;
+      }
+      10%, 40% {
+        opacity: 1;
+      }
+      50%, 100% {
+        opacity: 0;
+      }
+    }
+
+    .about-hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.4) 100%);
+      z-index: 2;
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: var(--white);
+      max-width: 800px;
+      padding: 40px 20px;
+      margin: 0 auto;
+    }
+
+    .about-hero-content h2 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .about-hero-content p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .about-hero-content .btn-learn-more {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .about-hero-content .btn-learn-more:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,168,76,0.4);
+    }
+
+    @media (max-width: 768px) {
+      .about-hero {
+        min-height: 50vh;
+      }
+
+      .about-hero-content h2 {
+        font-size: 1.8rem;
+      }
+
+      .about-hero-content p {
+        font-size: 1rem;
+      }
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -1707,7 +1835,7 @@
   "alternateName": "רוח החשמונאים",
   "url": "https://ruach-hashmonaim.org",
   "logo": "https://ruach-hashmonaim.org/images/logo.png",
-  "description": "עמותת רוח החשמונאים (ע״ר) - הזרוע האזרחית המלווה את חטיבת החשמונאים. ליווי רוחני, חינוכי, לוגיסטי ותמיכה בחיילים בודדים.",
+  "description": "עמותת רוח החשמונאים - הזרוע האזרחית המלווה את חטיבת החשמונאים. ליווי רוחני, חינוכי, לוגיסטי ותמיכה בחיילים בודדים.",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Service",
@@ -1737,7 +1865,7 @@
         <img src="images/logo.png" alt="לוגו רוח החשמונאים">
         <div>
           <div class="logo-text">
-            <span class="he-only">רוח החשמונאים (ע״ר)</span>
+            <span class="he-only">רוח החשמונאים</span>
             <span class="en-only">Ruach HaHashmonaim</span>
           </div>
           <div class="logo-subtitle">
@@ -1800,7 +1928,7 @@
       <div class="hero-content">
         <img src="images/pin.png" alt="סיכת לוחם" class="hero-pin">
         <div class="hero-designation">
-          <span class="he-only">רוח החשמונאים (ע"ר)</span>
+          <span class="he-only">רוח החשמונאים</span>
           <span class="en-only">Ruach HaHashmonaim</span>
         </div>
         <h1 class="hero-title">
@@ -1863,40 +1991,28 @@
       </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section class="about-section">
-      <h2 class="section-title">
-        <span class="he-only">מי אנחנו</span>
-        <span class="en-only">About Us</span>
-      </h2>
-      <p class="section-subtitle">
-        <span class="he-only">עמותת "רוח החשמונאים" הוקמה מתוך הבנה כי חטיבת החשמונאים היא הרבה יותר מיחידה צבאית- היא בשורה חברתית והיסטורית</span>
-        <span class="en-only">Ruach HaHashmonaim was founded from the understanding that the Hashmonaim Brigade is much more than a military unit – it is a social and historic message</span>
-      </p>
-      <div class="about-grid">
-        <div class="about-images fade-in">
-          <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="קבוצת חיילים">
-          <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="חברון">
-          <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="בית מדרש">
-        </div>
-        <div class="about-text fade-in">
-          <h3>
-            <span class="he-only">הזרוע האזרחית של החטיבה</span>
-            <span class="en-only">The Civilian Arm of the Brigade</span>
-          </h3>
-          <p>
-            <span class="he-only">עמותת "רוח החשמונאים" היא כוח אזרחי-חברתי המהווה את העורף והרוח הגבית של חטיבת החשמונאים. אנחנו קבוצה המורכבת מיזמים עסקיים-חברתיים, אנשי חינוך מהמגזר החרדי ואנשי מילואים מחטיבת החשמונאים, שחברו יחד מתוך שליחות אחת: להבטיח את הצלחת הלוחם החרדי בשירותו הצבאי ובהשתלבותו בחברה.</span>
-            <span class="en-only">Ruach HaHashmonaim is a civilian-social force serving as the backbone and spirit behind the Hashmonaim Brigade. We are a group comprised of social-business entrepreneurs, educators from the Haredi sector, and reserve soldiers from the brigade, united by one mission: ensuring the success of the Haredi warrior in military service and societal integration.</span>
-          </p>
-          <p>
-            <span class="he-only">אנו פועלים ביצירת מעטפת הוליסטית הכוללת סיוע לוגיסטי ורווחתי לחיילים, ליווי חינוכי ורוחני השומר על הזהות החרדית הייחודית, ותמיכה ייעודית בחיילים בודדים. העמותה מובילה מסלולי הכנה לשירות משמעותי, בונה תוכניות ליום שאחרי השחרור, ודואגת לכך שכל לוחם ירגיש שיש לו בית, קהילה וגב חזק – בקרב ובשגרה.</span>
-            <span class="en-only">We create a holistic support system including logistical and welfare aid for soldiers, educational and spiritual guidance preserving the unique Haredi identity, and dedicated support for lone soldiers. The association leads preparation tracks for meaningful service, builds post-discharge programs, and ensures every warrior feels they have a home, community and strong backing – in combat and in routine.</span>
-          </p>
-          <a href="#" class="btn-donate-program" onclick="navigateTo('about'); return false;">
-            <span class="he-only">למדו עוד</span>
-            <span class="en-only">Learn More</span>
-          </a>
-        </div>
+    <!-- ABOUT SECTION - HERO WITH ROTATING IMAGES -->
+    <section class="about-hero" id="about-hero">
+      <div class="about-hero-bg">
+        <img src="images/soldiers-sitting.jpg" alt="חיילים">
+        <img src="images/field-march.jpg" alt="行군בשדה">
+        <img src="images/shiur-mountain.jpg" alt="שיעור בהר">
+        <img src="images/nature-walk.jpg" alt="הליכה בטבע">
+      </div>
+      <div class="about-hero-overlay"></div>
+      <div class="about-hero-content">
+        <h2>
+          <span class="he-only">מי אנחנו</span>
+          <span class="en-only">About Us</span>
+        </h2>
+        <p>
+          <span class="he-only">עמותת "רוח החשמונאים" היא הזרוע האזרחית של החטיבה, אשר מהווה את העורף והרוח הגבית ללוחמי ומפקדי חטיבת החשמונאים.</span>
+          <span class="en-only">Ruach HaHashmonaim is the civilian arm of the brigade, serving as the backbone and spirit behind the warriors and commanders of the Hashmonaim Brigade.</span>
+        </p>
+        <a href="#" class="btn-learn-more" onclick="navigateTo('about'); return false;">
+          <span class="he-only">למדו עוד</span>
+          <span class="en-only">Learn More</span>
+        </a>
       </div>
     </section>
 
@@ -1906,10 +2022,6 @@
         <span class="he-only">התוכניות שלנו</span>
         <span class="en-only">Our Programs</span>
       </h2>
-      <p class="section-subtitle">
-        <span class="he-only">שש תוכניות ליווי המכסות את כל מעגל החיים של הלוחם החרדי</span>
-        <span class="en-only">Six support programs covering the entire lifecycle of the Haredi warrior</span>
-      </p>
       <div class="programs-grid">
 
 
@@ -2064,10 +2176,10 @@
 
       <a href="https://mod.gov.il/%D7%90%D7%92%D7%A4%D7%99%D7%9D/%D7%90%D7%92%D7%A3-%D7%91%D7%99%D7%98%D7%97%D7%95%D7%A0%D7%99-%D7%97%D7%91%D7%A8%D7%AA%D7%99" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
         <div style="width:100px; height:100px; border-radius:50%; background:var(--light-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-          <img src="images/partner-1-1772709623297.png" alt="אגף בטחוני-חברתי" style="width:70px; height:70px; object-fit:contain;">
+          <img src="images/partner-1-1772709623297.png" alt="האגף בטחוני חברתי" style="width:70px; height:70px; object-fit:contain;">
         </div>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">אגף בטחוני-חברתי</span>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only"></span>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">האגף בטחוני חברתי</span>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">New Partner</span>
       </a>
 
       <a href="https://www.efficapital.co.il/" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
@@ -2075,7 +2187,7 @@
           <img src="images/partner-2-1772709754426.png" alt="אפי קפיטל" style="width:70px; height:70px; object-fit:contain;">
         </div>
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">אפי קפיטל</span>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only"></span>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">New Partner</span>
       </a>
 
       <a href="https://kerendanielle.org/" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
@@ -2083,7 +2195,7 @@
           <img src="images/partner-3-1772709832599.png" alt="קרן דניאלי" style="width:70px; height:70px; object-fit:contain;">
         </div>
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">קרן דניאלי</span>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only"></span>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">New Partner</span>
       </a>
 
       <a href=" https://bendavidgroup.co.il/" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
@@ -2099,14 +2211,6 @@
           <img src="images/partner-5-1772713437338.png" alt="דגל עמי" style="width:70px; height:70px; object-fit:contain;">
         </div>
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">דגל עמי</span>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only"></span>
-      </a>
-
-      <a href="https://www.marathon-fund.com/" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
-        <div style="width:100px; height:100px; border-radius:50%; background:var(--light-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-          <img src="images/partner-6-1772734806060.png" alt="קרן מרתון" style="width:70px; height:70px; object-fit:contain;">
-        </div>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">קרן מרתון</span>
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only"></span>
       </a></div>
     </section>
@@ -2144,14 +2248,14 @@
         <div style="text-align:center; margin-bottom:40px;" class="fade-in">
           <img src="images/logo.png" alt="לוגו" style="height:80px; margin-bottom:16px;">
           <h3 style="font-family:'Frank Ruhl Libre',serif; font-size:1.6rem; color:var(--dark); margin-bottom:16px; letter-spacing:-0.3px;">
-            <span class="he-only">עמותת רוח החשמונאים (ע"ר)</span>
+            <span class="he-only">עמותת רוח החשמונאים</span>
             <span class="en-only">Ruach HaHashmonaim Association</span>
           </h3>
         </div>
         <div class="fade-in" style="margin-bottom:40px;">
           <p style="color:var(--text-light); font-size:1.05rem; line-height:1.8; margin-bottom:24px;">
-            <span class="he-only">עמותת "רוח החשמונאים" (ע"ר) הוקמה מתוך הבנה כי חטיבת החשמונאים – החטיבה החרדית הראשונה בצה"ל – היא הרבה יותר מיחידה צבאית; היא בשורה חברתית והיסטורית. העמותה מהווה את הזרוע האזרחית המלווה את החטיבה, ומבטיחה שכל לוחם יוכל לשלב בין מצוינות מבצעית לבין נאמנות מוחלטת לאורח חייו ולזהותו החרדית.</span>
-            <span class="en-only">Ruach HaHashmonaim was founded from the understanding that the Hashmonaim Brigade – the first Haredi brigade in the IDF – is much more than a military unit; it is a social and historic message. The association serves as the civilian arm accompanying the brigade, ensuring every warrior can combine operational excellence with absolute loyalty to his way of life and Haredi identity.</span>
+            <span class="he-only">עמותת "רוח החשמונאים" היא הזרוע האזרחית של החטיבה, אשר מהווה את העורף והרוח הגבית ללוחמי ומפקדי חטיבת החשמונאים.</span>
+            <span class="en-only">Ruach HaHashmonaim is the civilian arm of the brigade, serving as the backbone and spirit behind the warriors and commanders of the Hashmonaim Brigade.</span>
           </p>
         </div>
 
@@ -3254,14 +3358,31 @@
       }
     }
 
+    // ===== ABOUT HERO BACKGROUND ROTATION =====
+    function initAboutHeroRotation() {
+      const heroSection = document.getElementById('about-hero');
+      if (!heroSection) return;
+
+      const images = heroSection.querySelectorAll('.about-hero-bg img');
+      if (images.length === 0) return;
+
+      let currentIndex = 0;
+
+      setInterval(() => {
+        images.forEach((img, index) => {
+          img.style.opacity = index === currentIndex ? '1' : '0';
+        });
+        currentIndex = (currentIndex + 1) % images.length;
+      }, 5000);
+    }
+
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
       observeFadeIns();
       animateCounters();
+      initAboutHeroRotation();
     });
   </script>
-
-
 
 
 
