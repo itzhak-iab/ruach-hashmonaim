@@ -13,51 +13,63 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .login-box { background: #fff; border-radius: 16px; padding: 48px 40px; width: 380px; max-width: 90vw; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
 .login-box h1 { color: #1a8a9a; font-size: 1.6rem; margin-bottom: 8px; }
 .login-box p { color: #666; font-size: 0.9rem; margin-bottom: 24px; }
-.login-box input { width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; direction: ltr; text-align: center; margin-bottom: 12px; transition: border-color 0.2s; }
+.login-box input { width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; direction: ltr; text-align: center; margin-bottom: 12px; }
 .login-box input:focus { outline: none; border-color: #1a8a9a; }
 .login-box button { width: 100%; padding: 14px; background: #1a8a9a; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: 600; }
 .login-box button:hover { background: #14707d; }
 .login-error { color: #e74c3c; font-size: 0.85rem; margin-top: 8px; display: none; }
 
-/* ADMIN LAYOUT */
+/* LAYOUT */
 .admin-container { display: none; }
-.admin-header { background: #1a8a9a; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.admin-header { background: #1a8a9a; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 8px; }
 .admin-header h1 { font-size: 1.2rem; }
-.admin-header-actions { display: flex; gap: 12px; align-items: center; }
+.admin-header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
 .btn-save { background: #c8a84c; color: #fff; }
 .btn-save:hover { background: #a08230; }
-.btn-save:disabled { background: #ccc; cursor: not-allowed; }
+.btn-save:disabled { background: #999; cursor: not-allowed; }
 .btn-logout { background: rgba(255,255,255,0.15); color: #fff; }
-.btn-logout:hover { background: rgba(255,255,255,0.25); }
 .btn-preview { background: #27ae60; color: #fff; }
-.btn-preview:hover { background: #219a52; }
 
 /* TABS */
-.admin-tabs { display: flex; background: #fff; border-bottom: 2px solid #e8e8e8; padding: 0 24px; overflow-x: auto; }
-.admin-tab { padding: 14px 24px; cursor: pointer; font-weight: 500; color: #666; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.admin-tabs { display: flex; background: #fff; border-bottom: 2px solid #e8e8e8; padding: 0 16px; overflow-x: auto; }
+.admin-tab { padding: 14px 20px; cursor: pointer; font-weight: 500; color: #666; border-bottom: 3px solid transparent; white-space: nowrap; font-size: 0.95rem; }
 .admin-tab:hover { color: #1a8a9a; }
 .admin-tab.active { color: #1a8a9a; border-bottom-color: #1a8a9a; font-weight: 600; }
 
 /* CONTENT */
-.admin-content { max-width: 900px; margin: 24px auto; padding: 0 24px; }
+.admin-content { max-width: 900px; margin: 24px auto; padding: 0 16px; }
 .admin-section { display: none; }
 .admin-section.active { display: block; }
-
 .edit-card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.edit-card h3 { color: #1a8a9a; font-size: 1.1rem; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+.edit-card h3 { color: #1a8a9a; font-size: 1.1rem; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 8px; }
 .edit-field { margin-bottom: 16px; }
 .edit-field label { display: block; font-weight: 600; font-size: 0.85rem; color: #555; margin-bottom: 6px; }
-.edit-field input, .edit-field textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem; font-family: inherit; direction: rtl; transition: border-color 0.2s; }
+.edit-field input, .edit-field textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem; font-family: inherit; direction: rtl; }
 .edit-field input:focus, .edit-field textarea:focus { outline: none; border-color: #1a8a9a; }
 .edit-field textarea { min-height: 80px; resize: vertical; }
+.edit-field-row { display: flex; gap: 12px; }
+.edit-field-row .edit-field { flex: 1; }
 
-/* IMAGE UPLOAD */
-.image-upload-area { border: 2px dashed #ccc; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
-.image-upload-area:hover { border-color: #1a8a9a; background: #f0f8fa; }
-.image-upload-area img { max-width: 200px; max-height: 150px; object-fit: contain; border-radius: 8px; margin-bottom: 8px; }
-.image-upload-area p { color: #888; font-size: 0.85rem; }
-.image-upload-area input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+/* IMAGE UPLOAD INLINE */
+.img-upload-inline { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.img-upload-box { width: 150px; height: 110px; border: 2px dashed #ccc; border-radius: 10px; position: relative; overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; background: #fafafa; }
+.img-upload-box:hover { border-color: #1a8a9a; background: #f0f8fa; }
+.img-upload-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+.img-upload-box .upload-label { font-size: 0.75rem; color: #999; text-align: center; z-index: 1; }
+.img-upload-box .upload-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.img-upload-box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; }
+
+/* MEDIA CARD EDITOR */
+.media-item-card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+.media-item-card .media-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.media-item-card .media-item-header h4 { font-size: 0.95rem; color: #333; }
+
+/* BUTTONS */
+.btn-add { background: #1a8a9a; color: #fff; padding: 12px 24px; border: none; border-radius: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.btn-add:hover { background: #14707d; }
+.btn-remove { background: #e74c3c; color: #fff; padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+.btn-remove:hover { background: #c0392b; }
 
 /* STATUS */
 .save-status { padding: 12px 20px; border-radius: 8px; margin: 16px 24px; text-align: center; font-weight: 600; display: none; }
@@ -72,28 +84,32 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .setup-box input { width: 100%; padding: 10px; border: 2px solid #ffc107; border-radius: 8px; font-size: 0.9rem; direction: ltr; }
 .setup-box button { margin-top: 8px; padding: 10px 20px; background: #ffc107; color: #856404; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  .admin-header { padding: 12px 16px; }
-  .admin-header h1 { font-size: 1rem; }
-  .admin-content { padding: 0 12px; margin: 12px auto; }
-  .edit-card { padding: 16px; }
-  .admin-tab { padding: 12px 16px; font-size: 0.85rem; }
-  .btn { padding: 8px 14px; font-size: 0.8rem; }
-}
-
-.spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; margin-left: 8px; vertical-align: middle; }
+.changes-badge { background: #e74c3c; color: #fff; border-radius: 12px; padding: 2px 8px; font-size: 0.75rem; }
+.spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; vertical-align: middle; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.changes-badge { background: #e74c3c; color: #fff; border-radius: 12px; padding: 2px 8px; font-size: 0.75rem; margin-right: 8px; }
+.collapsible-header { cursor: pointer; user-select: none; }
+.collapsible-header:after { content: ' ▼'; font-size: 0.7em; }
+.collapsible-header.collapsed:after { content: ' ◀'; }
+.collapsible-body.hidden { display: none; }
+
+@media (max-width: 600px) {
+  .admin-header { padding: 12px; }
+  .admin-header h1 { font-size: 0.95rem; }
+  .admin-content { padding: 0 8px; margin: 12px auto; }
+  .edit-card { padding: 16px; }
+  .admin-tab { padding: 12px 14px; font-size: 0.85rem; }
+  .btn { padding: 8px 12px; font-size: 0.8rem; }
+  .edit-field-row { flex-direction: column; gap: 0; }
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
-    <h1>🔐 ניהול האתר</h1>
+    <h1>ניהול האתר</h1>
     <p>רוח חשמונאית - ממשק ניהול</p>
     <input type="password" id="passwordInput" placeholder="הזן סיסמה" onkeypress="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()">כניסה</button>
@@ -101,130 +117,154 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <div class="admin-container" id="adminContainer">
   <div class="admin-header">
     <h1>ניהול אתר רוח חשמונאית</h1>
     <div class="admin-header-actions">
-      <span id="changesCount" style="display:none" class="changes-badge">0 שינויים</span>
-      <button class="btn btn-preview" onclick="window.open('https://ruach-hashmonaim.org','_blank')">👁 צפה באתר</button>
-      <button class="btn btn-save" id="saveBtn" onclick="saveAllChanges()" disabled>💾 שמור שינויים</button>
+      <span id="changesCount" style="display:none" class="changes-badge"></span>
+      <button class="btn btn-preview" onclick="window.open('https://ruach-hashmonaim.org','_blank')">צפה באתר</button>
+      <button class="btn btn-save" id="saveBtn" onclick="saveAllChanges()" disabled>שמור שינויים</button>
       <button class="btn btn-logout" onclick="doLogout()">יציאה</button>
     </div>
   </div>
 
   <div id="saveStatus" class="save-status"></div>
 
-  <!-- GitHub Token Setup -->
   <div id="setupBox" class="setup-box" style="margin:20px 24px; display:none;">
-    <h3>⚙️ הגדרה ראשונית - GitHub Token</h3>
-    <p>כדי לשמור שינויים באתר, צריך להזין GitHub Personal Access Token. זה נשמר רק בדפדפן שלך.</p>
-    <p style="font-size:0.8rem;">איך מייצרים: Settings → Developer settings → Personal access tokens → Generate new token (classic) → סמן "repo" → Generate</p>
+    <h3>הגדרה ראשונית - GitHub Token</h3>
+    <p>כדי לשמור שינויים, צריך GitHub Token. הולכים ל-GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → מסמנים "repo" → Generate</p>
     <input type="text" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxx" dir="ltr">
-    <button onclick="saveToken()">שמור Token</button>
+    <button onclick="saveToken()">שמור</button>
   </div>
 
-  <div class="admin-tabs" id="adminTabs">
+  <div class="admin-tabs">
     <div class="admin-tab active" data-tab="hero" onclick="switchTab('hero')">דף הבית</div>
     <div class="admin-tab" data-tab="about" onclick="switchTab('about')">אודות</div>
     <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תוכניות</div>
-    <div class="admin-tab" data-tab="images" onclick="switchTab('images')">תמונות</div>
+    <div class="admin-tab" data-tab="media" onclick="switchTab('media')">מהנעשה בחטיבה</div>
     <div class="admin-tab" data-tab="contact" onclick="switchTab('contact')">צור קשר</div>
     <div class="admin-tab" data-tab="settings" onclick="switchTab('settings')">הגדרות</div>
   </div>
 
   <div class="admin-content">
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <div class="admin-section active" id="section-hero">
       <div class="edit-card">
         <h3>כותרת ראשית (Hero)</h3>
         <div class="edit-field">
-          <label>כותרת עליונה (עברית)</label>
-          <input type="text" data-selector=".hero-designation .he-only" data-field="hero-designation-he">
+          <label>תמונת רקע</label>
+          <div class="img-upload-inline">
+            <div class="img-upload-box">
+              <img id="preview-hero" src="">
+              <span class="upload-icon">📷</span>
+              <span class="upload-label">החלף תמונה</span>
+              <input type="file" accept="image/*" onchange="handleImg(this,'images/hero.jpg','preview-hero')">
+            </div>
+          </div>
         </div>
-        <div class="edit-field">
-          <label>כותרת עליונה (אנגלית)</label>
-          <input type="text" data-selector=".hero-designation .en-only" data-field="hero-designation-en">
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label>כותרת עליונה (עברית)</label>
+            <input type="text" data-field="hero-designation-he">
+          </div>
+          <div class="edit-field">
+            <label>כותרת עליונה (English)</label>
+            <input type="text" data-field="hero-designation-en" dir="ltr">
+          </div>
         </div>
-        <div class="edit-field">
-          <label>כותרת ראשית (עברית)</label>
-          <input type="text" data-selector=".hero-title .he-only" data-field="hero-title-he">
-        </div>
-        <div class="edit-field">
-          <label>כותרת ראשית (אנגלית)</label>
-          <input type="text" data-selector=".hero-title .en-only" data-field="hero-title-en">
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label>כותרת ראשית (עברית)</label>
+            <input type="text" data-field="hero-title-he">
+          </div>
+          <div class="edit-field">
+            <label>כותרת ראשית (English)</label>
+            <input type="text" data-field="hero-title-en" dir="ltr">
+          </div>
         </div>
         <div class="edit-field">
           <label>תיאור (עברית)</label>
-          <textarea data-selector=".hero-subtitle .he-only" data-field="hero-subtitle-he"></textarea>
+          <textarea data-field="hero-subtitle-he"></textarea>
         </div>
         <div class="edit-field">
-          <label>תיאור (אנגלית)</label>
-          <textarea data-selector=".hero-subtitle .en-only" data-field="hero-subtitle-en"></textarea>
+          <label>תיאור (English)</label>
+          <textarea data-field="hero-subtitle-en" dir="ltr"></textarea>
         </div>
       </div>
     </div>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT -->
     <div class="admin-section" id="section-about">
       <div class="edit-card">
-        <h3>מי אנחנו - כותרת</h3>
-        <div class="edit-field">
-          <label>כותרת (עברית)</label>
-          <input type="text" data-path="about-title-he" data-field="about-title-he">
+        <h3>מי אנחנו</h3>
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label>כותרת (עברית)</label>
+            <input type="text" data-field="about-title-he">
+          </div>
+          <div class="edit-field">
+            <label>כותרת (English)</label>
+            <input type="text" data-field="about-title-en" dir="ltr">
+          </div>
         </div>
-        <div class="edit-field">
-          <label>כותרת (אנגלית)</label>
-          <input type="text" data-path="about-title-en" data-field="about-title-en">
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>מי אנחנו - תוכן</h3>
         <div class="edit-field">
           <label>טקסט ראשי (עברית)</label>
-          <textarea data-path="about-text-he" data-field="about-text-he" style="min-height:120px;"></textarea>
+          <textarea data-field="about-text-he" style="min-height:120px;"></textarea>
         </div>
         <div class="edit-field">
-          <label>טקסט ראשי (אנגלית)</label>
-          <textarea data-path="about-text-en" data-field="about-text-en" style="min-height:120px;"></textarea>
+          <label>טקסט ראשי (English)</label>
+          <textarea data-field="about-text-en" dir="ltr" style="min-height:120px;"></textarea>
         </div>
       </div>
     </div>
 
-    <!-- PROGRAMS SECTION -->
+    <!-- PROGRAMS (with inline images) -->
     <div class="admin-section" id="section-programs">
-      <div id="programCards"></div>
+      <div id="programsContainer"></div>
+      <button class="btn-add" onclick="addProgram()">+ הוסף תוכנית חדשה</button>
     </div>
 
-    <!-- IMAGES SECTION -->
-    <div class="admin-section" id="section-images">
+    <!-- MEDIA -->
+    <div class="admin-section" id="section-media">
+      <!-- Videos -->
       <div class="edit-card">
-        <h3>תמונת Hero (ספר תורה בזריחה)</h3>
-        <div class="image-upload-area" id="heroImageUpload">
-          <img id="heroImagePreview" src="" alt="hero">
-          <p>לחץ או גרור תמונה חדשה</p>
-          <input type="file" accept="image/*" onchange="handleImageUpload(this, 'hero.jpg', 'heroImagePreview')">
-        </div>
+        <h3>סרטונים</h3>
+        <div id="videosContainer"></div>
+        <button class="btn-add" onclick="addVideo()">+ הוסף סרטון</button>
       </div>
-      <div id="programImageCards"></div>
+
+      <!-- Social Links -->
+      <div class="edit-card">
+        <h3>קישורים לרשתות חברתיות</h3>
+        <div id="socialContainer"></div>
+        <button class="btn-add" onclick="addSocial()">+ הוסף רשת חברתית</button>
+      </div>
+
+      <!-- Newsletters -->
+      <div class="edit-card">
+        <h3>עלונים שבועיים</h3>
+        <div id="newslettersContainer"></div>
+        <button class="btn-add" onclick="addNewsletter()">+ הוסף עלון</button>
+      </div>
     </div>
 
-    <!-- CONTACT SECTION -->
+    <!-- CONTACT -->
     <div class="admin-section" id="section-contact">
       <div class="edit-card">
         <h3>פרטי יצירת קשר</h3>
         <div class="edit-field">
           <label>טלפון</label>
-          <input type="text" data-path="contact-phone" data-field="contact-phone" dir="ltr">
+          <input type="text" data-field="contact-phone" dir="ltr">
         </div>
         <div class="edit-field">
           <label>אימייל</label>
-          <input type="text" data-path="contact-email" data-field="contact-email" dir="ltr">
+          <input type="text" data-field="contact-email" dir="ltr">
         </div>
         <div class="edit-field">
           <label>כתובת (עברית)</label>
-          <input type="text" data-path="contact-address-he" data-field="contact-address-he">
+          <input type="text" data-field="contact-address-he">
         </div>
       </div>
     </div>
@@ -234,12 +274,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
       <div class="edit-card">
         <h3>הגדרות כלליות</h3>
         <div class="edit-field">
-          <label>שם האתר (Title)</label>
-          <input type="text" data-path="site-title" data-field="site-title">
+          <label>שם האתר</label>
+          <input type="text" data-field="site-title">
         </div>
         <div class="edit-field">
-          <label>תיאור לגוגל (Meta Description)</label>
-          <textarea data-path="meta-desc" data-field="meta-desc"></textarea>
+          <label>תיאור לגוגל</label>
+          <textarea data-field="meta-desc"></textarea>
+        </div>
+        <div class="edit-field">
+          <label>פוטר - טקסט תחתון (עברית)</label>
+          <input type="text" data-field="footer-text-he">
         </div>
       </div>
       <div class="edit-card">
@@ -247,523 +291,453 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
         <div class="edit-field">
           <label>Personal Access Token</label>
           <input type="text" id="settingsToken" dir="ltr" placeholder="ghp_xxxxxxxxxxxxx">
-          <button class="btn btn-save" style="margin-top:8px;" onclick="saveToken()">עדכן Token</button>
-        </div>
-        <div class="edit-field">
-          <label>סיסמת Admin</label>
-          <p style="color:#888; font-size:0.85rem;">הסיסמה הנוכחית: hashmonaim2026</p>
+          <button class="btn btn-save" style="margin-top:8px;" onclick="document.getElementById('tokenInput').value=document.getElementById('settingsToken').value;saveToken()">עדכן</button>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-// CONFIG
 const PASSWORD_HASH = '897b9cd34d719d9de225a739269f057047f36b4fec3ecd908454a4f4f36f1b3a';
 const REPO = 'itzhak-iab/ruach-hashmonaim';
 const BRANCH = 'main';
-
-let siteHTML = '';
-let siteSHA = '';
-let pendingChanges = {};
-let pendingImages = {};
-let parser = new DOMParser();
-let siteDoc = null;
+let siteSHA = '', siteDoc = null, siteHTML = '';
+let pendingChanges = {}, pendingImages = {};
+let programData = [], videoData = [], socialData = [], newsletterData = [];
 
 // AUTH
-async function hashPassword(pw) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(pw);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+async function hashPw(pw) {
+  const d = new TextEncoder().encode(pw);
+  const h = await crypto.subtle.digest('SHA-256', d);
+  return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-
 async function doLogin() {
-  const pw = document.getElementById('passwordInput').value;
-  const hash = await hashPassword(pw);
-  if (hash === PASSWORD_HASH) {
-    sessionStorage.setItem('admin_auth', 'true');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminContainer').style.display = 'block';
-    checkToken();
-    loadSiteContent();
+  if (await hashPw(document.getElementById('passwordInput').value) === PASSWORD_HASH) {
+    sessionStorage.setItem('admin_auth','true');
+    showAdmin();
   } else {
-    document.getElementById('loginError').style.display = 'block';
-    document.getElementById('passwordInput').value = '';
+    document.getElementById('loginError').style.display='block';
   }
 }
-
-function doLogout() {
-  sessionStorage.removeItem('admin_auth');
-  location.reload();
+function doLogout() { sessionStorage.removeItem('admin_auth'); location.reload(); }
+function showAdmin() {
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminContainer').style.display='block';
+  if(!localStorage.getItem('github_token')) document.getElementById('setupBox').style.display='block';
+  loadSite();
 }
-
-function checkToken() {
-  const token = localStorage.getItem('github_token');
-  if (!token) {
-    document.getElementById('setupBox').style.display = 'block';
-  }
-}
-
 function saveToken() {
-  const token = document.getElementById('tokenInput')?.value || document.getElementById('settingsToken')?.value;
-  if (token && token.startsWith('ghp_')) {
-    localStorage.setItem('github_token', token);
-    document.getElementById('setupBox').style.display = 'none';
-    if (document.getElementById('settingsToken')) document.getElementById('settingsToken').value = token;
-    showStatus('Token נשמר בהצלחה!', 'success');
-  } else {
-    showStatus('Token לא תקין. צריך להתחיל ב-ghp_', 'error');
-  }
+  const t = document.getElementById('tokenInput')?.value || document.getElementById('settingsToken')?.value;
+  if(t&&t.startsWith('ghp_')){localStorage.setItem('github_token',t);document.getElementById('setupBox').style.display='none';showStatus('Token נשמר!','success');}
+  else showStatus('Token לא תקין','error');
 }
 
-// LOAD SITE CONTENT
-async function loadSiteContent() {
-  showStatus('טוען את תוכן האתר...', 'loading');
+// LOAD
+async function loadSite() {
+  showStatus('טוען...','loading');
   try {
     const token = localStorage.getItem('github_token');
-    const headers = token ? { 'Authorization': `token ${token}` } : {};
-
-    const resp = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`, { headers });
-    const data = await resp.json();
-    siteSHA = data.sha;
-    siteHTML = atob(data.content.replace(/\n/g, ''));
-    // Decode UTF-8 properly
-    siteHTML = new TextDecoder().decode(Uint8Array.from(atob(data.content.replace(/\n/g, '')), c => c.charCodeAt(0)));
-
-    siteDoc = parser.parseFromString(siteHTML, 'text/html');
-    populateFields();
-    showStatus('התוכן נטען בהצלחה!', 'success');
-    setTimeout(() => { document.getElementById('saveStatus').style.display = 'none'; }, 2000);
-  } catch (e) {
-    showStatus('שגיאה בטעינה: ' + e.message, 'error');
-  }
+    const h = token ? {'Authorization':`token ${token}`} : {};
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:h});
+    const d = await r.json();
+    siteSHA = d.sha;
+    siteHTML = new TextDecoder().decode(Uint8Array.from(atob(d.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+    siteDoc = new DOMParser().parseFromString(siteHTML,'text/html');
+    populate();
+    showStatus('נטען בהצלחה!','success');
+    setTimeout(()=>document.getElementById('saveStatus').style.display='none',2000);
+  } catch(e) { showStatus('שגיאה: '+e.message,'error'); }
 }
 
-function populateFields() {
-  if (!siteDoc) return;
+function populate() {
+  if(!siteDoc) return;
+  // Hero
+  setVal('hero-designation-he', txt('.hero-designation .he-only'));
+  setVal('hero-designation-en', txt('.hero-designation .en-only'));
+  setVal('hero-title-he', txt('.hero-title .he-only'));
+  setVal('hero-title-en', txt('.hero-title .en-only'));
+  setVal('hero-subtitle-he', innerText('.hero-subtitle .he-only'));
+  setVal('hero-subtitle-en', innerText('.hero-subtitle .en-only'));
+  document.getElementById('preview-hero').src = 'https://ruach-hashmonaim.org/images/hero.jpg?t='+Date.now();
 
-  // Hero fields
-  setFieldValue('hero-designation-he', getText('.hero-designation .he-only'));
-  setFieldValue('hero-designation-en', getText('.hero-designation .en-only'));
-  setFieldValue('hero-title-he', getText('.hero-title .he-only'));
-  setFieldValue('hero-title-en', getText('.hero-title .en-only'));
-  setFieldValue('hero-subtitle-he', getTextContent('.hero-subtitle .he-only'));
-  setFieldValue('hero-subtitle-en', getTextContent('.hero-subtitle .en-only'));
-
-  // About - find about section
-  const aboutSection = siteDoc.querySelector('#page-about') || findPageByContent('מי אנחנו');
-  if (aboutSection) {
-    const aboutTitle = aboutSection.querySelector('.section-title');
-    if (aboutTitle) {
-      setFieldValue('about-title-he', aboutTitle.querySelector('.he-only')?.textContent.trim() || '');
-      setFieldValue('about-title-en', aboutTitle.querySelector('.en-only')?.textContent.trim() || '');
-    }
-    const aboutTexts = aboutSection.querySelectorAll('p');
-    for (const p of aboutTexts) {
-      const heOnly = p.querySelector('.he-only');
-      if (heOnly && heOnly.textContent.length > 50) {
-        setFieldValue('about-text-he', heOnly.textContent.trim());
-        const enOnly = p.querySelector('.en-only');
-        if (enOnly) setFieldValue('about-text-en', enOnly.textContent.trim());
-        break;
-      }
-    }
+  // About
+  const aboutPage = siteDoc.getElementById('page-about');
+  if(aboutPage) {
+    const st = aboutPage.querySelector('.section-title');
+    if(st){setVal('about-title-he',st.querySelector('.he-only')?.textContent.trim()||'');setVal('about-title-en',st.querySelector('.en-only')?.textContent.trim()||'');}
+    aboutPage.querySelectorAll('p').forEach(p=>{const h=p.querySelector('.he-only');if(h&&h.textContent.length>50){setVal('about-text-he',h.textContent.trim());const e=p.querySelector('.en-only');if(e)setVal('about-text-en',e.textContent.trim());}});
   }
 
   // Programs
-  buildProgramEditors();
-
-  // Images
-  buildImageEditors();
-
+  buildPrograms();
+  // Media
+  buildVideos();
+  buildSocials();
+  buildNewsletters();
   // Contact
-  populateContact();
-
+  const cp = siteDoc.getElementById('page-contact');
+  if(cp){const t=cp.textContent;const ph=t.match(/0\d{1,2}[-\s]?\d{3}[-\s]?\d{4}/);const em=t.match(/[\w.-]+@[\w.-]+\.\w+/);if(ph)setVal('contact-phone',ph[0]);if(em)setVal('contact-email',em[0]);}
   // Settings
-  setFieldValue('site-title', siteDoc.querySelector('title')?.textContent || '');
-  setFieldValue('meta-desc', siteDoc.querySelector('meta[name="description"]')?.getAttribute('content') || '');
+  setVal('site-title',siteDoc.querySelector('title')?.textContent||'');
+  setVal('meta-desc',siteDoc.querySelector('meta[name="description"]')?.getAttribute('content')||'');
+  const fh = siteDoc.querySelector('.footer-bottom .he-only');
+  if(fh) setVal('footer-text-he', fh.textContent.trim());
+  if(localStorage.getItem('github_token')&&document.getElementById('settingsToken'))document.getElementById('settingsToken').value=localStorage.getItem('github_token');
 
-  // Token display
-  const token = localStorage.getItem('github_token');
-  if (token && document.getElementById('settingsToken')) {
-    document.getElementById('settingsToken').value = token;
-  }
-
-  // Attach change listeners
-  document.querySelectorAll('[data-field]').forEach(el => {
-    el.addEventListener('input', () => {
-      pendingChanges[el.dataset.field] = el.value;
-      updateChangesCount();
-    });
-  });
+  // Listeners
+  document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
 }
 
-function getText(selector) {
-  const el = siteDoc.querySelector(selector);
-  return el ? el.textContent.trim() : '';
-}
-
-function getTextContent(selector) {
-  const el = siteDoc.querySelector(selector);
-  if (!el) return '';
-  return el.innerHTML.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '').trim();
-}
-
-function setFieldValue(fieldName, value) {
-  const el = document.querySelector(`[data-field="${fieldName}"]`);
-  if (el) el.value = value;
-}
-
-function findPageByContent(text) {
-  const pages = siteDoc.querySelectorAll('.page');
-  for (const p of pages) {
-    if (p.textContent.includes(text)) return p;
-  }
-  return null;
-}
+function txt(sel){const e=siteDoc.querySelector(sel);return e?e.textContent.trim():'';}
+function innerText(sel){const e=siteDoc.querySelector(sel);if(!e)return'';return e.innerHTML.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'').trim();}
+function setVal(f,v){const e=document.querySelector(`[data-field="${f}"]`);if(e)e.value=v;}
+function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // PROGRAMS
-function buildProgramEditors() {
-  const container = document.getElementById('programCards');
-  const details = siteDoc.querySelectorAll('.program-detail-item');
-  let html = '';
-
-  details.forEach((item, i) => {
-    const heTitle = item.querySelector('.he-only')?.textContent.trim() || `תוכנית ${i+1}`;
-    const enTitle = item.querySelectorAll('.en-only')[0]?.textContent.trim() || '';
-    const heDesc = item.querySelector('p .he-only')?.textContent.trim() || '';
-    const enDesc = item.querySelector('p .en-only')?.textContent.trim() || '';
-
-    html += `
-    <div class="edit-card">
-      <h3>${heTitle}</h3>
-      <div class="edit-field">
-        <label>שם התוכנית (עברית)</label>
-        <input type="text" data-field="prog-${i}-name-he" value="${escapeAttr(heTitle)}">
-      </div>
-      <div class="edit-field">
-        <label>שם התוכנית (אנגלית)</label>
-        <input type="text" data-field="prog-${i}-name-en" value="${escapeAttr(enTitle)}">
-      </div>
-      <div class="edit-field">
-        <label>תיאור (עברית)</label>
-        <textarea data-field="prog-${i}-desc-he">${escapeHTML(heDesc)}</textarea>
-      </div>
-      <div class="edit-field">
-        <label>תיאור (אנגלית)</label>
-        <textarea data-field="prog-${i}-desc-en">${escapeHTML(enDesc)}</textarea>
-      </div>
-    </div>`;
+function buildPrograms(){
+  programData=[];
+  const details=siteDoc.querySelectorAll('.program-detail-item');
+  const cards=siteDoc.querySelectorAll('.program-card');
+  details.forEach((item,i)=>{
+    const imgs=[];
+    item.querySelectorAll('.program-detail-img img').forEach(img=>{const s=img.getAttribute('src');if(s&&!s.startsWith('data:'))imgs.push(s);});
+    const cardImg=cards[i]?.querySelector('.program-card-img img');
+    const cardImgSrc=cardImg?cardImg.getAttribute('src'):'';
+    const iconEl=item.querySelector('.program-icon img');
+    const iconSrc=iconEl?iconEl.getAttribute('src'):'';
+    programData.push({
+      nameHe:item.querySelector('h3 .he-only')?.textContent.trim()||'',
+      nameEn:item.querySelector('h3 .en-only')?.textContent.trim()||'',
+      descHe:item.querySelector('p .he-only')?.textContent.trim()||'',
+      descEn:item.querySelector('p .en-only')?.textContent.trim()||'',
+      images:imgs,
+      cardImage:(!cardImgSrc||cardImgSrc.startsWith('data:'))?'':cardImgSrc,
+      logo:iconSrc
+    });
   });
-
-  container.innerHTML = html;
+  renderPrograms();
 }
 
-// IMAGES
-function buildImageEditors() {
-  // Hero image preview
-  const heroImg = document.getElementById('heroImagePreview');
-  if (heroImg) heroImg.src = `https://ruach-hashmonaim.org/images/hero.jpg?t=${Date.now()}`;
-
-  const container = document.getElementById('programImageCards');
-  const allImages = siteDoc.querySelectorAll('.program-detail-img img, .program-card-img img');
-  const seen = new Set();
-  let html = '';
-
-  allImages.forEach(img => {
-    const src = img.getAttribute('src');
-    if (!src || src.startsWith('data:') || seen.has(src)) return;
-    seen.add(src);
-    const alt = img.getAttribute('alt') || src;
-    const filename = src.split('/').pop();
-
-    html += `
-    <div class="edit-card">
-      <h3>תמונה: ${alt}</h3>
-      <div class="image-upload-area">
-        <img src="https://ruach-hashmonaim.org/${src}?t=${Date.now()}" alt="${alt}" id="img-${filename.replace(/\./g,'-')}" style="max-width:300px;">
-        <p>לחץ או גרור תמונה חדשה להחלפה</p>
-        <input type="file" accept="image/*" onchange="handleImageUpload(this, '${filename}', 'img-${filename.replace(/\./g,'-')}')">
-      </div>
-    </div>`;
-  });
-
-  // Add "upload new image" card
-  html += `
+function renderPrograms(){
+  const c=document.getElementById('programsContainer');
+  c.innerHTML=programData.map((p,i)=>`
   <div class="edit-card">
-    <h3>➕ העלאת תמונה חדשה</h3>
-    <div class="edit-field">
-      <label>שם הקובץ (באנגלית, ללא רווחים)</label>
-      <input type="text" id="newImageName" placeholder="my-photo.jpg" dir="ltr">
+    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${p.nameHe||'תוכנית '+(i+1)}
+      <button class="btn-remove" style="margin-right:auto;" onclick="event.stopPropagation();removeProgram(${i})">מחק</button>
+    </h3>
+    <div class="collapsible-body">
+      <div class="edit-field">
+        <label>תמונות התוכנית</label>
+        <div class="img-upload-inline">
+          ${p.images.map((img,j)=>`
+          <div class="img-upload-box">
+            <img src="https://ruach-hashmonaim.org/${img}?t=${Date.now()}" id="pimg-${i}-${j}">
+            <input type="file" accept="image/*" onchange="handleImg(this,'${img}','pimg-${i}-${j}')">
+          </div>`).join('')}
+          <div class="img-upload-box" onclick="">
+            <span class="upload-icon">+</span>
+            <span class="upload-label">הוסף תמונה</span>
+            <input type="file" accept="image/*" onchange="addProgramImage(${i},this)">
+          </div>
+        </div>
+      </div>
+      <div class="edit-field">
+        <label>לוגו התוכנית</label>
+        <div class="img-upload-inline">
+          <div class="img-upload-box" style="width:80px;height:80px;">
+            ${p.logo?`<img src="https://ruach-hashmonaim.org/${p.logo}?t=${Date.now()}" id="plogo-${i}">`:'<span class="upload-label">ללא</span>'}
+            <input type="file" accept="image/*" onchange="handleImg(this,'${p.logo||'images/prog-'+i+'-logo.png'}','plogo-${i}')">
+          </div>
+        </div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field"><label>שם (עברית)</label><input type="text" data-field="prog-${i}-name-he" value="${esc(p.nameHe)}" oninput="markChanged()"></div>
+        <div class="edit-field"><label>שם (English)</label><input type="text" data-field="prog-${i}-name-en" value="${esc(p.nameEn)}" dir="ltr" oninput="markChanged()"></div>
+      </div>
+      <div class="edit-field"><label>תיאור (עברית)</label><textarea data-field="prog-${i}-desc-he" oninput="markChanged()">${esc(p.descHe)}</textarea></div>
+      <div class="edit-field"><label>תיאור (English)</label><textarea data-field="prog-${i}-desc-en" dir="ltr" oninput="markChanged()">${esc(p.descEn)}</textarea></div>
     </div>
-    <div class="image-upload-area">
-      <img id="newImagePreview" src="" alt="" style="display:none; max-width:300px;">
-      <p>לחץ או גרור תמונה</p>
-      <input type="file" accept="image/*" onchange="handleNewImageUpload(this)">
-    </div>
-  </div>`;
-
-  container.innerHTML = html;
+  </div>`).join('');
+  // Re-attach listeners
+  c.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
 }
 
-function handleImageUpload(input, filename, previewId) {
-  const file = input.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const base64 = e.target.result.split(',')[1];
-    pendingImages[`images/${filename}`] = base64;
-    document.getElementById(previewId).src = e.target.result;
-    updateChangesCount();
+function addProgramImage(progIdx,input){
+  const file=input.files[0];if(!file)return;
+  const fname=`images/prog-${progIdx}-${Date.now()}.jpg`;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    pendingImages[fname]=e.target.result.split(',')[1];
+    programData[progIdx].images.push(fname);
+    pendingChanges['_programs_structural']='true';
+    renderPrograms();updateBadge();
   };
   reader.readAsDataURL(file);
 }
 
-function handleNewImageUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
+function removeProgram(i){if(confirm('למחוק את התוכנית?')){programData.splice(i,1);pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();}}
+function addProgram(){
+  programData.push({nameHe:'תוכנית חדשה',nameEn:'New Program',descHe:'',descEn:'',images:[],cardImage:'',logo:''});
+  pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();
+}
 
-  let filename = document.getElementById('newImageName').value.trim();
-  if (!filename) {
-    filename = file.name.replace(/\s+/g, '-').toLowerCase();
-    document.getElementById('newImageName').value = filename;
+// VIDEOS
+function buildVideos(){
+  videoData=[];
+  siteDoc.querySelectorAll('.media-card').forEach(card=>{
+    videoData.push({
+      titleHe:card.querySelector('h4 .he-only')?.textContent.trim()||'',
+      titleEn:card.querySelector('h4 .en-only')?.textContent.trim()||'',
+      descHe:card.querySelector('p .he-only')?.textContent.trim()||'',
+      descEn:card.querySelector('p .en-only')?.textContent.trim()||'',
+      link:card.getAttribute('href')||'#',
+      thumb:card.querySelector('img')?.getAttribute('src')||''
+    });
+  });
+  renderVideos();
+}
+
+function renderVideos(){
+  const c=document.getElementById('videosContainer');
+  c.innerHTML=videoData.map((v,i)=>`
+  <div class="media-item-card">
+    <div class="media-item-header">
+      <h4>${v.titleHe||'סרטון '+(i+1)}</h4>
+      <button class="btn-remove" onclick="videoData.splice(${i},1);pendingChanges['_media']='1';renderVideos();updateBadge();">מחק</button>
+    </div>
+    <div class="edit-field"><label>קישור (YouTube וכו׳)</label><input type="text" data-field="vid-${i}-link" value="${esc(v.link)}" dir="ltr" oninput="videoData[${i}].link=this.value;markChanged()"></div>
+    <div class="edit-field-row">
+      <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="vid-${i}-title-he" value="${esc(v.titleHe)}" oninput="videoData[${i}].titleHe=this.value;markChanged()"></div>
+      <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="vid-${i}-title-en" value="${esc(v.titleEn)}" dir="ltr" oninput="videoData[${i}].titleEn=this.value;markChanged()"></div>
+    </div>
+    <div class="edit-field-row">
+      <div class="edit-field"><label>תיאור (עברית)</label><input type="text" data-field="vid-${i}-desc-he" value="${esc(v.descHe)}" oninput="videoData[${i}].descHe=this.value;markChanged()"></div>
+      <div class="edit-field"><label>תיאור (English)</label><input type="text" data-field="vid-${i}-desc-en" value="${esc(v.descEn)}" dir="ltr" oninput="videoData[${i}].descEn=this.value;markChanged()"></div>
+    </div>
+  </div>`).join('');
+}
+
+function addVideo(){videoData.push({titleHe:'סרטון חדש',titleEn:'New Video',descHe:'',descEn:'',link:'#',thumb:''});pendingChanges['_media']='1';renderVideos();updateBadge();}
+
+// SOCIALS
+function buildSocials(){
+  socialData=[];
+  siteDoc.querySelectorAll('.social-card').forEach(card=>{
+    socialData.push({
+      name:card.querySelector('h4')?.textContent.trim()||'',
+      descHe:card.querySelector('p .he-only')?.textContent.trim()||'',
+      descEn:card.querySelector('p .en-only')?.textContent.trim()||'',
+      link:card.getAttribute('href')||'#',
+      icon:card.querySelector('.social-icon')?.textContent.trim()||''
+    });
+  });
+  renderSocials();
+}
+
+function renderSocials(){
+  const c=document.getElementById('socialContainer');
+  c.innerHTML=socialData.map((s,i)=>`
+  <div class="media-item-card">
+    <div class="media-item-header">
+      <h4>${s.icon} ${s.name}</h4>
+      <button class="btn-remove" onclick="socialData.splice(${i},1);pendingChanges['_media']='1';renderSocials();updateBadge();">מחק</button>
+    </div>
+    <div class="edit-field-row">
+      <div class="edit-field"><label>שם</label><input type="text" value="${esc(s.name)}" oninput="socialData[${i}].name=this.value;markChanged()"></div>
+      <div class="edit-field"><label>אייקון</label><input type="text" value="${esc(s.icon)}" style="width:60px;" oninput="socialData[${i}].icon=this.value;markChanged()"></div>
+    </div>
+    <div class="edit-field"><label>קישור</label><input type="text" value="${esc(s.link)}" dir="ltr" oninput="socialData[${i}].link=this.value;markChanged()"></div>
+    <div class="edit-field-row">
+      <div class="edit-field"><label>תיאור (עברית)</label><input type="text" value="${esc(s.descHe)}" oninput="socialData[${i}].descHe=this.value;markChanged()"></div>
+      <div class="edit-field"><label>תיאור (English)</label><input type="text" value="${esc(s.descEn)}" dir="ltr" oninput="socialData[${i}].descEn=this.value;markChanged()"></div>
+    </div>
+  </div>`).join('');
+}
+
+function addSocial(){socialData.push({name:'חדש',descHe:'',descEn:'',link:'#',icon:'🔗'});pendingChanges['_media']='1';renderSocials();updateBadge();}
+
+// NEWSLETTERS
+function buildNewsletters(){
+  newsletterData=[];
+  siteDoc.querySelectorAll('.newsletter-card, [onclick*="newsletter"]').forEach(card=>{
+    const a=card.querySelector('a')||card;
+    newsletterData.push({
+      titleHe:card.querySelector('.he-only')?.textContent.trim()||card.querySelector('h4')?.textContent.trim()||'',
+      link:a.getAttribute('href')||'#'
+    });
+  });
+  // Try alternate: look for newsletter links
+  if(newsletterData.length===0){
+    siteDoc.querySelectorAll('a[href*="newsletter"]').forEach(a=>{
+      newsletterData.push({titleHe:a.textContent.trim(),link:a.getAttribute('href')||'#'});
+    });
   }
+  renderNewsletters();
+}
 
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const base64 = e.target.result.split(',')[1];
-    pendingImages[`images/${filename}`] = base64;
-    const preview = document.getElementById('newImagePreview');
-    preview.src = e.target.result;
-    preview.style.display = 'block';
-    updateChangesCount();
+function renderNewsletters(){
+  const c=document.getElementById('newslettersContainer');
+  c.innerHTML=newsletterData.map((n,i)=>`
+  <div class="media-item-card">
+    <div class="media-item-header">
+      <h4>${n.titleHe||'עלון '+(i+1)}</h4>
+      <button class="btn-remove" onclick="newsletterData.splice(${i},1);pendingChanges['_media']='1';renderNewsletters();updateBadge();">מחק</button>
+    </div>
+    <div class="edit-field"><label>שם העלון</label><input type="text" value="${esc(n.titleHe)}" oninput="newsletterData[${i}].titleHe=this.value;markChanged()"></div>
+    <div class="edit-field"><label>קישור לקובץ PDF</label><input type="text" value="${esc(n.link)}" dir="ltr" oninput="newsletterData[${i}].link=this.value;markChanged()"></div>
+  </div>`).join('');
+}
+
+function addNewsletter(){newsletterData.push({titleHe:'עלון חדש',link:'#'});pendingChanges['_media']='1';renderNewsletters();updateBadge();}
+
+// IMAGE HANDLING
+function handleImg(input,path,previewId){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    pendingImages[path]=e.target.result.split(',')[1];
+    const prev=document.getElementById(previewId);
+    if(prev)prev.src=e.target.result;
+    updateBadge();
   };
   reader.readAsDataURL(file);
 }
 
-// CONTACT
-function populateContact() {
-  const contactPage = siteDoc.querySelector('#page-contact') || findPageByContent('צור קשר');
-  if (!contactPage) return;
-
-  const text = contactPage.textContent;
-  // Try to extract phone, email, address
-  const phoneMatch = text.match(/0\d{1,2}[-\s]?\d{3}[-\s]?\d{4}/);
-  const emailMatch = text.match(/[\w.-]+@[\w.-]+\.\w+/);
-
-  if (phoneMatch) setFieldValue('contact-phone', phoneMatch[0]);
-  if (emailMatch) setFieldValue('contact-email', emailMatch[0]);
-}
+function markChanged(){pendingChanges['_media']='1';updateBadge();}
 
 // SAVE
-async function saveAllChanges() {
-  const token = localStorage.getItem('github_token');
-  if (!token) {
-    document.getElementById('setupBox').style.display = 'block';
-    showStatus('צריך להגדיר GitHub Token קודם', 'error');
-    return;
-  }
-
-  const saveBtn = document.getElementById('saveBtn');
-  saveBtn.disabled = true;
-  saveBtn.innerHTML = '<span class="spinner"></span> שומר...';
-  showStatus('שומר שינויים...', 'loading');
+async function saveAllChanges(){
+  const token=localStorage.getItem('github_token');
+  if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token','error');return;}
+  const btn=document.getElementById('saveBtn');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> שומר...';
+  showStatus('שומר...','loading');
 
   try {
-    // Apply text changes to siteDoc
-    if (Object.keys(pendingChanges).length > 0) {
-      applyTextChanges();
+    applyAllChanges();
+    const newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
+    await pushFile('index.html',utf8ToBase64(newHTML),siteSHA,'Update via admin panel');
 
-      // Save HTML
-      const newHTML = '<!DOCTYPE html>\n' + siteDoc.documentElement.outerHTML;
-      await pushFile('index.html', utf8ToBase64(newHTML), siteSHA, 'Update site content via admin panel');
-
-      // Refresh SHA
-      const resp = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      const data = await resp.json();
-      siteSHA = data.sha;
-    }
+    // Refresh SHA
+    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
+    const d=await r.json();siteSHA=d.sha;
 
     // Upload images
-    for (const [path, base64] of Object.entries(pendingImages)) {
-      let sha = null;
-      try {
-        const existing = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
-          headers: { 'Authorization': `token ${token}` }
-        });
-        if (existing.ok) {
-          const data = await existing.json();
-          sha = data.sha;
-        }
-      } catch(e) {}
-
-      await pushFile(path, base64, sha, `Update ${path} via admin panel`);
+    for(const[path,b64] of Object.entries(pendingImages)){
+      let sha=null;
+      try{const x=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});if(x.ok){sha=(await x.json()).sha;}}catch(e){}
+      await pushFile(path,b64,sha,'Upload '+path);
     }
 
-    pendingChanges = {};
-    pendingImages = {};
-    updateChangesCount();
-    showStatus('✅ כל השינויים נשמרו בהצלחה! האתר יתעדכן תוך 1-2 דקות.', 'success');
-  } catch(e) {
-    showStatus('❌ שגיאה בשמירה: ' + e.message, 'error');
-  }
-
-  saveBtn.disabled = false;
-  saveBtn.innerHTML = '💾 שמור שינויים';
+    pendingChanges={};pendingImages={};updateBadge();
+    showStatus('נשמר בהצלחה! האתר יתעדכן תוך 1-2 דקות.','success');
+  } catch(e) { showStatus('שגיאה: '+e.message,'error'); }
+  btn.disabled=false;btn.innerHTML='שמור שינויים';
 }
 
-function applyTextChanges() {
+function applyAllChanges(){
   // Hero
-  applyChange('.hero-designation .he-only', 'hero-designation-he');
-  applyChange('.hero-designation .en-only', 'hero-designation-en');
-  applyChange('.hero-title .he-only', 'hero-title-he');
-  applyChange('.hero-title .en-only', 'hero-title-en');
-  applyChangeHTML('.hero-subtitle .he-only', 'hero-subtitle-he');
-  applyChangeHTML('.hero-subtitle .en-only', 'hero-subtitle-en');
+  applyText('.hero-designation .he-only','hero-designation-he');
+  applyText('.hero-designation .en-only','hero-designation-en');
+  applyText('.hero-title .he-only','hero-title-he');
+  applyText('.hero-title .en-only','hero-title-en');
+  applyHTML('.hero-subtitle .he-only','hero-subtitle-he');
+  applyHTML('.hero-subtitle .en-only','hero-subtitle-en');
 
-  // Site title & meta
-  if (pendingChanges['site-title']) {
-    siteDoc.querySelector('title').textContent = pendingChanges['site-title'];
-  }
-  if (pendingChanges['meta-desc']) {
-    const meta = siteDoc.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', pendingChanges['meta-desc']);
-  }
+  // Meta
+  if(pendingChanges['site-title'])siteDoc.querySelector('title').textContent=pendingChanges['site-title'];
+  if(pendingChanges['meta-desc']){const m=siteDoc.querySelector('meta[name="description"]');if(m)m.setAttribute('content',pendingChanges['meta-desc']);}
+  if(pendingChanges['footer-text-he']){const f=siteDoc.querySelector('.footer-bottom .he-only');if(f)f.textContent=pendingChanges['footer-text-he'];}
 
-  // Programs
-  const details = siteDoc.querySelectorAll('.program-detail-item');
-  details.forEach((item, i) => {
-    if (pendingChanges[`prog-${i}-name-he`]) {
-      const nameEl = item.querySelector('h3 .he-only');
-      if (nameEl) nameEl.textContent = pendingChanges[`prog-${i}-name-he`];
-    }
-    if (pendingChanges[`prog-${i}-name-en`]) {
-      const nameEl = item.querySelector('h3 .en-only');
-      if (nameEl) nameEl.textContent = pendingChanges[`prog-${i}-name-en`];
-    }
-    if (pendingChanges[`prog-${i}-desc-he`]) {
-      const descEl = item.querySelector('p .he-only');
-      if (descEl) descEl.textContent = pendingChanges[`prog-${i}-desc-he`];
-    }
-    if (pendingChanges[`prog-${i}-desc-en`]) {
-      const descEl = item.querySelector('p .en-only');
-      if (descEl) descEl.textContent = pendingChanges[`prog-${i}-desc-en`];
+  // Programs - text fields
+  const details=siteDoc.querySelectorAll('.program-detail-item');
+  const cards=siteDoc.querySelectorAll('.program-card');
+  details.forEach((item,i)=>{
+    if(pendingChanges[`prog-${i}-name-he`]){const e=item.querySelector('h3 .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-he`];}
+    if(pendingChanges[`prog-${i}-name-en`]){const e=item.querySelector('h3 .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-en`];}
+    if(pendingChanges[`prog-${i}-desc-he`]){const e=item.querySelector('p .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-he`];}
+    if(pendingChanges[`prog-${i}-desc-en`]){const e=item.querySelector('p .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-en`];}
+    if(cards[i]){
+      if(pendingChanges[`prog-${i}-name-he`]){const e=cards[i].querySelector('.program-card-name .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-he`];}
+      if(pendingChanges[`prog-${i}-name-en`]){const e=cards[i].querySelector('.program-card-name .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-en`];}
+      if(pendingChanges[`prog-${i}-desc-he`]){const e=cards[i].querySelector('.program-card-desc .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-he`];}
+      if(pendingChanges[`prog-${i}-desc-en`]){const e=cards[i].querySelector('.program-card-desc .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-en`];}
     }
   });
 
-  // Also update the program cards on homepage
-  const cards = siteDoc.querySelectorAll('.program-card');
-  cards.forEach((card, i) => {
-    if (pendingChanges[`prog-${i}-name-he`]) {
-      const nameEl = card.querySelector('.program-card-name .he-only');
-      if (nameEl) nameEl.textContent = pendingChanges[`prog-${i}-name-he`];
-    }
-    if (pendingChanges[`prog-${i}-name-en`]) {
-      const nameEl = card.querySelector('.program-card-name .en-only');
-      if (nameEl) nameEl.textContent = pendingChanges[`prog-${i}-name-en`];
-    }
-    if (pendingChanges[`prog-${i}-desc-he`]) {
-      const descEl = card.querySelector('.program-card-desc .he-only');
-      if (descEl) descEl.textContent = pendingChanges[`prog-${i}-desc-he`];
-    }
-    if (pendingChanges[`prog-${i}-desc-en`]) {
-      const descEl = card.querySelector('.program-card-desc .en-only');
-      if (descEl) descEl.textContent = pendingChanges[`prog-${i}-desc-en`];
-    }
-  });
-}
-
-function applyChange(selector, fieldKey) {
-  if (!pendingChanges[fieldKey]) return;
-  const el = siteDoc.querySelector(selector);
-  if (el) el.textContent = pendingChanges[fieldKey];
-}
-
-function applyChangeHTML(selector, fieldKey) {
-  if (!pendingChanges[fieldKey]) return;
-  const el = siteDoc.querySelector(selector);
-  if (el) el.innerHTML = pendingChanges[fieldKey].replace(/\n/g, '<br>');
-}
-
-async function pushFile(path, base64Content, sha, message) {
-  const token = localStorage.getItem('github_token');
-  const body = { message, content: base64Content, branch: BRANCH };
-  if (sha) body.sha = sha;
-
-  const resp = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `token ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  });
-
-  if (!resp.ok) {
-    const err = await resp.json();
-    throw new Error(err.message || 'GitHub API error');
-  }
-  return resp.json();
-}
-
-function utf8ToBase64(str) {
-  const encoder = new TextEncoder();
-  const bytes = encoder.encode(str);
-  let binary = '';
-  bytes.forEach(b => binary += String.fromCharCode(b));
-  return btoa(binary);
-}
-
-// UI HELPERS
-function switchTab(tab) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-  document.getElementById(`section-${tab}`).classList.add('active');
-}
-
-function updateChangesCount() {
-  const count = Object.keys(pendingChanges).length + Object.keys(pendingImages).length;
-  const badge = document.getElementById('changesCount');
-  const saveBtn = document.getElementById('saveBtn');
-
-  if (count > 0) {
-    badge.style.display = 'inline';
-    badge.textContent = `${count} שינויים`;
-    saveBtn.disabled = false;
-  } else {
-    badge.style.display = 'none';
-    saveBtn.disabled = true;
+  // Media - rebuild video cards if changed
+  if(pendingChanges['_media']){
+    rebuildMediaSection();
   }
 }
 
-function showStatus(msg, type) {
-  const el = document.getElementById('saveStatus');
-  el.textContent = msg;
-  el.className = 'save-status ' + type;
+function rebuildMediaSection(){
+  // Rebuild video grid
+  const grid=siteDoc.querySelector('.media-grid');
+  if(grid){
+    grid.innerHTML=videoData.map(v=>`
+        <a href="${v.link}" class="media-card fade-in" target="_blank" rel="noopener">
+          <div class="media-card-thumb">
+            <img src="${v.thumb||'images/hero.jpg'}" alt="${v.titleHe}">
+            <div class="media-play-btn">▶</div>
+          </div>
+          <div class="media-card-body">
+            <h4><span class="he-only">${v.titleHe}</span><span class="en-only">${v.titleEn}</span></h4>
+            <p><span class="he-only">${v.descHe}</span><span class="en-only">${v.descEn}</span></p>
+          </div>
+        </a>`).join('\n');
+  }
+
+  // Rebuild social links
+  const socialGrid=siteDoc.querySelector('.social-links-grid');
+  if(socialGrid){
+    socialGrid.innerHTML=socialData.map(s=>`
+        <a href="${s.link}" class="social-card" target="_blank" rel="noopener">
+          <div class="social-icon">${s.icon}</div>
+          <div class="social-card-text">
+            <h4>${s.name}</h4>
+            <p><span class="he-only">${s.descHe}</span><span class="en-only">${s.descEn}</span></p>
+          </div>
+        </a>`).join('\n');
+  }
 }
 
-function escapeAttr(str) {
-  return str.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function applyText(sel,key){if(!pendingChanges[key])return;const e=siteDoc.querySelector(sel);if(e)e.textContent=pendingChanges[key];}
+function applyHTML(sel,key){if(!pendingChanges[key])return;const e=siteDoc.querySelector(sel);if(e)e.innerHTML=pendingChanges[key].replace(/\n/g,'<br>');}
+
+async function pushFile(path,b64,sha,msg){
+  const body={message:msg,content:b64,branch:BRANCH};if(sha)body.sha=sha;
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{method:'PUT',headers:{'Authorization':`token ${localStorage.getItem('github_token')}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error((await r.json()).message||'API error');
+  return r.json();
 }
 
-function escapeHTML(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function utf8ToBase64(s){const b=new TextEncoder().encode(s);let r='';b.forEach(x=>r+=String.fromCharCode(x));return btoa(r);}
+
+// UI
+function switchTab(t){
+  document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));
+  document.querySelector(`[data-tab="${t}"]`).classList.add('active');
+  document.getElementById(`section-${t}`).classList.add('active');
 }
 
-// Check if already authed
-if (sessionStorage.getItem('admin_auth') === 'true') {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminContainer').style.display = 'block';
-  checkToken();
-  loadSiteContent();
+function updateBadge(){
+  const n=Object.keys(pendingChanges).length+Object.keys(pendingImages).length;
+  const b=document.getElementById('changesCount'),s=document.getElementById('saveBtn');
+  if(n>0){b.style.display='inline';b.textContent=n+' שינויים';s.disabled=false;}
+  else{b.style.display='none';s.disabled=true;}
 }
+
+function toggleCollapse(el){
+  el.classList.toggle('collapsed');
+  el.nextElementSibling.classList.toggle('hidden');
+}
+
+function showStatus(msg,type){const e=document.getElementById('saveStatus');e.textContent=msg;e.className='save-status '+type;}
+
+if(sessionStorage.getItem('admin_auth')==='true') showAdmin();
 </script>
 </body>
 </html>
