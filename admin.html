@@ -200,7 +200,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <!-- ABOUT -->
     <div class="admin-section" id="section-about">
       <div class="edit-card">
-        <h3>מי אנחנו</h3>
+        <h3>כותרת עמוד אודות</h3>
         <div class="edit-field-row">
           <div class="edit-field">
             <label>כותרת (עברית)</label>
@@ -211,13 +211,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
             <input type="text" data-field="about-title-en" dir="ltr">
           </div>
         </div>
+      </div>
+      <div class="edit-card">
+        <h3>תת-כותרת בדף הבית</h3>
         <div class="edit-field">
-          <label>טקסט ראשי (עברית)</label>
-          <textarea data-field="about-text-he" style="min-height:120px;"></textarea>
+          <label>תת-כותרת (עברית)</label>
+          <textarea data-field="about-subtitle-he" style="min-height:60px;"></textarea>
         </div>
         <div class="edit-field">
-          <label>טקסט ראשי (English)</label>
-          <textarea data-field="about-text-en" dir="ltr" style="min-height:120px;"></textarea>
+          <label>תת-כותרת (English)</label>
+          <textarea data-field="about-subtitle-en" dir="ltr" style="min-height:60px;"></textarea>
+        </div>
+      </div>
+      <div class="edit-card">
+        <h3>פסקת פתיחה</h3>
+        <div class="edit-field">
+          <label>פתיחה (עברית)</label>
+          <textarea data-field="about-intro-he" style="min-height:100px;"></textarea>
+        </div>
+        <div class="edit-field">
+          <label>פתיחה (English)</label>
+          <textarea data-field="about-intro-en" dir="ltr" style="min-height:100px;"></textarea>
+        </div>
+      </div>
+      <div id="aboutSubsections"></div>
+      <div class="edit-card">
+        <h3>חזון</h3>
+        <div class="edit-field">
+          <label>חזון (עברית)</label>
+          <textarea data-field="about-vision-he" style="min-height:80px;"></textarea>
+        </div>
+        <div class="edit-field">
+          <label>חזון (English)</label>
+          <textarea data-field="about-vision-en" dir="ltr" style="min-height:80px;"></textarea>
         </div>
       </div>
     </div>
@@ -362,6 +388,7 @@ const BRANCH = 'main';
 let siteSHA = '', siteDoc = null, siteHTML = '';
 let pendingChanges = {}, pendingImages = {};
 let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [];
+let aboutSubsections = [];
 let contactSections = [], contactLinks = [];
 
 // AUTH
@@ -424,7 +451,45 @@ function populate() {
   if(aboutPage) {
     const st = aboutPage.querySelector('.section-title');
     if(st){setVal('about-title-he',st.querySelector('.he-only')?.textContent.trim()||'');setVal('about-title-en',st.querySelector('.en-only')?.textContent.trim()||'');}
-    aboutPage.querySelectorAll('p').forEach(p=>{const h=p.querySelector('.he-only');if(h&&h.textContent.length>50){setVal('about-text-he',h.textContent.trim());const e=p.querySelector('.en-only');if(e)setVal('about-text-en',e.textContent.trim());}});
+    // Intro paragraph (first p with long text)
+    const introP = aboutPage.querySelector('div[style*="margin-bottom:40px"] > p');
+    if(introP){
+      const ih=introP.querySelector('.he-only');if(ih)setVal('about-intro-he',ih.textContent.trim());
+      const ie=introP.querySelector('.en-only');if(ie)setVal('about-intro-en',ie.textContent.trim());
+    }
+    // Subsections (h4 + p pairs)
+    aboutSubsections=[];
+    aboutPage.querySelectorAll('h4').forEach(h4=>{
+      const par=h4.parentElement;
+      const nextP=par.querySelector('p');
+      if(nextP){
+        aboutSubsections.push({
+          titleHe:h4.querySelector('.he-only')?.textContent.trim()||'',
+          titleEn:h4.querySelector('.en-only')?.textContent.trim()||'',
+          textHe:nextP.querySelector('.he-only')?.textContent.trim()||'',
+          textEn:nextP.querySelector('.en-only')?.textContent.trim()||''
+        });
+      }
+    });
+    renderAboutSubsections();
+    // Vision
+    const visionDiv=aboutPage.querySelector('div[style*="background:var(--light-bg)"]');
+    if(visionDiv){
+      const vp=visionDiv.querySelector('p');
+      if(vp){
+        const vh=vp.querySelector('.he-only:last-of-type');if(vh)setVal('about-vision-he',vh.textContent.trim());
+        const ve=vp.querySelector('.en-only:last-of-type');if(ve)setVal('about-vision-en',ve.textContent.trim());
+      }
+    }
+  }
+  // Homepage about subtitle
+  const aboutHome=siteDoc.querySelector('.about-section');
+  if(aboutHome){
+    const sub=aboutHome.querySelector('.section-subtitle');
+    if(sub){
+      const sh=sub.querySelector('.he-only');if(sh)setVal('about-subtitle-he',sh.textContent.trim());
+      const se=sub.querySelector('.en-only');if(se)setVal('about-subtitle-en',se.textContent.trim());
+    }
   }
 
   // Programs
@@ -445,6 +510,23 @@ function populate() {
 
   // Listeners
   document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
+}
+
+function renderAboutSubsections(){
+  const c=document.getElementById('aboutSubsections');
+  if(!c)return;
+  c.innerHTML=aboutSubsections.map((s,i)=>`
+  <div class="edit-card">
+    <h3 class="collapsible-header" onclick="toggleCollapse(this)">תת-סעיף: ${s.titleHe||'סעיף '+(i+1)}</h3>
+    <div class="collapsible-body">
+      <div class="edit-field-row">
+        <div class="edit-field"><label>כותרת (עברית)</label><input type="text" value="${esc(s.titleHe)}" oninput="aboutSubsections[${i}].titleHe=this.value;pendingChanges['_about_subs']='1';updateBadge();"></div>
+        <div class="edit-field"><label>כותרת (English)</label><input type="text" value="${esc(s.titleEn)}" dir="ltr" oninput="aboutSubsections[${i}].titleEn=this.value;pendingChanges['_about_subs']='1';updateBadge();"></div>
+      </div>
+      <div class="edit-field"><label>טקסט (עברית)</label><textarea oninput="aboutSubsections[${i}].textHe=this.value;pendingChanges['_about_subs']='1';updateBadge();">${esc(s.textHe)}</textarea></div>
+      <div class="edit-field"><label>טקסט (English)</label><textarea dir="ltr" oninput="aboutSubsections[${i}].textEn=this.value;pendingChanges['_about_subs']='1';updateBadge();">${esc(s.textEn)}</textarea></div>
+    </div>
+  </div>`).join('');
 }
 
 function txt(sel){const e=siteDoc.querySelector(sel);return e?e.textContent.trim():'';}
@@ -861,20 +943,49 @@ function applyAllChanges(){
   if(aboutPage){
     if(pendingChanges['about-title-he']){const e=aboutPage.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['about-title-he'];}
     if(pendingChanges['about-title-en']){const e=aboutPage.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['about-title-en'];}
-    if(pendingChanges['about-text-he']){
-      const ps=aboutPage.querySelectorAll('p');
-      ps.forEach(p=>{const h=p.querySelector('.he-only');if(h&&h.textContent.length>50)h.innerHTML=pendingChanges['about-text-he'].replace(/\n/g,'<br>');});
+    // Intro paragraph
+    if(pendingChanges['about-intro-he']){
+      const introDiv=aboutPage.querySelector('div[style*="margin-bottom:40px"]');
+      if(introDiv){const h=introDiv.querySelector('p .he-only');if(h)h.textContent=pendingChanges['about-intro-he'];}
     }
-    if(pendingChanges['about-text-en']){
-      const ps=aboutPage.querySelectorAll('p');
-      ps.forEach(p=>{const e=p.querySelector('.en-only');if(e&&e.textContent.length>50)e.innerHTML=pendingChanges['about-text-en'].replace(/\n/g,'<br>');});
+    if(pendingChanges['about-intro-en']){
+      const introDiv=aboutPage.querySelector('div[style*="margin-bottom:40px"]');
+      if(introDiv){const e=introDiv.querySelector('p .en-only');if(e)e.textContent=pendingChanges['about-intro-en'];}
+    }
+    // Subsections
+    if(pendingChanges['_about_subs']){
+      const h4s=aboutPage.querySelectorAll('h4');
+      h4s.forEach((h4,i)=>{
+        if(i<aboutSubsections.length){
+          const s=aboutSubsections[i];
+          const th=h4.querySelector('.he-only');if(th)th.textContent=s.titleHe;
+          const te=h4.querySelector('.en-only');if(te)te.textContent=s.titleEn;
+          const par=h4.parentElement;
+          const p=par.querySelector('p');
+          if(p){
+            const ph=p.querySelector('.he-only');if(ph)ph.textContent=s.textHe;
+            const pe=p.querySelector('.en-only');if(pe)pe.textContent=s.textEn;
+          }
+        }
+      });
+    }
+    // Vision
+    if(pendingChanges['about-vision-he']||pendingChanges['about-vision-en']){
+      const visionDiv=aboutPage.querySelector('div[style*="background:var(--light-bg)"]');
+      if(visionDiv){
+        const vp=visionDiv.querySelector('p');
+        if(vp){
+          if(pendingChanges['about-vision-he']){const vh=vp.querySelector('.he-only:last-of-type');if(vh)vh.textContent=pendingChanges['about-vision-he'];}
+          if(pendingChanges['about-vision-en']){const ve=vp.querySelector('.en-only:last-of-type');if(ve)ve.textContent=pendingChanges['about-vision-en'];}
+        }
+      }
     }
   }
-  // About on homepage
+  // About on homepage - subtitle
   const aboutHome=siteDoc.querySelector('.about-section');
   if(aboutHome){
-    if(pendingChanges['about-text-he']){const p=aboutHome.querySelector('.about-text p .he-only');if(p)p.innerHTML=pendingChanges['about-text-he'].replace(/\n/g,'<br>');}
-    if(pendingChanges['about-text-en']){const p=aboutHome.querySelector('.about-text p .en-only');if(p)p.innerHTML=pendingChanges['about-text-en'].replace(/\n/g,'<br>');}
+    if(pendingChanges['about-subtitle-he']){const e=aboutHome.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['about-subtitle-he'];}
+    if(pendingChanges['about-subtitle-en']){const e=aboutHome.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['about-subtitle-en'];}
   }
 
   // Meta
@@ -882,10 +993,21 @@ function applyAllChanges(){
   if(pendingChanges['meta-desc']){const m=siteDoc.querySelector('meta[name="description"]');if(m)m.setAttribute('content',pendingChanges['meta-desc']);}
   if(pendingChanges['footer-text-he']){const f=siteDoc.querySelector('.footer-bottom .he-only');if(f)f.textContent=pendingChanges['footer-text-he'];}
 
-  // Programs - text fields
+  // Programs - text fields + structural rebuild
   const details=siteDoc.querySelectorAll('.program-detail-item');
   const cards=siteDoc.querySelectorAll('.program-card');
+  // Update current program fields from admin inputs
+  programData.forEach((p,i)=>{
+    const nameHe=document.querySelector(`[data-field="prog-${i}-name-he"]`)?.value;
+    const nameEn=document.querySelector(`[data-field="prog-${i}-name-en"]`)?.value;
+    const descHe=document.querySelector(`[data-field="prog-${i}-desc-he"]`)?.value;
+    const descEn=document.querySelector(`[data-field="prog-${i}-desc-en"]`)?.value;
+    if(nameHe)p.nameHe=nameHe;if(nameEn)p.nameEn=nameEn;
+    if(descHe)p.descHe=descHe;if(descEn)p.descEn=descEn;
+  });
+  // Apply to DOM
   details.forEach((item,i)=>{
+    if(i>=programData.length)return;
     if(pendingChanges[`prog-${i}-name-he`]){const e=item.querySelector('h3 .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-he`];}
     if(pendingChanges[`prog-${i}-name-en`]){const e=item.querySelector('h3 .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-en`];}
     if(pendingChanges[`prog-${i}-desc-he`]){const e=item.querySelector('p .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-he`];}
