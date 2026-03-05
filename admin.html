@@ -856,6 +856,27 @@ function applyAllChanges(){
   applyHTML('.hero-subtitle .he-only','hero-subtitle-he');
   applyHTML('.hero-subtitle .en-only','hero-subtitle-en');
 
+  // About page
+  const aboutPage=siteDoc.getElementById('page-about');
+  if(aboutPage){
+    if(pendingChanges['about-title-he']){const e=aboutPage.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['about-title-he'];}
+    if(pendingChanges['about-title-en']){const e=aboutPage.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['about-title-en'];}
+    if(pendingChanges['about-text-he']){
+      const ps=aboutPage.querySelectorAll('p');
+      ps.forEach(p=>{const h=p.querySelector('.he-only');if(h&&h.textContent.length>50)h.innerHTML=pendingChanges['about-text-he'].replace(/\n/g,'<br>');});
+    }
+    if(pendingChanges['about-text-en']){
+      const ps=aboutPage.querySelectorAll('p');
+      ps.forEach(p=>{const e=p.querySelector('.en-only');if(e&&e.textContent.length>50)e.innerHTML=pendingChanges['about-text-en'].replace(/\n/g,'<br>');});
+    }
+  }
+  // About on homepage
+  const aboutHome=siteDoc.querySelector('.about-section');
+  if(aboutHome){
+    if(pendingChanges['about-text-he']){const p=aboutHome.querySelector('.about-text p .he-only');if(p)p.innerHTML=pendingChanges['about-text-he'].replace(/\n/g,'<br>');}
+    if(pendingChanges['about-text-en']){const p=aboutHome.querySelector('.about-text p .en-only');if(p)p.innerHTML=pendingChanges['about-text-en'].replace(/\n/g,'<br>');}
+  }
+
   // Meta
   if(pendingChanges['site-title'])siteDoc.querySelector('title').textContent=pendingChanges['site-title'];
   if(pendingChanges['meta-desc']){const m=siteDoc.querySelector('meta[name="description"]');if(m)m.setAttribute('content',pendingChanges['meta-desc']);}
