@@ -291,26 +291,66 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <!-- DONATE SETTINGS -->
     <div class="admin-section" id="section-donate">
       <div class="edit-card">
-        <h3>הגדרות סליקה</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">כשתפתחו חשבון במשולם, הזינו את קוד הדף תשלום של כל עמותה.</p>
+        <h3>באנר קריאה לפעולה (CTA)</h3>
         <div class="edit-field">
-          <label>קוד משולם - רוח חשמונאית (ללא 46)</label>
-          <input type="text" data-field="meshulam-ruach" placeholder="XXXXXX" dir="ltr">
+          <label>טקסט CTA (עברית)</label>
+          <input type="text" data-field="cta-text-he">
         </div>
         <div class="edit-field">
-          <label>קוד משולם - דור אחווה (סעיף 46)</label>
-          <input type="text" data-field="meshulam-dor" placeholder="YYYYYY" dir="ltr">
+          <label>טקסט CTA (English)</label>
+          <input type="text" data-field="cta-text-en" dir="ltr">
+        </div>
+      </div>
+      <div class="edit-card">
+        <h3>כותרת אזור תרומות</h3>
+        <div class="edit-field-row">
+          <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="donate-title-he"></div>
+          <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="donate-title-en" dir="ltr"></div>
+        </div>
+        <div class="edit-field-row">
+          <div class="edit-field"><label>תת-כותרת (עברית)</label><input type="text" data-field="donate-subtitle-he"></div>
+          <div class="edit-field"><label>תת-כותרת (English)</label><input type="text" data-field="donate-subtitle-en" dir="ltr"></div>
+        </div>
+      </div>
+      <div class="edit-card">
+        <h3>לינקים לתרומה</h3>
+        <div class="edit-field">
+          <label>ישראל - דור אחווה (סעיף 46)</label>
+          <input type="text" data-field="donate-link-israel-dorachva" dir="ltr" placeholder="https://pay.grow.link/...">
+        </div>
+        <div class="edit-field">
+          <label>ארה״ב - Neeman Foundation</label>
+          <input type="text" data-field="donate-link-usa" dir="ltr" placeholder="https://new.neemanfoundation.com/...">
+        </div>
+        <div class="edit-field">
+          <label>קנדה - Mizrachi Canada</label>
+          <input type="text" data-field="donate-link-canada" dir="ltr" placeholder="https://mizrachi.ca/donate/...">
+        </div>
+      </div>
+      <div class="edit-card">
+        <h3>הערה בדף תרומות</h3>
+        <div class="edit-field">
+          <label>הערה (עברית)</label>
+          <input type="text" data-field="donate-note-he">
+        </div>
+        <div class="edit-field">
+          <label>הערה (English)</label>
+          <input type="text" data-field="donate-note-en" dir="ltr">
         </div>
       </div>
       <div class="edit-card">
         <h3>פרטי העברה בנקאית</h3>
         <div class="edit-field">
-          <label>בנק + סניף (עברית)</label>
-          <input type="text" data-field="bank-details-he">
+          <label>שם העמותה</label>
+          <input type="text" data-field="bank-org-name" placeholder='רוח החשמונאים (ע״ר)'>
+        </div>
+        <div class="edit-field">
+          <label>שם הבנק + סניף (עברית)</label>
+          <input type="text" data-field="bank-details-he" placeholder="בנק מרכנתיל · סניף 734 ביתר עילית">
         </div>
         <div class="edit-field">
           <label>מספר חשבון</label>
-          <input type="text" data-field="bank-account" dir="ltr">
+          <input type="text" data-field="bank-account" dir="ltr" placeholder="10514560">
         </div>
       </div>
     </div>
@@ -507,6 +547,66 @@ function populate() {
   const fh = siteDoc.querySelector('.footer-bottom .he-only');
   if(fh) setVal('footer-text-he', fh.textContent.trim());
   if(localStorage.getItem('github_token')&&document.getElementById('settingsToken'))document.getElementById('settingsToken').value=localStorage.getItem('github_token');
+
+  // Donate
+  const donateSection = siteDoc.getElementById('page-donate');
+  if(donateSection) {
+    const dt = donateSection.querySelector('.section-title');
+    if(dt) { setVal('donate-title-he', dt.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-title-en', dt.querySelector('.en-only')?.textContent.trim()||''); }
+    const ds = donateSection.querySelector('.section-subtitle');
+    if(ds) { setVal('donate-subtitle-he', ds.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-subtitle-en', ds.querySelector('.en-only')?.textContent.trim()||''); }
+    // Donation links
+    const israelDorLink = donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');
+    if(israelDorLink) setVal('donate-link-israel-dorachva', israelDorLink.getAttribute('href'));
+    const usaLink = donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');
+    if(usaLink) setVal('donate-link-usa', usaLink.getAttribute('href'));
+    const canadaLink = donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');
+    if(canadaLink) setVal('donate-link-canada', canadaLink.getAttribute('href'));
+    // Note
+    const noteEl = donateSection.querySelector('.donate-note');
+    if(noteEl) { setVal('donate-note-he', noteEl.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-note-en', noteEl.querySelector('.en-only')?.textContent.trim()||''); }
+    // Bank details - parse the bank transfer line
+    const bankSpanHe = donateSection.querySelector('.he-only[class]');
+    // Try to find bank info more reliably
+    donateSection.querySelectorAll('span.he-only').forEach(sp => {
+      const t = sp.textContent;
+      if(t.includes('העברה בנקאית')) {
+        // Parse: "העברה בנקאית: ״רוח החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560"
+        const parts = t.split('·').map(p => p.trim());
+        if(parts.length >= 3) {
+          // First part: "העברה בנקאית: ״רוח החשמונאים״ (ע״ר)"
+          const orgMatch = parts[0].match(/[״"]([^״"]+)[״"]\s*\(ע[״"]ר\)/);
+          if(orgMatch) setVal('bank-org-name', orgMatch[1] + ' (ע״ר)');
+          // Bank name + branch
+          setVal('bank-details-he', parts.slice(1, parts.length-1).join(' · '));
+          // Account number
+          const accMatch = parts[parts.length-1].match(/(\d+)/);
+          if(accMatch) setVal('bank-account', accMatch[1]);
+        }
+      }
+    });
+  }
+  // CTA banner
+  const ctaBanner = siteDoc.querySelector('.cta-banner, [class*="cta"]');
+  if(ctaBanner) {
+    const ctaHe = ctaBanner.querySelector('.he-only');
+    const ctaEn = ctaBanner.querySelector('.en-only');
+    if(ctaHe) setVal('cta-text-he', ctaHe.textContent.trim());
+    if(ctaEn) setVal('cta-text-en', ctaEn.textContent.trim());
+  }
+  // If CTA not found by class, try finding the specific CTA section by content
+  if(!document.querySelector('[data-field="cta-text-he"]')?.value) {
+    siteDoc.querySelectorAll('span.he-only').forEach(sp => {
+      if(sp.textContent.includes('השקעה בעמותת') && sp.textContent.includes('אימפקט')) {
+        setVal('cta-text-he', sp.textContent.trim());
+      }
+    });
+    siteDoc.querySelectorAll('span.en-only').forEach(sp => {
+      if(sp.textContent.includes('Investing in') && sp.textContent.includes('impact')) {
+        setVal('cta-text-en', sp.textContent.trim());
+      }
+    });
+  }
 
   // Listeners
   document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
@@ -1031,6 +1131,50 @@ function applyAllChanges(){
   // Contact
   if(pendingChanges['_contact']||pendingChanges['contact-page-title-he']||pendingChanges['contact-page-title-en']||pendingChanges['contact-page-subtitle-he']||pendingChanges['contact-page-subtitle-en']||pendingChanges['contact-form-btn-he']||pendingChanges['contact-form-btn-en']){
     rebuildContact();
+  }
+
+  // CTA banner
+  siteDoc.querySelectorAll('span.he-only').forEach(sp => {
+    if(sp.textContent.includes('השקעה בעמותת') && sp.textContent.includes('אימפקט') && pendingChanges['cta-text-he']) {
+      sp.textContent = pendingChanges['cta-text-he'];
+    }
+  });
+  siteDoc.querySelectorAll('span.en-only').forEach(sp => {
+    if(sp.textContent.includes('Investing in') && sp.textContent.includes('impact') && pendingChanges['cta-text-en']) {
+      sp.textContent = pendingChanges['cta-text-en'];
+    }
+  });
+
+  // Donate section
+  const donateSection = siteDoc.getElementById('page-donate');
+  if(donateSection) {
+    if(pendingChanges['donate-title-he']){const e=donateSection.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['donate-title-he'];}
+    if(pendingChanges['donate-title-en']){const e=donateSection.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['donate-title-en'];}
+    if(pendingChanges['donate-subtitle-he']){const e=donateSection.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['donate-subtitle-he'];}
+    if(pendingChanges['donate-subtitle-en']){const e=donateSection.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['donate-subtitle-en'];}
+    // Links
+    if(pendingChanges['donate-link-israel-dorachva']){const a=donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');if(a)a.setAttribute('href',pendingChanges['donate-link-israel-dorachva']);}
+    if(pendingChanges['donate-link-usa']){const a=donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');if(a)a.setAttribute('href',pendingChanges['donate-link-usa']);}
+    if(pendingChanges['donate-link-canada']){const a=donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');if(a)a.setAttribute('href',pendingChanges['donate-link-canada']);}
+    // Note
+    if(pendingChanges['donate-note-he']){const e=donateSection.querySelector('.donate-note .he-only');if(e)e.textContent=pendingChanges['donate-note-he'];}
+    if(pendingChanges['donate-note-en']){const e=donateSection.querySelector('.donate-note .en-only');if(e)e.textContent=pendingChanges['donate-note-en'];}
+    // Bank details rebuild
+    if(pendingChanges['bank-org-name']||pendingChanges['bank-details-he']||pendingChanges['bank-account']){
+      const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'רוח החשמונאים (ע״ר)';
+      const bankInfo = pendingChanges['bank-details-he'] || document.querySelector('[data-field="bank-details-he"]')?.value || '';
+      const account = pendingChanges['bank-account'] || document.querySelector('[data-field="bank-account"]')?.value || '';
+      donateSection.querySelectorAll('span.he-only').forEach(sp => {
+        if(sp.textContent.includes('העברה בנקאית')) {
+          sp.textContent = ' העברה בנקאית: ״' + orgName + '״ · ' + bankInfo + ' · חשבון: ' + account;
+        }
+      });
+      donateSection.querySelectorAll('span.en-only').forEach(sp => {
+        if(sp.textContent.includes('Bank Transfer')) {
+          sp.textContent = ' Bank Transfer: "' + orgName.replace('(ע״ר)','(R.A.)') + '" · ' + bankInfo + ' · Account: ' + account;
+        }
+      });
+    }
   }
 }
 
