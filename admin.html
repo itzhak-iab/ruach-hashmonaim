@@ -124,6 +124,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <div class="admin-header-actions">
       <span id="changesCount" style="display:none" class="changes-badge"></span>
       <button class="btn btn-preview" onclick="window.open('https://ruach-hashmonaim.org','_blank')">צפה באתר</button>
+      <button class="btn" style="background:#3498db;color:#fff;" onclick="loadSite()">🔄 רענן</button>
       <button class="btn btn-save" id="saveBtn" onclick="saveAllChanges()" disabled>שמור שינויים</button>
       <button class="btn btn-logout" onclick="doLogout()">יציאה</button>
     </div>
@@ -460,19 +461,31 @@ function saveToken() {
 
 // LOAD
 async function loadSite() {
-  showStatus('טוען...','loading');
+  showStatus('טוען את האתר מ-GitHub...','loading');
   try {
     const token = localStorage.getItem('github_token');
-    const h = token ? {'Authorization':`token ${token}`} : {};
+    if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token - הזן token למטה','error');return;}
+    const h = {'Authorization':`token ${token}`};
     const r = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:h});
+    if(!r.ok){
+      const errData=await r.json().catch(()=>({}));
+      if(r.status===401)throw new Error('GitHub Token לא תקין או שפג תוקפו. עדכנו בהגדרות.');
+      if(r.status===403)throw new Error('חריגה ממגבלת בקשות GitHub. נסו שוב בעוד דקה.');
+      if(r.status===404)throw new Error('קובץ index.html לא נמצא ב-GitHub.');
+      throw new Error('שגיאת GitHub: HTTP '+r.status+' '+(errData.message||''));
+    }
     const d = await r.json();
     siteSHA = d.sha;
     siteHTML = new TextDecoder().decode(Uint8Array.from(atob(d.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
     siteDoc = new DOMParser().parseFromString(siteHTML,'text/html');
+    pendingChanges={};pendingImages={};
     populate();
-    showStatus('נטען בהצלחה!','success');
-    setTimeout(()=>document.getElementById('saveStatus').style.display='none',2000);
-  } catch(e) { showStatus('שגיאה: '+e.message,'error'); }
+    showStatus('נטען בהצלחה! (גרסה: '+siteSHA.substring(0,7)+')','success');
+    setTimeout(()=>document.getElementById('saveStatus').style.display='none',3000);
+  } catch(e) {
+    console.error('Load error:',e);
+    showStatus('שגיאה בטעינה: '+e.message,'error');
+  }
 }
 
 function populate() {
@@ -586,26 +599,16 @@ function populate() {
       }
     });
   }
-  // CTA banner
-  const ctaBanner = siteDoc.querySelector('.cta-banner, [class*="cta"]');
+  // CTA banner - use only .cta-banner (not [class*="cta"] which matches hero-cta)
+  const ctaBanner = siteDoc.querySelector('section.cta-banner');
   if(ctaBanner) {
-    const ctaHe = ctaBanner.querySelector('.he-only');
-    const ctaEn = ctaBanner.querySelector('.en-only');
-    if(ctaHe) setVal('cta-text-he', ctaHe.textContent.trim());
-    if(ctaEn) setVal('cta-text-en', ctaEn.textContent.trim());
-  }
-  // If CTA not found by class, try finding the specific CTA section by content
-  if(!document.querySelector('[data-field="cta-text-he"]')?.value) {
-    siteDoc.querySelectorAll('span.he-only').forEach(sp => {
-      if(sp.textContent.includes('השקעה בעמותת') && sp.textContent.includes('אימפקט')) {
-        setVal('cta-text-he', sp.textContent.trim());
-      }
-    });
-    siteDoc.querySelectorAll('span.en-only').forEach(sp => {
-      if(sp.textContent.includes('Investing in') && sp.textContent.includes('impact')) {
-        setVal('cta-text-en', sp.textContent.trim());
-      }
-    });
+    const ctaH2 = ctaBanner.querySelector('h2');
+    if(ctaH2) {
+      const ctaHe = ctaH2.querySelector('.he-only');
+      const ctaEn = ctaH2.querySelector('.en-only');
+      if(ctaHe) setVal('cta-text-he', ctaHe.textContent.trim());
+      if(ctaEn) setVal('cta-text-en', ctaEn.textContent.trim());
+    }
   }
 
   // Listeners
@@ -1002,7 +1005,7 @@ function markChanged(){pendingChanges['_media']='1';updateBadge();}
 // SAVE
 async function saveAllChanges(){
   const token=localStorage.getItem('github_token');
-  if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token','error');return;}
+  if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token - הזן token בהגדרות','error');return;}
   const btn=document.getElementById('saveBtn');
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span> שומר...';
   showStatus('שומר...','loading');
@@ -1010,9 +1013,44 @@ async function saveAllChanges(){
   try {
     applyAllChanges();
     const newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
-    await pushFile('index.html',utf8ToBase64(newHTML),siteSHA,'Update via admin panel');
+    const b64Content=utf8ToBase64(newHTML);
 
-    // Refresh SHA
+    // Try to push, auto-retry on SHA conflict (409)
+    let pushSuccess=false;
+    for(let attempt=0;attempt<3;attempt++){
+      try{
+        await pushFile('index.html',b64Content,siteSHA,'Update via admin panel');
+        pushSuccess=true;
+        break;
+      }catch(pushErr){
+        if(pushErr.message&&(pushErr.message.includes('409')||pushErr.message.includes('conflict')||pushErr.message.includes('does not match'))){
+          showStatus('מרענן גרסה... (ניסיון '+(attempt+2)+')','loading');
+          const freshR=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
+          if(!freshR.ok)throw new Error('שגיאה בקריאת הגרסה: HTTP '+freshR.status);
+          const freshD=await freshR.json();
+          siteSHA=freshD.sha;
+          // Re-apply changes on fresh version
+          const freshHTML=new TextDecoder().decode(Uint8Array.from(atob(freshD.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+          siteDoc=new DOMParser().parseFromString(freshHTML,'text/html');
+          applyAllChanges();
+          const freshNewHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
+          const freshB64=utf8ToBase64(freshNewHTML);
+          try{
+            await pushFile('index.html',freshB64,siteSHA,'Update via admin panel');
+            pushSuccess=true;break;
+          }catch(e2){
+            if(attempt===2)throw e2;
+          }
+        } else if(pushErr.message&&(pushErr.message.includes('401')||pushErr.message.includes('Bad credentials'))){
+          throw new Error('GitHub Token לא תקין או שפג תוקפו. יש לעדכן את ה-Token בהגדרות.');
+        } else {
+          throw pushErr;
+        }
+      }
+    }
+    if(!pushSuccess)throw new Error('לא הצלחנו לשמור אחרי 3 ניסיונות');
+
+    // Refresh SHA after successful push
     const r=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
     const d=await r.json();siteSHA=d.sha;
 
@@ -1025,7 +1063,14 @@ async function saveAllChanges(){
 
     pendingChanges={};pendingImages={};updateBadge();
     showStatus('נשמר בהצלחה! האתר יתעדכן תוך 1-2 דקות.','success');
-  } catch(e) { showStatus('שגיאה: '+e.message,'error'); }
+  } catch(e) {
+    console.error('Save error:',e);
+    let msg=e.message||'שגיאה לא ידועה';
+    if(msg.includes('401')||msg.includes('Bad credentials'))msg='GitHub Token לא תקין. עדכנו בהגדרות.';
+    else if(msg.includes('403'))msg='אין הרשאות לשמור. בדקו שה-Token מאפשר repo access.';
+    else if(msg.includes('404'))msg='הקובץ לא נמצא ב-GitHub. בדקו את שם ה-repo.';
+    showStatus('שגיאה: '+msg,'error');
+  }
   btn.disabled=false;btn.innerHTML='שמור שינויים';
 }
 
@@ -1133,17 +1178,15 @@ function applyAllChanges(){
     rebuildContact();
   }
 
-  // CTA banner
-  siteDoc.querySelectorAll('span.he-only').forEach(sp => {
-    if(sp.textContent.includes('השקעה בעמותת') && sp.textContent.includes('אימפקט') && pendingChanges['cta-text-he']) {
-      sp.textContent = pendingChanges['cta-text-he'];
+  // CTA banner - target the h2 inside section.cta-banner
+  const ctaSec = siteDoc.querySelector('section.cta-banner');
+  if(ctaSec) {
+    const ctaH2 = ctaSec.querySelector('h2');
+    if(ctaH2) {
+      if(pendingChanges['cta-text-he']){const e=ctaH2.querySelector('.he-only');if(e)e.textContent=pendingChanges['cta-text-he'];}
+      if(pendingChanges['cta-text-en']){const e=ctaH2.querySelector('.en-only');if(e)e.textContent=pendingChanges['cta-text-en'];}
     }
-  });
-  siteDoc.querySelectorAll('span.en-only').forEach(sp => {
-    if(sp.textContent.includes('Investing in') && sp.textContent.includes('impact') && pendingChanges['cta-text-en']) {
-      sp.textContent = pendingChanges['cta-text-en'];
-    }
-  });
+  }
 
   // Donate section
   const donateSection = siteDoc.getElementById('page-donate');
