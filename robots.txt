@@ -12,3 +12,5 @@ Allow: /
 # Bing
 User-agent: Bingbot
 Allow: /
+
+# Build test
