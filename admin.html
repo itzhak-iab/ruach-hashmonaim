@@ -291,19 +291,37 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 
     <!-- CONTACT -->
     <div class="admin-section" id="section-contact">
+      <!-- Page Title -->
       <div class="edit-card">
-        <h3>פרטי יצירת קשר</h3>
-        <div class="edit-field">
-          <label>טלפון</label>
-          <input type="text" data-field="contact-phone" dir="ltr">
+        <h3>כותרת הדף</h3>
+        <div class="edit-field-row">
+          <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="contact-page-title-he"></div>
+          <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="contact-page-title-en" dir="ltr"></div>
         </div>
-        <div class="edit-field">
-          <label>אימייל</label>
-          <input type="text" data-field="contact-email" dir="ltr">
+        <div class="edit-field-row">
+          <div class="edit-field"><label>תת-כותרת (עברית)</label><input type="text" data-field="contact-page-subtitle-he"></div>
+          <div class="edit-field"><label>תת-כותרת (English)</label><input type="text" data-field="contact-page-subtitle-en" dir="ltr"></div>
         </div>
-        <div class="edit-field">
-          <label>כתובת (עברית)</label>
-          <input type="text" data-field="contact-address-he">
+      </div>
+
+      <!-- Contact Sections -->
+      <div id="contactSectionsContainer"></div>
+      <button class="btn-add" onclick="addContactSection()">+ הוסף קטגוריית קשר</button>
+
+      <!-- Social / Messaging Links -->
+      <div class="edit-card" style="margin-top:20px;">
+        <h3>קישורים לרשתות / מסרים</h3>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">קישורים לווצאפ, פייסבוק, אינסטגרם וכו׳ שיופיעו בדף צור קשר</p>
+        <div id="contactLinksContainer"></div>
+        <button class="btn-add" onclick="addContactLink()">+ הוסף קישור</button>
+      </div>
+
+      <!-- Contact Form Settings -->
+      <div class="edit-card" style="margin-top:20px;">
+        <h3>טופס יצירת קשר</h3>
+        <div class="edit-field-row">
+          <div class="edit-field"><label>כפתור שליחה (עברית)</label><input type="text" data-field="contact-form-btn-he"></div>
+          <div class="edit-field"><label>כפתור שליחה (English)</label><input type="text" data-field="contact-form-btn-en" dir="ltr"></div>
         </div>
       </div>
     </div>
@@ -344,6 +362,7 @@ const BRANCH = 'main';
 let siteSHA = '', siteDoc = null, siteHTML = '';
 let pendingChanges = {}, pendingImages = {};
 let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [];
+let contactSections = [], contactLinks = [];
 
 // AUTH
 async function hashPw(pw) {
@@ -416,8 +435,7 @@ function populate() {
   buildNewsletters();
   buildPartners();
   // Contact
-  const cp = siteDoc.getElementById('page-contact');
-  if(cp){const t=cp.textContent;const ph=t.match(/0\d{1,2}[-\s]?\d{3}[-\s]?\d{4}/);const em=t.match(/[\w.-]+@[\w.-]+\.\w+/);if(ph)setVal('contact-phone',ph[0]);if(em)setVal('contact-email',em[0]);}
+  buildContactSections();
   // Settings
   setVal('site-title',siteDoc.querySelector('title')?.textContent||'');
   setVal('meta-desc',siteDoc.querySelector('meta[name="description"]')?.getAttribute('content')||'');
@@ -680,6 +698,110 @@ function handlePartnerLogo(idx,input){
 function markPartnerChanged(){pendingChanges['_partners']='1';updateBadge();}
 function addPartner(){partnerData.push({name:'שותף חדש',nameEn:'New Partner',link:'#',logo:''});pendingChanges['_partners']='1';renderPartners();updateBadge();}
 
+// CONTACT SECTIONS
+function buildContactSections(){
+  contactSections=[];
+  contactLinks=[];
+  const cp=siteDoc.getElementById('page-contact');
+  if(!cp)return;
+  // Page titles
+  const st=cp.querySelector('.section-title');
+  if(st){setVal('contact-page-title-he',st.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-page-title-en',st.querySelector('.en-only')?.textContent.trim()||'');}
+  const ss=cp.querySelector('.section-subtitle');
+  if(ss){setVal('contact-page-subtitle-he',ss.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-page-subtitle-en',ss.querySelector('.en-only')?.textContent.trim()||'');}
+  // Form button
+  const formBtn=cp.querySelector('.contact-form button[type="submit"]');
+  if(formBtn){setVal('contact-form-btn-he',formBtn.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-form-btn-en',formBtn.querySelector('.en-only')?.textContent.trim()||'');}
+  // Contact boxes
+  cp.querySelectorAll('.contact-section-box').forEach(box=>{
+    const items=[];
+    box.querySelectorAll('.contact-item').forEach(ci=>{
+      items.push({
+        icon:ci.querySelector('.icon')?.textContent.trim()||'📧',
+        labelHe:ci.querySelector('h4 .he-only')?.textContent.trim()||'',
+        labelEn:ci.querySelector('h4 .en-only')?.textContent.trim()||'',
+        value:ci.querySelector('p')?.textContent.trim()||''
+      });
+    });
+    contactSections.push({
+      titleHe:box.querySelector('h3 .he-only')?.textContent.trim()||'',
+      titleEn:box.querySelector('h3 .en-only')?.textContent.trim()||'',
+      descHe:box.querySelector('.contact-section-desc .he-only')?.textContent.trim()||'',
+      descEn:box.querySelector('.contact-section-desc .en-only')?.textContent.trim()||'',
+      items:items
+    });
+  });
+  // Look for social/messaging links in contact page
+  cp.querySelectorAll('.contact-social-link').forEach(link=>{
+    contactLinks.push({
+      icon:link.querySelector('.icon')?.textContent.trim()||'🔗',
+      nameHe:link.querySelector('.he-only')?.textContent.trim()||'',
+      nameEn:link.querySelector('.en-only')?.textContent.trim()||'',
+      url:link.getAttribute('href')||'#'
+    });
+  });
+  renderContactSections();
+  renderContactLinks();
+}
+
+function renderContactSections(){
+  const c=document.getElementById('contactSectionsContainer');
+  c.innerHTML=contactSections.map((s,i)=>`
+  <div class="edit-card">
+    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${s.titleHe||'קטגוריה '+(i+1)}
+      <button class="btn-remove" style="margin-right:auto;" onclick="event.stopPropagation();contactSections.splice(${i},1);pendingChanges['_contact']='1';renderContactSections();updateBadge();">מחק</button>
+    </h3>
+    <div class="collapsible-body">
+      <div class="edit-field-row">
+        <div class="edit-field"><label>כותרת (עברית)</label><input type="text" value="${esc(s.titleHe)}" oninput="contactSections[${i}].titleHe=this.value;markContactChanged()"></div>
+        <div class="edit-field"><label>כותרת (English)</label><input type="text" value="${esc(s.titleEn)}" dir="ltr" oninput="contactSections[${i}].titleEn=this.value;markContactChanged()"></div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field"><label>תיאור (עברית)</label><input type="text" value="${esc(s.descHe)}" oninput="contactSections[${i}].descHe=this.value;markContactChanged()"></div>
+        <div class="edit-field"><label>תיאור (English)</label><input type="text" value="${esc(s.descEn)}" dir="ltr" oninput="contactSections[${i}].descEn=this.value;markContactChanged()"></div>
+      </div>
+      <div style="margin-top:12px;">
+        <label style="font-weight:600; font-size:0.85rem; color:#555;">פרטי קשר בקטגוריה:</label>
+        ${s.items.map((it,j)=>`
+        <div class="media-item-card" style="margin-top:8px;">
+          <div class="media-item-header">
+            <h4>${it.icon} ${it.labelHe||it.value}</h4>
+            <button class="btn-remove" onclick="contactSections[${i}].items.splice(${j},1);markContactChanged();renderContactSections();">מחק</button>
+          </div>
+          <div class="edit-field-row">
+            <div class="edit-field" style="flex:0 0 60px;"><label>אייקון</label><input type="text" value="${esc(it.icon)}" style="width:50px;text-align:center;" oninput="contactSections[${i}].items[${j}].icon=this.value;markContactChanged()"></div>
+            <div class="edit-field"><label>תווית (עברית)</label><input type="text" value="${esc(it.labelHe)}" oninput="contactSections[${i}].items[${j}].labelHe=this.value;markContactChanged()"></div>
+            <div class="edit-field"><label>תווית (English)</label><input type="text" value="${esc(it.labelEn)}" dir="ltr" oninput="contactSections[${i}].items[${j}].labelEn=this.value;markContactChanged()"></div>
+          </div>
+          <div class="edit-field"><label>ערך (מייל / טלפון / קישור)</label><input type="text" value="${esc(it.value)}" dir="ltr" oninput="contactSections[${i}].items[${j}].value=this.value;markContactChanged()"></div>
+        </div>`).join('')}
+        <button class="btn-add" style="font-size:0.85rem; padding:8px 16px;" onclick="contactSections[${i}].items.push({icon:'📧',labelHe:'',labelEn:'',value:''});markContactChanged();renderContactSections();">+ הוסף פרט קשר</button>
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function renderContactLinks(){
+  const c=document.getElementById('contactLinksContainer');
+  c.innerHTML=contactLinks.map((l,i)=>`
+  <div class="media-item-card">
+    <div class="media-item-header">
+      <h4>${l.icon} ${l.nameHe||'קישור '+(i+1)}</h4>
+      <button class="btn-remove" onclick="contactLinks.splice(${i},1);pendingChanges['_contact']='1';renderContactLinks();updateBadge();">מחק</button>
+    </div>
+    <div class="edit-field-row">
+      <div class="edit-field" style="flex:0 0 60px;"><label>אייקון</label><input type="text" value="${esc(l.icon)}" style="width:50px;text-align:center;" oninput="contactLinks[${i}].icon=this.value;markContactChanged()"></div>
+      <div class="edit-field"><label>שם (עברית)</label><input type="text" value="${esc(l.nameHe)}" oninput="contactLinks[${i}].nameHe=this.value;markContactChanged()"></div>
+      <div class="edit-field"><label>שם (English)</label><input type="text" value="${esc(l.nameEn)}" dir="ltr" oninput="contactLinks[${i}].nameEn=this.value;markContactChanged()"></div>
+    </div>
+    <div class="edit-field"><label>קישור (URL)</label><input type="text" value="${esc(l.url)}" dir="ltr" placeholder="https://wa.me/972... או https://facebook.com/..." oninput="contactLinks[${i}].url=this.value;markContactChanged()"></div>
+  </div>`).join('');
+}
+
+function markContactChanged(){pendingChanges['_contact']='1';updateBadge();}
+function addContactSection(){contactSections.push({titleHe:'קטגוריה חדשה',titleEn:'New Category',descHe:'',descEn:'',items:[{icon:'📧',labelHe:'דוא"ל',labelEn:'Email',value:''},{icon:'📱',labelHe:'טלפון',labelEn:'Phone',value:''}]});pendingChanges['_contact']='1';renderContactSections();updateBadge();}
+function addContactLink(){contactLinks.push({icon:'🔗',nameHe:'',nameEn:'',url:'#'});pendingChanges['_contact']='1';renderContactLinks();updateBadge();}
+
 // IMAGE HANDLING
 function handleImg(input,path,previewId){
   const file=input.files[0];if(!file)return;
@@ -763,6 +885,10 @@ function applyAllChanges(){
   if(pendingChanges['_partners']){
     rebuildPartners();
   }
+  // Contact
+  if(pendingChanges['_contact']||pendingChanges['contact-page-title-he']||pendingChanges['contact-page-title-en']||pendingChanges['contact-page-subtitle-he']||pendingChanges['contact-page-subtitle-en']||pendingChanges['contact-form-btn-he']||pendingChanges['contact-form-btn-en']){
+    rebuildContact();
+  }
 }
 
 function rebuildMediaSection(){
@@ -807,6 +933,88 @@ function rebuildPartners(){
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">${p.name}</span>
         <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">${p.nameEn}</span>
       </a>`).join('\n');
+  }
+}
+
+function rebuildContact(){
+  const cp=siteDoc.getElementById('page-contact');
+  if(!cp)return;
+  // Page title
+  const st=cp.querySelector('.section-title');
+  if(st){
+    const titleHe=document.querySelector('[data-field="contact-page-title-he"]')?.value;
+    const titleEn=document.querySelector('[data-field="contact-page-title-en"]')?.value;
+    if(titleHe){const e=st.querySelector('.he-only');if(e)e.textContent=titleHe;}
+    if(titleEn){const e=st.querySelector('.en-only');if(e)e.textContent=titleEn;}
+  }
+  const ss=cp.querySelector('.section-subtitle');
+  if(ss){
+    const subHe=document.querySelector('[data-field="contact-page-subtitle-he"]')?.value;
+    const subEn=document.querySelector('[data-field="contact-page-subtitle-en"]')?.value;
+    if(subHe){const e=ss.querySelector('.he-only');if(e)e.textContent=subHe;}
+    if(subEn){const e=ss.querySelector('.en-only');if(e)e.textContent=subEn;}
+  }
+  // Form button
+  const formBtn=cp.querySelector('.contact-form button[type="submit"]');
+  if(formBtn){
+    const btnHe=document.querySelector('[data-field="contact-form-btn-he"]')?.value;
+    const btnEn=document.querySelector('[data-field="contact-form-btn-en"]')?.value;
+    if(btnHe){const e=formBtn.querySelector('.he-only');if(e)e.textContent=btnHe;}
+    if(btnEn){const e=formBtn.querySelector('.en-only');if(e)e.textContent=btnEn;}
+  }
+  // Rebuild contact sections grid
+  const grid=cp.querySelector('.contact-sections-grid');
+  if(grid){
+    grid.innerHTML=contactSections.map(s=>`
+        <div class="contact-section-box">
+          <h3>
+            <span class="he-only">${s.titleHe}</span>
+            <span class="en-only">${s.titleEn}</span>
+          </h3>
+          <p class="contact-section-desc">
+            <span class="he-only">${s.descHe}</span>
+            <span class="en-only">${s.descEn}</span>
+          </p>
+          <div class="contact-info">
+            ${s.items.map(it=>{
+              let linkWrap='';
+              const v=it.value;
+              if(v.includes('@'))linkWrap=`<a href="mailto:${v}" style="color:var(--turquoise);">${v}</a>`;
+              else if(v.match(/^[\d+\-\s()]+$/))linkWrap=`<a href="tel:${v.replace(/[\s\-()]/g,'')}" style="color:var(--turquoise);" dir="ltr">${v}</a>`;
+              else linkWrap=`<span dir="ltr">${v}</span>`;
+              return `
+            <div class="contact-item">
+              <div class="icon">${it.icon}</div>
+              <div>
+                <h4>
+                  <span class="he-only">${it.labelHe}</span>
+                  <span class="en-only">${it.labelEn}</span>
+                </h4>
+                <p>${linkWrap}</p>
+              </div>
+            </div>`;}).join('')}
+          </div>
+        </div>`).join('\n');
+    // Add social/messaging links block if any
+    if(contactLinks.length>0){
+      grid.innerHTML+=`
+        <div class="contact-section-box" style="grid-column: 1 / -1;">
+          <h3>
+            <span class="he-only">עקבו אחרינו</span>
+            <span class="en-only">Follow Us</span>
+          </h3>
+          <div class="contact-info" style="display:flex; flex-wrap:wrap; gap:16px;">
+            ${contactLinks.map(l=>`
+            <a href="${l.url}" class="contact-social-link" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 20px; background:var(--light-gray,#f5f5f5); border-radius:12px; text-decoration:none; color:var(--dark,#1a1a2e); transition:all 0.3s;">
+              <span class="icon" style="font-size:1.5rem;">${l.icon}</span>
+              <span>
+                <span class="he-only" style="font-weight:600;">${l.nameHe}</span>
+                <span class="en-only" style="font-weight:600;">${l.nameEn}</span>
+              </span>
+            </a>`).join('')}
+          </div>
+        </div>`;
+    }
   }
 }
 
