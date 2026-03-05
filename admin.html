@@ -132,6 +132,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 
   <div id="saveStatus" class="save-status"></div>
 
+  <!-- DIAGNOSTIC PANEL -->
+  <div id="diagnosticPanel" style="margin:12px 24px; padding:16px 20px; background:#1a1a2e; color:#0f0; border-radius:12px; font-family:monospace; font-size:0.85rem; display:none; max-height:300px; overflow-y:auto; direction:ltr; text-align:left;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <strong style="color:#fff;">🔧 אבחון מערכת</strong>
+      <button onclick="document.getElementById('diagnosticPanel').style.display='none'" style="background:none;border:none;color:#fff;cursor:pointer;font-size:1.2rem;">✕</button>
+    </div>
+    <div id="diagLog" style="white-space:pre-wrap;"></div>
+  </div>
+
   <div id="setupBox" class="setup-box" style="margin:20px 24px; display:none;">
     <h3>הגדרה ראשונית - GitHub Token</h3>
     <p>כדי לשמור שינויים, צריך GitHub Token. הולכים ל-GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → מסמנים "repo" → Generate</p>
@@ -417,6 +426,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
           <input type="text" id="settingsToken" dir="ltr" placeholder="ghp_xxxxxxxxxxxxx">
           <button class="btn btn-save" style="margin-top:8px;" onclick="document.getElementById('tokenInput').value=document.getElementById('settingsToken').value;saveToken()">עדכן</button>
         </div>
+      </div>
+      <div class="edit-card">
+        <h3>🔧 כלי אבחון</h3>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">אם השמירה לא עובדת, לחצו על "הרץ אבחון" ושלחו את התוצאה</p>
+        <button class="btn btn-save" style="background:#e67e22;" onclick="runDiagnostic()">🔧 הרץ אבחון</button>
+        <button class="btn" style="background:#27ae60; color:#fff; margin-right:8px;" onclick="testSave()">🧪 בדיקת שמירה</button>
       </div>
     </div>
   </div>
@@ -1381,6 +1396,173 @@ function toggleCollapse(el){
 }
 
 function showStatus(msg,type){const e=document.getElementById('saveStatus');e.textContent=msg;e.className='save-status '+type;}
+
+function diagLog(msg){
+  const d=document.getElementById('diagLog');
+  if(d) d.textContent+=msg+'\n';
+  console.log('[DIAG]',msg);
+}
+
+async function runDiagnostic(){
+  const panel=document.getElementById('diagnosticPanel');
+  panel.style.display='block';
+  document.getElementById('diagLog').textContent='';
+  diagLog('=== אבחון מערכת ===');
+  diagLog('זמן: '+new Date().toLocaleString('he-IL'));
+
+  // Check token
+  const token=localStorage.getItem('github_token');
+  diagLog('GitHub Token: '+(token?'✅ קיים ('+token.substring(0,8)+'...)':'❌ חסר!'));
+
+  // Check site loaded
+  diagLog('Site SHA: '+(siteSHA||'❌ לא נטען'));
+  diagLog('siteDoc: '+(siteDoc?'✅ נטען':'❌ לא נטען'));
+  diagLog('siteHTML length: '+(siteHTML?siteHTML.length+' chars':'❌ ריק'));
+
+  // Check pending changes
+  const changeCount=Object.keys(pendingChanges).length;
+  const imageCount=Object.keys(pendingImages).length;
+  diagLog('שינויים ממתינים: '+changeCount);
+  diagLog('תמונות ממתינות: '+imageCount);
+  if(changeCount>0) diagLog('  מפתחות: '+Object.keys(pendingChanges).join(', '));
+
+  // Check save button state
+  const saveBtn=document.getElementById('saveBtn');
+  diagLog('כפתור שמירה: '+(saveBtn.disabled?'❌ מושבת':'✅ פעיל'));
+
+  // Test GitHub API connection
+  if(token){
+    diagLog('\nבודק חיבור ל-GitHub...');
+    try{
+      const r=await fetch('https://api.github.com/repos/'+REPO,{headers:{'Authorization':'token '+token}});
+      const d=await r.json();
+      if(r.ok){
+        diagLog('✅ חיבור תקין! Repo: '+d.full_name);
+        diagLog('  הרשאות: '+(d.permissions?.push?'✅ כתיבה':'❌ קריאה בלבד'));
+      }else{
+        diagLog('❌ שגיאה: HTTP '+r.status+' - '+d.message);
+        if(r.status===401) diagLog('  ⚠️ Token לא תקין או שפג תוקפו!');
+        if(r.status===403) diagLog('  ⚠️ אין הרשאות מספיקות');
+      }
+    }catch(e){diagLog('❌ שגיאת רשת: '+e.message);}
+
+    // Check current SHA matches
+    diagLog('\nבודק גרסת הקובץ...');
+    try{
+      const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html?ref='+BRANCH,{headers:{'Authorization':'token '+token}});
+      const d=await r.json();
+      if(r.ok){
+        diagLog('SHA בגיטהאב: '+d.sha.substring(0,10)+'...');
+        diagLog('SHA בממשק: '+(siteSHA?siteSHA.substring(0,10)+'...':'לא נטען'));
+        if(d.sha===siteSHA) diagLog('✅ גרסאות תואמות');
+        else diagLog('⚠️ גרסאות לא תואמות! לחץ רענן');
+      }else{diagLog('❌ שגיאה: '+d.message);}
+    }catch(e){diagLog('❌ שגיאה: '+e.message);}
+  }
+
+  // Check DOM parsing
+  if(siteDoc){
+    diagLog('\nבודק מבנה DOM...');
+    const checks=[
+      ['.hero-title .he-only','Hero Title'],
+      ['#page-about','About Page'],
+      ['.program-card','Program Cards'],
+      ['#page-donate','Donate Page'],
+      ['section.cta-banner','CTA Banner'],
+      ['.footer-bottom .he-only','Footer']
+    ];
+    checks.forEach(([sel,name])=>{
+      const el=siteDoc.querySelector(sel);
+      diagLog('  '+name+': '+(el?'✅':'❌'));
+    });
+  }
+
+  diagLog('\n=== סיום אבחון ===');
+  diagLog('העתיקו את הטקסט הזה ושלחו אותו אלי');
+}
+
+async function testSave(){
+  const panel=document.getElementById('diagnosticPanel');
+  panel.style.display='block';
+  document.getElementById('diagLog').textContent='';
+  diagLog('=== בדיקת שמירה ===');
+
+  const token=localStorage.getItem('github_token');
+  if(!token){diagLog('❌ אין Token! הגדירו ב-Settings');return;}
+  if(!siteDoc){diagLog('❌ האתר לא נטען! לחצו רענן');return;}
+  if(!siteSHA){diagLog('❌ אין SHA! לחצו רענן');return;}
+
+  diagLog('1. מחיל שינויים על ה-DOM...');
+  try{
+    applyAllChanges();
+    diagLog('   ✅ הצלחה');
+  }catch(e){
+    diagLog('   ❌ שגיאה ב-applyAllChanges: '+e.message);
+    diagLog('   Stack: '+e.stack);
+    return;
+  }
+
+  diagLog('2. מסריאליזציה ל-HTML...');
+  let newHTML;
+  try{
+    newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
+    diagLog('   ✅ גודל: '+newHTML.length+' תווים');
+  }catch(e){
+    diagLog('   ❌ שגיאה: '+e.message);
+    return;
+  }
+
+  diagLog('3. קידוד ל-Base64...');
+  let b64;
+  try{
+    b64=utf8ToBase64(newHTML);
+    diagLog('   ✅ גודל: '+b64.length+' תווים');
+  }catch(e){
+    diagLog('   ❌ שגיאה: '+e.message);
+    return;
+  }
+
+  diagLog('4. בודק גרסה עדכנית...');
+  try{
+    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html?ref='+BRANCH,{headers:{'Authorization':'token '+token}});
+    const d=await r.json();
+    if(!r.ok){diagLog('   ❌ HTTP '+r.status+': '+d.message);return;}
+    if(d.sha!==siteSHA){
+      diagLog('   ⚠️ SHA שונה! מעדכן: '+d.sha.substring(0,10));
+      siteSHA=d.sha;
+    }else{
+      diagLog('   ✅ SHA תואם');
+    }
+  }catch(e){diagLog('   ❌ '+e.message);return;}
+
+  diagLog('5. שולח ל-GitHub...');
+  try{
+    const body={message:'Test save from admin diagnostic',content:b64,sha:siteSHA,branch:BRANCH};
+    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html',{
+      method:'PUT',
+      headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    const d=await r.json();
+    if(r.ok){
+      diagLog('   ✅ נשמר בהצלחה!');
+      diagLog('   SHA חדש: '+d.content.sha.substring(0,10));
+      siteSHA=d.content.sha;
+      pendingChanges={};pendingImages={};updateBadge();
+      showStatus('נשמר בהצלחה!','success');
+    }else{
+      diagLog('   ❌ HTTP '+r.status+': '+d.message);
+      if(r.status===409) diagLog('   ⚠️ התנגשות גרסאות - לחצו רענן ונסו שוב');
+      if(r.status===401) diagLog('   ⚠️ Token לא תקין');
+      if(r.status===422) diagLog('   ⚠️ תוכן לא תקין');
+    }
+  }catch(e){
+    diagLog('   ❌ שגיאת רשת: '+e.message);
+    diagLog('   Stack: '+e.stack);
+  }
+
+  diagLog('\n=== סיום בדיקה ===');
+}
 
 if(sessionStorage.getItem('admin_auth')==='true') showAdmin();
 </script>
