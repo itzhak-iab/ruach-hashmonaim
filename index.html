@@ -1950,6 +1950,28 @@
       </div>
     </section>
 
+    <!-- PARTNERS SECTION -->
+    <section class="section partners-section" style="background: var(--white); padding: 60px 0;">
+      <h2 class="section-title">
+        <span class="he-only">השותפים שלנו</span>
+        <span class="en-only">Our Partners</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">תודה לשותפים שלנו שעוזרים לנו לתמוך בלוחמי החטיבה</span>
+        <span class="en-only">Thanks to our partners who help us support the brigade's fighters</span>
+      </p>
+      <div class="partners-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:32px; max-width:900px; margin:0 auto; padding:0 20px;">
+        <!-- Partners will be added via admin panel -->
+        <a href="#" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
+          <div style="width:100px; height:100px; border-radius:50%; background:var(--light-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+            <img src="images/logo.png" alt="שותף" style="width:70px; height:70px; object-fit:contain;">
+          </div>
+          <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">שם השותף</span>
+          <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">Partner Name</span>
+        </a>
+      </div>
+    </section>
+
     <!-- CTA BANNER -->
     <section class="cta-banner">
       <div class="cta-banner-content">
@@ -2477,34 +2499,50 @@
     <div style="height:70px"></div>
     <section class="section donation-page">
       <h2 class="section-title">
-        <span class="he-only">תרומה לעמותת רוח החשמונאים</span>
-        <span class="en-only">Donate to Ruach HaHashmonaim</span>
+        <span class="he-only">תרומה</span>
+        <span class="en-only">Donate</span>
       </h2>
       <p class="section-subtitle">
         <span class="he-only">כל שקל שלכם עושה שינוי אמיתי בשטח</span>
-        <span class="en-only">Every dollar you give makes a real difference in the field</span>
+        <span class="en-only">Every shekel you give makes a real difference in the field</span>
       </p>
 
       <div class="donation-container">
-        <div class="donation-trust fade-in">
-          <h3>
-            <span class="he-only">🔒 שקיפות ואמון</span>
-            <span class="en-only">🔒 Transparency &amp; Trust</span>
-          </h3>
-          <p>
-            <span class="he-only">עמותת רוח החשמונאים הנה עמותה רשומה בישראל הפועלת כחוק. אישור סעיף 46 (זיכוי מס) נמצא בימים אלו בתהליכי הסדרה. הפעילות הענפה שלנו בשטח מעידה על המחויבות שלנו לכל שקל שנתרם.</span>
-            <span class="en-only">Ruach HaHashmonaim is a legally registered association in Israel. Our Section 46 tax-exempt status (equivalent to 501(c)(3)) is currently being processed. Our extensive field activity demonstrates our commitment to every donation received.</span>
-          </p>
+        <!-- TRACK SELECTOR -->
+        <div class="donation-track-selector fade-in" style="display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap; justify-content:center;">
+          <div class="donation-track active" id="track-ruach" onclick="selectTrack('ruach')" style="flex:1; min-width:280px; max-width:420px; padding:24px; border-radius:16px; border:3px solid var(--primary); background:var(--light-gray); cursor:pointer; text-align:center; transition:all 0.3s;">
+            <h3 style="color:var(--primary); margin-bottom:8px;">
+              <span class="he-only">תרומה לעמותת ״רוח חשמונאית״</span>
+              <span class="en-only">Donate to Ruach Hashmonait</span>
+            </h3>
+            <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:8px;">
+              <span class="he-only">ע״ר 580814234</span>
+              <span class="en-only">R.A. 580814234</span>
+            </p>
+            <span style="display:inline-block; background:var(--primary-light); color:#fff; padding:4px 14px; border-radius:20px; font-size:0.8rem; font-weight:600;">
+              <span class="he-only">קבלה רגילה</span>
+              <span class="en-only">Standard Receipt</span>
+            </span>
+          </div>
+          <div class="donation-track" id="track-dor" onclick="selectTrack('dor')" style="flex:1; min-width:280px; max-width:420px; padding:24px; border-radius:16px; border:3px solid #e0e0e0; background:#fff; cursor:pointer; text-align:center; transition:all 0.3s;">
+            <h3 style="color:var(--dark); margin-bottom:8px;">
+              <span class="he-only">תרומה דרך עמותת ״דור אחווה״</span>
+              <span class="en-only">Donate via Dor Achva Association</span>
+            </h3>
+            <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:8px;">
+              <span class="he-only">עם הטבת מס - סעיף 46</span>
+              <span class="en-only">Tax-deductible - Section 46</span>
+            </p>
+            <span style="display:inline-block; background:var(--gold); color:#fff; padding:4px 14px; border-radius:20px; font-size:0.8rem; font-weight:600;">
+              <span class="he-only">קבלה לסעיף 46</span>
+              <span class="en-only">Section 46 Receipt</span>
+            </span>
+          </div>
         </div>
 
+        <!-- DONATION FORM -->
         <div class="donation-sections fade-in">
-          <!-- ISRAEL DONATIONS -->
-          <div class="donation-section">
-            <h3>
-              <span class="he-only">תרומה בישראל</span>
-              <span class="en-only">Donate from Israel</span>
-            </h3>
-
+          <div class="donation-section" style="max-width:600px; margin:0 auto;">
             <div class="donation-form-container">
               <h4 style="text-align:center; margin-bottom:16px; font-size:1.1rem;">
                 <span class="he-only">בחרו סכום לתרומה</span>
@@ -2521,115 +2559,50 @@
                 <button class="amount-btn" onclick="selectAmount(this, 3600)">3,600 ₪</button>
               </div>
               <input type="number" class="custom-amount-input" placeholder="סכום אחר בש״ח" id="customAmount" onfocus="clearAmountBtns()">
-              <button class="donate-submit-btn" onclick="handleDonate()">
+
+              <!-- Donation details form -->
+              <div style="margin-top:16px;">
+                <input type="text" id="donorName" placeholder="שם מלא" style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:10px; font-size:1rem; margin-bottom:10px; font-family:inherit;">
+                <input type="tel" id="donorPhone" placeholder="טלפון" dir="ltr" style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:10px; font-size:1rem; margin-bottom:10px;">
+                <input type="email" id="donorEmail" placeholder="אימייל (לקבלת קבלה)" dir="ltr" style="width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:10px; font-size:1rem; margin-bottom:10px;">
+              </div>
+
+              <div id="trackInfoRuach" style="text-align:center; padding:10px; background:#e8f6f8; border-radius:8px; margin-bottom:12px;">
+                <span class="he-only" style="font-size:0.85rem; color:var(--primary-dark);">התרומה תועבר לעמותת ״רוח חשמונאית״ (ע״ר 580814234). תקבלו קבלה רגילה.</span>
+                <span class="en-only" style="font-size:0.85rem; color:var(--primary-dark);">Donation to Ruach Hashmonait (R.A. 580814234). You will receive a standard receipt.</span>
+              </div>
+              <div id="trackInfoDor" style="display:none; text-align:center; padding:10px; background:#fdf5e6; border-radius:8px; margin-bottom:12px;">
+                <span class="he-only" style="font-size:0.85rem; color:var(--gold-dark);">התרומה תועבר דרך עמותת ״דור אחווה״ עם אישור סעיף 46 - זיכוי מס של 35%!</span>
+                <span class="en-only" style="font-size:0.85rem; color:var(--gold-dark);">Donation via Dor Achva with Section 46 approval - 35% tax credit!</span>
+              </div>
+
+              <button class="donate-submit-btn" onclick="handleDonate()" style="font-size:1.1rem;">
                 <span class="he-only">לתרומה מאובטחת</span>
                 <span class="en-only">Secure Donation</span>
               </button>
               <p style="text-align:center; margin-top:12px; font-size:0.85rem; color:var(--text-light);">
-                <span class="he-only">🔒 תשלום מאובטח. אישור סעיף 46 בהסדרה.</span>
-                <span class="en-only">🔒 Secure payment. Tax receipt processing in progress.</span>
+                <span class="he-only">סליקה מאובטחת. קבלה תישלח אוטומטית למייל.</span>
+                <span class="en-only">Secure payment. Receipt sent automatically to your email.</span>
               </p>
             </div>
 
+            <!-- Alternative methods -->
             <div style="margin-top:24px;">
               <div class="donation-method">
-                <h4>
-                  <span>🏦</span>
+                <h4><span>🏦</span>
                   <span class="he-only">העברה בנקאית</span>
                   <span class="en-only">Bank Transfer</span>
                 </h4>
-                <p>
-                  <span class="he-only">בנק מרכנתיל, סניף 734 ביתר עילית</span>
-                  <span class="en-only">Bank Mercantile, Branch 734 Beitar Ilit</span>
-                </p>
-                <div class="highlight-box">
-                  <span class="he-only">חשבון: 10514560</span>
-                  <span class="en-only">Account: 10514560</span>
-                </div>
+                <p><span class="he-only">בנק מרכנתיל, סניף 734 ביתר עילית</span><span class="en-only">Bank Mercantile, Branch 734 Beitar Ilit</span></p>
+                <div class="highlight-box"><span class="he-only">חשבון: 10514560</span><span class="en-only">Account: 10514560</span></div>
               </div>
-
               <div class="donation-method">
-                <h4>
-                  <span>📱</span>
+                <h4><span>📱</span>
                   <span class="he-only">ביט / Bit</span>
                   <span class="en-only">Bit Payment</span>
                 </h4>
-                <p>
-                  <span class="he-only">שלחו תשלום בביט למספר הטלפון של העמותה</span>
-                  <span class="en-only">Send payment via Bit to our organization phone</span>
-                </p>
-                <button class="btn-donate-program" style="width:100%; justify-content:center;">
-                  <span class="he-only">לתשלום בביט</span>
-                  <span class="en-only">Pay via Bit</span>
-                  →
-                </button>
+                <p><span class="he-only">שלחו תשלום בביט למספר הטלפון של העמותה</span><span class="en-only">Send payment via Bit to our organization phone</span></p>
               </div>
-
-              <div class="donation-method">
-                <h4>
-                  <span>💳</span>
-                  <span class="he-only">PayBox</span>
-                  <span class="en-only">PayBox</span>
-                </h4>
-                <p>
-                  <span class="he-only">תרומה מאובטחת דרך PayBox</span>
-                  <span class="en-only">Secure donation via PayBox</span>
-                </p>
-                <button class="btn-donate-program" style="width:100%; justify-content:center;">
-                  <span class="he-only">לתשלום בPayBox</span>
-                  <span class="en-only">Pay via PayBox</span>
-                  →
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- US DONATIONS -->
-          <div class="donation-section">
-            <h3>
-              <span class="he-only">תרומה מחו"ל</span>
-              <span class="en-only">Donate from the US</span>
-            </h3>
-
-            <div class="donation-method">
-              <h4>
-                <span>🇺🇸</span>
-                <span class="he-only">תרומה בהטבות מס</span>
-                <span class="en-only">Tax-Deductible Donation</span>
-              </h4>
-              <p>
-                <span class="he-only">תרומה בהטבות מס דרך ארגון החברים האמריקני שלנו</span>
-                <span class="en-only">Tax-deductible donation through our American friends organization</span>
-              </p>
-              <button class="btn-donate-program" style="width:100%; justify-content:center;">
-                <span class="he-only">לתרומה בהטבות מס</span>
-                <span class="en-only">Tax-Deductible Donation</span>
-                →
-              </button>
-            </div>
-
-            <div class="donation-method">
-              <h4>
-                <span>💳</span>
-                <span class="he-only">כרטיס אשראי (בקרוב)</span>
-                <span class="en-only">Credit Card (Coming Soon)</span>
-              </h4>
-              <p>
-                <span class="he-only">תרומה מאובטחת בכרטיס אשראי</span>
-                <span class="en-only">Secure credit card donation</span>
-              </p>
-            </div>
-
-            <div class="donation-method">
-              <h4>
-                <span>🏦</span>
-                <span class="he-only">העברה בנקאית בחו"ל</span>
-                <span class="en-only">International Wire Transfer</span>
-              </h4>
-              <p>
-                <span class="he-only">פרטי העברה בנקאית בחו"ל זמינים בבקשה</span>
-                <span class="en-only">US wire transfer details available upon request</span>
-              </p>
             </div>
           </div>
         </div>
@@ -3035,6 +3008,23 @@
       document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
     }
 
+    let currentTrack = 'ruach'; // 'ruach' or 'dor'
+
+    function selectTrack(track) {
+      currentTrack = track;
+      document.querySelectorAll('.donation-track').forEach(t => {
+        t.classList.remove('active');
+        t.style.borderColor = '#e0e0e0';
+        t.style.background = '#fff';
+      });
+      const el = document.getElementById('track-' + track);
+      el.classList.add('active');
+      el.style.borderColor = track === 'ruach' ? 'var(--primary)' : 'var(--gold)';
+      el.style.background = track === 'ruach' ? 'var(--light-gray)' : '#fdf5e6';
+      document.getElementById('trackInfoRuach').style.display = track === 'ruach' ? 'block' : 'none';
+      document.getElementById('trackInfoDor').style.display = track === 'dor' ? 'block' : 'none';
+    }
+
     function handleDonate() {
       const custom = document.getElementById('customAmount').value;
       const amount = custom ? parseInt(custom) : selectedAmount;
@@ -3042,10 +3032,35 @@
         alert(document.body.classList.contains('en') ? 'Please select an amount' : 'אנא בחרו סכום');
         return;
       }
-      // Placeholder - will redirect to payment gateway when connected
-      alert(document.body.classList.contains('en')
-        ? 'Payment system is being set up. Amount: ' + amount + ' NIS. For now, please use bank transfer or Bit.'
-        : 'מערכת הסליקה בהקמה. סכום: ' + amount + ' ש"ח. בינתיים ניתן להעביר בהעברה בנקאית או בביט.');
+      const name = document.getElementById('donorName')?.value || '';
+      const phone = document.getElementById('donorPhone')?.value || '';
+      const email = document.getElementById('donorEmail')?.value || '';
+
+      // MESHULAM INTEGRATION POINT
+      // When Meshulam is configured, replace these URLs with the actual payment page URLs
+      const MESHULAM_RUACH_URL = ''; // Will be: https://meshulam.co.il/purchase?b=XXXXXX
+      const MESHULAM_DOR_URL = '';   // Will be: https://meshulam.co.il/purchase?b=YYYYYY
+
+      const meshUrl = currentTrack === 'ruach' ? MESHULAM_RUACH_URL : MESHULAM_DOR_URL;
+
+      if (meshUrl) {
+        // Redirect to Meshulam payment page with params
+        const params = new URLSearchParams({
+          sum: amount,
+          full_name: name,
+          phone: phone,
+          email: email,
+          description: currentTrack === 'ruach' ? 'תרומה לעמותת רוח חשמונאית' : 'תרומה דרך עמותת דור אחווה (סעיף 46)'
+        });
+        window.location.href = meshUrl + '&' + params.toString();
+      } else {
+        // Payment system not yet configured - show message
+        const isEn = document.body.classList.contains('en');
+        const trackName = currentTrack === 'ruach' ? 'רוח חשמונאית' : 'דור אחווה (סעיף 46)';
+        alert(isEn
+          ? 'Online payment is being set up. Amount: ' + amount + ' NIS. Please use bank transfer or Bit for now.'
+          : 'מערכת הסליקה בהקמה. סכום: ' + amount + ' ש"ח לעמותת ' + trackName + '.\nבינתיים ניתן להעביר בהעברה בנקאית או בביט.');
+      }
     }
 
     // ===== INIT =====
