@@ -2681,35 +2681,48 @@
       </p>
 
       <div class="donation-container">
+        <!-- DONATION OPTIONS HEADER -->
+        <div style="text-align:center; margin-bottom:40px;">
+          <p style="font-size:1.05rem; color:var(--text-light); margin-bottom:24px;">
+            <span class="he-only">בחרו באפשרות התרומה המתאימה לכם</span>
+            <span class="en-only">Choose your preferred donation option</span>
+          </p>
+        </div>
+
         <!-- TRACK SELECTOR -->
-        <div class="donation-track-selector fade-in" style="display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap; justify-content:center;">
-          <div class="donation-track active" id="track-ruach" onclick="selectTrack('ruach')" style="flex:1; min-width:280px; max-width:420px; padding:24px; border-radius:16px; border:3px solid var(--primary); background:var(--light-gray); cursor:pointer; text-align:center; transition:all 0.3s;">
-            <h3 style="color:var(--primary); margin-bottom:8px;">
-              <span class="he-only">תרומה לעמותת ״רוח חשמונאית״</span>
-              <span class="en-only">Donate to Ruach Hashmonait</span>
+        <div class="donation-track-selector fade-in" style="display:flex; gap:20px; margin-bottom:40px; flex-wrap:wrap; justify-content:center;">
+          <div class="donation-track active" id="track-ruach" onclick="selectTrack('ruach')" style="flex:1; min-width:280px; max-width:360px; padding:28px 24px; border-radius:20px; background:linear-gradient(135deg, #0056B3 0%, #003D82 100%); cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 8px 16px rgba(0,86,179,0.2); transform:translateY(-4px);">
+            <div style="font-size:2.5rem; margin-bottom:12px;">🇮🇱</div>
+            <h3 style="color:#fff; margin-bottom:8px; font-size:1.1rem; font-weight:600;">
+              <span class="he-only">תרומה לישראל</span>
+              <span class="en-only">Donate to Israel</span>
             </h3>
-            <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:8px;">
-              <span class="he-only">ע״ר 580814234</span>
-              <span class="en-only">R.A. 580814234</span>
+            <p style="font-size:0.9rem; color:#e0e8f0; margin-bottom:0;">
+              <span class="he-only">תרומה ישירה לעמותה</span>
+              <span class="en-only">Direct donation to association</span>
             </p>
-            <span style="display:inline-block; background:var(--primary-light); color:#fff; padding:4px 14px; border-radius:20px; font-size:0.8rem; font-weight:600;">
-              <span class="he-only">קבלה רגילה</span>
-              <span class="en-only">Standard Receipt</span>
-            </span>
           </div>
-          <div class="donation-track" id="track-dor" onclick="selectTrack('dor')" style="flex:1; min-width:280px; max-width:420px; padding:24px; border-radius:16px; border:3px solid #e0e0e0; background:#fff; cursor:pointer; text-align:center; transition:all 0.3s;">
-            <h3 style="color:var(--dark); margin-bottom:8px;">
-              <span class="he-only">תרומה דרך עמותת ״דור אחווה״</span>
-              <span class="en-only">Donate via Dor Achva Association</span>
+          <div class="donation-track" id="track-dor" onclick="selectTrack('dor')" style="flex:1; min-width:280px; max-width:360px; padding:28px 24px; border-radius:20px; background:linear-gradient(135deg, #0056B3 0%, #003D82 100%); cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 8px 16px rgba(0,86,179,0.2); transform:translateY(-4px);">
+            <div style="font-size:2.5rem; margin-bottom:12px;">🇺🇸</div>
+            <h3 style="color:#fff; margin-bottom:8px; font-size:1.1rem; font-weight:600;">
+              <span class="he-only">תרומה מחו״ל</span>
+              <span class="en-only">Donate from USA</span>
             </h3>
-            <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:8px;">
-              <span class="he-only">עם הטבת מס - סעיף 46</span>
-              <span class="en-only">Tax-deductible - Section 46</span>
+            <p style="font-size:0.9rem; color:#e0e8f0; margin-bottom:0;">
+              <span class="he-only">דרך עמותה בחו״ל</span>
+              <span class="en-only">Via international partner</span>
             </p>
-            <span style="display:inline-block; background:var(--gold); color:#fff; padding:4px 14px; border-radius:20px; font-size:0.8rem; font-weight:600;">
-              <span class="he-only">קבלה לסעיף 46</span>
-              <span class="en-only">Section 46 Receipt</span>
-            </span>
+          </div>
+          <div class="donation-track" id="track-canada" onclick="selectTrack('dor')" style="flex:1; min-width:280px; max-width:360px; padding:28px 24px; border-radius:20px; background:linear-gradient(135deg, #0056B3 0%, #003D82 100%); cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 8px 16px rgba(0,86,179,0.2); transform:translateY(-4px);">
+            <div style="font-size:2.5rem; margin-bottom:12px;">🇨🇦</div>
+            <h3 style="color:#fff; margin-bottom:8px; font-size:1.1rem; font-weight:600;">
+              <span class="he-only">תרומה מקנדה</span>
+              <span class="en-only">Donate from Canada</span>
+            </h3>
+            <p style="font-size:0.9rem; color:#e0e8f0; margin-bottom:0;">
+              <span class="he-only">דרך עמותה בקנדה</span>
+              <span class="en-only">Via Canadian partner</span>
+            </p>
           </div>
         </div>
 
