@@ -1,0 +1,3005 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>רוח החשמונאים - הבית של החייל החרדי</title>
+  <meta name="description" content="עמותת רוח החשמונאים - הכוח שמאחורי הלוחמים. ליווי רוחני, חינוכי וקהילתי לחיילים חרדים בצה״ל.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --dark: #111111;
+      --text: #1f1f1f;
+      --text-light: #666666;
+      --gold: #c8a84c;
+      --gold-dark: #a08230;
+      --primary: #1a8a9a;
+      --primary-dark: #14707d;
+      --primary-light: #5cbfcc;
+      --olive-dark: #14707d;
+      --light-gray: #f0f8fa;
+      --border-color: #d4e8ec;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body.en {
+      direction: ltr;
+    }
+
+    body.en .newsletter-card {
+      direction: ltr;
+    }
+
+    body.en .he-only { display: none; }
+    body:not(.en) .en-only { display: none; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      transition: var(--transition);
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-md);
+      background: rgba(255, 255, 255, 0.99);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .logo-area img {
+      height: 56px;
+      width: auto;
+    }
+
+    .logo-text {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.1;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-subtitle {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: var(--transition);
+    }
+
+    body.en .nav-links a::after {
+      right: auto;
+      left: 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--dark);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .header-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .lang-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      padding: 4px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+    }
+
+    .lang-toggle:hover {
+      transform: scale(1.15);
+    }
+
+    .btn-donate-header {
+      background: var(--olive-dark);
+      color: var(--white);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .btn-donate-header:hover {
+      background: var(--dark);
+      transform: translateY(-1px);
+      animation: none;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark);
+      transition: var(--transition);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 70px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(17,17,17,0.3) 0%,
+        rgba(17,17,17,0.5) 40%,
+        rgba(17,17,17,0.85) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 40px 24px;
+    }
+
+    .hero-pin {
+      width: 240px;
+      margin-bottom: 28px;
+      opacity: 0.95;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .hero-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      letter-spacing: -0.3px;
+    }
+
+    .hero-designation {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 300;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      padding: 15px 44px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .hero-cta:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+      color: white;
+      opacity: 0.7;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-section {
+      background: var(--olive-dark);
+      padding: 48px 24px;
+      position: relative;
+      overflow: hidden;
+      border-top: 2px solid var(--gold);
+    }
+
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      color: white;
+    }
+
+    .stat-number {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 10px;
+      font-family: 'Frank Ruhl Libre', serif;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+
+    /* ===== PROGRAMS SECTION ===== */
+    .programs-section {
+      background: var(--white);
+      padding: 80px 24px;
+      border-top: 2px solid var(--gold);
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .program-card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    .program-card:hover {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .program-card:hover .program-card-img {
+      border-right: 4px solid var(--gold);
+    }
+
+    .program-card-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      background: var(--light-gray);
+      border-right: 4px solid transparent;
+      transition: var(--transition);
+    }
+
+    .program-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+      /* no blur */
+    }
+
+    .program-card:hover .program-card-img img {
+      transform: scale(1.05);
+      /* no blur */
+    }
+
+    .program-card-overlay {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--dark);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    body.en .program-card-overlay {
+      right: auto;
+      left: 12px;
+    }
+
+    .program-card-body {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-card-name {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .program-card-desc {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .program-card-link {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .program-card:hover .program-card-link {
+      color: var(--gold-dark);
+    }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      position: relative;
+      background: linear-gradient(rgba(45, 58, 45, 0.85), rgba(45, 58, 45, 0.9)), url('images/hero2.jpg') center/cover;
+      background-attachment: fixed;
+      padding: 80px 24px;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+      border-top: 2px solid var(--gold);
+    }
+
+    .cta-banner-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .cta-banner p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+      opacity: 0.95;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .cta-btn:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-section {
+      background: var(--white);
+      border-top: 2px solid var(--gold);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .about-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .about-images img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      /* no blur */
+    }
+
+    .about-images img:first-child {
+      grid-column: 1 / -1;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .about-text h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .about-text p {
+      color: var(--text-light);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .btn-donate-program {
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 24px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-donate-program:hover {
+      background: var(--olive-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ===== PROGRAM DETAILS ===== */
+    .programs-detail {
+      background: var(--white);
+    }
+
+    .program-detail-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .program-detail-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .program-detail-item:nth-child(odd) .program-detail-img {
+      order: -1;
+    }
+
+    .program-detail-img {
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    .program-detail-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      /* no blur */
+    }
+
+    .program-detail-content h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .program-icon {
+      font-size: 2rem;
+      display: inline-block;
+    }
+
+    .program-detail-content p {
+      color: var(--text-light);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    /* ===== MEDIA SECTION ===== */
+    .media-section {
+      background: var(--white);
+      border-top: 2px solid var(--gold);
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .media-card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media-card:hover {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .media-card-thumb {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+      background: var(--light-gray);
+    }
+
+    .media-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+      /* no blur */
+    }
+
+    .media-card:hover .media-card-thumb img {
+      transform: scale(1.05);
+      /* no blur */
+    }
+
+    .media-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      color: white;
+      font-size: 2rem;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .media-card:hover .media-play-btn {
+      opacity: 1;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .media-card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .media-card-body h4 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .media-card-body p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .social-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .social-card {
+      background: var(--light-gray);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    .social-card:hover {
+      background: var(--white);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .social-icon {
+      font-size: 2rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .social-card-text h4 {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .social-card-text p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* ===== NEWSLETTERS ===== */
+    .newsletters-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .newsletter-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    .newsletter-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .newsletter-card-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 8px;
+      color: white;
+    }
+
+    .newsletter-card-body h4 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .newsletter-card-body p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .newsletters-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== DONATION PAGE ===== */
+    .donation-page {
+      background: var(--white);
+      border-top: 2px solid var(--gold);
+    }
+
+    .donation-container {
+      max-width: 1000px;
+      margin: 48px auto 0;
+    }
+
+    .donation-trust {
+      background: linear-gradient(135deg, rgba(200,168,76,0.05), rgba(200,168,76,0.02));
+      border: 1px solid var(--border-color);
+      border-top: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+
+    .donation-trust h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .donation-trust p {
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    .donation-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .donation-section {
+      background: linear-gradient(135deg, rgba(200,168,76,0.03), transparent);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .donation-section h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+      letter-spacing: -0.3px;
+    }
+
+    .donation-method {
+      margin-bottom: 24px;
+    }
+
+    .donation-method h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .donation-method p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .highlight-box {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: var(--dark);
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .donation-designation {
+      background: linear-gradient(135deg, rgba(200,168,76,0.03), transparent);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .donation-designation h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .designation-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .designation-btn {
+      background: var(--white);
+      border: 2px solid var(--border-color);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .designation-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .designation-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+
+    /* ===== CONTACT PAGE ===== */
+    .contact-section {
+      background: var(--white);
+      border-top: 2px solid var(--gold);
+    }
+
+    .contact-sections-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+      margin-top: 48px;
+    }
+
+    .contact-section-box {
+      background: linear-gradient(135deg, rgba(200,168,76,0.03), transparent);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .contact-section-box h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+      letter-spacing: -0.3px;
+    }
+
+    .contact-section-desc {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .contact-item .icon {
+      font-size: 1.8rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .contact-item h4 {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .contact-item p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 48px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      background: var(--light-gray);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: var(--text-light);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .contact-form button {
+      background: var(--dark);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 24px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      align-self: flex-start;
+    }
+
+    .contact-form button:hover {
+      background: var(--olive-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ===== FLOATING DONATE ===== */
+    .floating-donate {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: auto;
+      height: auto;
+      padding: 14px 24px;
+      border-radius: 28px;
+      background: var(--olive-dark);
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    body.en .floating-donate {
+      right: auto;
+      left: 24px;
+    }
+
+    .floating-donate:hover {
+      background: var(--dark);
+      transform: scale(1.1);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 80px 24px 24px;
+      border-top: 3px solid var(--gold);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .footer-logo span {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-iab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-iab img {
+      height: 20px;
+      width: auto;
+    }
+
+    /* ===== PAGES ===== */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-inner {
+        height: 60px;
+        padding: 0 12px;
+      }
+
+      .logo-area img {
+        height: 40px;
+      }
+
+      .logo-text {
+        font-size: 0.95rem !important;
+      }
+
+      .logo-subtitle {
+        font-size: 0.6rem !important;
+      }
+
+      .header-actions .btn-donate-header {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+      }
+
+      .header-nav {
+        display: contents;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        left: 0;
+        flex-direction: column;
+        background: white;
+        padding: 16px 24px;
+        gap: 0;
+        border-bottom: 2px solid var(--primary);
+        z-index: 999;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 8px;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        color: var(--dark) !important;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .hero {
+        padding-top: 60px;
+        min-height: 90vh;
+      }
+
+      .hero-pin {
+        width: 180px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .about-grid,
+      .program-detail-item,
+      .contact-grid,
+      .contact-sections-grid,
+      .donation-sections {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-images {
+        grid-template-columns: 1fr;
+      }
+
+      .about-images img:first-child {
+        height: 200px;
+      }
+
+      .floating-donate {
+        width: auto;
+        height: auto;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        bottom: 16px;
+        right: 16px;
+      }
+
+      body.en .floating-donate {
+        left: 16px;
+        right: auto;
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+      }
+
+      .program-card-body {
+        padding: 20px;
+      }
+
+      .program-card-name {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 50px 16px;
+      }
+
+      .hero-pin {
+        width: 140px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .stat-number {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+      }
+
+      .designation-options {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .donation-sections {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-sections-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== ENGLISH MOBILE FIXES ===== */
+    body.en .hero-content {
+      text-align: center;
+    }
+
+    body.en .hero-designation,
+    body.en .hero-title,
+    body.en .hero-subtitle {
+      text-align: center;
+    }
+
+    body.en .section-title,
+    body.en .section-subtitle {
+      text-align: center;
+    }
+
+    body.en .about-text {
+      text-align: left;
+    }
+
+    body.en .program-detail-content {
+      text-align: left;
+    }
+
+    body.en .donation-method {
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      body.en .nav-links a {
+        text-align: left;
+      }
+
+      body.en .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      body.en .stat-label {
+        font-size: 0.75rem;
+      }
+
+      body.en .program-card-name {
+        font-size: 1rem;
+      }
+
+      body.en .program-card-desc {
+        font-size: 0.85rem;
+      }
+
+      body.en .btn-donate-program {
+        font-size: 0.85rem;
+      }
+
+      body.en .newsletter-card-body h4 {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* ===== PAYMENT FORM ===== */
+    .donation-form-container {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-top: 20px;
+    }
+
+    .donation-amount-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .amount-btn {
+      padding: 14px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+
+    .amount-btn:hover,
+    .amount-btn.active {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(200,168,76,0.1), rgba(200,168,76,0.05));
+      color: var(--gold-dark);
+    }
+
+    .custom-amount-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-family: inherit;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .custom-amount-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .donate-submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.5px;
+    }
+
+    .donate-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200,168,76,0.4);
+    }
+
+    @media (max-width: 480px) {
+      .donation-amount-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER ======= -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <!-- RIGHT SIDE (in RTL): Logo + Text -->
+      <div class="logo-area" onclick="navigateTo('home')">
+        <img src="images/logo.png" alt="לוגו רוח החשמונאים">
+        <div>
+          <div class="logo-text">
+            <span class="he-only">רוח החשמונאים (ע״ר)</span>
+            <span class="en-only">Ruach HaHashmonaim</span>
+          </div>
+          <div class="logo-subtitle">
+            <span class="he-only">עמותת הליווי של חטיבת חשמונאים</span>
+            <span class="en-only">The Hashmonaim Brigade Support Association</span>
+          </div>
+        </div>
+      </div>
+      <!-- CENTER: Nav Menu -->
+      <nav class="header-nav">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#" onclick="navigateTo('about'); return false;">
+            <span class="he-only">מי אנחנו</span>
+            <span class="en-only">About</span>
+          </a></li>
+          <li><a href="#" onclick="navigateTo('programs'); return false;">
+            <span class="he-only">התוכניות שלנו</span>
+            <span class="en-only">Our Programs</span>
+          </a></li>
+          <li><a href="#" onclick="navigateTo('media'); return false;">
+            <span class="he-only">מהנעשה בחטיבה</span>
+            <span class="en-only">Brigade News</span>
+          </a></li>
+          <li><a href="#" onclick="navigateTo('contact'); return false;">
+            <span class="he-only">צור קשר</span>
+            <span class="en-only">Contact</span>
+          </a></li>
+        </ul>
+      </nav>
+      <!-- LEFT SIDE (in RTL): Contact + Lang + Hamburger -->
+      <div class="header-actions">
+        <a href="#" class="btn-donate-header" onclick="navigateTo('contact'); return false;">
+          <span class="he-only">צרו קשר</span>
+          <span class="en-only">Contact Us</span>
+        </a>
+        <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
+          <span class="he-only">🇺🇸</span>
+          <span class="en-only">🇮🇱</span>
+        </button>
+        <button class="mobile-toggle" onclick="toggleMobile()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= HOME PAGE ======= -->
+  <div class="page active" id="page-home">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="images/hero.jpg" alt="חיילי חטיבת החשמונאים">
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <img src="images/pin.png" alt="סיכת לוחם" class="hero-pin">
+        <div class="hero-designation">
+          <span class="he-only">רוח החשמונאים</span>
+          <span class="en-only">Ruach HaHashmonaim</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="he-only">הכוח שמאחורי הלוחמים</span>
+          <span class="en-only">The Force Behind the Warriors</span>
+        </h1>
+        <p class="hero-subtitle" style="max-width:700px;">
+          <span class="he-only">הבית של החייל החרדי - משלב קדם השירות ועד לאזרחות.<br>ליווי חינוכי, תורני וגשמי לחיילי ובוגרי חטיבת החשמונאים.</span>
+          <span class="en-only">The home of the Haredi soldier - from pre-service through civilian life.<br>Educational, spiritual and material support for soldiers and alumni of the Hashmonaim Brigade.</span>
+        </p>
+        <a href="#" class="hero-cta" onclick="navigateTo('donate'); return false;">
+          <span class="he-only">תרמו עכשיו</span>
+          <span class="en-only">Donate Now</span>
+          <span>→</span>
+        </a>
+      </div>
+      <div class="hero-scroll-hint">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="1200">0</div>
+          <div class="stat-label">
+            <span class="he-only">חיילים ומפקדים בליווי פעיל</span>
+            <span class="en-only">Soldiers & officers actively supported</span>
+          </div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="97">0</div>
+          <div class="stat-label">
+            <span class="he-only">חיילים בודדים בליווי</span>
+            <span class="en-only">Lone soldiers supported</span>
+          </div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="600">0</div>
+          <div class="stat-label">
+            <span class="he-only">שעות ליווי חינוכי בחודש</span>
+            <span class="en-only">Educational support hours per month</span>
+          </div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="9">0</div>
+          <div class="stat-label">
+            <span class="he-only">אנשי צוות חינוכי בתפקידי ליווי שונים</span>
+            <span class="en-only">Educational staff in various support roles</span>
+          </div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="500">0</div>
+          <div class="stat-label">
+            <span class="he-only">משפחות שנעזרו</span>
+            <span class="en-only">Families supported</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMS PREVIEW -->
+    <section class="programs-section" style="max-width: 1200px; margin: 0 auto;">
+      <h2 class="section-title">
+        <span class="he-only">התוכניות שלנו</span>
+        <span class="en-only">Our Programs</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">ליווי החטיבה על כלל צרכיה, מההכנה לגיוס, דרך השירות הפעיל, סיוע לחיילים בודדים ועד לחיים האזרחיים</span>
+        <span class="en-only">Supporting the brigade across all its needs, from pre-enlistment through active service, lone soldier aid, to civilian life</span>
+      </p>
+      <div class="programs-grid">
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/shiur-mountain.jpg" alt="רוח חשמונאית">
+            <div class="program-card-overlay">🕯️</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">רוח חשמונאית</span>
+              <span class="en-only">Hashmonai Spirit</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">ליווי רוחני-חינוכי ללוחם ולמפקד. שמירה על הזהות, הערכים ואורח החיים בלב העשייה המבצעית.</span>
+              <span class="en-only">Spiritual-educational guidance for soldiers and commanders. Preserving identity and values during operational service.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/study.jpg" alt="והגית בו">
+            <div class="program-card-overlay">📖</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">והגית בו</span>
+              <span class="en-only">V'Hagita Bo</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">חיזוק והעצמת לימוד התורה בקרב חיילי ובוגרי החטיבה. שיעורים קבועים ושילוב הספרא והסייפא.</span>
+              <span class="en-only">Strengthening Torah study among brigade soldiers and alumni. Regular classes combining study and service.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/march.jpg" alt="לב דוד">
+            <div class="program-card-overlay">🛡️</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">לב דוד</span>
+              <span class="en-only">Lev David</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">מסלולי הכנה קדם-צבאיים. בניית יסודות לשירות משמעותי - הכנה מנטלית, פיזית ורוחנית למלש"בים.</span>
+              <span class="en-only">Pre-military preparation tracks. Building foundations for meaningful service - mental, physical and spiritual.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/community.jpg" alt="בית בישראל">
+            <div class="program-card-overlay">🏠</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">בית בישראל</span>
+              <span class="en-only">Bayit B'Yisrael</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">מעטפת קהילתית ומשפחתית. ליווי חתנים וזוגות צעירים, תמיכה למשפחות הלוחמים ולנשות החטיבה.</span>
+              <span class="en-only">Community and family support. Guidance for young couples, support for soldiers' families and the brigade women's network.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/outdoor-gathering.jpg" alt="חשמונאים לעתיד ישראל">
+            <div class="program-card-overlay">🚀</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">חשמונאים לעתיד ישראל</span>
+              <span class="en-only">Hashmonaim for Israel's Future</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">שער היציאה - הכנה לאזרחות, בניית מסלול תעסוקה ופיתוח קהילות בוגרים שממשיכות את רוח החטיבה.</span>
+              <span class="en-only">The exit gateway - preparation for civilian life, career development and alumni communities.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="program-card fade-in" onclick="navigateTo('programs')">
+          <div class="program-card-img">
+            <img src="images/soldier-smile.jpg" alt="קרן הרווחה והסיוע">
+            <div class="program-card-overlay">💛</div>
+          </div>
+          <div class="program-card-body">
+            <h3 class="program-card-name">
+              <span class="he-only">קרן הרווחה והסיוע</span>
+              <span class="en-only">Welfare & Aid Fund</span>
+            </h3>
+            <p class="program-card-desc">
+              <span class="he-only">רשת הביטחון הכלכלית. מענה מידי לכלל צרכי החטיבה: סיוע ייעודי ל-97 חיילים בודדים, תמיכה למשפחות ומימון ציוד.</span>
+              <span class="en-only">Economic safety net. Immediate response to all brigade needs: dedicated aid for 97 lone soldiers, family support and equipment funding.</span>
+            </p>
+            <span class="program-card-link">
+              <span class="he-only">קרא עוד ←</span>
+              <span class="en-only">Read more →</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <div class="cta-banner-content">
+        <h2>
+          <span class="he-only">1,200 לוחמים ו-97 חיילים בודדים צריכים אתכם - עכשיו</span>
+          <span class="en-only">1,200 warriors and 97 lone soldiers need you - now</span>
+        </h2>
+        <p>
+          <span class="he-only">כל תרומה, קטנה כגדולה, הופכת ישירות לליווי רוחני וחינוכי, סיוע לחיילים בודדים, ציוד חיוני ותמיכה למשפחות הלוחמים שמגנים עלינו.</span>
+          <span class="en-only">Every donation, large or small, directly becomes spiritual and educational guidance, lone soldier aid, essential equipment and support for the families of warriors who protect us.</span>
+        </p>
+        <a href="#" class="cta-btn" onclick="navigateTo('donate'); return false;">
+          <span class="he-only">לתרומה</span>
+          <span class="en-only">Donate</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section">
+      <h2 class="section-title">
+        <span class="he-only">מי אנחנו</span>
+        <span class="en-only">About Us</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">עמותת "רוח החשמונאים" - העורף של חטיבת החשמונאים</span>
+        <span class="en-only">"Ruach HaHashmonaim" Association - the backbone of the Hashmonaim Brigade</span>
+      </p>
+      <div class="about-grid">
+        <div class="about-images fade-in">
+          <img src="images/group-flags.jpg" alt="קבוצת חיילים">
+          <img src="images/hebron.jpg" alt="חברון">
+          <img src="images/beit-midrash.jpg" alt="בית מדרש">
+        </div>
+        <div class="about-text fade-in">
+          <h3>
+            <span class="he-only">המעטפת המלאה של החייל החרדי</span>
+            <span class="en-only">Complete Support for the Haredi Soldier</span>
+          </h3>
+          <p>
+            <span class="he-only">עמותת "רוח החשמונאים" הוקמה כדי ללוות את חטיבת החשמונאים על כלל צרכיה - מעטפת רוחנית, חינוכית, רווחתית וקהילתית ללוחמים, לחיילים הבודדים, למשפחות ולבוגרי החטיבה.</span>
+            <span class="en-only">"Ruach HaHashmonaim" was founded to support the Hashmonaim Brigade across all its needs - spiritual, educational, welfare and community support for soldiers, lone soldiers, families and brigade alumni.</span>
+          </p>
+          <p>
+            <span class="he-only">אנחנו מאמינים שחייל שמקבל ליווי רוחני, חינוכי וקהילתי - הוא חייל חזק יותר. במיוחד עבור 97 החיילים הבודדים בחטיבה, העמותה מהווה בית ומשפחה. אנחנו פועלים בשטח, יום-יום, כדי לוודא שאף חייל לא נשאר לבד.</span>
+            <span class="en-only">We believe that a soldier who receives spiritual, educational and community support becomes a stronger warrior. Especially for the 97 lone soldiers in the brigade, the association serves as home and family. We operate in the field, every day, ensuring no soldier is left alone.</span>
+          </p>
+          <a href="#" class="btn-donate-program" onclick="navigateTo('about'); return false;">
+            <span class="he-only">למדו עוד</span>
+            <span class="en-only">Learn More</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======= ABOUT PAGE ======= -->
+  <div class="page" id="page-about">
+    <div style="height:70px"></div>
+    <section class="section" style="background: var(--white);">
+      <h2 class="section-title">
+        <span class="he-only">מי אנחנו</span>
+        <span class="en-only">About Us</span>
+      </h2>
+      <div style="max-width:800px; margin:0 auto;">
+        <div style="text-align:center; margin-bottom:40px;" class="fade-in">
+          <img src="images/logo.png" alt="לוגו" style="height:80px; margin-bottom:16px;">
+          <h3 style="font-family:'Frank Ruhl Libre',serif; font-size:1.6rem; color:var(--dark); margin-bottom:16px; letter-spacing:-0.3px;">
+            <span class="he-only">עמותת רוח החשמונאים (ע"ר)</span>
+            <span class="en-only">Ruach HaHashmonaim Association</span>
+          </h3>
+        </div>
+        <div class="fade-in" style="margin-bottom:40px;">
+          <p style="color:var(--text-light); font-size:1.05rem; line-height:1.8; margin-bottom:16px;">
+            <span class="he-only">חטיבת החשמונאים היא חטיבה חרדית ייחודית בצה"ל - מקום שבו לוחמים מחויבים הן למשימה הביטחונית והן לאורח החיים התורני. עמותת "רוח החשמונאים" נוסדה כדי ללוות את החטיבה על כלל צרכיה ולהיות העורף החזק שלה.</span>
+            <span class="en-only">The Hashmonaim Brigade is a unique Haredi brigade in the IDF - where warriors are committed both to the security mission and to a Torah-observant way of life. "Ruach HaHashmonaim" was founded to support the brigade across all its needs and serve as its strong rear guard.</span>
+          </p>
+          <p style="color:var(--text-light); font-size:1.05rem; line-height:1.8; margin-bottom:16px;">
+            <span class="he-only">אנחנו מספקים מעטפת מלאה שמתחילה עוד לפני הגיוס - עם תוכניות הכנה קדם-צבאיות - עוברת דרך שנות השירות עם ליווי רוחני, שיעורי תורה, סיוע לחיילים בודדים ותמיכה משפחתית, ונמשכת גם לאחר השחרור עם הכנה לתעסוקה ופיתוח קהילות בוגרים.</span>
+            <span class="en-only">We provide comprehensive support that begins before enlistment - with pre-military preparation programs - continues through the years of service with spiritual guidance, Torah classes, lone soldier aid and family support, and extends beyond discharge with career preparation and alumni community development.</span>
+          </p>
+          <p style="color:var(--text-light); font-size:1.05rem; line-height:1.8;">
+            <span class="he-only">העמותה רשומה כחוק בישראל ופועלת בשקיפות מלאה. כל שקל שנתרם מגיע ישירות לשטח - ללוחמים, למפקדים ולמשפחות שלהם.</span>
+            <span class="en-only">The association is legally registered in Israel and operates with full transparency. Every shekel donated goes directly to the field - to the soldiers, commanders and their families.</span>
+          </p>
+        </div>
+        <div class="about-images fade-in" style="margin-bottom:40px;">
+          <img src="images/group-flags.jpg" alt="חיילים">
+          <img src="images/learning.jpg" alt="לימוד">
+          <img src="images/field-march.jpg" alt="שטח">
+        </div>
+        <div style="text-align:center;" class="fade-in">
+          <a href="#" class="cta-btn" onclick="navigateTo('donate'); return false;">
+            <span class="he-only">הצטרפו לתומכים שלנו</span>
+            <span class="en-only">Join Our Supporters</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======= PROGRAMS PAGE ======= -->
+  <div class="page" id="page-programs">
+    <div style="height:70px"></div>
+    <section class="programs-detail">
+      <h2 class="section-title">
+        <span class="he-only">התוכניות שלנו</span>
+        <span class="en-only">Our Programs</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">6 תוכניות ליווי שמכסות את כל מעגל החיים של החייל החרדי</span>
+        <span class="en-only">6 support programs covering the entire lifecycle of the Haredi soldier</span>
+      </p>
+
+      <!-- Program 1 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/shiur-mountain.jpg" alt="רוח חשמונאית">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">🕯️</span>
+            <span>
+              <span class="he-only">רוח חשמונאית</span>
+              <span class="en-only">Hashmonai Spirit</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">תוכנית הליווי הרוחנית-חינוכית ללוחם ולמפקד החרדי. שמירה על הזהות, הערכים ואורח החיים בלב העשייה המבצעית השוטפת. התוכנית כוללת שיחות אישיות עם מנטורים רוחניים, הרצאות השראה, ימי עיון ופעילות חיזוק ברמה היחידתית.</span>
+            <span class="en-only">Spiritual-educational guidance program for the Haredi fighter and commander. Preserving identity, values and way of life at the heart of ongoing operational activity. Includes personal mentoring sessions, inspirational lectures, study days and unit-level strengthening activities.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- Program 2 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/study.jpg" alt="והגית בו">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">📖</span>
+            <span>
+              <span class="he-only">והגית בו</span>
+              <span class="en-only">V'Hagita Bo</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">תוכנית לחיזוק והעצמת לימוד התורה בקרב חיילי, מפקדי ובוגרי החטיבה. אספקת חומרי לימוד, שיעורים קבועים ושילוב הספרא והסייפא בשטח הכינוס. הלוחמים מקבלים ספרי קודש, גמרות ולוח שיעורים שבועי - גם במוצבים ובבסיסים מרוחקים.</span>
+            <span class="en-only">Program for strengthening Torah study among brigade soldiers, commanders and alumni. Providing study materials, regular classes and combining book and sword in the field. Soldiers receive holy books, Talmud volumes and weekly class schedules - even at remote outposts and bases.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- Program 3 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/march.jpg" alt="לב דוד">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">🛡️</span>
+            <span>
+              <span class="he-only">לב דוד</span>
+              <span class="en-only">Lev David</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">מסלולי ההכנה הקדם-צבאיים. בניית היסודות הנכונים לקראת השירות, הכנה מנטלית, פיזית ורוחנית למלש"בים חרדים לגיוס משמעותי ושמור. התוכנית כוללת סדנאות הכנה, מפגשי חיילים משוחררים עם עתידיים, וליווי אישי.</span>
+            <span class="en-only">Pre-military preparation tracks. Building proper foundations for service - mental, physical and spiritual preparation for Haredi recruits for meaningful and safe enlistment. Includes preparation workshops, meetings between veterans and future soldiers, and personal mentoring.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- Program 4 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/community.jpg" alt="בית בישראל">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">🏠</span>
+            <span>
+              <span class="he-only">בית בישראל</span>
+              <span class="en-only">Bayit B'Yisrael</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">המעטפת הקהילתית והמשפחתית. ליווי חתנים וזוגות צעירים, תמיכה שוטפת למשפחות הלוחמים וטיפוח קהילת נשות החטיבה להענקת כוח ועורף חזק. ערבים משפחתיים, חבילות לחגים, ומוקד תמיכה זמין.</span>
+            <span class="en-only">Community and family support system. Guidance for grooms and young couples, ongoing support for soldiers' families and nurturing the brigade women's community. Family evenings, holiday packages, and an accessible support center.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- Program 5 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/outdoor-gathering.jpg" alt="חשמונאים לעתיד ישראל">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">🚀</span>
+            <span>
+              <span class="he-only">חשמונאים לעתיד ישראל</span>
+              <span class="en-only">Hashmonaim for Israel's Future</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">תוכנית "שער היציאה". הכנה לאזרחות, בניית מסלול לתעסוקה ופיתוח קהילות בוגרים נושאיות ומסגרתיות שימשיכו את רוח החטיבה גם באזרחות. הכשרות מקצועיות, נטוורקינג ומנטורינג עסקי.</span>
+            <span class="en-only">"Exit Gateway" program. Preparation for civilian life, career path building and development of thematic alumni communities that continue the brigade's spirit. Professional training, networking and business mentoring.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- Program 6 -->
+      <div class="program-detail-item fade-in">
+        <div class="program-detail-img">
+          <img src="images/soldier-smile.jpg" alt="קרן הרווחה והסיוע">
+        </div>
+        <div class="program-detail-content">
+          <h3><span class="program-icon">💛</span>
+            <span>
+              <span class="he-only">קרן הרווחה והסיוע</span>
+              <span class="en-only">Welfare & Aid Fund</span>
+            </span>
+          </h3>
+          <p>
+            <span class="he-only">רשת הביטחון הכלכלית לכלל צרכי החטיבה. סיוע ייעודי ומקיף ל-97 החיילים הבודדים בחטיבה - מעטפת אישית, ציוד, ארוחות חג וליווי רגשי. לצד זאת, תמיכה למשפחות במצוקה, מימון ערבי יחידה, רכישת ציוד חורף/ייעודי ועוד. כל פנייה נבדקת ומטופלת תוך ימים ספורים.</span>
+            <span class="en-only">Economic safety net for all brigade needs. Dedicated, comprehensive aid for the 97 lone soldiers in the brigade - personal care packages, equipment, holiday meals and emotional support. Additionally, aid for families in distress, unit event funding, winter/specialized equipment purchases and more. Every request is reviewed and addressed within days.</span>
+          </p>
+          <button class="btn-donate-program" onclick="navigateTo('donate')">
+            <span class="he-only">תרום לתוכנית זו</span>
+            <span class="en-only">Donate to this program</span>
+            →
+          </button>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ======= MEDIA PAGE ======= -->
+  <div class="page" id="page-media">
+    <div style="height:70px"></div>
+    <section class="section media-section">
+      <h2 class="section-title">
+        <span class="he-only">מהנעשה בחטיבה</span>
+        <span class="en-only">Brigade News & Media</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">צפו בסרטונים, עקבו אחרינו ברשתות והישארו מעודכנים</span>
+        <span class="en-only">Watch videos, follow us on social media and stay updated</span>
+      </p>
+
+      <!-- VIDEO GALLERY -->
+      <div class="media-grid">
+        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
+          <div class="media-card-thumb">
+            <img src="images/hero.jpg" alt="סרטון החטיבה">
+            <div class="media-play-btn">▶</div>
+          </div>
+          <div class="media-card-body">
+            <h4>
+              <span class="he-only">חטיבת החשמונאים - הסיפור שלנו</span>
+              <span class="en-only">The Hashmonaim Brigade - Our Story</span>
+            </h4>
+            <p>
+              <span class="he-only">סרטון תדמית על החטיבה, הלוחמים והחזון</span>
+              <span class="en-only">A documentary about the brigade, fighters and vision</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
+          <div class="media-card-thumb">
+            <img src="images/shiur-mountain.jpg" alt="שיעור בשטח">
+            <div class="media-play-btn">▶</div>
+          </div>
+          <div class="media-card-body">
+            <h4>
+              <span class="he-only">הספרא והסייפא - תורה בשטח הכינוס</span>
+              <span class="en-only">Torah & Sword - Study in the Field</span>
+            </h4>
+            <p>
+              <span class="he-only">כך נראה לימוד תורה בין המשימות המבצעיות</span>
+              <span class="en-only">What Torah study looks like between operational missions</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
+          <div class="media-card-thumb">
+            <img src="images/group-flags.jpg" alt="ערב יחידה">
+            <div class="media-play-btn">▶</div>
+          </div>
+          <div class="media-card-body">
+            <h4>
+              <span class="he-only">ערב יחידה - האחווה של החשמונאים</span>
+              <span class="en-only">Unit Evening - Hashmonaim Brotherhood</span>
+            </h4>
+            <p>
+              <span class="he-only">הרגעים שמחזקים את הקשר בין הלוחמים</span>
+              <span class="en-only">The moments that strengthen the bond between fighters</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
+          <div class="media-card-thumb">
+            <img src="images/lecture.jpg" alt="הרצאה">
+            <div class="media-play-btn">▶</div>
+          </div>
+          <div class="media-card-body">
+            <h4>
+              <span class="he-only">חיזוק ומוטיבציה - שיחות עם מפקדים</span>
+              <span class="en-only">Strength & Motivation - Talks with Commanders</span>
+            </h4>
+            <p>
+              <span class="he-only">שיחות השראה מהמפקדים והרבנים של החטיבה</span>
+              <span class="en-only">Inspirational talks from the brigade's commanders and rabbis</span>
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- SOCIAL LINKS -->
+      <div class="social-links-grid fade-in" style="margin-top:60px;">
+        <a href="#" class="social-card" target="_blank" rel="noopener">
+          <div class="social-icon whatsapp">💬</div>
+          <div class="social-card-text">
+            <h4>WhatsApp</h4>
+            <p>
+              <span class="he-only">קבוצת עדכונים</span>
+              <span class="en-only">Updates Group</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="social-card" target="_blank" rel="noopener">
+          <div class="social-icon tiktok">♪</div>
+          <div class="social-card-text">
+            <h4>TikTok</h4>
+            <p>
+              <span class="he-only">@hashmonaim_brigade</span>
+              <span class="en-only">@hashmonaim_brigade</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="social-card" target="_blank" rel="noopener">
+          <div class="social-icon youtube">▶</div>
+          <div class="social-card-text">
+            <h4>YouTube</h4>
+            <p>
+              <span class="he-only">ערוץ החטיבה</span>
+              <span class="en-only">Brigade Channel</span>
+            </p>
+          </div>
+        </a>
+
+        <a href="#" class="social-card" target="_blank" rel="noopener">
+          <div class="social-icon instagram">📷</div>
+          <div class="social-card-text">
+            <h4>Instagram</h4>
+            <p>
+              <span class="he-only">@hashmonaim_brigade</span>
+              <span class="en-only">@hashmonaim_brigade</span>
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- WEEKLY NEWSLETTERS -->
+      <div style="margin-top:80px;">
+        <h3 class="section-title" style="font-size:1.6rem; margin-bottom:12px;">
+          <span class="he-only">העלון השבועי "בחטיבה"</span>
+          <span class="en-only">Weekly Newsletter "BaHativa"</span>
+        </h3>
+        <p class="section-subtitle" style="margin-bottom:40px;">
+          <span class="he-only">העלון השבועי של חטיבת החשמונאים - דבר המפקד, חדשות החטיבה, תוכן תורני, פנים שמספרות סיפור ועוד</span>
+          <span class="en-only">The Hashmonaim Brigade weekly newsletter - Commander's message, brigade news, Torah content, stories and more</span>
+        </p>
+        <div class="newsletters-grid">
+
+          <a href="newsletters/newsletter-31-mishpatim.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 31 - פרשת משפטים</span>
+                <span class="en-only">Issue 31 - Parshat Mishpatim</span>
+              </h4>
+              <p>
+                <span class="he-only">כ"ו שבט התשפ"ו | 13.2.2026</span>
+                <span class="en-only">February 13, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">טקס הצהרה מרגש, בין תרג"ד היסטורי לטקס הצהרה, סיכום שבועי מפקדי</span>
+                <span class="en-only">Moving declaration ceremony, historic battalion drill, commander's weekly summary</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="newsletters/newsletter-30-yitro.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 30 - פרשת יתרו</span>
+                <span class="en-only">Issue 30 - Parshat Yitro</span>
+              </h4>
+              <p>
+                <span class="he-only">י"ט שבט התשפ"ו | 6.2.2026</span>
+                <span class="en-only">February 6, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">טקס חילופי המח"טים, יום ישיבה חטיבתי, פרידה והוקרה למח"ט היוצא</span>
+                <span class="en-only">Brigade commander changeover ceremony, brigade study day, farewell to outgoing commander</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="newsletters/newsletter-29-beshalach.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 29 - פרשת בשלח</span>
+                <span class="en-only">Issue 29 - Parshat Beshalach</span>
+              </h4>
+              <p>
+                <span class="he-only">י"ב שבט התשפ"ו | 30.1.2026</span>
+                <span class="en-only">January 30, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">סמל אילן משה כהן ז"ל - דמות של אהבה טהורה לארץ ולעם</span>
+                <span class="en-only">Sgt. Eilan Moshe Cohen z"l - A figure of pure love for the Land and People</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="newsletters/newsletter-28-bo.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 28 - פרשת בוא</span>
+                <span class="en-only">Issue 28 - Parshat Bo</span>
+              </h4>
+              <p>
+                <span class="he-only">ה' שבט התשפ"ו | 23.1.2026</span>
+                <span class="en-only">January 23, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">השגרה חזרה לחטיבה, טירונים חדשים, סיפור גדוד יונתן עמוק בשטח</span>
+                <span class="en-only">Routine returns to the brigade, new recruits, Yonatan battalion story from the field</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="newsletters/newsletter-27-vaera.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 27 - פרשת וארא</span>
+                <span class="en-only">Issue 27 - Parshat Va'era</span>
+              </h4>
+              <p>
+                <span class="he-only">כ"ז טבת התשפ"ו | 16.1.2026</span>
+                <span class="en-only">January 16, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">סמל שניאור זלמן כהן ז"ל - דמות של אמונה, שליחות ומצוינות</span>
+                <span class="en-only">Sgt. Shniur Zalman Cohen z"l - A figure of faith, mission and excellence</span>
+              </p>
+            </div>
+          </a>
+
+          <a href="newsletters/newsletter-26-shemot.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
+            <div class="newsletter-card-icon">📰</div>
+            <div class="newsletter-card-body">
+              <h4>
+                <span class="he-only">גיליון 26 - פרשת שמות</span>
+                <span class="en-only">Issue 26 - Parshat Shemot</span>
+              </h4>
+              <p>
+                <span class="he-only">י"ז טבת התשפ"ו | 9.1.2026</span>
+                <span class="en-only">January 9, 2026</span>
+              </p>
+              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
+                <span class="he-only">טקס הענקת סיכת לוחם, תנופת גיוס בחטיבה, מסלול "לוחם הנדסאי"</span>
+                <span class="en-only">Warrior pin ceremony, recruitment drive, "Combat Engineer" track</span>
+              </p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ======= DONATE PAGE ======= -->
+  <div class="page" id="page-donate">
+    <div style="height:70px"></div>
+    <section class="section donation-page">
+      <h2 class="section-title">
+        <span class="he-only">תרומה לעמותת רוח החשמונאים</span>
+        <span class="en-only">Donate to Ruach HaHashmonaim</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">כל שקל שלכם עושה שינוי אמיתי בשטח</span>
+        <span class="en-only">Every dollar you give makes a real difference in the field</span>
+      </p>
+
+      <div class="donation-container">
+        <div class="donation-trust fade-in">
+          <h3>
+            <span class="he-only">🔒 שקיפות ואמון</span>
+            <span class="en-only">🔒 Transparency & Trust</span>
+          </h3>
+          <p>
+            <span class="he-only">עמותת רוח החשמונאים הנה עמותה רשומה בישראל הפועלת כחוק. אישור סעיף 46 (זיכוי מס) נמצא בימים אלו בתהליכי הסדרה. הפעילות הענפה שלנו בשטח מעידה על המחויבות שלנו לכל שקל שנתרם.</span>
+            <span class="en-only">Ruach HaHashmonaim is a legally registered association in Israel. Our Section 46 tax-exempt status (equivalent to 501(c)(3)) is currently being processed. Our extensive field activity demonstrates our commitment to every donation received.</span>
+          </p>
+        </div>
+
+        <div class="donation-sections fade-in">
+          <!-- ISRAEL DONATIONS -->
+          <div class="donation-section">
+            <h3>
+              <span class="he-only">תרומה בישראל</span>
+              <span class="en-only">Donate from Israel</span>
+            </h3>
+
+            <div class="donation-form-container">
+              <h4 style="text-align:center; margin-bottom:16px; font-size:1.1rem;">
+                <span class="he-only">בחרו סכום לתרומה</span>
+                <span class="en-only">Choose donation amount</span>
+              </h4>
+              <div class="donation-amount-grid">
+                <button class="amount-btn" onclick="selectAmount(this, 50)">50 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 100)">100 ₪</button>
+                <button class="amount-btn active" onclick="selectAmount(this, 180)">180 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 360)">360 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 500)">500 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 1000)">1,000 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 1800)">1,800 ₪</button>
+                <button class="amount-btn" onclick="selectAmount(this, 3600)">3,600 ₪</button>
+              </div>
+              <input type="number" class="custom-amount-input" placeholder="סכום אחר בש״ח" id="customAmount" onfocus="clearAmountBtns()">
+              <button class="donate-submit-btn" onclick="handleDonate()">
+                <span class="he-only">לתרומה מאובטחת</span>
+                <span class="en-only">Secure Donation</span>
+              </button>
+              <p style="text-align:center; margin-top:12px; font-size:0.85rem; color:var(--text-light);">
+                <span class="he-only">🔒 תשלום מאובטח. אישור סעיף 46 בהסדרה.</span>
+                <span class="en-only">🔒 Secure payment. Tax receipt processing in progress.</span>
+              </p>
+            </div>
+
+            <div style="margin-top:24px;">
+              <div class="donation-method">
+                <h4>
+                  <span>🏦</span>
+                  <span class="he-only">העברה בנקאית</span>
+                  <span class="en-only">Bank Transfer</span>
+                </h4>
+                <p>
+                  <span class="he-only">בנק מרכנתיל, סניף 734 ביתר עילית</span>
+                  <span class="en-only">Bank Mercantile, Branch 734 Beitar Ilit</span>
+                </p>
+                <div class="highlight-box">
+                  <span class="he-only">חשבון: 10514560</span>
+                  <span class="en-only">Account: 10514560</span>
+                </div>
+              </div>
+
+              <div class="donation-method">
+                <h4>
+                  <span>📱</span>
+                  <span class="he-only">ביט / Bit</span>
+                  <span class="en-only">Bit Payment</span>
+                </h4>
+                <p>
+                  <span class="he-only">שלחו תשלום בביט למספר הטלפון של העמותה</span>
+                  <span class="en-only">Send payment via Bit to our organization phone</span>
+                </p>
+                <button class="btn-donate-program" style="width:100%; justify-content:center;">
+                  <span class="he-only">לתשלום בביט</span>
+                  <span class="en-only">Pay via Bit</span>
+                  →
+                </button>
+              </div>
+
+              <div class="donation-method">
+                <h4>
+                  <span>💳</span>
+                  <span class="he-only">PayBox</span>
+                  <span class="en-only">PayBox</span>
+                </h4>
+                <p>
+                  <span class="he-only">תרומה מאובטחת דרך PayBox</span>
+                  <span class="en-only">Secure donation via PayBox</span>
+                </p>
+                <button class="btn-donate-program" style="width:100%; justify-content:center;">
+                  <span class="he-only">לתשלום בPayBox</span>
+                  <span class="en-only">Pay via PayBox</span>
+                  →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- US DONATIONS -->
+          <div class="donation-section">
+            <h3>
+              <span class="he-only">תרומה מחו"ל</span>
+              <span class="en-only">Donate from the US</span>
+            </h3>
+
+            <div class="donation-method">
+              <h4>
+                <span>🇺🇸</span>
+                <span class="he-only">תרומה בהטבות מס</span>
+                <span class="en-only">Tax-Deductible Donation</span>
+              </h4>
+              <p>
+                <span class="he-only">תרומה בהטבות מס דרך ארגון החברים האמריקני שלנו</span>
+                <span class="en-only">Tax-deductible donation through our American friends organization</span>
+              </p>
+              <button class="btn-donate-program" style="width:100%; justify-content:center;">
+                <span class="he-only">לתרומה בהטבות מס</span>
+                <span class="en-only">Tax-Deductible Donation</span>
+                →
+              </button>
+            </div>
+
+            <div class="donation-method">
+              <h4>
+                <span>💳</span>
+                <span class="he-only">כרטיס אשראי (בקרוב)</span>
+                <span class="en-only">Credit Card (Coming Soon)</span>
+              </h4>
+              <p>
+                <span class="he-only">תרומה מאובטחת בכרטיס אשראי</span>
+                <span class="en-only">Secure credit card donation</span>
+              </p>
+            </div>
+
+            <div class="donation-method">
+              <h4>
+                <span>🏦</span>
+                <span class="he-only">העברה בנקאית בחו"ל</span>
+                <span class="en-only">International Wire Transfer</span>
+              </h4>
+              <p>
+                <span class="he-only">פרטי העברה בנקאית בחו"ל זמינים בבקשה</span>
+                <span class="en-only">US wire transfer details available upon request</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="donation-designation fade-in">
+          <h4>
+            <span class="he-only">🎯 ייעוד התרומה</span>
+            <span class="en-only">🎯 Designation</span>
+          </h4>
+          <div class="designation-options">
+            <button class="designation-btn active" onclick="selectDesignation(this)">
+              <span class="he-only">פעילות כללית</span>
+              <span class="en-only">General</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">רוח חשמונאית</span>
+              <span class="en-only">Hashmonai Spirit</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">והגית בו</span>
+              <span class="en-only">V'Hagita Bo</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">לב דוד</span>
+              <span class="en-only">Lev David</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">בית בישראל</span>
+              <span class="en-only">Bayit B'Yisrael</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">חשמונאים לעתיד ישראל</span>
+              <span class="en-only">Future</span>
+            </button>
+            <button class="designation-btn" onclick="selectDesignation(this)">
+              <span class="he-only">קרן הרווחה והסיוע</span>
+              <span class="en-only">Welfare Fund</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======= CONTACT PAGE ======= -->
+  <div class="page" id="page-contact">
+    <div style="height:70px"></div>
+    <section class="section contact-section">
+      <h2 class="section-title">
+        <span class="he-only">צור קשר</span>
+        <span class="en-only">Contact Us</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">נשמח לשמוע מכם - תורמים, חיילים, משפחות ושותפים</span>
+        <span class="en-only">We'd love to hear from you - donors, soldiers, families and partners</span>
+      </p>
+
+      <!-- TWO CONTACT SECTIONS -->
+      <div class="contact-sections-grid fade-in">
+        <!-- JOINING SECTION -->
+        <div class="contact-section-box">
+          <h3>
+            <span class="he-only">להצטרפות לחטיבה</span>
+            <span class="en-only">Joining the Brigade</span>
+          </h3>
+          <p class="contact-section-desc">
+            <span class="he-only">מעוניינים להתגייס לחטיבת החשמונאים? צרו קשר</span>
+            <span class="en-only">Interested in joining the Hashmonaim Brigade? Get in touch</span>
+          </p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="icon">📧</div>
+              <div>
+                <h4>
+                  <span class="he-only">דוא"ל</span>
+                  <span class="en-only">Email</span>
+                </h4>
+                <p>giyus@ruach-hashmonaim.org</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">📱</div>
+              <div>
+                <h4>
+                  <span class="he-only">טלפון / וואטסאפ</span>
+                  <span class="en-only">Phone / WhatsApp</span>
+                </h4>
+                <p dir="ltr">+972-__-___-____</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUPPORT SECTION -->
+        <div class="contact-section-box">
+          <h3>
+            <span class="he-only">לתמיכה בחטיבה</span>
+            <span class="en-only">Supporting the Brigade</span>
+          </h3>
+          <p class="contact-section-desc">
+            <span class="he-only">רוצים לתרום, להתנדב או לשתף פעולה?</span>
+            <span class="en-only">Want to donate, volunteer or partner with us?</span>
+          </p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="icon">📧</div>
+              <div>
+                <h4>
+                  <span class="he-only">דוא"ל</span>
+                  <span class="en-only">Email</span>
+                </h4>
+                <p>info@ruach-hashmonaim.org</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">📱</div>
+              <div>
+                <h4>
+                  <span class="he-only">טלפון / וואטסאפ</span>
+                  <span class="en-only">Phone / WhatsApp</span>
+                </h4>
+                <p dir="ltr">+972-__-___-____</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div class="contact-grid fade-in">
+        <div></div>
+        <div class="contact-form">
+          <input type="text" placeholder="שם מלא / Full Name">
+          <input type="email" placeholder="דוא״ל / Email">
+          <input type="tel" placeholder="טלפון / Phone">
+          <select>
+            <option value="">
+              <span class="he-only">סוג פניה / Inquiry Type</span>
+            </option>
+            <option>
+              <span class="he-only">הצטרפות / Joining</span>
+            </option>
+            <option>
+              <span class="he-only">תמיכה / Support</span>
+            </option>
+            <option>
+              <span class="he-only">אחר / Other</span>
+            </option>
+          </select>
+          <textarea placeholder="הודעה / Message"></textarea>
+          <button type="submit">
+            <span class="he-only">שלח הודעה</span>
+            <span class="en-only">Send Message</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======= PRIVACY POLICY PAGE ======= -->
+  <div class="page" id="page-privacy">
+    <div style="height:70px"></div>
+    <section class="section" style="background:#fff;">
+      <h2 class="section-title">
+        <span class="he-only">מדיניות פרטיות</span>
+        <span class="en-only">Privacy Policy</span>
+      </h2>
+      <div style="max-width:800px; margin:0 auto; line-height:1.9; padding:0 24px;">
+
+        <div class="he-only" style="text-align:right;">
+          <p style="color:#666; margin-bottom:16px;"><strong>עודכן לאחרונה:</strong> מרץ 2026</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">1. כללי</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">עמותת "רוח החשמונאים" (ע"ר) (להלן: "העמותה", "אנחנו") מכבדת את פרטיות המשתמשים באתר האינטרנט שלה. מדיניות פרטיות זו מסבירה כיצד אנו אוספים, משתמשים ומגנים על המידע האישי שלכם בהתאם לחוק הגנת הפרטיות, התשמ"א-1981 והתקנות מכוחו.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">2. מידע שאנו אוספים</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">אנו עשויים לאסוף את המידע הבא:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• <strong>מידע שנמסר על ידכם:</strong> שם מלא, כתובת דוא"ל, מספר טלפון, כתובת - כאשר אתם ממלאים טופס יצירת קשר, תורמים או נרשמים לרשימת תפוצה.</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• <strong>מידע על תרומות:</strong> פרטי עסקאות תרומה (סכום, תאריך, ייעוד). פרטי כרטיס אשראי מעובדים באופן מאובטח על ידי ספק הסליקה שלנו ואינם נשמרים בשרתינו.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• <strong>מידע טכני:</strong> כתובת IP, סוג דפדפן, מערכת הפעלה, דפים שנצפו ומשך הביקור - באמצעות כלי ניתוח סטטיסטי.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">3. שימוש במידע</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">אנו משתמשים במידע שנאסף למטרות הבאות:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• עיבוד תרומות והנפקת קבלות</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• יצירת קשר בתגובה לפניות</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• שליחת עדכונים על פעילות העמותה (בכפוף להסכמתכם)</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• שיפור האתר ותוכנו</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">4. עוגיות (Cookies)</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">האתר עשוי להשתמש בעוגיות לצורך שיפור חווית הגלישה וניתוח סטטיסטי. ניתן לנהל את הגדרות העוגיות דרך הדפדפן שלכם. חסימת עוגיות עשויה להשפיע על פונקציונליות מסוימת באתר.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">5. שיתוף מידע עם צדדים שלישיים</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">איננו מוכרים, מחליפים או מעבירים מידע אישי לצדדים שלישיים, למעט ספקי שירות הנדרשים לתפעול האתר (כגון ספקי סליקה ואירוח), וכן במקרים בהם נדרש על פי דין.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">6. אבטחת מידע</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">אנו נוקטים אמצעי אבטחה סבירים להגנה על המידע האישי שלכם. עם זאת, אין אפשרות להבטיח אבטחה מוחלטת בהעברת מידע באינטרנט.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">7. זכויותיכם</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">בהתאם לחוק, עומדות לכם הזכויות הבאות:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• לעיין במידע האישי שנשמר אודותיכם</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• לבקש תיקון או מחיקת מידע</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• להסיר את עצמכם מרשימות תפוצה</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• לבקש מידע על אופן השימוש בנתונים שלכם</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">8. שינויים במדיניות</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">אנו שומרים על הזכות לעדכן מדיניות פרטיות זו מעת לעת. שינויים מהותיים יפורסמו באתר.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">9. יצירת קשר</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">לשאלות או בקשות בנוגע למדיניות הפרטיות, ניתן לפנות אלינו בדוא"ל: info@ruach-hashmonaim.org</p>
+        </div>
+
+        <div class="en-only" style="text-align:left;">
+          <p style="color:#666; margin-bottom:16px;"><strong>Last updated:</strong> March 2026</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">1. General</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">Ruach HaHashmonaim Association ("the Association", "we") respects the privacy of users of its website. This privacy policy explains how we collect, use and protect your personal information in accordance with Israeli privacy law.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">2. Information We Collect</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">We may collect the following information:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• <strong>Information you provide:</strong> Full name, email address, phone number, address - when you fill out a contact form, donate, or sign up for our mailing list.</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• <strong>Donation information:</strong> Transaction details (amount, date, designation). Credit card details are securely processed by our payment provider and are not stored on our servers.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• <strong>Technical information:</strong> IP address, browser type, operating system, pages viewed, and visit duration - through analytics tools.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">3. Use of Information</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">We use collected information for the following purposes:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Processing donations and issuing receipts</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Responding to inquiries</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Sending updates about the Association's activities (with your consent)</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• Improving the website and its content</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">4. Cookies</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">The website may use cookies to improve browsing experience and for statistical analysis. You can manage cookie settings through your browser. Blocking cookies may affect certain website functionality.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">5. Third-Party Sharing</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">We do not sell, trade, or transfer personal information to third parties, except for service providers required for website operation (such as payment processors and hosting), and where required by law.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">6. Data Security</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">We take reasonable security measures to protect your personal information. However, no method of internet transmission can guarantee absolute security.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">7. Your Rights</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">Under Israeli law, you have the following rights:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• To review personal information stored about you</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• To request correction or deletion of information</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• To unsubscribe from mailing lists</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• To request information about how your data is used</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">8. Policy Changes</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">We reserve the right to update this privacy policy from time to time. Material changes will be published on the website.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">9. Contact Us</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">For questions or requests regarding this privacy policy, please contact us at: info@ruach-hashmonaim.org</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- FLOATING CONTACT REMOVED -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/logo.png" alt="לוגו">
+        <span>
+          <span class="he-only">רוח החשמונאים</span>
+          <span class="en-only">Ruach HaHashmonaim</span>
+        </span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="navigateTo('home'); return false;">
+          <span class="he-only">דף הבית</span>
+          <span class="en-only">Home</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('about'); return false;">
+          <span class="he-only">מי אנחנו</span>
+          <span class="en-only">About</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('programs'); return false;">
+          <span class="he-only">תוכניות</span>
+          <span class="en-only">Programs</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('media'); return false;">
+          <span class="he-only">מהנעשה בחטיבה</span>
+          <span class="en-only">News</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('donate'); return false;">
+          <span class="he-only">תרומה</span>
+          <span class="en-only">Donate</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('contact'); return false;">
+          <span class="he-only">צור קשר</span>
+          <span class="en-only">Contact</span>
+        </a></li>
+        <li><a href="#" onclick="navigateTo('privacy'); return false;">
+          <span class="he-only">מדיניות פרטיות</span>
+          <span class="en-only">Privacy Policy</span>
+        </a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>
+        <span class="he-only">© 2026 עמותת רוח החשמונאים. כל הזכויות שמורות.</span>
+        <span class="en-only">© 2026 Ruach HaHashmonaim. All rights reserved.</span>
+      </span>
+      <div class="footer-iab">
+        <span>
+          <span class="he-only">נבנה ע"י</span>
+          <span class="en-only">Built by</span>
+        </span>
+        <img src="images/iab-logo.png" alt="IAB Smart AI Solutions">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== LANGUAGE TOGGLE =====
+    let isEnglish = false;
+
+    function toggleLang() {
+      isEnglish = !isEnglish;
+      document.body.classList.toggle('en', isEnglish);
+      document.documentElement.lang = isEnglish ? 'en' : 'he';
+      document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+    }
+
+    // ===== NAVIGATION (SPA) =====
+    function navigateTo(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + page);
+      if (target) target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('navLinks').classList.remove('open');
+      setTimeout(observeFadeIns, 100);
+    }
+
+    // ===== MOBILE MENU =====
+    function toggleMobile() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // ===== HEADER SCROLL =====
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== SCROLL ANIMATIONS =====
+    function observeFadeIns() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el));
+    }
+
+    // ===== COUNTER ANIMATION =====
+    function animateCounters() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target);
+            let current = 0;
+            const step = target / 60;
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              entry.target.textContent = target >= 100
+                ? Math.floor(current).toLocaleString() + '+'
+                : Math.floor(current);
+            }, 25);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+    }
+
+    // ===== DONATION DESIGNATION =====
+    function selectDesignation(btn) {
+      document.querySelectorAll('.designation-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ===== DONATION FORM =====
+    let selectedAmount = 180;
+
+    function selectAmount(btn, amount) {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedAmount = amount;
+      document.getElementById('customAmount').value = '';
+    }
+
+    function clearAmountBtns() {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+    }
+
+    function handleDonate() {
+      const custom = document.getElementById('customAmount').value;
+      const amount = custom ? parseInt(custom) : selectedAmount;
+      if (!amount || amount < 1) {
+        alert(document.body.classList.contains('en') ? 'Please select an amount' : 'אנא בחרו סכום');
+        return;
+      }
+      // Placeholder - will redirect to payment gateway when connected
+      alert(document.body.classList.contains('en')
+        ? 'Payment system is being set up. Amount: ' + amount + ' NIS. For now, please use bank transfer or Bit.'
+        : 'מערכת הסליקה בהקמה. סכום: ' + amount + ' ש"ח. בינתיים ניתן להעביר בהעברה בנקאית או בביט.');
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      observeFadeIns();
+      animateCounters();
+    });
+  </script>
+
+</body>
+</html>
