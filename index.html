@@ -692,36 +692,42 @@
     }
 
     .program-detail-item {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      margin-bottom: 80px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--border-color);
+      display: block;
+      margin-bottom: 60px;
+      padding: 0;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
     }
 
     .program-detail-item:last-child {
-      border-bottom: none;
       margin-bottom: 0;
     }
 
-    .program-detail-item:nth-child(odd) .program-detail-img {
-      order: -1;
-    }
-
     .program-detail-img {
+      width: 100%;
       overflow: hidden;
-      border-radius: var(--radius);
+      display: flex;
+      gap: 0;
     }
 
     .program-detail-img img {
-      width: 100%;
-      height: auto;
+      flex: 1;
+      min-width: 0;
+      height: 320px;
+      object-fit: cover;
       display: block;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-      /* no blur */
+      margin-top: 0 !important;
+    }
+
+    .program-detail-img img:only-child {
+      height: 360px;
+    }
+
+    .program-detail-content {
+      padding: 32px 40px 36px;
     }
 
     .program-detail-content h3 {
@@ -744,8 +750,8 @@
 
     .program-detail-content p {
       color: var(--text-light);
-      font-size: 1rem;
-      line-height: 1.8;
+      font-size: 1.05rem;
+      line-height: 1.9;
       margin-bottom: 24px;
     }
 
@@ -1443,12 +1449,23 @@
       }
 
       .about-grid,
-      .program-detail-item,
       .contact-grid,
       .contact-sections-grid,
       .donation-sections {
         grid-template-columns: 1fr;
         gap: 32px;
+      }
+
+      .program-detail-img {
+        flex-direction: column;
+      }
+
+      .program-detail-img img {
+        height: 220px !important;
+      }
+
+      .program-detail-content {
+        padding: 24px 20px 28px;
       }
 
       .programs-grid {
