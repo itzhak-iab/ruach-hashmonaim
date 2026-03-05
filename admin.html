@@ -143,6 +143,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <div class="admin-tab" data-tab="about" onclick="switchTab('about')">אודות</div>
     <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תוכניות</div>
     <div class="admin-tab" data-tab="media" onclick="switchTab('media')">מהנעשה בחטיבה</div>
+    <div class="admin-tab" data-tab="partners" onclick="switchTab('partners')">השותפים שלנו</div>
+    <div class="admin-tab" data-tab="donate" onclick="switchTab('donate')">תרומות</div>
     <div class="admin-tab" data-tab="contact" onclick="switchTab('contact')">צור קשר</div>
     <div class="admin-tab" data-tab="settings" onclick="switchTab('settings')">הגדרות</div>
   </div>
@@ -250,6 +252,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
       </div>
     </div>
 
+    <!-- PARTNERS -->
+    <div class="admin-section" id="section-partners">
+      <div class="edit-card">
+        <h3>השותפים שלנו</h3>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">לוגו + שם + קישור לכל שותף. הלוגואים מופיעים בעיגול בדף הבית.</p>
+        <div id="partnersContainer"></div>
+        <button class="btn-add" onclick="addPartner()">+ הוסף שותף</button>
+      </div>
+    </div>
+
+    <!-- DONATE SETTINGS -->
+    <div class="admin-section" id="section-donate">
+      <div class="edit-card">
+        <h3>הגדרות סליקה</h3>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">כשתפתחו חשבון במשולם, הזינו את קוד הדף תשלום של כל עמותה.</p>
+        <div class="edit-field">
+          <label>קוד משולם - רוח חשמונאית (ללא 46)</label>
+          <input type="text" data-field="meshulam-ruach" placeholder="XXXXXX" dir="ltr">
+        </div>
+        <div class="edit-field">
+          <label>קוד משולם - דור אחווה (סעיף 46)</label>
+          <input type="text" data-field="meshulam-dor" placeholder="YYYYYY" dir="ltr">
+        </div>
+      </div>
+      <div class="edit-card">
+        <h3>פרטי העברה בנקאית</h3>
+        <div class="edit-field">
+          <label>בנק + סניף (עברית)</label>
+          <input type="text" data-field="bank-details-he">
+        </div>
+        <div class="edit-field">
+          <label>מספר חשבון</label>
+          <input type="text" data-field="bank-account" dir="ltr">
+        </div>
+      </div>
+    </div>
+
     <!-- CONTACT -->
     <div class="admin-section" id="section-contact">
       <div class="edit-card">
@@ -304,7 +343,7 @@ const REPO = 'itzhak-iab/ruach-hashmonaim';
 const BRANCH = 'main';
 let siteSHA = '', siteDoc = null, siteHTML = '';
 let pendingChanges = {}, pendingImages = {};
-let programData = [], videoData = [], socialData = [], newsletterData = [];
+let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [];
 
 // AUTH
 async function hashPw(pw) {
@@ -375,6 +414,7 @@ function populate() {
   buildVideos();
   buildSocials();
   buildNewsletters();
+  buildPartners();
   // Contact
   const cp = siteDoc.getElementById('page-contact');
   if(cp){const t=cp.textContent;const ph=t.match(/0\d{1,2}[-\s]?\d{3}[-\s]?\d{4}/);const em=t.match(/[\w.-]+@[\w.-]+\.\w+/);if(ph)setVal('contact-phone',ph[0]);if(em)setVal('contact-email',em[0]);}
@@ -591,6 +631,55 @@ function renderNewsletters(){
 
 function addNewsletter(){newsletterData.push({titleHe:'עלון חדש',link:'#'});pendingChanges['_media']='1';renderNewsletters();updateBadge();}
 
+// PARTNERS
+function buildPartners(){
+  partnerData=[];
+  siteDoc.querySelectorAll('.partner-card').forEach(card=>{
+    const img=card.querySelector('img');
+    partnerData.push({
+      name: card.querySelector('.he-only')?.textContent.trim()||'',
+      nameEn: card.querySelector('.en-only')?.textContent.trim()||'',
+      link: card.getAttribute('href')||'#',
+      logo: img?img.getAttribute('src'):''
+    });
+  });
+  renderPartners();
+}
+function renderPartners(){
+  const c=document.getElementById('partnersContainer');
+  c.innerHTML=partnerData.map((p,i)=>`
+  <div class="media-item-card">
+    <div class="media-item-header">
+      <h4>${p.name||'שותף '+(i+1)}</h4>
+      <button class="btn-remove" onclick="partnerData.splice(${i},1);pendingChanges['_partners']='1';renderPartners();updateBadge();">מחק</button>
+    </div>
+    <div style="display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;">
+      <div class="img-upload-box" style="width:80px;height:80px;flex-shrink:0;">
+        ${p.logo&&!p.logo.startsWith('data:')?`<img src="https://ruach-hashmonaim.org/${p.logo}?t=${Date.now()}" id="partner-logo-${i}">`:'<span class="upload-label">לוגו</span>'}
+        <input type="file" accept="image/*" onchange="handlePartnerLogo(${i},this)">
+      </div>
+      <div style="flex:1; min-width:200px;">
+        <div class="edit-field" style="margin-bottom:8px;"><label>שם (עברית)</label><input type="text" value="${esc(p.name)}" oninput="partnerData[${i}].name=this.value;markPartnerChanged()"></div>
+        <div class="edit-field" style="margin-bottom:8px;"><label>שם (English)</label><input type="text" value="${esc(p.nameEn)}" dir="ltr" oninput="partnerData[${i}].nameEn=this.value;markPartnerChanged()"></div>
+        <div class="edit-field"><label>קישור</label><input type="text" value="${esc(p.link)}" dir="ltr" oninput="partnerData[${i}].link=this.value;markPartnerChanged()"></div>
+      </div>
+    </div>
+  </div>`).join('');
+}
+function handlePartnerLogo(idx,input){
+  const file=input.files[0];if(!file)return;
+  const fname='images/partner-'+idx+'-'+Date.now()+'.png';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    pendingImages[fname]=e.target.result.split(',')[1];
+    partnerData[idx].logo=fname;
+    markPartnerChanged();renderPartners();
+  };
+  reader.readAsDataURL(file);
+}
+function markPartnerChanged(){pendingChanges['_partners']='1';updateBadge();}
+function addPartner(){partnerData.push({name:'שותף חדש',nameEn:'New Partner',link:'#',logo:''});pendingChanges['_partners']='1';renderPartners();updateBadge();}
+
 // IMAGE HANDLING
 function handleImg(input,path,previewId){
   const file=input.files[0];if(!file)return;
@@ -670,6 +759,10 @@ function applyAllChanges(){
   if(pendingChanges['_media']){
     rebuildMediaSection();
   }
+  // Partners
+  if(pendingChanges['_partners']){
+    rebuildPartners();
+  }
 }
 
 function rebuildMediaSection(){
@@ -700,6 +793,20 @@ function rebuildMediaSection(){
             <p><span class="he-only">${s.descHe}</span><span class="en-only">${s.descEn}</span></p>
           </div>
         </a>`).join('\n');
+  }
+}
+
+function rebuildPartners(){
+  const grid=siteDoc.querySelector('.partners-grid');
+  if(grid){
+    grid.innerHTML=partnerData.map(p=>`
+      <a href="${p.link}" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
+        <div style="width:100px; height:100px; border-radius:50%; background:var(--light-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+          ${p.logo?'<img src="'+p.logo+'" alt="'+p.name+'" style="width:70px; height:70px; object-fit:contain;">':''}
+        </div>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">${p.name}</span>
+        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">${p.nameEn}</span>
+      </a>`).join('\n');
   }
 }
 
