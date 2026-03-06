@@ -245,6 +245,25 @@
       animation: none;
     }
 
+    .btn-contact-header {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--gold);
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .btn-contact-header:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
     .mobile-toggle {
       display: none;
       flex-direction: column;
@@ -496,13 +515,17 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: var(--transition);
-      /* no blur */
+      animation: kenBurns 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes kenBurns {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.12) translate(-2%, -1%); }
     }
 
     .program-card:hover .program-card-img img {
+      animation-play-state: paused;
       transform: scale(1.05);
-      /* no blur */
     }
 
     .program-card-overlay {
@@ -2097,6 +2120,10 @@
       </nav>
       <!-- LEFT SIDE (in RTL): Contact + Lang + Hamburger -->
       <div class="header-actions">
+        <a href="#" class="btn-contact-header" onclick="navigateTo('contact'); return false;">
+          <span class="he-only">צרו קשר</span>
+          <span class="en-only">Contact</span>
+        </a>
         <button class="lang-toggle" onclick="toggleLang()" title="Switch language">
           <span class="he-only">🇺🇸</span>
           <span class="en-only">🇮🇱</span>
@@ -2559,10 +2586,6 @@
         <span class="he-only">תחומי פעילות</span>
         <span class="en-only">Areas of Activity</span>
       </h2>
-      <p class="section-subtitle">
-        <span class="he-only">6 תוכניות ליווי המכסות את כל מעגל החיים של הלוחם החרדי</span>
-        <span class="en-only">6 support programs covering the entire lifecycle of the Haredi warrior</span>
-      </p>
 
       <!-- Program 1 -->
       <div class="program-detail-item fade-in">
