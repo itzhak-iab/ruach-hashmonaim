@@ -77,6 +77,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .save-status.error { display: block; background: #f8d7da; color: #721c24; }
 .save-status.loading { display: block; background: #d1ecf1; color: #0c5460; }
 
+/* SAVE LOG */
+.save-log { background: #1a1a2e; color: #0f0; border-radius: 8px; padding: 16px; margin: 16px 24px; font-family: 'Courier New', monospace; font-size: 0.85rem; max-height: 200px; overflow-y: auto; display: none; direction: ltr; text-align: left; white-space: pre-wrap; word-break: break-word; }
+.save-log.active { display: block; }
+
+/* ANALYTICS DASHBOARD */
+.dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.dashboard-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+.dashboard-card .card-icon { font-size: 2rem; margin-bottom: 8px; }
+.dashboard-card .card-label { font-size: 0.85rem; color: #666; margin-bottom: 8px; }
+.dashboard-card .card-value { font-size: 1.8rem; font-weight: 700; color: #1a8a9a; }
+.dashboard-card .card-status { font-size: 0.75rem; color: #999; margin-top: 8px; }
+
 /* SETUP */
 .setup-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
 .setup-box h3 { color: #856404; margin-bottom: 8px; }
@@ -149,9 +161,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
   </div>
 
   <div class="admin-tabs">
-    <div class="admin-tab active" data-tab="hero" onclick="switchTab('hero')">דף הבית</div>
+    <div class="admin-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">דשבורד</div>
+    <div class="admin-tab" data-tab="hero" onclick="switchTab('hero')">דף הבית</div>
     <div class="admin-tab" data-tab="about" onclick="switchTab('about')">אודות</div>
-    <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תוכניות</div>
+    <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תחומי פעילות</div>
     <div class="admin-tab" data-tab="media" onclick="switchTab('media')">מהנעשה בחטיבה</div>
     <div class="admin-tab" data-tab="partners" onclick="switchTab('partners')">השותפים שלנו</div>
     <div class="admin-tab" data-tab="donate" onclick="switchTab('donate')">תרומות</div>
@@ -161,8 +174,69 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 
   <div class="admin-content">
 
+    <!-- DASHBOARD -->
+    <div class="admin-section active" id="section-dashboard">
+      <div class="edit-card">
+        <h3>Google Analytics</h3>
+        <div class="setup-box">
+          <h3>הגדרת Google Analytics (GA4)</h3>
+          <p>כדי לראות נתונים של ביקורים, צפו בסרטון הוראה ב-YouTube או בעקבו אחרי השלבים:</p>
+          <p style="font-size: 0.85rem; color: #856404; margin-bottom: 8px;"><strong>שלבים:</strong> 1. עברו ל-<a href="https://analytics.google.com" target="_blank" style="color: #856404;">Google Analytics</a> 2. בחרו את הנכס שלכם (Property) 3. בחלק התחתון בשמאל, בחרו "Admin" 4. בעמודת "Property" בחרו "Data Streams" 5. בחרו את ה-Web Stream 6. העתיקו את ה-"Measurement ID" שמתחיל ב-"G-"</p>
+          <div class="edit-field">
+            <label>Measurement ID (אופציונלי)</label>
+            <input type="text" id="gaMeasurementId" dir="ltr" placeholder="G-XXXXXXXXXX">
+          </div>
+          <button class="btn btn-save" style="margin-top: 8px;" onclick="saveGAId()">שמור Measurement ID</button>
+          <button class="btn" style="background: #27ae60; color: #fff; margin-right: 8px; margin-top: 8px;" onclick="window.open('https://analytics.google.com', '_blank')">פתח Google Analytics</button>
+        </div>
+      </div>
+
+      <div class="edit-card">
+        <h3>דשבורד נתונים</h3>
+        <div class="dashboard-container">
+          <div class="dashboard-card">
+            <div class="card-icon">👥</div>
+            <div class="card-label">כניסות</div>
+            <div class="card-value" id="ga-visits">-</div>
+            <div class="card-status">מהשבוע</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">🔗</div>
+            <div class="card-label">משתמשים ייחודיים</div>
+            <div class="card-value" id="ga-users">-</div>
+            <div class="card-status">מהשבוע</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">⏱️</div>
+            <div class="card-label">זמן ממוצע באתר</div>
+            <div class="card-value" id="ga-avgTime">-</div>
+            <div class="card-status">בשניות</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">💝</div>
+            <div class="card-label">צפיות בעמוד תרומה</div>
+            <div class="card-value" id="ga-donateViews">-</div>
+            <div class="card-status">מהשבוע</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">📱</div>
+            <div class="card-label">כניסות ממובייל</div>
+            <div class="card-value" id="ga-mobilePercent">-</div>
+            <div class="card-status">אחוז</div>
+          </div>
+        </div>
+        <p style="color: #666; font-size: 0.9rem; text-align: center; margin-top: 16px;" id="ga-status">הערה: הנתונים מעדכנים בעיכוב של 24-48 שעות מ-Google Analytics</p>
+      </div>
+    </div>
+
+    <!-- SAVE LOG -->
+    <div style="position: relative;">
+      <div id="saveLog" class="save-log"></div>
+      <button class="btn" style="background: #666; color: #fff; position: absolute; top: 8px; left: 24px; padding: 6px 12px; font-size: 0.8rem; display: none;" id="clearLogBtn" onclick="clearSaveLog(); this.style.display='none';">מחק לוג</button>
+    </div>
+
     <!-- HERO -->
-    <div class="admin-section active" id="section-hero">
+    <div class="admin-section" id="section-hero">
       <div class="edit-card">
         <h3>כותרת ראשית (Hero)</h3>
         <div class="edit-field">
@@ -261,7 +335,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <!-- PROGRAMS (with inline images) -->
     <div class="admin-section" id="section-programs">
       <div id="programsContainer"></div>
-      <button class="btn-add" onclick="addProgram()">+ הוסף תוכנית חדשה</button>
+      <button class="btn-add" onclick="addProgram()">+ הוסף תחום פעילות חדש</button>
     </div>
 
     <!-- MEDIA -->
@@ -505,6 +579,7 @@ async function loadSite() {
 
 function populate() {
   if(!siteDoc) return;
+  try {
   // Hero
   setVal('hero-designation-he', txt('.hero-designation .he-only'));
   setVal('hero-designation-en', txt('.hero-designation .en-only'));
@@ -628,6 +703,10 @@ function populate() {
 
   // Listeners
   document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
+  } catch(e) {
+    console.error('Error in populate():', e);
+    showStatus('שגיאה בטעינת הנתונים: ' + e.message, 'error');
+  }
 }
 
 function renderAboutSubsections(){
@@ -681,7 +760,7 @@ function renderPrograms(){
   const c=document.getElementById('programsContainer');
   c.innerHTML=programData.map((p,i)=>`
   <div class="edit-card">
-    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${p.nameHe||'תוכנית '+(i+1)}
+    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${p.nameHe||'תחום פעילות '+(i+1)}
       <button class="btn-remove" style="margin-right:auto;" onclick="event.stopPropagation();removeProgram(${i})">מחק</button>
     </h3>
     <div class="collapsible-body">
@@ -734,9 +813,9 @@ function addProgramImage(progIdx,input){
   reader.readAsDataURL(file);
 }
 
-function removeProgram(i){if(confirm('למחוק את התוכנית?')){programData.splice(i,1);pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();}}
+function removeProgram(i){if(confirm('למחוק את תחום הפעילות?')){programData.splice(i,1);pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();}}
 function addProgram(){
-  programData.push({nameHe:'תוכנית חדשה',nameEn:'New Program',descHe:'',descEn:'',images:[],cardImage:'',logo:''});
+  programData.push({nameHe:'תחום פעילות חדש',nameEn:'New Program',descHe:'',descEn:'',images:[],cardImage:'',logo:''});
   pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();
 }
 
@@ -1017,32 +1096,61 @@ function handleImg(input,path,previewId){
 
 function markChanged(){pendingChanges['_media']='1';updateBadge();}
 
+// SAVE LOG FUNCTIONS
+function initSaveLog(){
+  const logEl=document.getElementById('saveLog');
+  logEl.innerHTML='';
+  logEl.classList.add('active');
+  document.getElementById('clearLogBtn').style.display='inline-block';
+  return logEl;
+}
+function addSaveLog(msg){
+  const logEl=document.getElementById('saveLog');
+  const timestamp=new Date().toLocaleTimeString('he-IL');
+  logEl.textContent+='['+timestamp+'] '+msg+'\n';
+  logEl.scrollTop=logEl.scrollHeight;
+}
+
 // SAVE
 async function saveAllChanges(){
   const token=localStorage.getItem('github_token');
   if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token - הזן token בהגדרות','error');return;}
+
   const btn=document.getElementById('saveBtn');
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span> שומר...';
   showStatus('שומר...','loading');
 
+  const oldSHA=siteSHA;
+  initSaveLog();
+  addSaveLog('מתחיל שמירה...');
+
   try {
+    addSaveLog('מחיל שינויים על ה-DOM...');
     applyAllChanges();
+    addSaveLog('✓ שינויים הוחלו בהצלחה');
+
+    addSaveLog('מקודד HTML ל-Base64...');
     const newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
     const b64Content=utf8ToBase64(newHTML);
+    addSaveLog('✓ גודל קובץ: '+newHTML.length+' תווים');
 
     // Try to push, auto-retry on SHA conflict (409)
     let pushSuccess=false;
     for(let attempt=0;attempt<3;attempt++){
       try{
+        addSaveLog('שולח ל-GitHub (ניסיון '+(attempt+1)+')...');
         await pushFile('index.html',b64Content,siteSHA,'Update via admin panel');
+        addSaveLog('✓ שליחה הצליחה');
         pushSuccess=true;
         break;
       }catch(pushErr){
         if(pushErr.message&&(pushErr.message.includes('409')||pushErr.message.includes('conflict')||pushErr.message.includes('does not match'))){
+          addSaveLog('⚠️ התנגשות גרסאות - מרענן גרסה...');
           showStatus('מרענן גרסה... (ניסיון '+(attempt+2)+')','loading');
           const freshR=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
           if(!freshR.ok)throw new Error('שגיאה בקריאת הגרסה: HTTP '+freshR.status);
           const freshD=await freshR.json();
+          addSaveLog('SHA חדש: '+freshD.sha.substring(0,10));
           siteSHA=freshD.sha;
           // Re-apply changes on fresh version
           const freshHTML=new TextDecoder().decode(Uint8Array.from(atob(freshD.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
@@ -1052,6 +1160,7 @@ async function saveAllChanges(){
           const freshB64=utf8ToBase64(freshNewHTML);
           try{
             await pushFile('index.html',freshB64,siteSHA,'Update via admin panel');
+            addSaveLog('✓ שליחה הצליחה לאחר רענון');
             pushSuccess=true;break;
           }catch(e2){
             if(attempt===2)throw e2;
@@ -1065,21 +1174,38 @@ async function saveAllChanges(){
     }
     if(!pushSuccess)throw new Error('לא הצלחנו לשמור אחרי 3 ניסיונות');
 
-    // Refresh SHA after successful push
+    // Verify SHA changed after successful push
+    addSaveLog('מאמת שינוי גרסה...');
     const r=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
-    const d=await r.json();siteSHA=d.sha;
+    const d=await r.json();
+    const newSHA=d.sha;
+    addSaveLog('SHA ישן: '+oldSHA.substring(0,10));
+    addSaveLog('SHA חדש: '+newSHA.substring(0,10));
+    if(newSHA===oldSHA){
+      addSaveLog('⚠️ אזהרה: SHA לא השתנה!');
+    } else {
+      addSaveLog('✓ SHA השתנה בהצלחה');
+    }
+    siteSHA=newSHA;
 
     // Upload images
-    for(const[path,b64] of Object.entries(pendingImages)){
-      let sha=null;
-      try{const x=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});if(x.ok){sha=(await x.json()).sha;}}catch(e){}
-      await pushFile(path,b64,sha,'Upload '+path);
+    if(Object.keys(pendingImages).length>0){
+      addSaveLog('מעלה '+Object.keys(pendingImages).length+' תמונות...');
+      for(const[path,b64] of Object.entries(pendingImages)){
+        let sha=null;
+        try{const x=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});if(x.ok){sha=(await x.json()).sha;}}catch(e){}
+        await pushFile(path,b64,sha,'Upload '+path);
+        addSaveLog('  ✓ '+path);
+      }
+      addSaveLog('✓ תמונות הועלו בהצלחה');
     }
 
     pendingChanges={};pendingImages={};updateBadge();
+    addSaveLog('הצלחה! האתר יתעדכן תוך 1-2 דקות.');
     showStatus('נשמר בהצלחה! האתר יתעדכן תוך 1-2 דקות.','success');
   } catch(e) {
     console.error('Save error:',e);
+    addSaveLog('❌ שגיאה: '+e.message);
     let msg=e.message||'שגיאה לא ידועה';
     if(msg.includes('401')||msg.includes('Bad credentials'))msg='GitHub Token לא תקין. עדכנו בהגדרות.';
     else if(msg.includes('403'))msg='אין הרשאות לשמור. בדקו שה-Token מאפשר repo access.';
@@ -1091,14 +1217,20 @@ async function saveAllChanges(){
 
 function applyAllChanges(){
   // Hero
-  applyText('.hero-designation .he-only','hero-designation-he');
-  applyText('.hero-designation .en-only','hero-designation-en');
-  applyText('.hero-title .he-only','hero-title-he');
-  applyText('.hero-title .en-only','hero-title-en');
-  applyHTML('.hero-subtitle .he-only','hero-subtitle-he');
-  applyHTML('.hero-subtitle .en-only','hero-subtitle-en');
+  try {
+    applyText('.hero-designation .he-only','hero-designation-he');
+    applyText('.hero-designation .en-only','hero-designation-en');
+    applyText('.hero-title .he-only','hero-title-he');
+    applyText('.hero-title .en-only','hero-title-en');
+    applyHTML('.hero-subtitle .he-only','hero-subtitle-he');
+    applyHTML('.hero-subtitle .en-only','hero-subtitle-en');
+  } catch(e) {
+    console.error('Error applying hero changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Hero: '+e.message);
+  }
 
   // About page
+  try {
   const aboutPage=siteDoc.getElementById('page-about');
   if(aboutPage){
     if(pendingChanges['about-title-he']){const e=aboutPage.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['about-title-he'];}
@@ -1141,19 +1273,34 @@ function applyAllChanges(){
       }
     }
   }
+  } catch(e) {
+    console.error('Error applying about changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון About: '+e.message);
+  }
   // About on homepage - subtitle
+  try {
   const aboutHome=siteDoc.querySelector('.about-section');
   if(aboutHome){
     if(pendingChanges['about-subtitle-he']){const e=aboutHome.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['about-subtitle-he'];}
     if(pendingChanges['about-subtitle-en']){const e=aboutHome.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['about-subtitle-en'];}
   }
+  } catch(e) {
+    console.error('Error applying about homepage subtitle:', e);
+    addSaveLog('⚠️ שגיאה בעדכון About Homepage: '+e.message);
+  }
 
   // Meta
+  try {
   if(pendingChanges['site-title'])siteDoc.querySelector('title').textContent=pendingChanges['site-title'];
   if(pendingChanges['meta-desc']){const m=siteDoc.querySelector('meta[name="description"]');if(m)m.setAttribute('content',pendingChanges['meta-desc']);}
   if(pendingChanges['footer-text-he']){const f=siteDoc.querySelector('.footer-bottom .he-only');if(f)f.textContent=pendingChanges['footer-text-he'];}
+  } catch(e) {
+    console.error('Error applying meta changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Meta: '+e.message);
+  }
 
   // Programs - text fields + structural rebuild
+  try {
   const details=siteDoc.querySelectorAll('.program-detail-item');
   const cards=siteDoc.querySelectorAll('.program-card');
   // Update current program fields from admin inputs
@@ -1181,58 +1328,89 @@ function applyAllChanges(){
   });
 
   // Media - rebuild video cards if changed
-  if(pendingChanges['_media']){
-    rebuildMediaSection();
+  try {
+    if(pendingChanges['_media']){
+      rebuildMediaSection();
+    }
+  } catch(e) {
+    console.error('Error applying media changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Media: '+e.message);
   }
+
   // Partners
-  if(pendingChanges['_partners']){
-    rebuildPartners();
+  try {
+    if(pendingChanges['_partners']){
+      rebuildPartners();
+    }
+  } catch(e) {
+    console.error('Error applying partners changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Partners: '+e.message);
   }
+
   // Contact
-  if(pendingChanges['_contact']||pendingChanges['contact-page-title-he']||pendingChanges['contact-page-title-en']||pendingChanges['contact-page-subtitle-he']||pendingChanges['contact-page-subtitle-en']||pendingChanges['contact-form-btn-he']||pendingChanges['contact-form-btn-en']){
-    rebuildContact();
+  try {
+    if(pendingChanges['_contact']||pendingChanges['contact-page-title-he']||pendingChanges['contact-page-title-en']||pendingChanges['contact-page-subtitle-he']||pendingChanges['contact-page-subtitle-en']||pendingChanges['contact-form-btn-he']||pendingChanges['contact-form-btn-en']){
+      rebuildContact();
+    }
+  } catch(e) {
+    console.error('Error applying contact changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Contact: '+e.message);
   }
 
   // CTA banner - target the h2 inside section.cta-banner
-  const ctaSec = siteDoc.querySelector('section.cta-banner');
-  if(ctaSec) {
-    const ctaH2 = ctaSec.querySelector('h2');
-    if(ctaH2) {
-      if(pendingChanges['cta-text-he']){const e=ctaH2.querySelector('.he-only');if(e)e.textContent=pendingChanges['cta-text-he'];}
-      if(pendingChanges['cta-text-en']){const e=ctaH2.querySelector('.en-only');if(e)e.textContent=pendingChanges['cta-text-en'];}
+  try {
+    const ctaSec = siteDoc.querySelector('section.cta-banner');
+    if(ctaSec) {
+      const ctaH2 = ctaSec.querySelector('h2');
+      if(ctaH2) {
+        if(pendingChanges['cta-text-he']){const e=ctaH2.querySelector('.he-only');if(e)e.textContent=pendingChanges['cta-text-he'];}
+        if(pendingChanges['cta-text-en']){const e=ctaH2.querySelector('.en-only');if(e)e.textContent=pendingChanges['cta-text-en'];}
+      }
     }
+  } catch(e) {
+    console.error('Error applying CTA changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון CTA Banner: '+e.message);
   }
 
   // Donate section
-  const donateSection = siteDoc.getElementById('page-donate');
-  if(donateSection) {
-    if(pendingChanges['donate-title-he']){const e=donateSection.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['donate-title-he'];}
-    if(pendingChanges['donate-title-en']){const e=donateSection.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['donate-title-en'];}
-    if(pendingChanges['donate-subtitle-he']){const e=donateSection.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['donate-subtitle-he'];}
-    if(pendingChanges['donate-subtitle-en']){const e=donateSection.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['donate-subtitle-en'];}
-    // Links
-    if(pendingChanges['donate-link-israel-dorachva']){const a=donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');if(a)a.setAttribute('href',pendingChanges['donate-link-israel-dorachva']);}
-    if(pendingChanges['donate-link-usa']){const a=donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');if(a)a.setAttribute('href',pendingChanges['donate-link-usa']);}
-    if(pendingChanges['donate-link-canada']){const a=donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');if(a)a.setAttribute('href',pendingChanges['donate-link-canada']);}
-    // Note
-    if(pendingChanges['donate-note-he']){const e=donateSection.querySelector('.donate-note .he-only');if(e)e.textContent=pendingChanges['donate-note-he'];}
-    if(pendingChanges['donate-note-en']){const e=donateSection.querySelector('.donate-note .en-only');if(e)e.textContent=pendingChanges['donate-note-en'];}
-    // Bank details rebuild
-    if(pendingChanges['bank-org-name']||pendingChanges['bank-details-he']||pendingChanges['bank-account']){
-      const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'רוח החשמונאים (ע״ר)';
-      const bankInfo = pendingChanges['bank-details-he'] || document.querySelector('[data-field="bank-details-he"]')?.value || '';
-      const account = pendingChanges['bank-account'] || document.querySelector('[data-field="bank-account"]')?.value || '';
-      donateSection.querySelectorAll('span.he-only').forEach(sp => {
-        if(sp.textContent.includes('העברה בנקאית')) {
-          sp.textContent = ' העברה בנקאית: ״' + orgName + '״ · ' + bankInfo + ' · חשבון: ' + account;
-        }
-      });
-      donateSection.querySelectorAll('span.en-only').forEach(sp => {
-        if(sp.textContent.includes('Bank Transfer')) {
-          sp.textContent = ' Bank Transfer: "' + orgName.replace('(ע״ר)','(R.A.)') + '" · ' + bankInfo + ' · Account: ' + account;
-        }
-      });
+  try {
+    const donateSection = siteDoc.getElementById('page-donate');
+    if(donateSection) {
+      if(pendingChanges['donate-title-he']){const e=donateSection.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['donate-title-he'];}
+      if(pendingChanges['donate-title-en']){const e=donateSection.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['donate-title-en'];}
+      if(pendingChanges['donate-subtitle-he']){const e=donateSection.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['donate-subtitle-he'];}
+      if(pendingChanges['donate-subtitle-en']){const e=donateSection.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['donate-subtitle-en'];}
+      // Links
+      if(pendingChanges['donate-link-israel-dorachva']){const a=donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');if(a)a.setAttribute('href',pendingChanges['donate-link-israel-dorachva']);}
+      if(pendingChanges['donate-link-usa']){const a=donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');if(a)a.setAttribute('href',pendingChanges['donate-link-usa']);}
+      if(pendingChanges['donate-link-canada']){const a=donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');if(a)a.setAttribute('href',pendingChanges['donate-link-canada']);}
+      // Note
+      if(pendingChanges['donate-note-he']){const e=donateSection.querySelector('.donate-note .he-only');if(e)e.textContent=pendingChanges['donate-note-he'];}
+      if(pendingChanges['donate-note-en']){const e=donateSection.querySelector('.donate-note .en-only');if(e)e.textContent=pendingChanges['donate-note-en'];}
+      // Bank details rebuild
+      if(pendingChanges['bank-org-name']||pendingChanges['bank-details-he']||pendingChanges['bank-account']){
+        const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'רוח החשמונאים (ע״ר)';
+        const bankInfo = pendingChanges['bank-details-he'] || document.querySelector('[data-field="bank-details-he"]')?.value || '';
+        const account = pendingChanges['bank-account'] || document.querySelector('[data-field="bank-account"]')?.value || '';
+        donateSection.querySelectorAll('span.he-only').forEach(sp => {
+          if(sp.textContent.includes('העברה בנקאית')) {
+            sp.textContent = ' העברה בנקאית: ״' + orgName + '״ · ' + bankInfo + ' · חשבון: ' + account;
+          }
+        });
+        donateSection.querySelectorAll('span.en-only').forEach(sp => {
+          if(sp.textContent.includes('Bank Transfer')) {
+            sp.textContent = ' Bank Transfer: "' + orgName.replace('(ע״ר)','(R.A.)') + '" · ' + bankInfo + ' · Account: ' + account;
+          }
+        });
+      }
     }
+  } catch(e) {
+    console.error('Error applying donate changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Donate: '+e.message);
+  }
+  } catch(e) {
+    console.error('Error in applyAllChanges:', e);
+    addSaveLog('❌ שגיאה כללית בעדכון: '+e.message);
   }
 }
 
@@ -1564,7 +1742,35 @@ async function testSave(){
   diagLog('\n=== סיום בדיקה ===');
 }
 
+// ANALYTICS / GOOGLE ANALYTICS
+function saveGAId(){
+  const gaId=document.getElementById('gaMeasurementId').value;
+  if(gaId&&gaId.startsWith('G-')){
+    localStorage.setItem('ga_measurement_id',gaId);
+    showStatus('Measurement ID נשמר! הנתונים יעדכנו בעוד 24-48 שעות.','success');
+    setTimeout(()=>loadGAData(),1000);
+  }else{
+    showStatus('Measurement ID לא תקין. חייב להתחיל ב-G-','error');
+  }
+}
+
+function loadGAData(){
+  const gaId=localStorage.getItem('ga_measurement_id');
+  if(gaId){
+    document.getElementById('gaMeasurementId').value=gaId;
+    document.getElementById('ga-status').textContent='Measurement ID: '+gaId+' ✓ (נתונים מעדכנים בעיכוב של 24-48 שעות)';
+  }
+}
+
+// SAVE LOG CLEAR BUTTON
+function clearSaveLog(){
+  document.getElementById('saveLog').innerHTML='';
+  document.getElementById('saveLog').classList.remove('active');
+}
+
 if(sessionStorage.getItem('admin_auth')==='true') showAdmin();
+// Load GA data on init
+setTimeout(()=>{if(sessionStorage.getItem('admin_auth')==='true')loadGAData();},500);
 </script>
 </body>
 </html>
