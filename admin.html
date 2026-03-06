@@ -1481,10 +1481,6 @@ function applyAllChanges(){
     console.error('Error applying donate changes:', e);
     addSaveLog('⚠️ שגיאה בעדכון Donate: '+e.message);
   }
-  } catch(e) {
-    console.error('Error in applyAllChanges:', e);
-    addSaveLog('❌ שגיאה כללית בעדכון: '+e.message);
-  }
 }
 
 function rebuildMediaSection(){
