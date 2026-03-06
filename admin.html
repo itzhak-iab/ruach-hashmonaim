@@ -1089,6 +1089,15 @@ function handleImg(input,path,previewId){
     pendingImages[path]=e.target.result.split(',')[1];
     const prev=document.getElementById(previewId);
     if(prev)prev.src=e.target.result;
+    // If this is a program logo, update programData and mark structural change
+    const logoMatch=path.match(/images\/prog-(\d+)-logo\./);
+    if(logoMatch){
+      const idx=parseInt(logoMatch[1]);
+      if(programData[idx]){
+        programData[idx].logo=path;
+        pendingChanges['_programs_structural']='true';
+      }
+    }
     updateBadge();
   };
   reader.readAsDataURL(file);
@@ -1326,6 +1335,70 @@ function applyAllChanges(){
       if(pendingChanges[`prog-${i}-desc-en`]){const e=cards[i].querySelector('.program-card-desc .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-en`];}
     }
   });
+
+  // Structural rebuild: update images/logos in DOM when changed
+  if(pendingChanges['_programs_structural']){
+    addSaveLog('מעדכן מבנה תוכניות (תמונות/לוגואים)...');
+    programData.forEach((p,i)=>{
+      // Update detail section images
+      if(details[i]){
+        const imgContainer=details[i].querySelector('.program-detail-img');
+        if(imgContainer && p.images.length>0){
+          imgContainer.innerHTML='';
+          p.images.forEach(src=>{
+            const img=siteDoc.createElement('img');
+            img.setAttribute('src',src);
+            img.setAttribute('alt',p.nameHe);
+            imgContainer.appendChild(img);
+          });
+        }
+        // Update logo in detail
+        if(p.logo){
+          const iconEl=details[i].querySelector('.program-icon');
+          if(iconEl){
+            iconEl.innerHTML='<img src=\"'+p.logo+'\" alt=\"לוגו\" style=\"width:40px;height:40px;object-fit:contain;vertical-align:middle;\">';
+          }
+        }
+      }
+      // Update card images
+      if(cards[i]){
+        const cardImgDiv=cards[i].querySelector('.program-card-img');
+        if(cardImgDiv){
+          // Remove old images (keep overlay)
+          const overlay=cardImgDiv.querySelector('.program-card-overlay');
+          const existingImgs=cardImgDiv.querySelectorAll('img:not(.program-card-overlay img)');
+          existingImgs.forEach(img=>img.remove());
+          // Add new image(s)
+          const imgSources=p.images.length>0?p.images:(p.cardImage?[p.cardImage]:[]);
+          if(imgSources.length===1){
+            const img=siteDoc.createElement('img');
+            img.setAttribute('src',imgSources[0]);
+            img.setAttribute('alt',p.nameHe);
+            cardImgDiv.insertBefore(img,overlay);
+          } else if(imgSources.length>1){
+            cardImgDiv.classList.add('program-card-slideshow');
+            imgSources.forEach((src,si)=>{
+              const img=siteDoc.createElement('img');
+              img.setAttribute('src',src);
+              img.setAttribute('alt',p.nameHe);
+              img.classList.add('slide');
+              if(si===0)img.classList.add('active');
+              cardImgDiv.insertBefore(img,overlay);
+            });
+          }
+          // Update logo overlay
+          if(p.logo && overlay){
+            overlay.innerHTML='<img src=\"'+p.logo+'\" alt=\"לוגו '+p.nameHe+'\" style=\"width:36px;height:36px;object-fit:contain;\">';
+          }
+        }
+      }
+    });
+    addSaveLog('✓ מבנה תוכניות עודכן');
+  }
+  } catch(e) {
+    console.error('Error applying programs changes:', e);
+    addSaveLog('⚠️ שגיאה בעדכון Programs: '+e.message);
+  }
 
   // Media - rebuild video cards if changed
   try {
