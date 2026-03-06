@@ -1847,6 +1847,185 @@
         padding: 16px 20px;
       }
     }
+
+    /* ===== ENHANCED VISUAL TRANSITIONS ===== */
+    * { transition: color 0.2s, background-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+
+    /* ===== PROGRAM CARDS: HOVER LIFT EFFECT ===== */
+    .program-card {
+      overflow: hidden;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    }
+
+    .program-card-img img {
+      transition: transform 0.5s ease;
+    }
+
+    .program-card:hover .program-card-img img {
+      transform: scale(1.08);
+    }
+
+    /* ===== STATS COUNTER: GLOW EFFECT ===== */
+    .stat-number {
+      text-shadow: 0 0 20px rgba(26,138,154,0.3);
+    }
+
+    /* ===== CTA BANNER: ANIMATED GRADIENT ===== */
+    .cta-banner {
+      background: linear-gradient(-45deg, #14707d, #1a8a9a, #c8a84c, #a08230);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ===== NAVIGATION: ACTIVE STATE HIGHLIGHTING ===== */
+    .nav-links a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -4px;
+      height: 2px;
+      width: 100%;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    /* ===== BUTTONS: ENHANCED HOVER STATES ===== */
+    .hero-cta,
+    .btn-donate-program,
+    button,
+    .btn {
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(26,138,154,0.3);
+    }
+
+    .btn-donate-program:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    /* ===== PARTNERS SECTION: LOGO HOVER EFFECT ===== */
+    .partner-logo img {
+      filter: grayscale(30%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .partner-logo:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    /* ===== FOOTER LINKS: HOVER COLOR TRANSITION ===== */
+    footer a,
+    .footer-link {
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover,
+    .footer-link:hover {
+      color: var(--gold);
+    }
+
+    /* ===== DONATE PANEL: ACTIVE TAB INDICATOR ===== */
+    .donate-country-btn {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .donate-country-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    /* ===== SECTION TITLE DECORATION ===== */
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== HEADER SCROLL STATE ===== */
+    .header {
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    /* ===== SCROLL-TO-TOP BUTTON ===== */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 999;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      font-weight: bold;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #scrollTopBtn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      background: var(--gold);
+    }
+
+    #scrollTopBtn.show {
+      display: flex;
+    }
+
+    /* ===== HERO PARALLAX OPTIMIZATION ===== */
+    .hero-bg img {
+      will-change: transform;
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -3431,11 +3610,106 @@
       }, 5000);
     }
 
+    // ===== PARALLAX EFFECT ON HERO IMAGE =====
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero-bg img');
+      if(hero) {
+        hero.style.transform = 'translateY(' + (window.scrollY * 0.3) + 'px)';
+      }
+    });
+
+    // ===== ENHANCED HEADER SCROLL STATE =====
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if(header) {
+        if(window.scrollY > 100) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+    });
+
+    // ===== SCROLL-TO-TOP BUTTON =====
+    function initScrollTopButton() {
+      // Create button if it doesn't exist
+      if (!document.getElementById('scrollTopBtn')) {
+        const btn = document.createElement('button');
+        btn.id = 'scrollTopBtn';
+        btn.innerHTML = '↑';
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+        document.body.appendChild(btn);
+      }
+
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      if (!scrollBtn) return;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollBtn.classList.add('show');
+        } else {
+          scrollBtn.classList.remove('show');
+        }
+      });
+    }
+
+    // ===== ENHANCED COUNTER ANIMATION WITH EASING =====
+    function animateCountersEnhanced() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+            entry.target.classList.add('animated');
+            const target = parseInt(entry.target.dataset.target);
+            let current = 0;
+            const duration = 1000; // 1 second animation
+            const step = target / 60;
+            const startTime = Date.now();
+
+            const timer = setInterval(() => {
+              const elapsed = Date.now() - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              // Ease-out cubic for smooth deceleration
+              const easeProgress = 1 - Math.pow(1 - progress, 3);
+              current = target * easeProgress;
+
+              if (progress >= 1) {
+                current = target;
+                clearInterval(timer);
+              }
+
+              entry.target.textContent = target >= 100
+                ? Math.floor(current).toLocaleString() + '+'
+                : Math.floor(current);
+            }, 25);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+    }
+
+    // ===== STAGGERED FADE-IN ANIMATION =====
+    function observeFadeInsEnhanced() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            // Apply staggered delay
+            const delay = (index % 3) * 0.1;
+            entry.target.style.transitionDelay = delay + 's';
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el));
+    }
+
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
-      observeFadeIns();
-      animateCounters();
+      observeFadeInsEnhanced();
+      animateCountersEnhanced();
       initAboutHeroRotation();
+      initScrollTopButton();
     });
   </script>
 
