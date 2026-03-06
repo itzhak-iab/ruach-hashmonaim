@@ -1702,7 +1702,7 @@
     /* About Hero Section Styles */
     .about-hero {
       position: relative;
-      min-height: 70vh;
+      min-height: 80vh;
       overflow: hidden;
       width: 100%;
       margin: 0;
@@ -1732,32 +1732,15 @@
       animation: aboutFade 20s ease-in-out infinite;
     }
 
-    .about-hero-bg img:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .about-hero-bg img:nth-child(2) {
-      animation-delay: 5s;
-    }
-
-    .about-hero-bg img:nth-child(3) {
-      animation-delay: 10s;
-    }
-
-    .about-hero-bg img:nth-child(4) {
-      animation-delay: 15s;
-    }
+    .about-hero-bg img:nth-child(1) { animation-delay: 0s; }
+    .about-hero-bg img:nth-child(2) { animation-delay: 5s; }
+    .about-hero-bg img:nth-child(3) { animation-delay: 10s; }
+    .about-hero-bg img:nth-child(4) { animation-delay: 15s; }
 
     @keyframes aboutFade {
-      0%, 100% {
-        opacity: 0;
-      }
-      10%, 40% {
-        opacity: 1;
-      }
-      50%, 100% {
-        opacity: 0;
-      }
+      0%, 100% { opacity: 0; }
+      10%, 40% { opacity: 1; }
+      50%, 100% { opacity: 0; }
     }
 
     .about-hero-overlay {
@@ -1766,7 +1749,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.4) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.55) 100%);
       z-index: 2;
     }
 
@@ -1775,55 +1758,93 @@
       z-index: 3;
       text-align: center;
       color: var(--white);
-      max-width: 800px;
-      padding: 40px 20px;
+      max-width: 850px;
+      padding: 60px 24px;
       margin: 0 auto;
     }
 
     .about-hero-content h2 {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 700;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       letter-spacing: -0.5px;
       line-height: 1.2;
     }
 
-    .about-hero-content p {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      margin-bottom: 32px;
+    .about-hero-content .about-text-block {
+      font-size: 1.1rem;
+      line-height: 1.9;
       font-weight: 300;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
-    .about-hero-content .btn-learn-more {
+    .about-hero-content .about-vision {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      font-weight: 500;
+      margin: 28px 0;
+      padding: 20px 28px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      border-right: 4px solid var(--gold);
+      text-align: center;
+    }
+
+    body.en .about-hero-content .about-vision {
+      border-right: none;
+      border-left: 4px solid var(--gold);
+    }
+
+    .about-hero-content .about-more {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease, opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .about-hero-content .about-more.open {
+      max-height: 600px;
+      opacity: 1;
+    }
+
+    .about-hero-content .btn-read-more {
       display: inline-block;
-      padding: 14px 32px;
+      padding: 12px 36px;
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       color: var(--white);
       text-decoration: none;
       border-radius: var(--radius);
       font-weight: 600;
+      font-size: 1rem;
       transition: var(--transition);
-      border: 2px solid transparent;
+      border: none;
+      cursor: pointer;
+      margin-top: 24px;
     }
 
-    .about-hero-content .btn-learn-more:hover {
+    .about-hero-content .btn-read-more:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(200,168,76,0.4);
     }
 
     @media (max-width: 768px) {
       .about-hero {
-        min-height: 50vh;
+        min-height: 60vh;
       }
-
+      .about-hero-content {
+        padding: 40px 16px;
+      }
       .about-hero-content h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
-
-      .about-hero-content p {
+      .about-hero-content .about-text-block {
+        font-size: 0.95rem;
+      }
+      .about-hero-content .about-vision {
         font-size: 1rem;
+        padding: 16px 20px;
       }
     }
   </style>
@@ -2005,14 +2026,37 @@
           <span class="he-only">מי אנחנו</span>
           <span class="en-only">About Us</span>
         </h2>
-        <p>
-          <span class="he-only">עמותת "רוח החשמונאים" היא הזרוע האזרחית של החטיבה, אשר מהווה את העורף והרוח הגבית ללוחמי ומפקדי חטיבת החשמונאים.</span>
-          <span class="en-only">Ruach HaHashmonaim is the civilian arm of the brigade, serving as the backbone and spirit behind the warriors and commanders of the Hashmonaim Brigade.</span>
-        </p>
-        <a href="#" class="btn-learn-more" onclick="navigateTo('about'); return false;">
-          <span class="he-only">למדו עוד</span>
-          <span class="en-only">Learn More</span>
-        </a>
+
+        <div class="about-text-block">
+          <span class="he-only">עמותת "רוח החשמונאים" הוקמה מתוך הבנה כי חטיבת החשמונאים – החטיבה החרדית הראשונה בצה"ל, היא הרבה יותר מיחידה צבאית; היא בשורה חברתית והיסטורית.</span>
+          <span class="en-only">Ruach HaHashmonaim was founded from the understanding that the Hashmonaim Brigade – the first Haredi brigade in the IDF – is much more than a military unit; it is a social and historic message.</span>
+        </div>
+
+        <div class="about-text-block">
+          <span class="he-only">העמותה מהווה את הזרוע האזרחית המלווה את החטיבה, ומבטיחה שכל לוחם יוכל לשלב בין מצוינות מבצעית לבין נאמנות מוחלטת לאורח חייו ולזהותו החרדית.</span>
+          <span class="en-only">The association serves as the civilian arm accompanying the brigade, ensuring every warrior can combine operational excellence with absolute loyalty to his way of life and Haredi identity.</span>
+        </div>
+
+        <div class="about-vision">
+          <span class="he-only"><strong>החזון שלנו:</strong> לבנות קהילה תומכת וגאה של לוחמים חרדים, שמובילים בביטחון ישראל תוך שמירה על קדושת המחנה וזהותם הייחודית.</span>
+          <span class="en-only"><strong>Our Vision:</strong> To build a supportive and proud community of Haredi warriors, leading Israel's security while preserving the sanctity of the camp and their unique identity.</span>
+        </div>
+
+        <div class="about-more" id="aboutMore">
+          <div class="about-text-block">
+            <span class="he-only">אנחנו קבוצה המורכבת מיזמים עסקיים-חברתיים, אנשי חינוך מהמגזר החרדי ואנשי מילואים מחטיבת החשמונאים, שחברו יחד מתוך שליחות אחת: להבטיח את הצלחת הלוחם החרדי בשירותו הצבאי ובהשתלבותו בחברה.</span>
+            <span class="en-only">We are a group comprised of social-business entrepreneurs, educators from the Haredi sector, and reserve soldiers from the Hashmonaim Brigade, united by one mission: ensuring the success of the Haredi warrior in military service and societal integration.</span>
+          </div>
+          <div class="about-text-block">
+            <span class="he-only">אנו פועלים ביצירת מעטפת הוליסטית הכוללת סיוע לוגיסטי ורווחתי לחיילים, ליווי חינוכי ורוחני השומר על הזהות החרדית הייחודית, ותמיכה ייעודית בחיילים בודדים. העמותה מובילה מסלולי הכנה לשירות משמעותי, בונה תוכניות ליום שאחרי השחרור, ודואגת לכך שכל לוחם ירגיש שיש לו בית, קהילה וגב חזק – בקרב ובשגרה.</span>
+            <span class="en-only">We create a holistic support system including logistical and welfare aid for soldiers, educational and spiritual guidance preserving the unique Haredi identity, and dedicated support for lone soldiers. The association leads preparation tracks for meaningful service, builds post-discharge programs, and ensures every warrior feels they have a home, community and strong backing – in combat and in routine.</span>
+          </div>
+        </div>
+
+        <button class="btn-read-more" id="btnReadMore" onclick="toggleAboutMore()">
+          <span class="he-only">קרא עוד</span>
+          <span class="en-only">Read More</span>
+        </button>
       </div>
     </section>
 
@@ -2254,8 +2298,8 @@
         </div>
         <div class="fade-in" style="margin-bottom:40px;">
           <p style="color:var(--text-light); font-size:1.05rem; line-height:1.8; margin-bottom:24px;">
-            <span class="he-only">עמותת "רוח החשמונאים" היא הזרוע האזרחית של החטיבה, אשר מהווה את העורף והרוח הגבית ללוחמי ומפקדי חטיבת החשמונאים.</span>
-            <span class="en-only">Ruach HaHashmonaim is the civilian arm of the brigade, serving as the backbone and spirit behind the warriors and commanders of the Hashmonaim Brigade.</span>
+            <span class="he-only">עמותת "רוח החשמונאים" הוקמה מתוך הבנה כי חטיבת החשמונאים – החטיבה החרדית הראשונה בצה"ל, היא הרבה יותר מיחידה צבאית; היא בשורה חברתית והיסטורית. העמותה מהווה את הזרוע האזרחית המלווה את החטיבה, ומבטיחה שכל לוחם יוכל לשלב בין מצוינות מבצעית לבין נאמנות מוחלטת לאורח חייו ולזהותו החרדית.</span>
+            <span class="en-only">Ruach HaHashmonaim was founded from the understanding that the Hashmonaim Brigade – the first Haredi brigade in the IDF – is much more than a military unit; it is a social and historic message. The association serves as the civilian arm accompanying the brigade, ensuring every warrior can combine operational excellence with absolute loyalty to his way of life and Haredi identity.</span>
           </p>
         </div>
 
@@ -3359,6 +3403,17 @@
     }
 
     // ===== ABOUT HERO BACKGROUND ROTATION =====
+    function toggleAboutMore() {
+      const moreDiv = document.getElementById('aboutMore');
+      const btn = document.getElementById('btnReadMore');
+      if (!moreDiv || !btn) return;
+      const isOpen = moreDiv.classList.toggle('open');
+      const heSpan = btn.querySelector('.he-only');
+      const enSpan = btn.querySelector('.en-only');
+      if (heSpan) heSpan.textContent = isOpen ? 'הסתר' : 'קרא עוד';
+      if (enSpan) enSpan.textContent = isOpen ? 'Show Less' : 'Read More';
+    }
+
     function initAboutHeroRotation() {
       const heroSection = document.getElementById('about-hero');
       if (!heroSection) return;
