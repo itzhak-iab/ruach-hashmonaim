@@ -3244,7 +3244,22 @@
                   </div>
                 </div>
 
-                <button class="donate-btn" onclick="processDonation()">
+                <!-- Terms Approval Checkbox -->
+                <div class="form-section" style="margin-bottom:24px;">
+                  <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer; font-size:0.95rem; color:var(--dark);">
+                    <input type="checkbox" id="termsCheckbox" style="margin-top:2px; cursor:pointer; width:18px; height:18px;" onchange="updateDonateButton()">
+                    <span>
+                      <span class="he-only">קראתי ואני מאשר/ת את ה</span>
+                      <span class="en-only">I have read and agree to the </span>
+                      <a href="#" onclick="navigateTo('terms'); return false;" style="color:var(--primary); text-decoration:underline; font-weight:600;">
+                        <span class="he-only">תקנון</span>
+                        <span class="en-only">Terms of Service</span>
+                      </a>
+                    </span>
+                  </label>
+                </div>
+
+                <button class="donate-btn" id="donateSubmitBtn" onclick="processDonation()" disabled style="opacity:0.5; cursor:not-allowed;">
                   <span class="he-only">לתרומה מאובטחת →</span>
                   <span class="en-only">Proceed to Secure Donation →</span>
                 </button>
@@ -3331,9 +3346,24 @@
               }
             }
 
+            function updateDonateButton() {
+              const checkbox = document.getElementById('termsCheckbox');
+              const button = document.getElementById('donateSubmitBtn');
+              if (checkbox.checked) {
+                button.disabled = false;
+                button.style.opacity = '1';
+                button.style.cursor = 'pointer';
+              } else {
+                button.disabled = true;
+                button.style.opacity = '0.5';
+                button.style.cursor = 'not-allowed';
+              }
+            }
+
             // Initialize display
             document.addEventListener('DOMContentLoaded', function() {
               selectChannel('ruach', document.querySelector('.primary-channel'));
+              updateDonateButton();
             });
           </script>
         </div>
@@ -3647,6 +3677,110 @@
     </section>
   </div>
 
+  <!-- TERMS OF SERVICE PAGE -->
+  <div class="page" id="page-terms">
+    <div style="height:70px"></div>
+    <section class="section" style="background:#fff;">
+      <h2 class="section-title">
+        <span class="he-only">תקנון</span>
+        <span class="en-only">Terms of Service</span>
+      </h2>
+      <div style="max-width:800px; margin:0 auto; line-height:1.9; padding:0 24px;">
+
+        <div class="he-only" style="text-align:right;">
+          <p style="color:#666; margin-bottom:16px;"><strong>עודכן לאחרונה:</strong> מרץ 2026</p>
+
+          <p style="color:var(--text-light); margin-bottom:16px;"><strong>עמותת "רוח החשמונאים"</strong> (ע"ר 580814234)<br>
+          כתובת: תומר דבורה 14, טלמון<br>
+          דוא"ל: ruach.hashmonaim.office@gmail.com<br>
+          טלפון: 055-663-7374</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">1. כללי</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">תקנון זה מסדיר את תנאי השימוש באתר האינטרנט של עמותת "רוח החשמונאים" (להלן: "העמותה", "אנחנו") ובשירותים המסופקים דרכו, כולל עיבוד תרומות ומידע אישי. השימוש באתר מהווה הסכמה מלאה לתנאים המפורטים בתקנון זה.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">2. הגבלת גיל</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">הרוכש/התורם באתר מצהיר כי הינו בן 18 שנים ומעלה, וכי יש לו את הסמכות החוקית להתחייב בהסכם זה. אנחנו שומרים על הזכות לבדוק את זהותך כדי לוודא עמידה בדרישה זו.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">3. מדיניות ביטול עסקה</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">ניתן לבטל את התרומה/העסקה תוך 14 ימים מיום ביצוע העסקה, בהתאם לחוק הגנת הצרכן, התשמ"א-1981. הביטול ייעשה באמצעות פניה בכתב לדוא"ל ruach.hashmonaim.office@gmail.com.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">בכדי להחזיר כספים עקב ביטול עסקה:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• יש להחזיר את המוצר (אם קיים) באריזתו, שלם וללא פגיעה ו/או נזק ו/או פגם מכל מין וסוג שהוא</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• החזר הכספים יבוצע תוך 14 ימים מקבלת בקשת הביטול</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• החזר כספים עבור תרומות חוזרות יצריך ביטול של הוראת הקבע דרך הדוא"ל המצוין לעיל</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">4. אחריות מוצר ותרומות</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">זה כרוך בעיקר בתרומות וקנינות דיגיטליות, לא במוצרים פיזיים. התרומות המועברות לעמותה משמשות לממון פעילויות חינוכיות וקהילתיות. אנחנו מבטיחים שימוש אחראי בכל תרומה בהתאם לדוקומנטציה שלנו ומדיניות הנהלה תקינה.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">אנחנו אינם אחראיים לנזקים עקיפים, חוזרים או שלא צפויים הנובעים משימוש או אי-שימוש בשירותים שלנו.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">5. שימוש באתר</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">בשימוש באתר, אתה מסכים:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• לא להשתמש באתר לחוקויות או פעילויות בלתי חוקיות</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• לא להפציץ או להעמיס על השרתים שלנו</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• לא להעתיק או לעשות שימוש בתוכן האתר ללא הסכמה מפורשת</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• לספק מידע נכון וחוקי כשנדרש</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">6. זכויות קניין</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">כל התוכן באתר, כולל טקסט, תמונות, לוגו וקוד, הוא קניין של העמותה או מורשי החוק שלה. אין להעתיק, לשדר או להשתמש בתוכן זה ללא אישור בכתב.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">7. אחריות מוגבלת</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">האתר מסופק "כמות שהוא" ו"כמות שזמין". אנחנו אינם אחראיים לתקלות טכניות, הפרעות שירות, או בעיות בגישה לאתר, לרבות המתגרמות מסיבות מחוץ לשליטתנו.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">8. שינויים בתקנון</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">אנו שומרים על הזכות לעדכן תקנון זה מעת לעת. שינויים מהותיים יפורסמו באתר ויהיו בתוקף 30 ימים לאחר פרסומם. המשך השימוש באתר לאחר שינויים מהווה הסכמה אליהם.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">9. יצירת קשר</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">לשאלות או בקשות בנוגע לתקנון זה, ניתן לפנות אלינו בדוא"ל: ruach.hashmonaim.office@gmail.com או בטלפון: 055-663-7374.</p>
+        </div>
+
+        <div class="en-only" style="text-align:left;">
+          <p style="color:#666; margin-bottom:16px;"><strong>Last updated:</strong> March 2026</p>
+
+          <p style="color:var(--text-light); margin-bottom:16px;"><strong>Ruach HaHashmonaim Association</strong> (R.A. 580814234)<br>
+          Address: 14 Tomer Dvora, Telmon<br>
+          Email: ruach.hashmonaim.office@gmail.com<br>
+          Phone: 055-663-7374</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">1. General</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">These Terms of Service regulate the conditions of use of the website of Ruach HaHashmonaim Association (hereinafter: "the Association", "we") and the services provided through it, including processing donations and personal information. Use of the website constitutes full agreement to the terms detailed in these Terms of Service.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">2. Age Restriction</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">The purchaser/donor on the site declares that they are 18 years of age or older and has the legal authority to be bound by this agreement. We reserve the right to verify your identity to ensure compliance with this requirement.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">3. Cancellation Policy</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">You may cancel your donation/transaction within 14 days of the transaction date, in accordance with the Consumer Protection Law, 5741-1981. Cancellation shall be made by written request to the email ruach.hashmonaim.office@gmail.com.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">To request a refund due to transaction cancellation:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Return any physical product (if applicable) in its original packaging, intact, and without damage of any kind</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Refunds will be processed within 14 days of receiving the cancellation request</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• For recurring donations, cancellation of the standing order must be requested via the email address mentioned above</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">4. Product Liability and Donations</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">This primarily involves donations and digital purchases, not physical products. Donations transferred to the Association are used to fund educational and community activities. We ensure responsible use of all donations in accordance with our documentation and proper management policies.</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">We are not responsible for indirect, consequential, or unforeseen damages arising from the use or non-use of our services.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">5. Website Use</h3>
+          <p style="color:var(--text-light); margin-bottom:12px;">By using the website, you agree:</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Not to use the website for unlawful or illegal activities</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Not to overload or overwhelm our servers</p>
+          <p style="color:var(--text-light); margin-bottom:8px;">• Not to copy or use website content without explicit written consent</p>
+          <p style="color:var(--text-light); margin-bottom:16px;">• To provide accurate and lawful information when required</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">6. Intellectual Property Rights</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">All content on the website, including text, images, logos, and code, is the property of the Association or its licensors. You may not copy, transmit, or use this content without written permission.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">7. Limited Liability</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">The website is provided "as is" and "as available". We are not responsible for technical malfunctions, service interruptions, or access issues to the website, including those caused by reasons beyond our control.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">8. Changes to Terms of Service</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">We reserve the right to update these Terms of Service from time to time. Material changes will be posted on the website and will take effect 30 days after posting. Continued use of the website after changes constitutes acceptance of them.</p>
+
+          <h3 style="font-size:1.2rem; color:var(--primary-dark); margin:32px 0 12px; font-weight:700;">9. Contact Us</h3>
+          <p style="color:var(--text-light); margin-bottom:16px;">For questions or requests regarding these Terms of Service, please contact us at: ruach.hashmonaim.office@gmail.com or by phone: 055-663-7374.</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
   <!-- FLOATING CONTACT REMOVED -->
 
   <!-- FOOTER -->
@@ -3684,9 +3818,17 @@
           <span class="he-only">מדיניות פרטיות</span>
           <span class="en-only">Privacy Policy</span>
         </a></li>
+        <li><a href="#" onclick="navigateTo('terms'); return false;">
+          <span class="he-only">תקנון</span>
+          <span class="en-only">Terms of Service</span>
+        </a></li>
       </ul>
     </div>
     <div class="footer-bottom">
+      <span style="margin-bottom:12px;">
+        <span class="he-only">תומר דבורה 14, טלמון</span>
+        <span class="en-only">14 Tomer Dvora, Telmon</span>
+      </span>
       <span>
         <span class="he-only">© 2026 עמותת ״רוח החשמונאים״ (ע״ר 580814234) | כל הזכויות שמורות.</span>
         <span class="en-only">© 2026 Ruach Hashmonait Association (R.A. 580814234) | All rights reserved.</span>
