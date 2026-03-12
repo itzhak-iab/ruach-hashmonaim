@@ -3244,24 +3244,9 @@
                   </div>
                 </div>
 
-                <!-- Terms Approval Checkbox -->
-                <div class="form-section" style="margin-bottom:24px;">
-                  <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer; font-size:0.95rem; color:var(--dark);">
-                    <input type="checkbox" id="termsCheckbox" style="margin-top:2px; cursor:pointer; width:18px; height:18px;" onchange="updateDonateButton()">
-                    <span>
-                      <span class="he-only">קראתי ואני מאשר/ת את ה</span>
-                      <span class="en-only">I have read and agree to the </span>
-                      <a href="#" onclick="navigateTo('terms'); return false;" style="color:var(--primary); text-decoration:underline; font-weight:600;">
-                        <span class="he-only">תקנון</span>
-                        <span class="en-only">Terms of Service</span>
-                      </a>
-                    </span>
-                  </label>
-                </div>
-
-                <button class="donate-btn" id="donateSubmitBtn" onclick="processDonation()" disabled style="opacity:0.5; cursor:not-allowed;">
-                  <span class="he-only">לתרומה מאובטחת →</span>
-                  <span class="en-only">Proceed to Secure Donation →</span>
+                <button class="donate-btn" id="goToCheckoutBtn" onclick="goToCheckout()">
+                  <span class="he-only">המשך לפרטי תשלום →</span>
+                  <span class="en-only">Continue to Checkout →</span>
                 </button>
               </div>
             </div>
@@ -3273,6 +3258,113 @@
                 <span class="he-only"> העברה בנקאית: ״רוח החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560</span>
                 <span class="en-only"> Bank Transfer: "Ruach Hashmonait" (R.A.) · Mercantile Bank · Branch 734 · Account: 10514560</span>
               </p>
+            </div>
+          </div>
+
+          <!-- CHECKOUT PAGE - Step 2: Customer Details -->
+          <div id="checkout-step" style="display:none;">
+            <div class="israel-form-container">
+              <div class="israel-form-header">
+                <h3 style="font-size:1.25rem; color:var(--dark); margin-bottom:8px;">
+                  <span class="he-only">פרטי מזמין</span>
+                  <span class="en-only">Checkout Details</span>
+                </h3>
+                <p style="font-size:0.95rem; color:var(--text-light); margin-bottom:0;">
+                  <span class="he-only">נא למלא את הפרטים הבאים לפני מעבר לתשלום</span>
+                  <span class="en-only">Please fill in your details before proceeding to payment</span>
+                </p>
+              </div>
+
+              <div class="israel-form-body">
+                <!-- Order summary -->
+                <div style="background:var(--light-blue); border:1px solid #d0e8ec; border-radius:10px; padding:14px 18px; margin-bottom:24px;">
+                  <p style="font-size:0.9rem; color:var(--primary); font-weight:600; margin-bottom:0;" id="checkout-summary"></p>
+                </div>
+
+                <!-- First Name -->
+                <div class="form-section" style="margin-bottom:16px;">
+                  <label class="form-label" for="checkoutFirstName">
+                    <span class="he-only">שם פרטי *</span>
+                    <span class="en-only">First Name *</span>
+                  </label>
+                  <input type="text" id="checkoutFirstName" class="custom-amount-input" style="width:100%; box-sizing:border-box;" required onchange="validateCheckout()" oninput="validateCheckout()">
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-section" style="margin-bottom:16px;">
+                  <label class="form-label" for="checkoutLastName">
+                    <span class="he-only">שם משפחה *</span>
+                    <span class="en-only">Last Name *</span>
+                  </label>
+                  <input type="text" id="checkoutLastName" class="custom-amount-input" style="width:100%; box-sizing:border-box;" required onchange="validateCheckout()" oninput="validateCheckout()">
+                </div>
+
+                <!-- Phone -->
+                <div class="form-section" style="margin-bottom:16px;">
+                  <label class="form-label" for="checkoutPhone">
+                    <span class="he-only">טלפון (ללא קידומת מדינה) *</span>
+                    <span class="en-only">Phone (without country code) *</span>
+                  </label>
+                  <input type="tel" id="checkoutPhone" class="custom-amount-input" style="width:100%; box-sizing:border-box;" placeholder="050-1234567" required onchange="validateCheckout()" oninput="validateCheckout()">
+                </div>
+
+                <!-- Country -->
+                <div class="form-section" style="margin-bottom:16px;">
+                  <label class="form-label" for="checkoutCountry">
+                    <span class="he-only">מדינה *</span>
+                    <span class="en-only">Country *</span>
+                  </label>
+                  <select id="checkoutCountry" class="program-select" required onchange="validateCheckout()">
+                    <option value="">
+                      <span class="he-only">בחרו מדינה</span>
+                    </option>
+                    <option value="IL" selected>ישראל / Israel</option>
+                    <option value="US">ארה״ב / United States</option>
+                    <option value="CA">קנדה / Canada</option>
+                    <option value="GB">בריטניה / United Kingdom</option>
+                    <option value="FR">צרפת / France</option>
+                    <option value="DE">גרמניה / Germany</option>
+                    <option value="AU">אוסטרליה / Australia</option>
+                    <option value="OTHER">אחר / Other</option>
+                  </select>
+                </div>
+
+                <!-- Email -->
+                <div class="form-section" style="margin-bottom:24px;">
+                  <label class="form-label" for="checkoutEmail">
+                    <span class="he-only">כתובת מייל *</span>
+                    <span class="en-only">Email Address *</span>
+                  </label>
+                  <input type="email" id="checkoutEmail" class="custom-amount-input" style="width:100%; box-sizing:border-box;" placeholder="example@email.com" required onchange="validateCheckout()" oninput="validateCheckout()">
+                </div>
+
+                <!-- Terms Approval Checkbox -->
+                <div class="form-section" style="margin-bottom:24px;">
+                  <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer; font-size:0.95rem; color:var(--dark);">
+                    <input type="checkbox" id="termsCheckbox" style="margin-top:2px; cursor:pointer; width:18px; height:18px; flex-shrink:0;" onchange="validateCheckout()">
+                    <span>
+                      <span class="he-only">קראתי ואני מאשר/ת את </span>
+                      <span class="en-only">I have read and agree to the </span>
+                      <a href="#" onclick="navigateTo('terms'); return false;" style="color:var(--primary); text-decoration:underline; font-weight:600;">
+                        <span class="he-only">התקנון</span>
+                        <span class="en-only">Terms of Service</span>
+                      </a>
+                    </span>
+                  </label>
+                </div>
+
+                <!-- Back and Submit buttons -->
+                <div style="display:flex; gap:12px;">
+                  <button class="donate-btn" style="flex:0 0 auto; width:auto; padding:14px 24px; background:#e0e0e0; color:var(--dark);" onclick="backToStep1()">
+                    <span class="he-only">← חזרה</span>
+                    <span class="en-only">← Back</span>
+                  </button>
+                  <button class="donate-btn" id="donateSubmitBtn" onclick="processDonation()" disabled style="opacity:0.5; cursor:not-allowed; flex:1;">
+                    <span class="he-only">לתשלום מאובטח →</span>
+                    <span class="en-only">Proceed to Secure Payment →</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -3322,48 +3414,88 @@
               }
             }
 
-            function processDonation() {
-              const amount = donationState.amount;
-              const frequency = donationState.frequency;
-              const program = donationState.program;
-              const channel = donationState.channel;
+            function goToCheckout() {
+              // Show checkout step, hide donation step
+              var formContainer = document.querySelector('#donate-panel-israel .israel-form-container');
+              formContainer.style.display = 'none';
+              document.getElementById('checkout-step').style.display = 'block';
 
-              if (channel === 'ruach') {
-                // For Ruach HaHashmonaim - show contact/WhatsApp message with details
-                const heText = `שלום, אני מעוניין לתרום ${amount} ₪ ${frequency === 'once' ? '(חד-פעמי)' : '(הוראת קבע חודשית)'}${program ? ' לתוכנית: ' + program : ''} דרך רוח החשמונאים.`;
-                const enText = `Hi, I would like to donate ${amount} ₪ (${frequency === 'once' ? 'one-time' : 'monthly'})${program ? ' to program: ' + program : ''} via Ruach HaHashmonaim.`;
+              // Build summary text
+              var a = donationState.amount;
+              var f = donationState.frequency;
+              var ch = donationState.channel;
+              var isHe = document.documentElement.lang === 'he';
+              var summaryText = isHe ?
+                'סיכום: תרומה של ' + a + ' ₪ ' + (f === 'once' ? '(חד-פעמית)' : '(הוראת קבע חודשית)') + ' דרך ' + (ch === 'ruach' ? 'רוח החשמונאים' : 'דור אחווה') :
+                'Summary: ' + a + ' ₪ donation (' + (f === 'once' ? 'one-time' : 'monthly') + ') via ' + (ch === 'ruach' ? 'Ruach HaHashmonaim' : 'Dor Achva');
+              document.getElementById('checkout-summary').textContent = summaryText;
 
-                alert(document.documentElement.lang === 'he' ? heText : enText);
-                // In a real implementation, this could open WhatsApp, email, or a contact form
-              } else if (channel === 'dor') {
-                // For Dor Achva - redirect to grow.link with parameters
-                const params = new URLSearchParams({
-                  amount: amount,
-                  frequency: frequency,
-                  program: program || 'general'
-                });
-                window.open(`https://pay.grow.link/3b76a51ece2900a68cfc48634433ee8a-MTYzOTYzNQ?${params.toString()}`, '_blank');
+              // Scroll to top of donate section
+              document.getElementById('page-donate').scrollIntoView({behavior: 'smooth', block: 'start'});
+              validateCheckout();
+            }
+
+            function backToStep1() {
+              document.getElementById('checkout-step').style.display = 'none';
+              var formContainer = document.querySelector('#donate-panel-israel .israel-form-container');
+              formContainer.style.display = 'block';
+            }
+
+            function validateCheckout() {
+              var fn = document.getElementById('checkoutFirstName').value.trim();
+              var ln = document.getElementById('checkoutLastName').value.trim();
+              var ph = document.getElementById('checkoutPhone').value.trim();
+              var co = document.getElementById('checkoutCountry').value;
+              var em = document.getElementById('checkoutEmail').value.trim();
+              var tc = document.getElementById('termsCheckbox').checked;
+              var btn = document.getElementById('donateSubmitBtn');
+              if (fn && ln && ph && co && em && tc) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+              } else {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
               }
             }
 
-            function updateDonateButton() {
-              const checkbox = document.getElementById('termsCheckbox');
-              const button = document.getElementById('donateSubmitBtn');
-              if (checkbox.checked) {
-                button.disabled = false;
-                button.style.opacity = '1';
-                button.style.cursor = 'pointer';
-              } else {
-                button.disabled = true;
-                button.style.opacity = '0.5';
-                button.style.cursor = 'not-allowed';
+            function processDonation() {
+              var amount = donationState.amount;
+              var frequency = donationState.frequency;
+              var program = donationState.program;
+              var channel = donationState.channel;
+              var firstName = document.getElementById('checkoutFirstName').value.trim();
+              var lastName = document.getElementById('checkoutLastName').value.trim();
+              var phone = document.getElementById('checkoutPhone').value.trim();
+              var country = document.getElementById('checkoutCountry').value;
+              var email = document.getElementById('checkoutEmail').value.trim();
+
+              if (channel === 'ruach') {
+                var heText = 'שלום, אני ' + firstName + ' ' + lastName + ', מעוניין/ת לתרום ' + amount + ' ₪ ' + (frequency === 'once' ? '(חד-פעמי)' : '(הוראת קבע חודשית)') + (program ? ' לתוכנית: ' + program : '') + ' דרך רוח החשמונאים. טלפון: ' + phone + ', מייל: ' + email;
+                var enText = 'Hi, I am ' + firstName + ' ' + lastName + ', I would like to donate ' + amount + ' ₪ (' + (frequency === 'once' ? 'one-time' : 'monthly') + ')' + (program ? ' to program: ' + program : '') + ' via Ruach HaHashmonaim. Phone: ' + phone + ', Email: ' + email;
+                var msg = document.documentElement.lang === 'he' ? heText : enText;
+                var whatsappUrl = 'https://wa.me/972556637374?text=' + encodeURIComponent(msg);
+                window.open(whatsappUrl, '_blank');
+              } else if (channel === 'dor') {
+                var params = new URLSearchParams({
+                  amount: amount,
+                  frequency: frequency,
+                  program: program || 'general',
+                  first_name: firstName,
+                  last_name: lastName,
+                  phone: phone,
+                  email: email,
+                  country: country
+                });
+                window.open('https://pay.grow.link/3b76a51ece2900a68cfc48634433ee8a-MTYzOTYzNQ?' + params.toString(), '_blank');
               }
             }
 
             // Initialize display
             document.addEventListener('DOMContentLoaded', function() {
               selectChannel('ruach', document.querySelector('.primary-channel'));
-              updateDonateButton();
+              validateCheckout();
             });
           </script>
         </div>
