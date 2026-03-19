@@ -2140,8 +2140,8 @@
             <span class="en-only">Areas of Activity</span>
           </a></li>
           <li><a href="#" onclick="navigateTo('media'); return false;">
-            <span class="he-only">מהנעשה בחטיבה</span>
-            <span class="en-only">Brigade News</span>
+            <span class="he-only">כתבות ופרסומים</span>
+            <span class="en-only">Press & Media</span>
           </a></li>
           <li><a href="https://olivedrab-mink-928749.hostingersite.com/he/ראשי/" target="_blank" rel="noopener">
             <span class="he-only">אתר החטיבה</span>
@@ -2780,227 +2780,267 @@
     <div style="height:70px"></div>
     <section class="section media-section">
       <h2 class="section-title">
-        <span class="he-only">מהנעשה בחטיבה</span>
-        <span class="en-only">Brigade News &amp; Media</span>
+        <span class="he-only">כתבות ופרסומים</span>
+        <span class="en-only">Press &amp; Media</span>
       </h2>
       <p class="section-subtitle">
-        <span class="he-only">צפו בסרטונים, עקבו אחרינו ברשתות והישארו מעודכנים</span>
-        <span class="en-only">Watch videos, follow us on social media and stay updated</span>
+        <span class="he-only">כתבות, סרטונים ופרסומים על חטיבת חשמונאים ולוחמיה</span>
+        <span class="en-only">Articles, videos and publications about the Hashmonaim Brigade and its fighters</span>
       </p>
 
-      <!-- VIDEO GALLERY -->
-      <div class="media-grid">
-        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
-          <div class="media-card-thumb">
-            <img src="images/hero.jpg" alt="חטיבת החשמונאים - הסיפור שלנו">
-            <div class="media-play-btn">▶</div>
-          </div>
-          <div class="media-card-body">
-            <h4><span class="he-only">חטיבת החשמונאים - הסיפור שלנו</span><span class="en-only">The Hashmonaim Brigade - Our Story</span></h4>
-            <p><span class="he-only">סרטון תדמית על החטיבה, הלוחמים והחזון</span><span class="en-only">A documentary about the brigade, fighters and vision</span></p>
-          </div>
-        </a>
+      <style>
+        .press-grid {
+          display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:24px; margin-top:40px;
+        }
+        .press-card {
+          display:flex; flex-direction:column; background:#fff; border-radius:14px; border:1px solid #e8ecf0;
+          box-shadow:0 2px 12px rgba(0,0,0,0.06); overflow:hidden; text-decoration:none; color:inherit; transition:all 0.3s;
+        }
+        .press-card:hover {
+          transform:translateY(-4px); box-shadow:0 8px 28px rgba(0,0,0,0.12);
+        }
+        .press-card-thumb {
+          position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#111;
+        }
+        .press-card-thumb img {
+          width:100%; height:100%; object-fit:cover;
+        }
+        .press-card-play {
+          position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+          width:60px; height:60px; background:rgba(255,0,0,0.85); border-radius:50%;
+          display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.6rem;
+          transition:transform 0.2s;
+        }
+        .press-card:hover .press-card-play { transform:translate(-50%,-50%) scale(1.1); }
+        .press-card-body {
+          padding:18px 20px; flex:1; display:flex; flex-direction:column;
+        }
+        .press-card-body h4 {
+          font-size:1rem; font-weight:700; color:var(--dark); margin-bottom:6px; line-height:1.5;
+        }
+        .press-card-body .press-source {
+          font-size:0.82rem; color:var(--primary); font-weight:600; margin-bottom:4px;
+        }
+        .press-card-body p {
+          font-size:0.88rem; color:var(--text-light); line-height:1.5;
+        }
+        .press-section-title {
+          font-size:1.5rem; font-weight:700; color:var(--dark); margin-bottom:8px; margin-top:50px; text-align:center;
+        }
+        .press-section-title:first-of-type { margin-top:0; }
+        .press-badge {
+          display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;
+          position:absolute; top:12px; right:12px; z-index:2;
+        }
+        .badge-video { background:rgba(255,0,0,0.9); color:#fff; }
+        .badge-article { background:rgba(26,138,154,0.9); color:#fff; }
+        .badge-tiktok { background:#000; color:#fff; }
+        .social-follow-grid {
+          display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px;
+        }
+        .social-follow-btn {
+          display:inline-flex; align-items:center; gap:10px; padding:14px 28px; border-radius:12px;
+          font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.3s; border:2px solid #e0e0e0;
+        }
+        .social-follow-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+        .social-follow-btn.tiktok { background:#000; color:#fff; border-color:#000; }
+        .social-follow-btn.instagram { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; border-color:transparent; }
+        @media(max-width:600px) {
+          .press-grid { grid-template-columns:1fr; }
+        }
+      </style>
 
-        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
-          <div class="media-card-thumb">
-            <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="הספרא והסייפא - תורה בשטח הכינוס">
-            <div class="media-play-btn">▶</div>
-          </div>
-          <div class="media-card-body">
-            <h4><span class="he-only">הספרא והסייפא - תורה בשטח הכינוס</span><span class="en-only">Torah &amp; Sword - Study in the Field</span></h4>
-            <p><span class="he-only">כך נראה לימוד תורה בין המשימות המבצעיות</span><span class="en-only">What Torah study looks like between operational missions</span></p>
-          </div>
-        </a>
+      <!-- VIDEOS -->
+      <h3 class="press-section-title">
+        <span class="he-only">סרטונים</span>
+        <span class="en-only">Videos</span>
+      </h3>
+      <div class="press-grid">
 
-        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
-          <div class="media-card-thumb">
-            <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="ערב יחידה - האחווה של החשמונאים">
-            <div class="media-play-btn">▶</div>
+        <a href="https://youtu.be/e1vGzhVCl_g" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb">
+            <img src="https://img.youtube.com/vi/e1vGzhVCl_g/hqdefault.jpg" alt="">
+            <span class="press-badge badge-video">YouTube</span>
+            <div class="press-card-play">&#9654;</div>
           </div>
-          <div class="media-card-body">
-            <h4><span class="he-only">ערב יחידה - האחווה של החשמונאים</span><span class="en-only">Unit Evening - Hashmonaim Brotherhood</span></h4>
-            <p><span class="he-only">הרגעים שמחזקים את הקשר בין הלוחמים</span><span class="en-only">The moments that strengthen the bond between fighters</span></p>
-          </div>
-        </a>
-
-        <a href="#" class="media-card fade-in" target="_blank" rel="noopener">
-          <div class="media-card-thumb">
-            <img src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 300%27%3E%3Crect fill=%27%23e8e8e8%27 width=%27400%27 height=%27300%27/%3E%3Ctext x=%27200%27 y=%27150%27 text-anchor=%27middle%27 fill=%27%23999%27 font-size=%2716%27%3E%3C/text%3E%3C/svg%3E" alt="חיזוק ומוטיבציה - שיחות עם מפקדים">
-            <div class="media-play-btn">▶</div>
-          </div>
-          <div class="media-card-body">
-            <h4><span class="he-only">חיזוק ומוטיבציה - שיחות עם מפקדים</span><span class="en-only">Strength &amp; Motivation - Talks with Commanders</span></h4>
-            <p><span class="he-only">שיחות השראה מהמפקדים והרבנים של החטיבה</span><span class="en-only">Inspirational talks from the brigade's commanders and rabbis</span></p>
-          </div>
-        </a></div>
-
-      <!-- SOCIAL LINKS -->
-      <div class="social-links-grid fade-in" style="margin-top:60px;">
-        <a href="https://chat.whatsapp.com/H7WOeGGVTdg6ALjwmUbyF4?mode=ems_wa_t" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">📲</div>
-          <div class="social-card-text">
-            <h4>קבוצת וואטסאפ
-              WhatsApp Group</h4>
-            <p><span class="he-only">הצטרפו לקבוצת העדכונים שלנו</span><span class="en-only">Join our updates group</span></p>
-          </div>
-        </a>
-
-        <a href="https://chat.whatsapp.com/H7WOeGGVTdg6ALjwmUbyF4?mode=ems_wa_t" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">⚡</div>
-          <div class="social-card-text">
-            <h4>חשמונאים לייב
-              Hashmonaim Live</h4>
-            <p><span class="he-only">ערוץ חשמונאים לייב</span><span class="en-only">Hashmonaim Live Channel</span></p>
-          </div>
-        </a>
-
-        <a href="https://olivedrab-mink-928749.hostingersite.com/he/ראשי/" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">🌐</div>
-          <div class="social-card-text">
-            <h4>אתר החטיבה
-              Brigade Website</h4>
-            <p><span class="he-only">האתר הרשמי של חטיבת חשמונאים</span><span class="en-only">Official Hashmonaim Brigade site</span></p>
-          </div>
-        </a>
-
-        <a href="https://did.li/hWhatsApp" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">💬</div>
-          <div class="social-card-text">
-            <h4>הרשמה
-              Register</h4>
-            <p><span class="he-only">הרשמה בוואטסאפ</span><span class="en-only">Register via WhatsApp</span></p>
+          <div class="press-card-body">
+            <div class="press-source">YouTube</div>
+            <h4>חרדים וקרביים: טקס ההשבעה המרגש של חטיבת חשמונאים</h4>
           </div>
         </a>
 
-        <a href="#" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">📷</div>
-          <div class="social-card-text">
-            <h4>Instagram</h4>
-            <p><span class="he-only">@hashmonaim_brigade</span><span class="en-only">@hashmonaim_brigade</span></p>
+        <a href="https://www.youtube.com/watch?v=wx-1mYQoTFQ" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb">
+            <img src="https://img.youtube.com/vi/wx-1mYQoTFQ/hqdefault.jpg" alt="">
+            <span class="press-badge badge-video">YouTube</span>
+            <div class="press-card-play">&#9654;</div>
           </div>
-        </a></div>
+          <div class="press-card-body">
+            <div class="press-source">YouTube</div>
+            <h4>"אנחנו נותנים בראש": חיילי חטיבת החשמונאים סיימו בהצלחה את המסע כומתה</h4>
+          </div>
+        </a>
 
-      <!-- WEEKLY NEWSLETTERS -->
-      <div style="margin-top:80px;">
-        <h3 class="section-title" style="font-size:1.6rem; margin-bottom:12px;">
-          <span class="he-only">העלון השבועי "בחטיבה"</span>
-          <span class="en-only">Weekly Newsletter "BaHativa"</span>
-        </h3>
-        <p class="section-subtitle" style="margin-bottom:40px;">
-          <span class="he-only">העלון השבועי של חטיבת החשמונאים - דבר המפקד, חדשות החטיבה, תוכן תורני, פנים שמספרות סיפור ועוד</span>
-          <span class="en-only">The Hashmonaim Brigade weekly newsletter - Commander's message, brigade news, Torah content, stories and more</span>
-        </p>
-        <div class="newsletters-grid">
+        <a href="https://www.youtube.com/watch?v=9QC2V2V2Ho0" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb">
+            <img src="https://img.youtube.com/vi/9QC2V2V2Ho0/hqdefault.jpg" alt="">
+            <span class="press-badge badge-video">YouTube</span>
+            <div class="press-card-play">&#9654;</div>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">ערוץ 12</div>
+            <h4>"החשמונאים, סוף המסלול" - כתבת אלי הירשמן על חטיבת חשמונאים (פרק 2)</h4>
+          </div>
+        </a>
 
-          <a href="newsletters/newsletter-31-mishpatim.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 31 - פרשת משפטים</span>
-                <span class="en-only">Issue 31 - Parshat Mishpatim</span>
-              </h4>
-              <p>
-                <span class="he-only">כ"ו שבט התשפ"ו | 13.2.2026</span>
-                <span class="en-only">February 13, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">טקס הצהרה מרגש, בין תרג"ד היסטורי לטקס הצהרה, סיכום שבועי מפקדי</span>
-                <span class="en-only">Moving declaration ceremony, historic battalion drill, commander's weekly summary</span>
-              </p>
-            </div>
-          </a>
+      </div>
 
-          <a href="newsletters/newsletter-30-yitro.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 30 - פרשת יתרו</span>
-                <span class="en-only">Issue 30 - Parshat Yitro</span>
-              </h4>
-              <p>
-                <span class="he-only">י"ט שבט התשפ"ו | 6.2.2026</span>
-                <span class="en-only">February 6, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">טקס חילופי המח"טים, יום ישיבה חטיבתי, פרידה והוקרה למח"ט היוצא</span>
-                <span class="en-only">Brigade commander changeover ceremony, brigade study day, farewell to outgoing commander</span>
-              </p>
-            </div>
-          </a>
+      <!-- ARTICLES -->
+      <h3 class="press-section-title" style="margin-top:60px;">
+        <span class="he-only">כתבות בתקשורת</span>
+        <span class="en-only">News Articles</span>
+      </h3>
+      <div class="press-grid">
 
-          <a href="newsletters/newsletter-29-beshalach.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 29 - פרשת בשלח</span>
-                <span class="en-only">Issue 29 - Parshat Beshalach</span>
-              </h4>
-              <p>
-                <span class="he-only">י"ב שבט התשפ"ו | 30.1.2026</span>
-                <span class="en-only">January 30, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">סמל אילן משה כהן ז"ל - דמות של אהבה טהורה לארץ ולעם</span>
-                <span class="en-only">Sgt. Eilan Moshe Cohen z"l - A figure of pure love for the Land and People</span>
-              </p>
-            </div>
-          </a>
+        <a href="https://www.mako.co.il/news-military/2025_q3/Article-aa7f4d79a8f4991026.htm" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #1a1a2e, #16213e); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-article">mako</span>
+            <span style="color:#fff; font-size:2.5rem;">N12</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">mako / N12</div>
+            <h4>"אני לוחם וחרדי" | סיום קורס לוחמי חטיבת חשמונאים</h4>
+          </div>
+        </a>
 
-          <a href="newsletters/newsletter-28-bo.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 28 - פרשת בוא</span>
-                <span class="en-only">Issue 28 - Parshat Bo</span>
-              </h4>
-              <p>
-                <span class="he-only">ה' שבט התשפ"ו | 23.1.2026</span>
-                <span class="en-only">January 23, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">השגרה חזרה לחטיבה, טירונים חדשים, סיפור גדוד יונתן עמוק בשטח</span>
-                <span class="en-only">Routine returns to the brigade, new recruits, Yonatan battalion story from the field</span>
-              </p>
-            </div>
-          </a>
+        <a href="https://www.globes.co.il/news/article.aspx?did=1001508944" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #0d3b66, #1b5e9e); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-article">globes</span>
+            <span style="color:#fff; font-size:2rem; font-weight:700;">GLOBES</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">Globes</div>
+            <h4>החטיבה שמגייסת חרדים לקרבי - בקרוב תקים טייסת</h4>
+          </div>
+        </a>
 
-          <a href="newsletters/newsletter-27-vaera.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 27 - פרשת וארא</span>
-                <span class="en-only">Issue 27 - Parshat Va'era</span>
-              </h4>
-              <p>
-                <span class="he-only">כ"ז טבת התשפ"ו | 16.1.2026</span>
-                <span class="en-only">January 16, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">סמל שניאור זלמן כהן ז"ל - דמות של אמונה, שליחות ומצוינות</span>
-                <span class="en-only">Sgt. Shniur Zalman Cohen z"l - A figure of faith, mission and excellence</span>
-              </p>
-            </div>
-          </a>
+        <a href="https://www.c14.co.il/archive/97827" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #2d2d2d, #4a4a4a); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-article">C14</span>
+            <span style="color:#fff; font-size:2rem; font-weight:700;">C14</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">ערוץ 14</div>
+            <h4>"אתם עושים היסטוריה": תרגיל גדודי ראשון של חטיבת חשמונאים</h4>
+          </div>
+        </a>
 
-          <a href="newsletters/newsletter-26-shemot.pdf" class="newsletter-card fade-in" target="_blank" rel="noopener">
-            <div class="newsletter-card-icon">📰</div>
-            <div class="newsletter-card-body">
-              <h4>
-                <span class="he-only">גיליון 26 - פרשת שמות</span>
-                <span class="en-only">Issue 26 - Parshat Shemot</span>
-              </h4>
-              <p>
-                <span class="he-only">י"ז טבת התשפ"ו | 9.1.2026</span>
-                <span class="en-only">January 9, 2026</span>
-              </p>
-              <p style="font-size:0.85rem; color:var(--text-light); margin-top:6px;">
-                <span class="he-only">טקס הענקת סיכת לוחם, תנופת גיוס בחטיבה, מסלול "לוחם הנדסאי"</span>
-                <span class="en-only">Warrior pin ceremony, recruitment drive, "Combat Engineer" track</span>
-              </p>
-            </div>
-          </a>
+        <a href="https://www.israelhayom.co.il/news/defense/article/20105345" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #b22222, #8b0000); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-article">Israel Hayom</span>
+            <span style="color:#fff; font-size:1.5rem; font-weight:700;">Israel Hayom</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">ישראל היום</div>
+            <h4>מעל 100 כבר בפנים: מה עומד מאחורי הזינוק בהרשמות לחטיבה החרדית</h4>
+          </div>
+        </a>
 
-        </div>
+        <a href="https://www.kikar.co.il/tags/%D7%97%D7%A9%D7%9E%D7%95%D7%A0%D7%90%D7%99%D7%9D" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #1a472a, #2d6a4f); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-article">Kikar</span>
+            <span style="color:#fff; font-size:1.5rem; font-weight:700;">כיכר השבת</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">כיכר השבת</div>
+            <h4>כל הכתבות על חטיבת חשמונאים - כיכר השבת</h4>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- TIKTOK & SOCIAL -->
+      <h3 class="press-section-title" style="margin-top:60px;">
+        <span class="he-only">סרטונים ברשתות חברתיות</span>
+        <span class="en-only">Social Media Videos</span>
+      </h3>
+      <div class="press-grid">
+
+        <a href="https://www.tiktok.com/@mendiroth1/video/7582673981241642258" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סרטון 1</h4>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591227480023862536" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סרטון 2</h4>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591925261763923218" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סרטון 3</h4>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591434860997250322" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סרטון 4</h4>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@mendiroth1/video/7595658224775269650" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סרטון 5</h4>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- FOLLOW US -->
+      <h3 class="press-section-title" style="margin-top:60px;">
+        <span class="he-only">עקבו אחרינו</span>
+        <span class="en-only">Follow Us</span>
+      </h3>
+      <div class="social-follow-grid">
+        <a href="https://www.tiktok.com/@mendiroth1" class="social-follow-btn tiktok" target="_blank" rel="noopener">
+          <span style="font-size:1.3rem;">&#9835;</span>
+          <span>TikTok @mendiroth1</span>
+        </a>
+        <a href="https://www.tiktok.com/@hamacabbie" class="social-follow-btn tiktok" target="_blank" rel="noopener">
+          <span style="font-size:1.3rem;">&#9835;</span>
+          <span>TikTok @hamacabbie</span>
+        </a>
+        <a href="https://www.instagram.com/hamacabbie" class="social-follow-btn instagram" target="_blank" rel="noopener">
+          <span style="font-size:1.3rem;">&#128247;</span>
+          <span>Instagram @hamacabbie</span>
+        </a>
       </div>
 
     </section>
@@ -3935,7 +3975,7 @@
           <span class="en-only">Programs</span>
         </a></li>
         <li><a href="#" onclick="navigateTo('media'); return false;">
-          <span class="he-only">מהנעשה בחטיבה</span>
+          <span class="he-only">כתבות ופרסומים</span>
           <span class="en-only">News</span>
         </a></li>
         <li><a href="#" onclick="navigateTo('donate'); return false;">
