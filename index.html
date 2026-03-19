@@ -2829,12 +2829,7 @@
         .badge-news { background:rgba(26,138,154,0.9); color:#fff; }
         .badge-tiktok { background:rgba(0,0,0,0.85); color:#fff; }
         .badge-ig { background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); color:#fff; }
-        .tiktok-embed-wrap {
-          position:relative; width:100%; aspect-ratio:9/16; max-height:480px; overflow:hidden; background:#000;
-        }
-        .tiktok-embed-wrap iframe {
-          width:100%; height:100%; border:none;
-        }
+        /* TikTok cards use link cards instead of embeds for consistent layout */
         @media(max-width:600px) {
           .press-grid { grid-template-columns:1fr; gap:18px; }
         }
@@ -2942,54 +2937,64 @@
         </a>
 
         <!-- TikTok 1 -->
-        <div class="press-card fade-in">
-          <div class="tiktok-embed-wrap">
-            <iframe src="https://www.tiktok.com/embed/v2/7582673981241642258" allow="encrypted-media" allowfullscreen></iframe>
+        <a href="https://www.tiktok.com/@mendiroth1/video/7582673981241642258" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#000; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <div class="press-card-play" style="background:rgba(255,255,255,0.15);"><span style="font-size:1.8rem;">&#9835;</span></div>
           </div>
           <div class="press-card-body">
             <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+            <h4>הדור הצעיר שואל - למה התגייסתי?</h4>
           </div>
-        </div>
+        </a>
 
         <!-- TikTok 2 -->
-        <div class="press-card fade-in">
-          <div class="tiktok-embed-wrap">
-            <iframe src="https://www.tiktok.com/embed/v2/7591227480023862536" allow="encrypted-media" allowfullscreen></iframe>
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591227480023862536" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#111; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <div class="press-card-play" style="background:rgba(255,255,255,0.15);"><span style="font-size:1.8rem;">&#9835;</span></div>
           </div>
           <div class="press-card-body">
             <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - מאחורי הקלעים</h4>
           </div>
-        </div>
+        </a>
 
         <!-- TikTok 3 -->
-        <div class="press-card fade-in">
-          <div class="tiktok-embed-wrap">
-            <iframe src="https://www.tiktok.com/embed/v2/7591925261763923218" allow="encrypted-media" allowfullscreen></iframe>
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591925261763923218" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <div class="press-card-play" style="background:rgba(255,255,255,0.15);"><span style="font-size:1.8rem;">&#9835;</span></div>
           </div>
           <div class="press-card-body">
             <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - רגעים מהשטח</h4>
           </div>
-        </div>
+        </a>
 
         <!-- TikTok 4 -->
-        <div class="press-card fade-in">
-          <div class="tiktok-embed-wrap">
-            <iframe src="https://www.tiktok.com/embed/v2/7591434860997250322" allow="encrypted-media" allowfullscreen></iframe>
+        <a href="https://www.tiktok.com/@mendiroth1/video/7591434860997250322" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <div class="press-card-play" style="background:rgba(255,255,255,0.15);"><span style="font-size:1.8rem;">&#9835;</span></div>
           </div>
           <div class="press-card-body">
             <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - סיפורי לוחמים</h4>
           </div>
-        </div>
+        </a>
 
         <!-- TikTok 5 -->
-        <div class="press-card fade-in">
-          <div class="tiktok-embed-wrap">
-            <iframe src="https://www.tiktok.com/embed/v2/7595658224775269650" allow="encrypted-media" allowfullscreen></iframe>
+        <a href="https://www.tiktok.com/@mendiroth1/video/7595658224775269650" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#151515; display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-tiktok">TikTok</span>
+            <div class="press-card-play" style="background:rgba(255,255,255,0.15);"><span style="font-size:1.8rem;">&#9835;</span></div>
           </div>
           <div class="press-card-body">
             <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+            <h4>חטיבת חשמונאים - תוכן חדש</h4>
           </div>
-        </div>
+        </a>
 
         <!-- Instagram -->
         <a href="https://www.instagram.com/hamacabbie" class="press-card fade-in" target="_blank" rel="noopener">
