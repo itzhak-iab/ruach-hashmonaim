@@ -165,7 +165,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <div class="admin-tab" data-tab="hero" onclick="switchTab('hero')">דף הבית</div>
     <div class="admin-tab" data-tab="about" onclick="switchTab('about')">אודות</div>
     <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תחומי פעילות</div>
-    <div class="admin-tab" data-tab="media" onclick="switchTab('media')">מהנעשה בחטיבה</div>
+    <div class="admin-tab" data-tab="media" onclick="switchTab('media')">כתבות ופרסומים</div>
     <div class="admin-tab" data-tab="partners" onclick="switchTab('partners')">השותפים שלנו</div>
     <div class="admin-tab" data-tab="donate" onclick="switchTab('donate')">תרומות</div>
     <div class="admin-tab" data-tab="contact" onclick="switchTab('contact')">צור קשר</div>
@@ -338,27 +338,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
       <button class="btn-add" onclick="addProgram()">+ הוסף תחום פעילות חדש</button>
     </div>
 
-    <!-- MEDIA -->
+    <!-- MEDIA / כתבות ופרסומים -->
     <div class="admin-section" id="section-media">
-      <!-- Videos -->
       <div class="edit-card">
-        <h3>סרטונים</h3>
-        <div id="videosContainer"></div>
-        <button class="btn-add" onclick="addVideo()">+ הוסף סרטון</button>
-      </div>
-
-      <!-- Social Links -->
-      <div class="edit-card">
-        <h3>קישורים לרשתות חברתיות</h3>
-        <div id="socialContainer"></div>
-        <button class="btn-add" onclick="addSocial()">+ הוסף רשת חברתית</button>
-      </div>
-
-      <!-- Newsletters -->
-      <div class="edit-card">
-        <h3>עלונים שבועיים</h3>
-        <div id="newslettersContainer"></div>
-        <button class="btn-add" onclick="addNewsletter()">+ הוסף עלון</button>
+        <h3>כתבות ופרסומים</h3>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">קישורים לסרטונים, כתבות, טיקטוקים ורשתות חברתיות. כל קישור מופיע ככרטיסייה בדף הבית.</p>
+        <div id="pressContainer"></div>
+        <button class="btn-add" onclick="addPressItem()">+ הוסף קישור חדש</button>
       </div>
     </div>
 
@@ -517,7 +503,7 @@ const REPO = 'itzhak-iab/ruach-hashmonaim';
 const BRANCH = 'main';
 let siteSHA = '', siteDoc = null, siteHTML = '';
 let pendingChanges = {}, pendingImages = {};
-let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [];
+let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [], pressData = [];
 let aboutSubsections = [];
 let contactSections = [], contactLinks = [];
 
@@ -637,10 +623,8 @@ function populate() {
 
   // Programs
   buildPrograms();
-  // Media
-  buildVideos();
-  buildSocials();
-  buildNewsletters();
+  // Media / Press
+  buildPress();
   buildPartners();
   // Contact
   buildContactSections();
@@ -820,113 +804,77 @@ function addProgram(){
 }
 
 // VIDEOS
-function buildVideos(){
-  videoData=[];
-  siteDoc.querySelectorAll('.media-card').forEach(card=>{
-    videoData.push({
-      titleHe:card.querySelector('h4 .he-only')?.textContent.trim()||'',
-      titleEn:card.querySelector('h4 .en-only')?.textContent.trim()||'',
-      descHe:card.querySelector('p .he-only')?.textContent.trim()||'',
-      descEn:card.querySelector('p .en-only')?.textContent.trim()||'',
+// PRESS / כתבות ופרסומים
+function buildPress(){
+  pressData=[];
+  siteDoc.querySelectorAll('.press-card').forEach(card=>{
+    const img=card.querySelector('.press-card-thumb img');
+    const badge=card.querySelector('.press-badge');
+    const source=card.querySelector('.press-source');
+    const title=card.querySelector('.press-card-body h4');
+    const hasPlay=!!card.querySelector('.press-card-play');
+    const thumbDiv=card.querySelector('.press-card-thumb');
+    // Detect type from badge or style
+    let type='article';
+    const badgeText=(badge?.textContent||'').trim().toLowerCase();
+    if(badgeText.includes('youtube')||badgeText.includes('ערוץ 12'))type='video';
+    else if(badgeText.includes('tiktok'))type='tiktok';
+    else if(badgeText.includes('instagram'))type='instagram';
+    // Get thumb style for non-image cards
+    let thumbStyle=thumbDiv?.getAttribute('style')||'';
+    pressData.push({
+      title:title?.textContent.trim()||'',
+      source:source?.textContent.trim()||'',
       link:card.getAttribute('href')||'#',
-      thumb:card.querySelector('img')?.getAttribute('src')||''
+      image:img?.getAttribute('src')||'',
+      badge:badge?.textContent.trim()||'',
+      badgeStyle:badge?.getAttribute('style')||'',
+      thumbStyle:thumbStyle,
+      type:type,
+      hasPlay:hasPlay
     });
   });
-  renderVideos();
+  renderPress();
 }
 
-function renderVideos(){
-  const c=document.getElementById('videosContainer');
-  c.innerHTML=videoData.map((v,i)=>`
-  <div class="media-item-card">
+function renderPress(){
+  const c=document.getElementById('pressContainer');
+  const typeOptions=['video','article','tiktok','instagram','social'];
+  c.innerHTML=pressData.map((p,i)=>`
+  <div class="media-item-card" style="border-right:4px solid ${p.type==='video'?'#c00':p.type==='tiktok'?'#000':p.type==='instagram'?'#e6683c':'#1a472a'};">
     <div class="media-item-header">
-      <h4>${v.titleHe||'סרטון '+(i+1)}</h4>
-      <button class="btn-remove" onclick="videoData.splice(${i},1);pendingChanges['_media']='1';renderVideos();updateBadge();">מחק</button>
+      <h4>${p.badge||p.source||'קישור '+(i+1)} — ${(p.title||'').substring(0,40)}${(p.title||'').length>40?'...':''}</h4>
+      <div>
+        <button class="btn-remove" style="margin-left:4px;" onclick="if(${i}>0){pressData.splice(${i-1},0,pressData.splice(${i},1)[0]);pendingChanges['_media']='1';renderPress();updateBadge();}">&#9650;</button>
+        <button class="btn-remove" style="margin-left:4px;" onclick="if(${i}<pressData.length-1){pressData.splice(${i+1},0,pressData.splice(${i},1)[0]);pendingChanges['_media']='1';renderPress();updateBadge();}">&#9660;</button>
+        <button class="btn-remove" onclick="pressData.splice(${i},1);pendingChanges['_media']='1';renderPress();updateBadge();">מחק</button>
+      </div>
     </div>
-    <div class="edit-field"><label>קישור (YouTube וכו׳)</label><input type="text" data-field="vid-${i}-link" value="${esc(v.link)}" dir="ltr" oninput="videoData[${i}].link=this.value;markChanged()"></div>
     <div class="edit-field-row">
-      <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="vid-${i}-title-he" value="${esc(v.titleHe)}" oninput="videoData[${i}].titleHe=this.value;markChanged()"></div>
-      <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="vid-${i}-title-en" value="${esc(v.titleEn)}" dir="ltr" oninput="videoData[${i}].titleEn=this.value;markChanged()"></div>
+      <div class="edit-field" style="flex:2;"><label>קישור</label><input type="text" value="${esc(p.link)}" dir="ltr" oninput="pressData[${i}].link=this.value;markChanged()"></div>
+      <div class="edit-field" style="flex:1;"><label>סוג</label><select oninput="pressData[${i}].type=this.value;pressData[${i}].hasPlay=(this.value==='video'||this.value==='tiktok');markChanged()">
+        <option value="video" ${p.type==='video'?'selected':''}>סרטון</option>
+        <option value="article" ${p.type==='article'?'selected':''}>כתבה</option>
+        <option value="tiktok" ${p.type==='tiktok'?'selected':''}>TikTok</option>
+        <option value="instagram" ${p.type==='instagram'?'selected':''}>Instagram</option>
+        <option value="social" ${p.type==='social'?'selected':''}>רשת חברתית</option>
+      </select></div>
     </div>
     <div class="edit-field-row">
-      <div class="edit-field"><label>תיאור (עברית)</label><input type="text" data-field="vid-${i}-desc-he" value="${esc(v.descHe)}" oninput="videoData[${i}].descHe=this.value;markChanged()"></div>
-      <div class="edit-field"><label>תיאור (English)</label><input type="text" data-field="vid-${i}-desc-en" value="${esc(v.descEn)}" dir="ltr" oninput="videoData[${i}].descEn=this.value;markChanged()"></div>
+      <div class="edit-field" style="flex:2;"><label>כותרת</label><input type="text" value="${esc(p.title)}" oninput="pressData[${i}].title=this.value;markChanged()"></div>
+      <div class="edit-field" style="flex:1;"><label>מקור</label><input type="text" value="${esc(p.source)}" oninput="pressData[${i}].source=this.value;markChanged()"></div>
+    </div>
+    <div class="edit-field-row">
+      <div class="edit-field" style="flex:2;"><label>קישור לתמונה</label><input type="text" value="${esc(p.image)}" dir="ltr" oninput="pressData[${i}].image=this.value;markChanged()"></div>
+      <div class="edit-field" style="flex:1;"><label>תג (Badge)</label><input type="text" value="${esc(p.badge)}" oninput="pressData[${i}].badge=this.value;markChanged()"></div>
     </div>
   </div>`).join('');
 }
 
-function addVideo(){videoData.push({titleHe:'סרטון חדש',titleEn:'New Video',descHe:'',descEn:'',link:'#',thumb:''});pendingChanges['_media']='1';renderVideos();updateBadge();}
-
-// SOCIALS
-function buildSocials(){
-  socialData=[];
-  siteDoc.querySelectorAll('.social-card').forEach(card=>{
-    socialData.push({
-      name:card.querySelector('h4')?.textContent.trim()||'',
-      descHe:card.querySelector('p .he-only')?.textContent.trim()||'',
-      descEn:card.querySelector('p .en-only')?.textContent.trim()||'',
-      link:card.getAttribute('href')||'#',
-      icon:card.querySelector('.social-icon')?.textContent.trim()||''
-    });
-  });
-  renderSocials();
+function addPressItem(){
+  pressData.push({title:'קישור חדש',source:'',link:'#',image:'',badge:'',badgeStyle:'',thumbStyle:'',type:'article',hasPlay:false});
+  pendingChanges['_media']='1';renderPress();updateBadge();
 }
-
-function renderSocials(){
-  const c=document.getElementById('socialContainer');
-  c.innerHTML=socialData.map((s,i)=>`
-  <div class="media-item-card">
-    <div class="media-item-header">
-      <h4>${s.icon} ${s.name}</h4>
-      <button class="btn-remove" onclick="socialData.splice(${i},1);pendingChanges['_media']='1';renderSocials();updateBadge();">מחק</button>
-    </div>
-    <div class="edit-field-row">
-      <div class="edit-field"><label>שם</label><input type="text" value="${esc(s.name)}" oninput="socialData[${i}].name=this.value;markChanged()"></div>
-      <div class="edit-field"><label>אייקון</label><input type="text" value="${esc(s.icon)}" style="width:60px;" oninput="socialData[${i}].icon=this.value;markChanged()"></div>
-    </div>
-    <div class="edit-field"><label>קישור</label><input type="text" value="${esc(s.link)}" dir="ltr" oninput="socialData[${i}].link=this.value;markChanged()"></div>
-    <div class="edit-field-row">
-      <div class="edit-field"><label>תיאור (עברית)</label><input type="text" value="${esc(s.descHe)}" oninput="socialData[${i}].descHe=this.value;markChanged()"></div>
-      <div class="edit-field"><label>תיאור (English)</label><input type="text" value="${esc(s.descEn)}" dir="ltr" oninput="socialData[${i}].descEn=this.value;markChanged()"></div>
-    </div>
-  </div>`).join('');
-}
-
-function addSocial(){socialData.push({name:'חדש',descHe:'',descEn:'',link:'#',icon:'🔗'});pendingChanges['_media']='1';renderSocials();updateBadge();}
-
-// NEWSLETTERS
-function buildNewsletters(){
-  newsletterData=[];
-  siteDoc.querySelectorAll('.newsletter-card, [onclick*="newsletter"]').forEach(card=>{
-    const a=card.querySelector('a')||card;
-    newsletterData.push({
-      titleHe:card.querySelector('.he-only')?.textContent.trim()||card.querySelector('h4')?.textContent.trim()||'',
-      link:a.getAttribute('href')||'#'
-    });
-  });
-  // Try alternate: look for newsletter links
-  if(newsletterData.length===0){
-    siteDoc.querySelectorAll('a[href*="newsletter"]').forEach(a=>{
-      newsletterData.push({titleHe:a.textContent.trim(),link:a.getAttribute('href')||'#'});
-    });
-  }
-  renderNewsletters();
-}
-
-function renderNewsletters(){
-  const c=document.getElementById('newslettersContainer');
-  c.innerHTML=newsletterData.map((n,i)=>`
-  <div class="media-item-card">
-    <div class="media-item-header">
-      <h4>${n.titleHe||'עלון '+(i+1)}</h4>
-      <button class="btn-remove" onclick="newsletterData.splice(${i},1);pendingChanges['_media']='1';renderNewsletters();updateBadge();">מחק</button>
-    </div>
-    <div class="edit-field"><label>שם העלון</label><input type="text" value="${esc(n.titleHe)}" oninput="newsletterData[${i}].titleHe=this.value;markChanged()"></div>
-    <div class="edit-field"><label>קישור לקובץ PDF</label><input type="text" value="${esc(n.link)}" dir="ltr" oninput="newsletterData[${i}].link=this.value;markChanged()"></div>
-  </div>`).join('');
-}
-
-function addNewsletter(){newsletterData.push({titleHe:'עלון חדש',link:'#'});pendingChanges['_media']='1';renderNewsletters();updateBadge();}
 
 // PARTNERS
 function buildPartners(){
@@ -1484,33 +1432,33 @@ function applyAllChanges(){
 }
 
 function rebuildMediaSection(){
-  // Rebuild video grid
-  const grid=siteDoc.querySelector('.media-grid');
+  // Rebuild press grid
+  const grid=siteDoc.querySelector('.press-grid');
   if(grid){
-    grid.innerHTML=videoData.map(v=>`
-        <a href="${v.link}" class="media-card fade-in" target="_blank" rel="noopener">
-          <div class="media-card-thumb">
-            <img src="${v.thumb||'images/hero.jpg'}" alt="${v.titleHe}">
-            <div class="media-play-btn">▶</div>
+    grid.innerHTML=pressData.map(p=>{
+      const badgeClass=p.type==='video'?'badge-yt':p.type==='tiktok'?'badge-tiktok':p.type==='instagram'?'badge-ig':'badge-news';
+      const badgeStyleAttr=p.badgeStyle?' style="'+p.badgeStyle+'"':'';
+      let thumbContent='';
+      if(p.image){
+        thumbContent=`<img src="${p.image}" alt="${p.title}">`;
+      } else if(p.thumbStyle){
+        thumbContent='';
+      }
+      const playBtn=(p.hasPlay||p.type==='video'||p.type==='tiktok')?'<div class="press-card-play">&#9654;</div>':'';
+      const thumbStyleAttr=(!p.image&&p.thumbStyle)?' style="'+p.thumbStyle+'"':'';
+      return `
+        <a href="${p.link}" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb"${thumbStyleAttr}>
+            ${thumbContent}
+            <span class="press-badge ${badgeClass}"${badgeStyleAttr}>${p.badge}</span>
+            ${playBtn}
           </div>
-          <div class="media-card-body">
-            <h4><span class="he-only">${v.titleHe}</span><span class="en-only">${v.titleEn}</span></h4>
-            <p><span class="he-only">${v.descHe}</span><span class="en-only">${v.descEn}</span></p>
+          <div class="press-card-body">
+            <div class="press-source">${p.source}</div>
+            <h4>${p.title}</h4>
           </div>
-        </a>`).join('\n');
-  }
-
-  // Rebuild social links
-  const socialGrid=siteDoc.querySelector('.social-links-grid');
-  if(socialGrid){
-    socialGrid.innerHTML=socialData.map(s=>`
-        <a href="${s.link}" class="social-card" target="_blank" rel="noopener">
-          <div class="social-icon">${s.icon}</div>
-          <div class="social-card-text">
-            <h4>${s.name}</h4>
-            <p><span class="he-only">${s.descHe}</span><span class="en-only">${s.descEn}</span></p>
-          </div>
-        </a>`).join('\n');
+        </a>`;
+    }).join('\n');
   }
 }
 
