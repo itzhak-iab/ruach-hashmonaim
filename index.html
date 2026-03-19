@@ -2367,10 +2367,10 @@
         <div class="program-card fade-in" onclick="navigateTo('programs')">
           <div class="program-card-img program-card-slideshow">
             
-          <img src="images/prog-4-1772756086982.jpg" alt="בית בישראל" class="slide active"><img src="images/prog-3-1772788984645.jpg" alt="בית בישראל" class="slide"></div>
+          <img src="images/prog-4-1772756086982.jpg" alt="בית נאמן" class="slide active"><img src="images/prog-3-1772788984645.jpg" alt="בית נאמן" class="slide"></div>
           <div class="program-card-body">
             <h3 class="program-card-name">
-              <span class="he-only">בית בישראל</span>
+              <span class="he-only">בית נאמן</span>
               <span class="en-only">Bayit B'Yisrael</span>
             </h3>
             <p class="program-card-desc">
@@ -2706,11 +2706,11 @@
 
       <!-- Program 4 -->
       <div class="program-detail-item fade-in">
-        <div class="program-detail-img"><img src="images/prog-4-1772756086982.jpg" alt="בית בישראל"><img src="images/prog-3-1772788984645.jpg" alt="בית בישראל"></div>
+        <div class="program-detail-img"><img src="images/prog-4-1772756086982.jpg" alt="בית נאמן"><img src="images/prog-3-1772788984645.jpg" alt="בית נאמן"></div>
         <div class="program-detail-content">
           <h3>
             <span>
-              <span class="he-only">בית בישראל</span>
+              <span class="he-only">בית נאמן</span>
               <span class="en-only">Bayit B'Yisrael</span>
             </span>
           </h3>
@@ -2790,7 +2790,7 @@
 
       <style>
         .press-grid {
-          display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:24px; margin-top:40px;
+          display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:24px; margin-top:40px;
         }
         .press-card {
           display:flex; flex-direction:column; background:#fff; border-radius:14px; border:1px solid #e8ecf0;
@@ -2807,60 +2807,46 @@
         }
         .press-card-play {
           position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-          width:60px; height:60px; background:rgba(255,0,0,0.85); border-radius:50%;
-          display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.6rem;
+          width:56px; height:56px; background:rgba(255,0,0,0.85); border-radius:50%;
+          display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.5rem;
           transition:transform 0.2s;
         }
         .press-card:hover .press-card-play { transform:translate(-50%,-50%) scale(1.1); }
         .press-card-body {
-          padding:18px 20px; flex:1; display:flex; flex-direction:column;
+          padding:16px 20px; flex:1; display:flex; flex-direction:column;
         }
         .press-card-body h4 {
-          font-size:1rem; font-weight:700; color:var(--dark); margin-bottom:6px; line-height:1.5;
+          font-size:0.95rem; font-weight:700; color:var(--dark); margin-bottom:4px; line-height:1.5;
         }
-        .press-card-body .press-source {
-          font-size:0.82rem; color:var(--primary); font-weight:600; margin-bottom:4px;
+        .press-source {
+          font-size:0.78rem; color:var(--primary); font-weight:600; margin-bottom:4px;
         }
-        .press-card-body p {
-          font-size:0.88rem; color:var(--text-light); line-height:1.5;
-        }
-        .press-section-title {
-          font-size:1.5rem; font-weight:700; color:var(--dark); margin-bottom:8px; margin-top:50px; text-align:center;
-        }
-        .press-section-title:first-of-type { margin-top:0; }
         .press-badge {
-          display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;
-          position:absolute; top:12px; right:12px; z-index:2;
+          display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:700;
+          position:absolute; top:10px; right:10px; z-index:2; backdrop-filter:blur(4px);
         }
-        .badge-video { background:rgba(255,0,0,0.9); color:#fff; }
-        .badge-article { background:rgba(26,138,154,0.9); color:#fff; }
-        .badge-tiktok { background:#000; color:#fff; }
-        .social-follow-grid {
-          display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px;
+        .badge-yt { background:rgba(255,0,0,0.9); color:#fff; }
+        .badge-news { background:rgba(26,138,154,0.9); color:#fff; }
+        .badge-tiktok { background:rgba(0,0,0,0.85); color:#fff; }
+        .badge-ig { background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); color:#fff; }
+        .tiktok-embed-wrap {
+          position:relative; width:100%; aspect-ratio:9/16; max-height:480px; overflow:hidden; background:#000;
         }
-        .social-follow-btn {
-          display:inline-flex; align-items:center; gap:10px; padding:14px 28px; border-radius:12px;
-          font-weight:700; font-size:0.95rem; text-decoration:none; transition:all 0.3s; border:2px solid #e0e0e0;
+        .tiktok-embed-wrap iframe {
+          width:100%; height:100%; border:none;
         }
-        .social-follow-btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
-        .social-follow-btn.tiktok { background:#000; color:#fff; border-color:#000; }
-        .social-follow-btn.instagram { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; border-color:transparent; }
         @media(max-width:600px) {
-          .press-grid { grid-template-columns:1fr; }
+          .press-grid { grid-template-columns:1fr; gap:18px; }
         }
       </style>
 
-      <!-- VIDEOS -->
-      <h3 class="press-section-title">
-        <span class="he-only">סרטונים</span>
-        <span class="en-only">Videos</span>
-      </h3>
       <div class="press-grid">
 
+        <!-- YouTube 1 -->
         <a href="https://youtu.be/e1vGzhVCl_g" class="press-card fade-in" target="_blank" rel="noopener">
           <div class="press-card-thumb">
-            <img src="https://img.youtube.com/vi/e1vGzhVCl_g/hqdefault.jpg" alt="">
-            <span class="press-badge badge-video">YouTube</span>
+            <img src="https://img.youtube.com/vi/e1vGzhVCl_g/hqdefault.jpg" alt="טקס ההשבעה של חטיבת חשמונאים">
+            <span class="press-badge badge-yt">YouTube</span>
             <div class="press-card-play">&#9654;</div>
           </div>
           <div class="press-card-body">
@@ -2869,10 +2855,11 @@
           </div>
         </a>
 
+        <!-- YouTube 2 -->
         <a href="https://www.youtube.com/watch?v=wx-1mYQoTFQ" class="press-card fade-in" target="_blank" rel="noopener">
           <div class="press-card-thumb">
-            <img src="https://img.youtube.com/vi/wx-1mYQoTFQ/hqdefault.jpg" alt="">
-            <span class="press-badge badge-video">YouTube</span>
+            <img src="https://img.youtube.com/vi/wx-1mYQoTFQ/hqdefault.jpg" alt="מסע כומתה חטיבת חשמונאים">
+            <span class="press-badge badge-yt">YouTube</span>
             <div class="press-card-play">&#9654;</div>
           </div>
           <div class="press-card-body">
@@ -2881,166 +2868,153 @@
           </div>
         </a>
 
+        <!-- YouTube 3 - Channel 12 -->
         <a href="https://www.youtube.com/watch?v=9QC2V2V2Ho0" class="press-card fade-in" target="_blank" rel="noopener">
           <div class="press-card-thumb">
-            <img src="https://img.youtube.com/vi/9QC2V2V2Ho0/hqdefault.jpg" alt="">
-            <span class="press-badge badge-video">YouTube</span>
+            <img src="https://img.youtube.com/vi/9QC2V2V2Ho0/hqdefault.jpg" alt="כתבת ערוץ 12 חטיבת חשמונאים">
+            <span class="press-badge badge-yt">ערוץ 12</span>
             <div class="press-card-play">&#9654;</div>
           </div>
           <div class="press-card-body">
-            <div class="press-source">ערוץ 12</div>
-            <h4>"החשמונאים, סוף המסלול" - כתבת אלי הירשמן על חטיבת חשמונאים (פרק 2)</h4>
+            <div class="press-source">ערוץ 12 - אלי הירשמן</div>
+            <h4>"החשמונאים, סוף המסלול" - כתבה על חטיבת חשמונאים (פרק 2)</h4>
           </div>
         </a>
 
-      </div>
-
-      <!-- ARTICLES -->
-      <h3 class="press-section-title" style="margin-top:60px;">
-        <span class="he-only">כתבות בתקשורת</span>
-        <span class="en-only">News Articles</span>
-      </h3>
-      <div class="press-grid">
-
+        <!-- mako / N12 -->
         <a href="https://www.mako.co.il/news-military/2025_q3/Article-aa7f4d79a8f4991026.htm" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #1a1a2e, #16213e); display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-article">mako</span>
-            <span style="color:#fff; font-size:2.5rem;">N12</span>
+          <div class="press-card-thumb">
+            <img src="https://img.mako.co.il/2025/09/15/in_hashmonaim_autoOrient.mxf_4_autoOrient_w.jpg" alt="סיום מסלול חטיבת חשמונאים">
+            <span class="press-badge badge-news">mako</span>
           </div>
           <div class="press-card-body">
             <div class="press-source">mako / N12</div>
-            <h4>"אני לוחם וחרדי" | סיום קורס לוחמי חטיבת חשמונאים</h4>
+            <h4>"אני לוחם וחרדי" | סיום המסלול של לוחמי חטיבת חשמונאים</h4>
           </div>
         </a>
 
+        <!-- Globes -->
         <a href="https://www.globes.co.il/news/article.aspx?did=1001508944" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #0d3b66, #1b5e9e); display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-article">globes</span>
-            <span style="color:#fff; font-size:2rem; font-weight:700;">GLOBES</span>
+          <div class="press-card-thumb">
+            <img src="https://res.cloudinary.com/globes/image/upload/c_crop,w_2048,h_1155,x_0,y_0/t_800X392/v1745843419/direct/michal_gal12_rfgmff.jpg" alt="כתבת גלובס חטיבת חשמונאים">
+            <span class="press-badge badge-news">Globes</span>
           </div>
           <div class="press-card-body">
             <div class="press-source">Globes</div>
-            <h4>החטיבה שמגייסת חרדים לקרבי - בקרוב תקים טייסת</h4>
+            <h4>החטיבה שמגייסת חרדים ללחימה, ובקרוב תקים סיירת</h4>
           </div>
         </a>
 
-        <a href="https://www.c14.co.il/archive/97827" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #2d2d2d, #4a4a4a); display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-article">C14</span>
-            <span style="color:#fff; font-size:2rem; font-weight:700;">C14</span>
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">ערוץ 14</div>
-            <h4>"אתם עושים היסטוריה": תרגיל גדודי ראשון של חטיבת חשמונאים</h4>
-          </div>
-        </a>
-
+        <!-- Israel Hayom -->
         <a href="https://www.israelhayom.co.il/news/defense/article/20105345" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #b22222, #8b0000); display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-article">Israel Hayom</span>
-            <span style="color:#fff; font-size:1.5rem; font-weight:700;">Israel Hayom</span>
+          <div class="press-card-thumb">
+            <img src="https://www.israelhayom.co.il/wp-content/uploads/2026/01/10/10/BHC9739-1280x853.jpg" alt="כתבת ישראל היום חטיבת חשמונאים">
+            <span class="press-badge badge-news">ישראל היום</span>
           </div>
           <div class="press-card-body">
             <div class="press-source">ישראל היום</div>
-            <h4>מעל 100 כבר בפנים: מה עומד מאחורי הזינוק בהרשמות לחטיבה החרדית</h4>
+            <h4>יותר מ-100 כבר בפנים: מה עומד מאחורי הזינוק בהרשמה לחטיבה החרדית</h4>
           </div>
         </a>
 
+        <!-- C14 -->
+        <a href="https://www.c14.co.il/archive/97827" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:linear-gradient(135deg, #d21d23, #8b0000); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-news">ערוץ 14</span>
+            <span style="color:#fff; font-size:2.2rem; font-weight:800; letter-spacing:2px;">ערוץ 14</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source">ערוץ 14</div>
+            <h4>"אתם עושים היסטוריה": תרגיל גדודי ראשון של חשמונאים</h4>
+          </div>
+        </a>
+
+        <!-- Kikar HaShabbat -->
         <a href="https://www.kikar.co.il/tags/%D7%97%D7%A9%D7%9E%D7%95%D7%A0%D7%90%D7%99%D7%9D" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:linear-gradient(135deg, #1a472a, #2d6a4f); display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-article">Kikar</span>
-            <span style="color:#fff; font-size:1.5rem; font-weight:700;">כיכר השבת</span>
+          <div class="press-card-thumb" style="background:linear-gradient(135deg, #1a472a, #2d6a4f); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-news">כיכר השבת</span>
+            <span style="color:#fff; font-size:1.8rem; font-weight:800;">כיכר השבת</span>
           </div>
           <div class="press-card-body">
             <div class="press-source">כיכר השבת</div>
-            <h4>כל הכתבות על חטיבת חשמונאים - כיכר השבת</h4>
+            <h4>חשמונאים - כל הכתבות והעדכונים</h4>
           </div>
         </a>
 
-      </div>
+        <!-- TikTok 1 -->
+        <div class="press-card fade-in">
+          <div class="tiktok-embed-wrap">
+            <iframe src="https://www.tiktok.com/embed/v2/7582673981241642258" allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+          </div>
+        </div>
 
-      <!-- TIKTOK & SOCIAL -->
-      <h3 class="press-section-title" style="margin-top:60px;">
-        <span class="he-only">סרטונים ברשתות חברתיות</span>
-        <span class="en-only">Social Media Videos</span>
-      </h3>
-      <div class="press-grid">
+        <!-- TikTok 2 -->
+        <div class="press-card fade-in">
+          <div class="tiktok-embed-wrap">
+            <iframe src="https://www.tiktok.com/embed/v2/7591227480023862536" allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+          </div>
+        </div>
 
-        <a href="https://www.tiktok.com/@mendiroth1/video/7582673981241642258" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
+        <!-- TikTok 3 -->
+        <div class="press-card fade-in">
+          <div class="tiktok-embed-wrap">
+            <iframe src="https://www.tiktok.com/embed/v2/7591925261763923218" allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+          </div>
+        </div>
+
+        <!-- TikTok 4 -->
+        <div class="press-card fade-in">
+          <div class="tiktok-embed-wrap">
+            <iframe src="https://www.tiktok.com/embed/v2/7591434860997250322" allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+          </div>
+        </div>
+
+        <!-- TikTok 5 -->
+        <div class="press-card fade-in">
+          <div class="tiktok-embed-wrap">
+            <iframe src="https://www.tiktok.com/embed/v2/7595658224775269650" allow="encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#000;">TikTok @mendiroth1</div>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/hamacabbie" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); display:flex; align-items:center; justify-content:center;">
+            <span class="press-badge badge-ig">Instagram</span>
+            <span style="color:#fff; font-size:2.5rem;">&#128247;</span>
+          </div>
+          <div class="press-card-body">
+            <div class="press-source" style="color:#e6683c;">Instagram</div>
+            <h4>@hamacabbie - עמוד האינסטגרם של החטיבה</h4>
+          </div>
+        </a>
+
+        <!-- TikTok hamacabbie -->
+        <a href="https://www.tiktok.com/@hamacabbie" class="press-card fade-in" target="_blank" rel="noopener">
+          <div class="press-card-thumb" style="background:#000; display:flex; align-items:center; justify-content:center;">
             <span class="press-badge badge-tiktok">TikTok</span>
             <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
           </div>
           <div class="press-card-body">
-            <div class="press-source">TikTok @mendiroth1</div>
-            <h4>חטיבת חשמונאים - סרטון 1</h4>
+            <div class="press-source" style="color:#000;">TikTok</div>
+            <h4>@hamacabbie - ערוץ הטיקטוק של החטיבה</h4>
           </div>
         </a>
 
-        <a href="https://www.tiktok.com/@mendiroth1/video/7591227480023862536" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-tiktok">TikTok</span>
-            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">TikTok @mendiroth1</div>
-            <h4>חטיבת חשמונאים - סרטון 2</h4>
-          </div>
-        </a>
-
-        <a href="https://www.tiktok.com/@mendiroth1/video/7591925261763923218" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-tiktok">TikTok</span>
-            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">TikTok @mendiroth1</div>
-            <h4>חטיבת חשמונאים - סרטון 3</h4>
-          </div>
-        </a>
-
-        <a href="https://www.tiktok.com/@mendiroth1/video/7591434860997250322" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-tiktok">TikTok</span>
-            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">TikTok @mendiroth1</div>
-            <h4>חטיבת חשמונאים - סרטון 4</h4>
-          </div>
-        </a>
-
-        <a href="https://www.tiktok.com/@mendiroth1/video/7595658224775269650" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb" style="aspect-ratio:auto; padding:24px; background:#000; display:flex; align-items:center; justify-content:center;">
-            <span class="press-badge badge-tiktok">TikTok</span>
-            <span style="color:#fff; font-size:2.5rem;">&#9835;</span>
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">TikTok @mendiroth1</div>
-            <h4>חטיבת חשמונאים - סרטון 5</h4>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- FOLLOW US -->
-      <h3 class="press-section-title" style="margin-top:60px;">
-        <span class="he-only">עקבו אחרינו</span>
-        <span class="en-only">Follow Us</span>
-      </h3>
-      <div class="social-follow-grid">
-        <a href="https://www.tiktok.com/@mendiroth1" class="social-follow-btn tiktok" target="_blank" rel="noopener">
-          <span style="font-size:1.3rem;">&#9835;</span>
-          <span>TikTok @mendiroth1</span>
-        </a>
-        <a href="https://www.tiktok.com/@hamacabbie" class="social-follow-btn tiktok" target="_blank" rel="noopener">
-          <span style="font-size:1.3rem;">&#9835;</span>
-          <span>TikTok @hamacabbie</span>
-        </a>
-        <a href="https://www.instagram.com/hamacabbie" class="social-follow-btn instagram" target="_blank" rel="noopener">
-          <span style="font-size:1.3rem;">&#128247;</span>
-          <span>Instagram @hamacabbie</span>
-        </a>
       </div>
 
     </section>
@@ -3247,7 +3221,7 @@
                   <option value="lev-david">לב דוד</option>
                   <option value="keren-hravaha">קרן הרווחה והסיוע</option>
                   <option value="ruach-hashmonait">רוח חשמונאית</option>
-                  <option value="beit-yisrael">בית בישראל</option>
+                  <option value="beit-yisrael">בית נאמן</option>
                   <option value="vehagit-bo">והגית בו</option>
                   <option value="hashmonaim-le-atid">חשמונאים לעתיד ישראל</option>
                 </select>
