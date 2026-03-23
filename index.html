@@ -3064,8 +3064,14 @@
 
         <!-- COUNTRY SELECTOR -->
         <div class="fade-in" style="display:flex; gap:16px; margin-bottom:48px; flex-wrap:wrap; justify-content:center;">
-          <!-- Israel donation temporarily hidden until payment link ready -->
-          <button onclick="showDonatePanel('usa')" id="donate-btn-usa" class="donate-country-btn active" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
+          <button onclick="showDonatePanel('israel')" id="donate-btn-israel" class="donate-country-btn active" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
+            <span style="font-size:1.8rem;">🇮🇱</span>
+            <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
+              <span class="he-only">תרומה מישראל</span>
+              <span class="en-only">Donate from Israel</span>
+            </span>
+          </button>
+          <button onclick="showDonatePanel('usa')" id="donate-btn-usa" class="donate-country-btn" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
             <span style="font-size:1.8rem;">🇺🇸</span>
             <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
               <span class="he-only">תרומה מארה״ב</span>
@@ -3081,8 +3087,8 @@
           </button>
         </div>
 
-        <!-- ISRAEL PANEL - temporarily hidden until payment link ready -->
-        <div id="donate-panel-israel" class="donate-panel" style="display:none; max-width:680px; margin:0 auto;">
+        <!-- ISRAEL PANEL -->
+        <div id="donate-panel-israel" class="donate-panel fade-in" style="max-width:680px; margin:0 auto;">
           <style>
             .israel-form-container {
               background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.06); border:1px solid #e8ecf0; overflow:hidden;
@@ -3262,8 +3268,8 @@
                     <span class="en-only">Via Ruach HaHashmonaim</span>
                   </div>
                   <div class="donation-channel-subtitle">
-                    <span class="he-only">ע״ר 580814234 · קבלה רגילה</span>
-                    <span class="en-only">R.A. 580814234 · Standard receipt</span>
+                    <span class="he-only">ע״ר 580814234 · סליקה מאובטחת · קבלה רגילה</span>
+                    <span class="en-only">R.A. 580814234 · Secure payment · Standard receipt</span>
                   </div>
                 </div>
 
@@ -3507,11 +3513,17 @@
               var email = document.getElementById('checkoutEmail').value.trim();
 
               if (channel === 'ruach') {
-                var heText = 'שלום, אני ' + firstName + ' ' + lastName + ', מעוניין/ת לתרום ' + amount + ' ₪ ' + (frequency === 'once' ? '(חד-פעמי)' : '(הוראת קבע חודשית)') + (program ? ' לתוכנית: ' + program : '') + ' דרך רוח החשמונאים. טלפון: ' + phone + ', מייל: ' + email;
-                var enText = 'Hi, I am ' + firstName + ' ' + lastName + ', I would like to donate ' + amount + ' ₪ (' + (frequency === 'once' ? 'one-time' : 'monthly') + ')' + (program ? ' to program: ' + program : '') + ' via Ruach HaHashmonaim. Phone: ' + phone + ', Email: ' + email;
-                var msg = document.documentElement.lang === 'he' ? heText : enText;
-                var whatsappUrl = 'https://wa.me/972556637374?text=' + encodeURIComponent(msg);
-                window.open(whatsappUrl, '_blank');
+                var params = new URLSearchParams({
+                  amount: amount,
+                  frequency: frequency,
+                  program: program || 'general',
+                  first_name: firstName,
+                  last_name: lastName,
+                  phone: phone,
+                  email: email,
+                  country: country
+                });
+                window.open('https://pay.grow.link/ea092318c799ff5fcfd8d0f044abb97d-MzIxMjM4MQ?' + params.toString(), '_blank');
               } else if (channel === 'dor') {
                 var params = new URLSearchParams({
                   amount: amount,
@@ -3536,7 +3548,7 @@
         </div>
 
         <!-- USA PANEL -->
-        <div id="donate-panel-usa" class="donate-panel fade-in" style="max-width:640px; margin:0 auto;">
+        <div id="donate-panel-usa" class="donate-panel" style="display:none; max-width:640px; margin:0 auto;">
           <div style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.06); border:1px solid #e8ecf0; overflow:hidden;">
             <div style="padding:32px 32px 24px; text-align:center;">
               <h3 style="font-size:1.25rem; color:var(--dark); margin-bottom:8px;">
