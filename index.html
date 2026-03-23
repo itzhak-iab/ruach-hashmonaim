@@ -3062,94 +3062,50 @@
 
       <div class="donation-container" style="max-width:800px; margin:0 auto;">
 
-        <!-- COUNTRY SELECTOR -->
-        <div class="fade-in" style="display:flex; gap:16px; margin-bottom:48px; flex-wrap:wrap; justify-content:center;">
-          <button onclick="showDonatePanel('israel')" id="donate-btn-israel" class="donate-country-btn active" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
+        <!-- DONATION BUTTONS - Direct links -->
+        <div class="fade-in" style="display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap; justify-content:center;">
+          <a href="https://mrng.to/3jRk02ZXa5" target="_blank" rel="noopener" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); text-decoration:none; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(13,71,161,0.35)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 20px rgba(13,71,161,0.25)'">
             <span style="font-size:1.8rem;">🇮🇱</span>
             <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
               <span class="he-only">תרומה מישראל</span>
               <span class="en-only">Donate from Israel</span>
             </span>
-          </button>
-          <button onclick="showDonatePanel('usa')" id="donate-btn-usa" class="donate-country-btn" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
-            <span style="font-size:1.8rem;">🇺🇸</span>
-            <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
-              <span class="he-only">תרומה מארה״ב</span>
-              <span class="en-only">Donate from USA</span>
+          </a>
+          <a href="https://new.neemanfoundation.com/projects/dor-achva" target="_blank" rel="noopener" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); text-decoration:none; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(13,71,161,0.35)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 20px rgba(13,71,161,0.25)'">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:1.8rem;">🇺🇸</span>
+              <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
+                <span class="he-only">תרומה מארה״ב</span>
+                <span class="en-only">Donate from USA</span>
+              </span>
+            </div>
+            <span style="color:rgba(255,255,255,0.75); font-size:0.8rem;">
+              <span class="he-only">דרך עמותת דור אחווה · Tax Deductible</span>
+              <span class="en-only">Via Dor Achva · Tax Deductible</span>
             </span>
-          </button>
-          <button onclick="showDonatePanel('canada')" id="donate-btn-canada" class="donate-country-btn" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); border:none; cursor:pointer; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; align-items:center; justify-content:center; gap:12px;">
-            <span style="font-size:1.8rem;">🇨🇦</span>
-            <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
-              <span class="he-only">תרומה מקנדה</span>
-              <span class="en-only">Donate from Canada</span>
+          </a>
+          <a href="https://mizrachi.ca/donate/?project=Dor%20Achva" target="_blank" rel="noopener" style="flex:1; min-width:220px; max-width:300px; padding:20px 24px; border-radius:16px; background:linear-gradient(135deg, #1565C0 0%, #0D47A1 100%); text-decoration:none; text-align:center; transition:all 0.3s; box-shadow:0 6px 20px rgba(13,71,161,0.25); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(13,71,161,0.35)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 20px rgba(13,71,161,0.25)'">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:1.8rem;">🇨🇦</span>
+              <span style="color:#fff; font-size:1.05rem; font-weight:600; white-space:nowrap;">
+                <span class="he-only">תרומה מקנדה</span>
+                <span class="en-only">Donate from Canada</span>
+              </span>
+            </div>
+            <span style="color:rgba(255,255,255,0.75); font-size:0.8rem;">
+              <span class="he-only">דרך עמותת דור אחווה · Tax Deductible</span>
+              <span class="en-only">Via Dor Achva · Tax Deductible</span>
             </span>
-          </button>
+          </a>
         </div>
 
-        <!-- ISRAEL PANEL - Direct link to Grow -->
-        <div id="donate-panel-israel" class="donate-panel fade-in" style="max-width:680px; margin:0 auto;">
-          <div style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.06); border:1px solid #e8ecf0; overflow:hidden; text-align:center; padding:40px 32px;">
-            <h3 style="font-size:1.25rem; color:var(--dark); margin-bottom:8px;">
-              <span class="he-only">🇮🇱 תרומה מישראל</span>
-              <span class="en-only">🇮🇱 Donate from Israel</span>
-            </h3>
-            <p style="font-size:0.95rem; color:var(--text-light); margin-bottom:28px;">
-              <span class="he-only">סליקה מאובטחת · ע״ר 580814234</span>
-              <span class="en-only">Secure payment · R.A. 580814234</span>
-            </p>
-            <a href="https://mrng.to/3jRk02ZXa5" target="_blank" rel="noopener" style="display:inline-block; width:100%; max-width:400px; padding:16px 32px; border-radius:12px; background:var(--primary); color:#fff; font-size:1.1rem; font-weight:700; text-decoration:none; transition:all 0.3s; box-shadow:0 4px 12px rgba(26,138,154,0.25);" onmouseover="this.style.background='var(--primary-dark)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--primary)';this.style.transform='translateY(0)'">
-              <span class="he-only">לתרומה מאובטחת →</span>
-              <span class="en-only">Donate Securely →</span>
-            </a>
-            <div style="margin-top:24px; padding-top:20px; border-top:1px solid #e8ecf0;">
-              <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:0;">
-                <span style="font-weight:600;">🏦</span>
-                <span class="he-only"> העברה בנקאית: ״רוח החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560</span>
-                <span class="en-only"> Bank Transfer: "Ruach Hashmonait" (R.A.) · Mercantile Bank · Branch 734 · Account: 10514560</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- USA PANEL -->
-        <div id="donate-panel-usa" class="donate-panel" style="display:none; max-width:640px; margin:0 auto;">
-          <div style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.06); border:1px solid #e8ecf0; overflow:hidden;">
-            <div style="padding:32px 32px 24px; text-align:center;">
-              <h3 style="font-size:1.25rem; color:var(--dark); margin-bottom:8px;">
-                <span class="he-only">🇺🇸 תרומה מארה״ב</span>
-                <span class="en-only">🇺🇸 Donate from USA</span>
-              </h3>
-              <p style="font-size:0.95rem; color:var(--text-light); margin-bottom:24px;">
-                <span class="he-only">דרך עמותת ״דור אחווה״ · Tax Deductible</span>
-                <span class="en-only">Via Dor Achva Association · Tax Deductible</span>
-              </p>
-              <a href="https://new.neemanfoundation.com/projects/dor-achva" target="_blank" rel="noopener" style="display:inline-block; text-decoration:none; padding:16px 48px; border-radius:12px; background:linear-gradient(135deg, #1565C0, #0D47A1); color:#fff; font-size:1.1rem; font-weight:700; transition:all 0.3s; box-shadow:0 4px 16px rgba(13,71,161,0.25);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                <span class="he-only">לתרומה מאובטחת →</span>
-                <span class="en-only">Secure Donation →</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- CANADA PANEL -->
-        <div id="donate-panel-canada" class="donate-panel" style="display:none; max-width:640px; margin:0 auto;">
-          <div style="background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.06); border:1px solid #e8ecf0; overflow:hidden;">
-            <div style="padding:32px 32px 24px; text-align:center;">
-              <h3 style="font-size:1.25rem; color:var(--dark); margin-bottom:8px;">
-                <span class="he-only">🇨🇦 תרומה מקנדה</span>
-                <span class="en-only">🇨🇦 Donate from Canada</span>
-              </h3>
-              <p style="font-size:0.95rem; color:var(--text-light); margin-bottom:24px;">
-                <span class="he-only">דרך עמותת ״דור אחווה״ · Tax Deductible</span>
-                <span class="en-only">Via Dor Achva Association · Tax Deductible</span>
-              </p>
-              <a href="https://mizrachi.ca/donate/?project=Dor%20Achva" target="_blank" rel="noopener" style="display:inline-block; text-decoration:none; padding:16px 48px; border-radius:12px; background:linear-gradient(135deg, #1565C0, #0D47A1); color:#fff; font-size:1.1rem; font-weight:700; transition:all 0.3s; box-shadow:0 4px 16px rgba(13,71,161,0.25);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                <span class="he-only">לתרומה מאובטחת →</span>
-                <span class="en-only">Secure Donation →</span>
-              </a>
-            </div>
-          </div>
+        <!-- Bank transfer info -->
+        <div class="fade-in" style="max-width:640px; margin:0 auto 0; text-align:center; padding:16px 24px; background:#fff; border-radius:12px; border:1px solid #e8ecf0; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+          <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:0;">
+            <span style="font-weight:600;">🏦</span>
+            <span class="he-only"> העברה בנקאית: ״רוח החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560</span>
+            <span class="en-only"> Bank Transfer: "Ruach Hashmonait" (R.A.) · Mercantile Bank · Branch 734 · Account: 10514560</span>
+          </p>
         </div>
 
         <!-- NOTE -->
