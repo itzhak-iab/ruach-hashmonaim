@@ -82,13 +82,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .save-log.active { display: block; }
 
 /* ANALYTICS DASHBOARD */
-.dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
-.dashboard-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
+.dashboard-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px; }
+@media(max-width:900px) { .dashboard-container { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:550px) { .dashboard-container { grid-template-columns: repeat(2, 1fr); } }
+.dashboard-card { background: #fff; border-radius: 12px; padding: 16px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
 .dashboard-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-.dashboard-card .card-icon { font-size: 2rem; margin-bottom: 8px; }
-.dashboard-card .card-label { font-size: 0.85rem; color: #666; margin-bottom: 8px; }
-.dashboard-card .card-value { font-size: 1.8rem; font-weight: 700; color: #1a8a9a; }
-.dashboard-card .card-status { font-size: 0.75rem; color: #999; margin-top: 8px; }
+.dashboard-card .card-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.dashboard-card .card-label { font-size: 0.78rem; color: #666; margin-bottom: 6px; white-space: nowrap; }
+.dashboard-card .card-value { font-size: 1.5rem; font-weight: 700; color: #1a8a9a; }
+.dashboard-card .card-status { font-size: 0.7rem; color: #999; margin-top: 4px; }
 .dashboard-card .card-value.loading { opacity: 0.4; animation: pulse 1.5s infinite; }
 @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
 .ga-date-bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
