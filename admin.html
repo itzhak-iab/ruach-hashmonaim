@@ -1906,8 +1906,8 @@ async function testSave(){
 
 // ========== GOOGLE ANALYTICS DASHBOARD ==========
 let gaAccessToken = null;
-let gaPropertyId = null;
-let gaClientId = null;
+let gaPropertyId = '526467796';
+let gaClientId = '996341650604-lb9v7459dhfm4o82a013pepje3451lqd.apps.googleusercontent.com';
 let gaDateRange = { start: 'today', end: 'today', label: 'today' };
 let gaTokenClient = null;
 let gaChartDaily = null;
@@ -1945,8 +1945,8 @@ function resetGAConfig() {
 }
 
 function initGADashboard() {
-  gaClientId = localStorage.getItem('ga_client_id');
-  gaPropertyId = localStorage.getItem('ga_property_id');
+  if (!gaClientId) gaClientId = localStorage.getItem('ga_client_id');
+  if (!gaPropertyId) gaPropertyId = localStorage.getItem('ga_property_id');
   if (!gaClientId || !gaPropertyId) {
     document.getElementById('ga-setup-card').style.display = '';
     document.getElementById('ga-login-card').style.display = 'none';
