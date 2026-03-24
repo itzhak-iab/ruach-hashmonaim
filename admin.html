@@ -273,52 +273,89 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
           </div>
         </div>
 
-        <!-- KPI Cards -->
+        <!-- KPI Cards Row 1 -->
         <div class="dashboard-container" id="ga-kpi-cards">
           <div class="dashboard-card">
-            <div class="card-icon">👥</div>
-            <div class="card-label">סשנים</div>
+            <div class="card-icon">👁️</div>
+            <div class="card-label">ביקורים (סשנים)</div>
             <div class="card-value loading" id="ga-sessions">-</div>
             <div class="card-status" id="ga-sessions-status">טוען...</div>
           </div>
           <div class="dashboard-card">
-            <div class="card-icon">🔗</div>
-            <div class="card-label">משתמשים</div>
+            <div class="card-icon">👥</div>
+            <div class="card-label">מבקרים ייחודיים</div>
             <div class="card-value loading" id="ga-users">-</div>
             <div class="card-status" id="ga-users-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">📄</div>
-            <div class="card-label">צפיות בדף</div>
+            <div class="card-label">צפיות בדפים</div>
             <div class="card-value loading" id="ga-pageviews">-</div>
             <div class="card-status" id="ga-pageviews-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">⏱️</div>
-            <div class="card-label">זמן ממוצע</div>
+            <div class="card-label">זמן ממוצע באתר</div>
             <div class="card-value loading" id="ga-avgTime">-</div>
             <div class="card-status" id="ga-avgTime-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">📱</div>
-            <div class="card-label">מובייל</div>
+            <div class="card-label">אחוז מובייל</div>
             <div class="card-value loading" id="ga-mobile">-</div>
             <div class="card-status" id="ga-mobile-status">טוען...</div>
           </div>
         </div>
 
+        <!-- KPI Cards Row 2 -->
+        <div class="dashboard-container">
+          <div class="dashboard-card">
+            <div class="card-icon">🆕</div>
+            <div class="card-label">מבקרים חדשים</div>
+            <div class="card-value loading" id="ga-newUsers">-</div>
+            <div class="card-status" id="ga-newUsers-status">טוען...</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">🔄</div>
+            <div class="card-label">מבקרים חוזרים</div>
+            <div class="card-value loading" id="ga-returning">-</div>
+            <div class="card-status" id="ga-returning-status">טוען...</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">📊</div>
+            <div class="card-label">דפים לביקור</div>
+            <div class="card-value loading" id="ga-pagesPerSession">-</div>
+            <div class="card-status" id="ga-pagesPerSession-status">טוען...</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">🚪</div>
+            <div class="card-label">שיעור נטישה</div>
+            <div class="card-value loading" id="ga-bounceRate">-</div>
+            <div class="card-status" id="ga-bounceRate-status">טוען...</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">🎯</div>
+            <div class="card-label">אירועים (קליקים)</div>
+            <div class="card-value loading" id="ga-events">-</div>
+            <div class="card-status" id="ga-events-status">טוען...</div>
+          </div>
+        </div>
+
         <!-- Tabs for detailed views -->
         <div class="ga-tabs">
-          <div class="ga-tab active" onclick="switchGATab('overview',this)">סקירה כללית</div>
-          <div class="ga-tab" onclick="switchGATab('pages',this)">דפים פופולריים</div>
-          <div class="ga-tab" onclick="switchGATab('sources',this)">מקורות תנועה</div>
+          <div class="ga-tab active" onclick="switchGATab('overview',this)">סקירה יומית</div>
+          <div class="ga-tab" onclick="switchGATab('pages',this)">דפים</div>
+          <div class="ga-tab" onclick="switchGATab('sources',this)">מקורות</div>
           <div class="ga-tab" onclick="switchGATab('devices',this)">מכשירים</div>
+          <div class="ga-tab" onclick="switchGATab('geo',this)">מיקום גיאוגרפי</div>
+          <div class="ga-tab" onclick="switchGATab('hours',this)">שעות פעילות</div>
+          <div class="ga-tab" onclick="switchGATab('newret',this)">חדשים vs חוזרים</div>
         </div>
 
         <!-- Overview panel - daily chart -->
         <div class="ga-panel active" id="ga-panel-overview">
           <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">סשנים לפי יום</h4>
+            <h4 style="margin-bottom:12px; color:#333;">ביקורים ומבקרים לפי יום</h4>
             <canvas id="ga-chart-daily" height="250"></canvas>
           </div>
         </div>
@@ -328,7 +365,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
           <div class="ga-chart-container">
             <h4 style="margin-bottom:12px; color:#333;">דפים הכי נצפים</h4>
             <table class="ga-table" id="ga-pages-table">
-              <thead><tr><th>דף</th><th>צפיות</th><th>משתמשים</th><th>זמן ממוצע</th></tr></thead>
+              <thead><tr><th>דף</th><th>צפיות</th><th>מבקרים</th><th>זמן ממוצע</th></tr></thead>
               <tbody><tr><td colspan="4" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
             </table>
           </div>
@@ -337,32 +374,97 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
         <!-- Sources panel -->
         <div class="ga-panel" id="ga-panel-sources">
           <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">מקורות תנועה</h4>
+            <h4 style="margin-bottom:12px; color:#333;">מקורות תנועה (ערוצים)</h4>
             <div style="display:flex; gap:20px; flex-wrap:wrap;">
               <div style="flex:1; min-width:200px;">
                 <canvas id="ga-chart-sources" height="250"></canvas>
               </div>
               <div style="flex:1; min-width:200px;">
                 <table class="ga-table" id="ga-sources-table">
-                  <thead><tr><th>מקור</th><th>סשנים</th><th>אחוז</th></tr></thead>
+                  <thead><tr><th>ערוץ</th><th>ביקורים</th><th>אחוז</th></tr></thead>
                   <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
                 </table>
               </div>
             </div>
+            <h4 style="margin:20px 0 12px; color:#333;">מקורות ספציפיים (אתרים מפנים)</h4>
+            <table class="ga-table" id="ga-referrers-table">
+              <thead><tr><th>מקור / אתר</th><th>ביקורים</th><th>מבקרים</th></tr></thead>
+              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+            </table>
           </div>
         </div>
 
         <!-- Devices panel -->
         <div class="ga-panel" id="ga-panel-devices">
           <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">התפלגות מכשירים</h4>
+            <h4 style="margin-bottom:12px; color:#333;">סוג מכשיר</h4>
             <div style="display:flex; gap:20px; flex-wrap:wrap;">
               <div style="flex:1; min-width:200px;">
                 <canvas id="ga-chart-devices" height="250"></canvas>
               </div>
               <div style="flex:1; min-width:200px;">
                 <table class="ga-table" id="ga-devices-table">
-                  <thead><tr><th>מכשיר</th><th>סשנים</th><th>אחוז</th></tr></thead>
+                  <thead><tr><th>מכשיר</th><th>ביקורים</th><th>אחוז</th></tr></thead>
+                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+            <h4 style="margin:20px 0 12px; color:#333;">דפדפנים</h4>
+            <table class="ga-table" id="ga-browsers-table">
+              <thead><tr><th>דפדפן</th><th>ביקורים</th><th>אחוז</th></tr></thead>
+              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+            </table>
+            <h4 style="margin:20px 0 12px; color:#333;">מערכות הפעלה</h4>
+            <table class="ga-table" id="ga-os-table">
+              <thead><tr><th>מערכת הפעלה</th><th>ביקורים</th><th>אחוז</th></tr></thead>
+              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Geography panel -->
+        <div class="ga-panel" id="ga-panel-geo">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">מדינות</h4>
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:200px;">
+                <canvas id="ga-chart-countries" height="250"></canvas>
+              </div>
+              <div style="flex:1; min-width:200px;">
+                <table class="ga-table" id="ga-countries-table">
+                  <thead><tr><th>מדינה</th><th>ביקורים</th><th>אחוז</th></tr></thead>
+                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+            <h4 style="margin:20px 0 12px; color:#333;">ערים</h4>
+            <table class="ga-table" id="ga-cities-table">
+              <thead><tr><th>עיר</th><th>ביקורים</th><th>מבקרים</th></tr></thead>
+              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Hourly panel -->
+        <div class="ga-panel" id="ga-panel-hours">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">ביקורים לפי שעה ביום</h4>
+            <canvas id="ga-chart-hours" height="250"></canvas>
+            <p style="font-size:0.8rem; color:#999; margin-top:8px;">מראה באילו שעות הגולשים הכי פעילים באתר</p>
+          </div>
+        </div>
+
+        <!-- New vs Returning panel -->
+        <div class="ga-panel" id="ga-panel-newret">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">מבקרים חדשים לעומת חוזרים</h4>
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:200px;">
+                <canvas id="ga-chart-newret" height="250"></canvas>
+              </div>
+              <div style="flex:1; min-width:200px;">
+                <table class="ga-table" id="ga-newret-table">
+                  <thead><tr><th>סוג מבקר</th><th>ביקורים</th><th>אחוז</th></tr></thead>
                   <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
                 </table>
               </div>
@@ -2096,18 +2198,20 @@ async function fetchAllGAData() {
     gaDateRange.label === '30days' ? '30 יום אחרונים' :
     gaDateRange.label === '90days' ? '90 יום אחרונים' : 'תאריכים מותאמים';
 
-  // Set loading state
-  ['ga-sessions','ga-users','ga-pageviews','ga-avgTime','ga-mobile'].forEach(id => {
+  // Set loading state for all KPI cards
+  ['ga-sessions','ga-users','ga-pageviews','ga-avgTime','ga-mobile','ga-newUsers','ga-returning','ga-pagesPerSession','ga-bounceRate','ga-events'].forEach(id => {
     const el = document.getElementById(id);
-    el.textContent = '...';
-    el.classList.add('loading');
+    if(el) { el.textContent = '...'; el.classList.add('loading'); }
   });
 
   try {
-    // Fetch KPI metrics
-    const [kpiData, dailyData, pagesData, sourcesData, devicesData] = await Promise.all([
+    const dr = [{ startDate: range.startDate, endDate: range.endDate }];
+
+    // Fetch all reports in parallel
+    const [kpiData, kpi2Data, dailyData, pagesData, sourcesData, devicesData, referrersData, countriesData, citiesData, hourlyData, newRetData, browsersData, osData] = await Promise.all([
+      // KPI batch 1: sessions, users, pageviews, avg duration
       gaRunReport({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dateRanges: dr,
         metrics: [
           { name: 'sessions' },
           { name: 'totalUsers' },
@@ -2115,39 +2219,103 @@ async function fetchAllGAData() {
           { name: 'averageSessionDuration' }
         ]
       }),
+      // KPI batch 2: new users, bounce rate, events, pages/session
       gaRunReport({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dateRanges: dr,
+        metrics: [
+          { name: 'newUsers' },
+          { name: 'bounceRate' },
+          { name: 'eventCount' },
+          { name: 'screenPageViewsPerSession' }
+        ]
+      }),
+      // Daily chart
+      gaRunReport({
+        dateRanges: dr,
         dimensions: [{ name: 'date' }],
         metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
         orderBys: [{ dimension: { dimensionName: 'date' } }]
       }),
+      // Pages
       gaRunReport({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dateRanges: dr,
         dimensions: [{ name: 'pageTitle' }],
-        metrics: [
-          { name: 'screenPageViews' },
-          { name: 'totalUsers' },
-          { name: 'averageSessionDuration' }
-        ],
+        metrics: [{ name: 'screenPageViews' }, { name: 'totalUsers' }, { name: 'averageSessionDuration' }],
         orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
         limit: 10
       }),
+      // Sources (channels)
       gaRunReport({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dateRanges: dr,
         dimensions: [{ name: 'sessionDefaultChannelGroup' }],
         metrics: [{ name: 'sessions' }],
         orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
         limit: 8
       }),
+      // Devices
       gaRunReport({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dateRanges: dr,
         dimensions: [{ name: 'deviceCategory' }],
         metrics: [{ name: 'sessions' }],
         orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+      }),
+      // Specific referrers
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'sessionSource' }],
+        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 10
+      }),
+      // Countries
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'country' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 10
+      }),
+      // Cities
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'city' }],
+        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 15
+      }),
+      // Hourly
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'hour' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ dimension: { dimensionName: 'hour' } }]
+      }),
+      // New vs returning
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'newVsReturning' }],
+        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+      }),
+      // Browsers
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'browser' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 8
+      }),
+      // Operating systems
+      gaRunReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'operatingSystem' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 8
       })
     ]);
 
-    // Update KPIs
+    // === Update KPI Row 1 ===
     const kpiRow = kpiData.rows?.[0]?.metricValues || [];
     const sessions = parseInt(kpiRow[0]?.value || 0);
     const users = parseInt(kpiRow[1]?.value || 0);
@@ -2159,7 +2327,7 @@ async function fetchAllGAData() {
     setKPI('ga-pageviews', pageviews.toLocaleString(), statusLabel);
     setKPI('ga-avgTime', formatDuration(avgDuration), statusLabel);
 
-    // Mobile percent from devices data
+    // Mobile percent
     const deviceRows = devicesData.rows || [];
     let totalDevSessions = 0, mobileSessions = 0;
     deviceRows.forEach(r => {
@@ -2171,17 +2339,32 @@ async function fetchAllGAData() {
     const mobilePct = totalDevSessions ? Math.round(mobileSessions / totalDevSessions * 100) : 0;
     setKPI('ga-mobile', mobilePct + '%', statusLabel);
 
-    // Daily chart
+    // === Update KPI Row 2 ===
+    const kpi2Row = kpi2Data.rows?.[0]?.metricValues || [];
+    const newUsers = parseInt(kpi2Row[0]?.value || 0);
+    const bounceRate = parseFloat(kpi2Row[1]?.value || 0);
+    const eventCount = parseInt(kpi2Row[2]?.value || 0);
+    const pagesPerSession = parseFloat(kpi2Row[3]?.value || 0);
+    const returningUsers = Math.max(0, users - newUsers);
+
+    setKPI('ga-newUsers', newUsers.toLocaleString(), statusLabel);
+    setKPI('ga-returning', returningUsers.toLocaleString(), statusLabel);
+    setKPI('ga-pagesPerSession', pagesPerSession.toFixed(1), statusLabel);
+    setKPI('ga-bounceRate', Math.round(bounceRate * 100) + '%', statusLabel);
+    setKPI('ga-events', eventCount.toLocaleString(), statusLabel);
+
+    // === Render charts and tables ===
     renderDailyChart(dailyData.rows || []);
-
-    // Pages table
     renderPagesTable(pagesData.rows || []);
-
-    // Sources chart + table
     renderSourcesData(sourcesData.rows || []);
-
-    // Devices chart + table
+    renderReferrersTable(referrersData.rows || []);
     renderDevicesData(deviceRows);
+    renderGenericTable('ga-browsers-table', browsersData.rows || [], 'sessions');
+    renderGenericTable('ga-os-table', osData.rows || [], 'sessions');
+    renderCountriesData(countriesData.rows || []);
+    renderCitiesTable(citiesData.rows || []);
+    renderHourlyChart(hourlyData.rows || []);
+    renderNewRetData(newRetData.rows || []);
 
     document.getElementById('ga-last-update').textContent = 'עדכון אחרון: ' + new Date().toLocaleString('he-IL');
 
@@ -2414,6 +2597,120 @@ function switchGATab(tab, el) {
   document.querySelectorAll('.ga-panel').forEach(p => p.classList.remove('active'));
   if (el) el.classList.add('active');
   document.getElementById('ga-panel-' + tab).classList.add('active');
+}
+
+function renderReferrersTable(rows) {
+  const tbody = document.querySelector('#ga-referrers-table tbody');
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
+  tbody.innerHTML = rows.map(r => {
+    const src = r.dimensionValues[0].value;
+    const sess = parseInt(r.metricValues[0].value).toLocaleString();
+    const users = parseInt(r.metricValues[1].value).toLocaleString();
+    return '<tr><td>' + escapeHtml(src) + '</td><td>' + sess + '</td><td>' + users + '</td></tr>';
+  }).join('');
+}
+
+function renderCountriesData(rows) {
+  const total = rows.reduce((s,r) => s + parseInt(r.metricValues[0].value), 0);
+  const tbody = document.querySelector('#ga-countries-table tbody');
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
+  tbody.innerHTML = rows.map(r => {
+    const name = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total ? Math.round(val/total*100) : 0;
+    return '<tr><td>'+escapeHtml(name)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
+  }).join('');
+  renderPieChart('ga-chart-countries', rows.map(r => ({
+    label: r.dimensionValues[0].value,
+    value: parseInt(r.metricValues[0].value)
+  })));
+}
+
+function renderCitiesTable(rows) {
+  const tbody = document.querySelector('#ga-cities-table tbody');
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
+  tbody.innerHTML = rows.map(r => {
+    const city = r.dimensionValues[0].value;
+    const sess = parseInt(r.metricValues[0].value).toLocaleString();
+    const users = parseInt(r.metricValues[1].value).toLocaleString();
+    return '<tr><td>'+escapeHtml(city)+'</td><td>'+sess+'</td><td>'+users+'</td></tr>';
+  }).join('');
+}
+
+function renderHourlyChart(rows) {
+  const canvas = document.getElementById('ga-chart-hours');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.clientWidth - 40;
+  canvas.height = 250;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Build 24h array
+  const hourData = new Array(24).fill(0);
+  rows.forEach(r => {
+    const h = parseInt(r.dimensionValues[0].value);
+    hourData[h] = parseInt(r.metricValues[0].value);
+  });
+  const maxVal = Math.max(...hourData, 1);
+  const padding = {top:20,right:20,bottom:40,left:50};
+  const chartW = canvas.width - padding.left - padding.right;
+  const chartH = canvas.height - padding.top - padding.bottom;
+  const barW = chartW / 24 - 2;
+
+  // Grid
+  ctx.strokeStyle = '#f0f0f0'; ctx.lineWidth = 1;
+  for(let i=0;i<=4;i++){
+    const y = padding.top + chartH*(1-i/4);
+    ctx.beginPath(); ctx.moveTo(padding.left,y); ctx.lineTo(canvas.width-padding.right,y); ctx.stroke();
+    ctx.fillStyle='#999'; ctx.font='11px sans-serif'; ctx.textAlign='right';
+    ctx.fillText(Math.round(maxVal*i/4), padding.left-8, y+4);
+  }
+
+  // Bars
+  hourData.forEach((v,i) => {
+    const x = padding.left + (i/24)*chartW + 1;
+    const h = (v/maxVal)*chartH;
+    const gradient = ctx.createLinearGradient(x,padding.top+chartH-h,x,padding.top+chartH);
+    gradient.addColorStop(0,'#1a8a9a');
+    gradient.addColorStop(1,'#2bc0d4');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x, padding.top+chartH-h, barW, h);
+  });
+
+  // X labels
+  ctx.fillStyle='#999'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  for(let i=0;i<24;i+=2){
+    const x = padding.left + (i/24)*chartW + barW/2;
+    ctx.fillText(String(i).padStart(2,'0')+':00', x, canvas.height-8);
+  }
+}
+
+function renderNewRetData(rows) {
+  const total = rows.reduce((s,r)=>s+parseInt(r.metricValues[0].value),0);
+  const tbody = document.querySelector('#ga-newret-table tbody');
+  const labels = { new:'מבקרים חדשים', returning:'מבקרים חוזרים' };
+  if(!rows.length) { tbody.innerHTML='<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
+  tbody.innerHTML = rows.map(r => {
+    const type = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total ? Math.round(val/total*100) : 0;
+    return '<tr><td>'+(labels[type]||type)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
+  }).join('');
+  renderPieChart('ga-chart-newret', rows.map(r => ({
+    label: labels[r.dimensionValues[0].value] || r.dimensionValues[0].value,
+    value: parseInt(r.metricValues[0].value)
+  })));
+}
+
+function renderGenericTable(tableId, rows, metricLabel) {
+  const tbody = document.querySelector('#'+tableId+' tbody');
+  const total = rows.reduce((s,r)=>s+parseInt(r.metricValues[0].value),0);
+  if(!rows.length) { tbody.innerHTML='<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
+  tbody.innerHTML = rows.map(r => {
+    const name = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total ? Math.round(val/total*100) : 0;
+    return '<tr><td>'+escapeHtml(name)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
+  }).join('');
 }
 
 function escapeHtml(s) {
