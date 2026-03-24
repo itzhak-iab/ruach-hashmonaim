@@ -83,11 +83,36 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 
 /* ANALYTICS DASHBOARD */
 .dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
-.dashboard-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+.dashboard-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
+.dashboard-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 .dashboard-card .card-icon { font-size: 2rem; margin-bottom: 8px; }
 .dashboard-card .card-label { font-size: 0.85rem; color: #666; margin-bottom: 8px; }
 .dashboard-card .card-value { font-size: 1.8rem; font-weight: 700; color: #1a8a9a; }
 .dashboard-card .card-status { font-size: 0.75rem; color: #999; margin-top: 8px; }
+.dashboard-card .card-value.loading { opacity: 0.4; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+.ga-date-bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+.ga-date-btn { padding:6px 14px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; font-size:0.85rem; transition:all 0.2s; }
+.ga-date-btn:hover { border-color:#1a8a9a; color:#1a8a9a; }
+.ga-date-btn.active { background:#1a8a9a; color:#fff; border-color:#1a8a9a; }
+.ga-chart-container { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:20px; }
+.ga-chart-container canvas { width:100%!important; max-height:300px; }
+.ga-table { width:100%; border-collapse:collapse; margin-top:12px; }
+.ga-table th { text-align:right; padding:8px 12px; border-bottom:2px solid #eee; font-size:0.85rem; color:#666; }
+.ga-table td { padding:8px 12px; border-bottom:1px solid #f0f0f0; font-size:0.9rem; }
+.ga-table tr:hover td { background:#f8f9fa; }
+.ga-login-box { text-align:center; padding:40px 20px; background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.ga-login-box h3 { margin-bottom:12px; color:#333; }
+.ga-login-box p { color:#666; font-size:0.9rem; margin-bottom:20px; }
+.ga-google-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; font-size:0.95rem; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.ga-google-btn:hover { box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+.ga-google-btn img { width:20px; height:20px; }
+.ga-tabs { display:flex; gap:0; margin-bottom:16px; border-bottom:2px solid #eee; }
+.ga-tab { padding:10px 20px; cursor:pointer; font-size:0.9rem; color:#666; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+.ga-tab:hover { color:#1a8a9a; }
+.ga-tab.active { color:#1a8a9a; border-bottom-color:#1a8a9a; font-weight:600; }
+.ga-panel { display:none; }
+.ga-panel.active { display:block; }
 
 /* SETUP */
 .setup-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
@@ -176,56 +201,176 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 
     <!-- DASHBOARD -->
     <div class="admin-section active" id="section-dashboard">
-      <div class="edit-card">
-        <h3>Google Analytics</h3>
+
+      <!-- GA Setup (shown when not configured) -->
+      <div class="edit-card" id="ga-setup-card">
+        <h3>הגדרת Google Analytics</h3>
         <div class="setup-box">
-          <h3>הגדרת Google Analytics (GA4)</h3>
-          <p>כדי לראות נתונים של ביקורים, צפו בסרטון הוראה ב-YouTube או בעקבו אחרי השלבים:</p>
-          <p style="font-size: 0.85rem; color: #856404; margin-bottom: 8px;"><strong>שלבים:</strong> 1. עברו ל-<a href="https://analytics.google.com" target="_blank" style="color: #856404;">Google Analytics</a> 2. בחרו את הנכס שלכם (Property) 3. בחלק התחתון בשמאל, בחרו "Admin" 4. בעמודת "Property" בחרו "Data Streams" 5. בחרו את ה-Web Stream 6. העתיקו את ה-"Measurement ID" שמתחיל ב-"G-"</p>
+          <p style="margin-bottom:12px;">כדי לראות נתוני ביקורים באתר, צריך להגדיר חיבור ל-Google Analytics.</p>
+          <p style="font-size:0.85rem; color:#856404; margin-bottom:16px;">
+            <strong>הגדרה חד-פעמית (5 דקות):</strong><br>
+            1. היכנסו ל-<a href="https://console.cloud.google.com/" target="_blank" style="color:#856404;">Google Cloud Console</a><br>
+            2. צרו פרויקט חדש (או בחרו קיים)<br>
+            3. הפעילו את "Google Analytics Data API" (<a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank" style="color:#856404;">לינק ישיר</a>)<br>
+            4. בתפריט Credentials → Create Credentials → OAuth Client ID<br>
+            5. סוג: Web Application, הוסיפו את כתובת האתר ב-Authorized JavaScript origins<br>
+            6. העתיקו את ה-Client ID
+          </p>
           <div class="edit-field">
-            <label>Measurement ID (אופציונלי)</label>
-            <input type="text" id="gaMeasurementId" dir="ltr" placeholder="G-XXXXXXXXXX">
+            <label>OAuth Client ID</label>
+            <input type="text" id="gaClientId" dir="ltr" placeholder="xxxx.apps.googleusercontent.com" style="font-size:0.85rem;">
           </div>
-          <button class="btn btn-save" style="margin-top: 8px;" onclick="saveGAId()">שמור Measurement ID</button>
-          <button class="btn" style="background: #27ae60; color: #fff; margin-right: 8px; margin-top: 8px;" onclick="window.open('https://analytics.google.com', '_blank')">פתח Google Analytics</button>
+          <div class="edit-field">
+            <label>GA4 Property ID (מספרי)</label>
+            <input type="text" id="gaPropertyId" dir="ltr" placeholder="לדוגמה: 123456789">
+            <span style="font-size:0.8rem; color:#666;">נמצא ב-Admin → Property Settings ב-Google Analytics</span>
+          </div>
+          <button class="btn btn-save" style="margin-top:8px;" onclick="saveGAConfig()">שמור והתחבר</button>
+          <button class="btn" style="background:#27ae60; color:#fff; margin-right:8px; margin-top:8px;" onclick="window.open('https://analytics.google.com','_blank')">פתח Google Analytics</button>
         </div>
       </div>
 
-      <div class="edit-card">
-        <h3>דשבורד נתונים</h3>
-        <div class="dashboard-container">
+      <!-- GA Login (shown when configured but not signed in) -->
+      <div class="ga-login-box" id="ga-login-card" style="display:none;">
+        <h3>התחברות ל-Google Analytics</h3>
+        <p>יש להתחבר עם חשבון Google שיש לו גישה ל-Analytics</p>
+        <button class="ga-google-btn" onclick="gaSignIn()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+          התחברות עם Google
+        </button>
+        <p style="margin-top:12px;"><a href="#" onclick="resetGAConfig(); return false;" style="font-size:0.8rem; color:#999;">שנה הגדרות</a></p>
+      </div>
+
+      <!-- GA Dashboard (shown when connected) -->
+      <div id="ga-dashboard" style="display:none;">
+
+        <!-- User bar -->
+        <div class="edit-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:12px 20px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:1.2rem;">📊</span>
+            <strong>Google Analytics</strong>
+            <span style="font-size:0.85rem; color:#666;" id="ga-user-email"></span>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button class="btn" style="padding:6px 14px; font-size:0.8rem;" onclick="gaRefresh()">רענן נתונים</button>
+            <button class="btn" style="padding:6px 14px; font-size:0.8rem; background:#e74c3c; color:#fff;" onclick="gaSignOut()">התנתק</button>
+          </div>
+        </div>
+
+        <!-- Date range bar -->
+        <div class="edit-card" style="padding:12px 20px;">
+          <div class="ga-date-bar">
+            <span style="font-size:0.85rem; color:#666; margin-left:8px;">טווח זמן:</span>
+            <button class="ga-date-btn active" onclick="setGARange('today',this)">היום</button>
+            <button class="ga-date-btn" onclick="setGARange('7days',this)">7 ימים</button>
+            <button class="ga-date-btn" onclick="setGARange('30days',this)">30 יום</button>
+            <button class="ga-date-btn" onclick="setGARange('90days',this)">90 יום</button>
+            <div style="display:flex; gap:4px; align-items:center; margin-right:auto;">
+              <input type="date" id="ga-date-from" style="padding:4px 8px; border:1px solid #ddd; border-radius:6px; font-size:0.85rem;" onchange="setGARange('custom')">
+              <span style="font-size:0.85rem; color:#666;">עד</span>
+              <input type="date" id="ga-date-to" style="padding:4px 8px; border:1px solid #ddd; border-radius:6px; font-size:0.85rem;" onchange="setGARange('custom')">
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="dashboard-container" id="ga-kpi-cards">
           <div class="dashboard-card">
             <div class="card-icon">👥</div>
-            <div class="card-label">כניסות</div>
-            <div class="card-value" id="ga-visits">-</div>
-            <div class="card-status">מהשבוע</div>
+            <div class="card-label">סשנים</div>
+            <div class="card-value loading" id="ga-sessions">-</div>
+            <div class="card-status" id="ga-sessions-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">🔗</div>
-            <div class="card-label">משתמשים ייחודיים</div>
-            <div class="card-value" id="ga-users">-</div>
-            <div class="card-status">מהשבוע</div>
+            <div class="card-label">משתמשים</div>
+            <div class="card-value loading" id="ga-users">-</div>
+            <div class="card-status" id="ga-users-status">טוען...</div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-icon">📄</div>
+            <div class="card-label">צפיות בדף</div>
+            <div class="card-value loading" id="ga-pageviews">-</div>
+            <div class="card-status" id="ga-pageviews-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">⏱️</div>
-            <div class="card-label">זמן ממוצע באתר</div>
-            <div class="card-value" id="ga-avgTime">-</div>
-            <div class="card-status">בשניות</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">💝</div>
-            <div class="card-label">צפיות בעמוד תרומה</div>
-            <div class="card-value" id="ga-donateViews">-</div>
-            <div class="card-status">מהשבוע</div>
+            <div class="card-label">זמן ממוצע</div>
+            <div class="card-value loading" id="ga-avgTime">-</div>
+            <div class="card-status" id="ga-avgTime-status">טוען...</div>
           </div>
           <div class="dashboard-card">
             <div class="card-icon">📱</div>
-            <div class="card-label">כניסות ממובייל</div>
-            <div class="card-value" id="ga-mobilePercent">-</div>
-            <div class="card-status">אחוז</div>
+            <div class="card-label">מובייל</div>
+            <div class="card-value loading" id="ga-mobile">-</div>
+            <div class="card-status" id="ga-mobile-status">טוען...</div>
           </div>
         </div>
-        <p style="color: #666; font-size: 0.9rem; text-align: center; margin-top: 16px;" id="ga-status">הערה: הנתונים מעדכנים בעיכוב של 24-48 שעות מ-Google Analytics</p>
+
+        <!-- Tabs for detailed views -->
+        <div class="ga-tabs">
+          <div class="ga-tab active" onclick="switchGATab('overview',this)">סקירה כללית</div>
+          <div class="ga-tab" onclick="switchGATab('pages',this)">דפים פופולריים</div>
+          <div class="ga-tab" onclick="switchGATab('sources',this)">מקורות תנועה</div>
+          <div class="ga-tab" onclick="switchGATab('devices',this)">מכשירים</div>
+        </div>
+
+        <!-- Overview panel - daily chart -->
+        <div class="ga-panel active" id="ga-panel-overview">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">סשנים לפי יום</h4>
+            <canvas id="ga-chart-daily" height="250"></canvas>
+          </div>
+        </div>
+
+        <!-- Pages panel -->
+        <div class="ga-panel" id="ga-panel-pages">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">דפים הכי נצפים</h4>
+            <table class="ga-table" id="ga-pages-table">
+              <thead><tr><th>דף</th><th>צפיות</th><th>משתמשים</th><th>זמן ממוצע</th></tr></thead>
+              <tbody><tr><td colspan="4" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sources panel -->
+        <div class="ga-panel" id="ga-panel-sources">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">מקורות תנועה</h4>
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:200px;">
+                <canvas id="ga-chart-sources" height="250"></canvas>
+              </div>
+              <div style="flex:1; min-width:200px;">
+                <table class="ga-table" id="ga-sources-table">
+                  <thead><tr><th>מקור</th><th>סשנים</th><th>אחוז</th></tr></thead>
+                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Devices panel -->
+        <div class="ga-panel" id="ga-panel-devices">
+          <div class="ga-chart-container">
+            <h4 style="margin-bottom:12px; color:#333;">התפלגות מכשירים</h4>
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:200px;">
+                <canvas id="ga-chart-devices" height="250"></canvas>
+              </div>
+              <div style="flex:1; min-width:200px;">
+                <table class="ga-table" id="ga-devices-table">
+                  <thead><tr><th>מכשיר</th><th>סשנים</th><th>אחוז</th></tr></thead>
+                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p style="color:#999; font-size:0.8rem; text-align:center; margin-top:8px;" id="ga-last-update"></p>
       </div>
     </div>
 
@@ -1759,24 +1904,520 @@ async function testSave(){
   diagLog('\n=== סיום בדיקה ===');
 }
 
-// ANALYTICS / GOOGLE ANALYTICS
-function saveGAId(){
-  const gaId=document.getElementById('gaMeasurementId').value;
-  if(gaId&&gaId.startsWith('G-')){
-    localStorage.setItem('ga_measurement_id',gaId);
-    showStatus('Measurement ID נשמר! הנתונים יעדכנו בעוד 24-48 שעות.','success');
-    setTimeout(()=>loadGAData(),1000);
-  }else{
-    showStatus('Measurement ID לא תקין. חייב להתחיל ב-G-','error');
+// ========== GOOGLE ANALYTICS DASHBOARD ==========
+let gaAccessToken = null;
+let gaPropertyId = null;
+let gaClientId = null;
+let gaDateRange = { start: 'today', end: 'today', label: 'today' };
+let gaTokenClient = null;
+let gaChartDaily = null;
+let gaChartSources = null;
+let gaChartDevices = null;
+
+function saveGAConfig() {
+  const clientId = document.getElementById('gaClientId').value.trim();
+  const propertyId = document.getElementById('gaPropertyId').value.trim();
+  if (!clientId || !clientId.includes('.apps.googleusercontent.com')) {
+    showStatus('Client ID לא תקין. חייב להיגמר ב-.apps.googleusercontent.com', 'error');
+    return;
+  }
+  if (!propertyId || !/^\d+$/.test(propertyId)) {
+    showStatus('Property ID חייב להיות מספרי', 'error');
+    return;
+  }
+  localStorage.setItem('ga_client_id', clientId);
+  localStorage.setItem('ga_property_id', propertyId);
+  gaClientId = clientId;
+  gaPropertyId = propertyId;
+  showStatus('ההגדרות נשמרו! כעת התחברו עם Google.', 'success');
+  initGADashboard();
+}
+
+function resetGAConfig() {
+  localStorage.removeItem('ga_client_id');
+  localStorage.removeItem('ga_property_id');
+  gaAccessToken = null;
+  gaPropertyId = null;
+  gaClientId = null;
+  document.getElementById('ga-setup-card').style.display = '';
+  document.getElementById('ga-login-card').style.display = 'none';
+  document.getElementById('ga-dashboard').style.display = 'none';
+}
+
+function initGADashboard() {
+  gaClientId = localStorage.getItem('ga_client_id');
+  gaPropertyId = localStorage.getItem('ga_property_id');
+  if (!gaClientId || !gaPropertyId) {
+    document.getElementById('ga-setup-card').style.display = '';
+    document.getElementById('ga-login-card').style.display = 'none';
+    document.getElementById('ga-dashboard').style.display = 'none';
+    if (gaPropertyId) document.getElementById('gaPropertyId').value = gaPropertyId;
+    if (gaClientId) document.getElementById('gaClientId').value = gaClientId;
+    return;
+  }
+  document.getElementById('ga-setup-card').style.display = 'none';
+  if (!gaAccessToken) {
+    document.getElementById('ga-login-card').style.display = '';
+    document.getElementById('ga-dashboard').style.display = 'none';
+    loadGISScript();
+  } else {
+    document.getElementById('ga-login-card').style.display = 'none';
+    document.getElementById('ga-dashboard').style.display = '';
   }
 }
 
-function loadGAData(){
-  const gaId=localStorage.getItem('ga_measurement_id');
-  if(gaId){
-    document.getElementById('gaMeasurementId').value=gaId;
-    document.getElementById('ga-status').textContent='Measurement ID: '+gaId+' ✓ (נתונים מעדכנים בעיכוב של 24-48 שעות)';
+function loadGISScript() {
+  if (document.getElementById('gis-script')) return;
+  const s = document.createElement('script');
+  s.id = 'gis-script';
+  s.src = 'https://accounts.google.com/gsi/client';
+  s.onload = () => initGISClient();
+  document.head.appendChild(s);
+}
+
+function initGISClient() {
+  if (!gaClientId) return;
+  gaTokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: gaClientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: (resp) => {
+      if (resp.error) {
+        showStatus('שגיאת התחברות: ' + resp.error, 'error');
+        return;
+      }
+      gaAccessToken = resp.access_token;
+      document.getElementById('ga-login-card').style.display = 'none';
+      document.getElementById('ga-dashboard').style.display = '';
+      fetchGAUserInfo();
+      setGARange('7days', document.querySelectorAll('.ga-date-btn')[1]);
+    }
+  });
+}
+
+function gaSignIn() {
+  if (gaTokenClient) {
+    gaTokenClient.requestAccessToken();
+  } else {
+    loadGISScript();
+    setTimeout(() => {
+      if (gaTokenClient) gaTokenClient.requestAccessToken();
+      else showStatus('טוען... נסה שוב בעוד שנייה', 'error');
+    }, 1500);
   }
+}
+
+function gaSignOut() {
+  if (gaAccessToken) {
+    google.accounts.oauth2.revoke(gaAccessToken);
+  }
+  gaAccessToken = null;
+  document.getElementById('ga-login-card').style.display = '';
+  document.getElementById('ga-dashboard').style.display = 'none';
+}
+
+async function fetchGAUserInfo() {
+  try {
+    const resp = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { 'Authorization': 'Bearer ' + gaAccessToken }
+    });
+    const data = await resp.json();
+    document.getElementById('ga-user-email').textContent = data.email || '';
+  } catch(e) {}
+}
+
+function getDateRange(label) {
+  const today = new Date();
+  const fmt = d => d.toISOString().split('T')[0];
+  switch(label) {
+    case 'today': return { startDate: fmt(today), endDate: fmt(today) };
+    case '7days': {
+      const d = new Date(today); d.setDate(d.getDate()-6);
+      return { startDate: fmt(d), endDate: fmt(today) };
+    }
+    case '30days': {
+      const d = new Date(today); d.setDate(d.getDate()-29);
+      return { startDate: fmt(d), endDate: fmt(today) };
+    }
+    case '90days': {
+      const d = new Date(today); d.setDate(d.getDate()-89);
+      return { startDate: fmt(d), endDate: fmt(today) };
+    }
+    case 'custom': {
+      const from = document.getElementById('ga-date-from').value;
+      const to = document.getElementById('ga-date-to').value;
+      if (from && to) return { startDate: from, endDate: to };
+      return { startDate: fmt(today), endDate: fmt(today) };
+    }
+  }
+}
+
+function setGARange(label, btn) {
+  gaDateRange.label = label;
+  if (btn) {
+    document.querySelectorAll('.ga-date-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  if (label === 'custom') {
+    document.querySelectorAll('.ga-date-btn').forEach(b => b.classList.remove('active'));
+  }
+  if (gaAccessToken) fetchAllGAData();
+}
+
+function gaRefresh() { if (gaAccessToken) fetchAllGAData(); }
+
+async function gaRunReport(body) {
+  const url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + gaPropertyId + ':runReport';
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + gaAccessToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (resp.status === 401) {
+    gaAccessToken = null;
+    document.getElementById('ga-login-card').style.display = '';
+    document.getElementById('ga-dashboard').style.display = 'none';
+    showStatus('פג תוקף ההתחברות. יש להתחבר מחדש.', 'error');
+    throw new Error('Token expired');
+  }
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.error?.message || 'API Error ' + resp.status);
+  }
+  return resp.json();
+}
+
+async function fetchAllGAData() {
+  const range = getDateRange(gaDateRange.label);
+  const statusLabel = gaDateRange.label === 'today' ? 'היום' :
+    gaDateRange.label === '7days' ? '7 ימים אחרונים' :
+    gaDateRange.label === '30days' ? '30 יום אחרונים' :
+    gaDateRange.label === '90days' ? '90 יום אחרונים' : 'תאריכים מותאמים';
+
+  // Set loading state
+  ['ga-sessions','ga-users','ga-pageviews','ga-avgTime','ga-mobile'].forEach(id => {
+    const el = document.getElementById(id);
+    el.textContent = '...';
+    el.classList.add('loading');
+  });
+
+  try {
+    // Fetch KPI metrics
+    const [kpiData, dailyData, pagesData, sourcesData, devicesData] = await Promise.all([
+      gaRunReport({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        metrics: [
+          { name: 'sessions' },
+          { name: 'totalUsers' },
+          { name: 'screenPageViews' },
+          { name: 'averageSessionDuration' }
+        ]
+      }),
+      gaRunReport({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'date' }],
+        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
+        orderBys: [{ dimension: { dimensionName: 'date' } }]
+      }),
+      gaRunReport({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'pageTitle' }],
+        metrics: [
+          { name: 'screenPageViews' },
+          { name: 'totalUsers' },
+          { name: 'averageSessionDuration' }
+        ],
+        orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+        limit: 10
+      }),
+      gaRunReport({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 8
+      }),
+      gaRunReport({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'deviceCategory' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+      })
+    ]);
+
+    // Update KPIs
+    const kpiRow = kpiData.rows?.[0]?.metricValues || [];
+    const sessions = parseInt(kpiRow[0]?.value || 0);
+    const users = parseInt(kpiRow[1]?.value || 0);
+    const pageviews = parseInt(kpiRow[2]?.value || 0);
+    const avgDuration = parseFloat(kpiRow[3]?.value || 0);
+
+    setKPI('ga-sessions', sessions.toLocaleString(), statusLabel);
+    setKPI('ga-users', users.toLocaleString(), statusLabel);
+    setKPI('ga-pageviews', pageviews.toLocaleString(), statusLabel);
+    setKPI('ga-avgTime', formatDuration(avgDuration), statusLabel);
+
+    // Mobile percent from devices data
+    const deviceRows = devicesData.rows || [];
+    let totalDevSessions = 0, mobileSessions = 0;
+    deviceRows.forEach(r => {
+      const cat = r.dimensionValues[0].value.toLowerCase();
+      const cnt = parseInt(r.metricValues[0].value);
+      totalDevSessions += cnt;
+      if (cat === 'mobile') mobileSessions = cnt;
+    });
+    const mobilePct = totalDevSessions ? Math.round(mobileSessions / totalDevSessions * 100) : 0;
+    setKPI('ga-mobile', mobilePct + '%', statusLabel);
+
+    // Daily chart
+    renderDailyChart(dailyData.rows || []);
+
+    // Pages table
+    renderPagesTable(pagesData.rows || []);
+
+    // Sources chart + table
+    renderSourcesData(sourcesData.rows || []);
+
+    // Devices chart + table
+    renderDevicesData(deviceRows);
+
+    document.getElementById('ga-last-update').textContent = 'עדכון אחרון: ' + new Date().toLocaleString('he-IL');
+
+  } catch(e) {
+    if (e.message !== 'Token expired') {
+      showStatus('שגיאה בטעינת נתונים: ' + e.message, 'error');
+      console.error('GA Error:', e);
+    }
+  }
+}
+
+function setKPI(id, value, statusText) {
+  const el = document.getElementById(id);
+  el.textContent = value;
+  el.classList.remove('loading');
+  const statusEl = document.getElementById(id + '-status');
+  if (statusEl) statusEl.textContent = statusText;
+}
+
+function formatDuration(seconds) {
+  if (seconds < 60) return Math.round(seconds) + 'ש';
+  const m = Math.floor(seconds / 60);
+  const s = Math.round(seconds % 60);
+  return m + ':' + String(s).padStart(2, '0') + ' דק';
+}
+
+// ===== SIMPLE CANVAS CHARTS =====
+function renderDailyChart(rows) {
+  const canvas = document.getElementById('ga-chart-daily');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.clientWidth - 40;
+  canvas.height = 250;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!rows.length) {
+    ctx.fillStyle = '#999';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('אין נתונים לתקופה זו', canvas.width/2, canvas.height/2);
+    return;
+  }
+
+  const labels = rows.map(r => {
+    const d = r.dimensionValues[0].value;
+    return d.substring(6,8) + '/' + d.substring(4,6);
+  });
+  const sessions = rows.map(r => parseInt(r.metricValues[0].value));
+  const users = rows.map(r => parseInt(r.metricValues[1].value));
+  const maxVal = Math.max(...sessions, ...users, 1);
+
+  const padding = { top: 20, right: 20, bottom: 40, left: 50 };
+  const chartW = canvas.width - padding.left - padding.right;
+  const chartH = canvas.height - padding.top - padding.bottom;
+
+  // Grid lines
+  ctx.strokeStyle = '#f0f0f0';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = padding.top + chartH * (1 - i/4);
+    ctx.beginPath(); ctx.moveTo(padding.left, y); ctx.lineTo(canvas.width - padding.right, y); ctx.stroke();
+    ctx.fillStyle = '#999';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(maxVal * i/4), padding.left - 8, y + 4);
+  }
+
+  // Draw line
+  function drawLine(data, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    data.forEach((v, i) => {
+      const x = padding.left + (i / Math.max(data.length - 1, 1)) * chartW;
+      const y = padding.top + chartH * (1 - v / maxVal);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Fill area
+    ctx.globalAlpha = 0.1;
+    ctx.fillStyle = color;
+    ctx.lineTo(padding.left + chartW, padding.top + chartH);
+    ctx.lineTo(padding.left, padding.top + chartH);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  drawLine(sessions, '#1a8a9a');
+  drawLine(users, '#e67e22');
+
+  // X labels
+  ctx.fillStyle = '#999';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  const step = Math.max(1, Math.floor(labels.length / 10));
+  labels.forEach((l, i) => {
+    if (i % step === 0 || i === labels.length - 1) {
+      const x = padding.left + (i / Math.max(labels.length - 1, 1)) * chartW;
+      ctx.fillText(l, x, canvas.height - 8);
+    }
+  });
+
+  // Legend
+  ctx.font = '12px sans-serif';
+  ctx.fillStyle = '#1a8a9a';
+  ctx.fillRect(canvas.width - 180, 8, 12, 12);
+  ctx.fillText('סשנים', canvas.width - 195, 18);
+  ctx.fillStyle = '#e67e22';
+  ctx.fillRect(canvas.width - 100, 8, 12, 12);
+  ctx.fillText('משתמשים', canvas.width - 115, 18);
+}
+
+function renderPagesTable(rows) {
+  const tbody = document.querySelector('#ga-pages-table tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#999;">אין נתונים</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    const title = r.dimensionValues[0].value || '(ללא כותרת)';
+    const views = parseInt(r.metricValues[0].value).toLocaleString();
+    const users = parseInt(r.metricValues[1].value).toLocaleString();
+    const dur = formatDuration(parseFloat(r.metricValues[2].value));
+    return '<tr><td>' + escapeHtml(title) + '</td><td>' + views + '</td><td>' + users + '</td><td>' + dur + '</td></tr>';
+  }).join('');
+}
+
+function renderSourcesData(rows) {
+  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+  const tbody = document.querySelector('#ga-sources-table tbody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    const name = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total ? Math.round(val / total * 100) : 0;
+    return '<tr><td>' + escapeHtml(name) + '</td><td>' + val.toLocaleString() + '</td><td>' + pct + '%</td></tr>';
+  }).join('');
+
+  // Pie chart
+  renderPieChart('ga-chart-sources', rows.map(r => ({
+    label: r.dimensionValues[0].value,
+    value: parseInt(r.metricValues[0].value)
+  })));
+}
+
+function renderDevicesData(rows) {
+  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+  const tbody = document.querySelector('#ga-devices-table tbody');
+  const deviceNames = { desktop: 'מחשב', mobile: 'נייד', tablet: 'טאבלט' };
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    const name = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total ? Math.round(val / total * 100) : 0;
+    return '<tr><td>' + (deviceNames[name.toLowerCase()] || name) + '</td><td>' + val.toLocaleString() + '</td><td>' + pct + '%</td></tr>';
+  }).join('');
+
+  renderPieChart('ga-chart-devices', rows.map(r => ({
+    label: deviceNames[r.dimensionValues[0].value.toLowerCase()] || r.dimensionValues[0].value,
+    value: parseInt(r.metricValues[0].value)
+  })));
+}
+
+function renderPieChart(canvasId, data) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.clientWidth - 40;
+  canvas.height = 250;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const total = data.reduce((s, d) => s + d.value, 0);
+  if (!total) return;
+
+  const colors = ['#1a8a9a','#e67e22','#9b59b6','#27ae60','#e74c3c','#3498db','#f39c12','#1abc9c'];
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const radius = Math.min(cx, cy) - 40;
+  let startAngle = -Math.PI / 2;
+
+  data.forEach((d, i) => {
+    const sliceAngle = (d.value / total) * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
+    ctx.closePath();
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.fill();
+
+    // Label
+    if (d.value / total > 0.05) {
+      const midAngle = startAngle + sliceAngle / 2;
+      const lx = cx + (radius * 0.65) * Math.cos(midAngle);
+      const ly = cy + (radius * 0.65) * Math.sin(midAngle);
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(Math.round(d.value / total * 100) + '%', lx, ly);
+    }
+
+    startAngle += sliceAngle;
+  });
+
+  // Legend below
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'right';
+  let legendY = canvas.height - 15;
+  let legendX = canvas.width - 10;
+  data.forEach((d, i) => {
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.fillRect(legendX - 10, legendY - 9, 10, 10);
+    ctx.fillStyle = '#333';
+    ctx.fillText(d.label, legendX - 14, legendY);
+    legendX -= ctx.measureText(d.label).width + 30;
+    if (legendX < 50) { legendX = canvas.width - 10; legendY += 18; }
+  });
+}
+
+function switchGATab(tab, el) {
+  document.querySelectorAll('.ga-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ga-panel').forEach(p => p.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('ga-panel-' + tab).classList.add('active');
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 // SAVE LOG CLEAR BUTTON
@@ -1786,8 +2427,8 @@ function clearSaveLog(){
 }
 
 if(sessionStorage.getItem('admin_auth')==='true') showAdmin();
-// Load GA data on init
-setTimeout(()=>{if(sessionStorage.getItem('admin_auth')==='true')loadGAData();},500);
+// Load GA dashboard on init
+setTimeout(()=>{if(sessionStorage.getItem('admin_auth')==='true') initGADashboard();},500);
 </script>
 </body>
 </html>
