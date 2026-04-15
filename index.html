@@ -2147,6 +2147,10 @@
             <span class="he-only">אתר החטיבה</span>
             <span class="en-only">Brigade Site</span>
           </a></li>
+          <li><a href="#" onclick="navigateTo('finance'); return false;">
+            <span class="he-only">שקיפות כספית</span>
+            <span class="en-only">Financial Transparency</span>
+          </a></li>
           <li><a href="#" onclick="navigateTo('donate'); return false;">
             <span class="he-only">תרמו עכשיו</span>
             <span class="en-only">Donate</span>
@@ -3124,6 +3128,119 @@
     </section>
   </div>
 
+  <!-- ======= FINANCIAL TRANSPARENCY PAGE ======= -->
+  <div class="page" id="page-finance">
+    <div style="height:70px"></div>
+    <section class="section" style="max-width:960px; margin:0 auto; padding:40px 20px;">
+      <h2 class="section-title">
+        <span class="he-only">שקיפות כספית</span>
+        <span class="en-only">Financial Transparency</span>
+      </h2>
+      <p class="section-subtitle">
+        <span class="he-only">עמותת רוח החשמונאים מחויבת לשקיפות מלאה בניהול הכספים</span>
+        <span class="en-only">Ruach Hashmonaim is committed to full financial transparency</span>
+      </p>
+
+      <!-- Summary Cards -->
+      <div class="fade-in" id="finance-summary" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:32px 0;">
+        <div style="background:linear-gradient(135deg,#1a8a9a 0%,#0d6e7a 100%); border-radius:16px; padding:24px; text-align:center; color:#fff; box-shadow:0 4px 20px rgba(26,138,154,0.3);">
+          <div style="font-size:0.85rem; opacity:0.85; margin-bottom:8px;">
+            <span class="he-only">סך הכנסות</span>
+            <span class="en-only">Total Income</span>
+          </div>
+          <div id="finance-total-income" style="font-size:2rem; font-weight:700;">₪0</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#e67e22 0%,#d35400 100%); border-radius:16px; padding:24px; text-align:center; color:#fff; box-shadow:0 4px 20px rgba(230,126,34,0.3);">
+          <div style="font-size:0.85rem; opacity:0.85; margin-bottom:8px;">
+            <span class="he-only">סך הוצאות</span>
+            <span class="en-only">Total Expenses</span>
+          </div>
+          <div id="finance-total-expense" style="font-size:2rem; font-weight:700;">₪0</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#2c3e50 0%,#1a252f 100%); border-radius:16px; padding:24px; text-align:center; color:#fff; box-shadow:0 4px 20px rgba(44,62,80,0.3);">
+          <div style="font-size:0.85rem; opacity:0.85; margin-bottom:8px;">
+            <span class="he-only">יתרה</span>
+            <span class="en-only">Balance</span>
+          </div>
+          <div id="finance-balance" style="font-size:2rem; font-weight:700;">₪0</div>
+        </div>
+      </div>
+
+      <!-- Category breakdown -->
+      <div class="fade-in" style="margin:32px 0;">
+        <h3 style="text-align:center; color:var(--dark); font-size:1.2rem; margin-bottom:20px;">
+          <span class="he-only">התפלגות לפי מטרה</span>
+          <span class="en-only">Breakdown by Purpose</span>
+        </h3>
+        <div id="finance-categories" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px;"></div>
+      </div>
+
+      <!-- Income Table -->
+      <div class="fade-in" style="margin:32px 0;">
+        <h3 style="color:var(--dark); font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+          <span style="width:28px; height:28px; border-radius:50%; background:#1a8a9a; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:0.8rem;">₪</span>
+          <span class="he-only">הכנסות</span>
+          <span class="en-only">Income</span>
+        </h3>
+        <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <table id="finance-income-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:#f8f9fa;">
+                <th style="padding:12px 16px; text-align:right; font-size:0.85rem; color:#666; border-bottom:2px solid #eee;">
+                  <span class="he-only">סכום</span><span class="en-only">Amount</span>
+                </th>
+                <th style="padding:12px 16px; text-align:right; font-size:0.85rem; color:#666; border-bottom:2px solid #eee;">
+                  <span class="he-only">מקור</span><span class="en-only">Source</span>
+                </th>
+                <th style="padding:12px 16px; text-align:right; font-size:0.85rem; color:#666; border-bottom:2px solid #eee;">
+                  <span class="he-only">מטרה</span><span class="en-only">Purpose</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="finance-income-body">
+              <tr><td colspan="3" style="padding:24px; text-align:center; color:#999; font-size:0.9rem;">
+                <span class="he-only">אין נתונים עדיין</span><span class="en-only">No data yet</span>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Expense Table -->
+      <div class="fade-in" style="margin:32px 0;">
+        <h3 style="color:var(--dark); font-size:1.1rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+          <span style="width:28px; height:28px; border-radius:50%; background:#e67e22; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:0.8rem;">₪</span>
+          <span class="he-only">הוצאות</span>
+          <span class="en-only">Expenses</span>
+        </h3>
+        <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <table id="finance-expense-table" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:#f8f9fa;">
+                <th style="padding:12px 16px; text-align:right; font-size:0.85rem; color:#666; border-bottom:2px solid #eee;">
+                  <span class="he-only">סכום</span><span class="en-only">Amount</span>
+                </th>
+                <th style="padding:12px 16px; text-align:right; font-size:0.85rem; color:#666; border-bottom:2px solid #eee;">
+                  <span class="he-only">מטרה</span><span class="en-only">Purpose</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="finance-expense-body">
+              <tr><td colspan="2" style="padding:24px; text-align:center; color:#999; font-size:0.9rem;">
+                <span class="he-only">אין נתונים עדיין</span><span class="en-only">No data yet</span>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="fade-in" style="text-align:center; color:#999; font-size:0.8rem; margin-top:24px;">
+        <span class="he-only">הנתונים מעודכנים על ידי הנהלת העמותה</span>
+        <span class="en-only">Data is updated by the organization's management</span>
+      </p>
+    </section>
+  </div>
+
   <!-- ======= CONTACT PAGE ======= -->
   <div class="page" id="page-contact">
     <div style="height:70px"></div>
@@ -3791,6 +3908,75 @@
       document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el));
     }
 
+    // ===== FINANCIAL DATA =====
+    function loadFinanceData() {
+      try {
+        const financeEl = document.getElementById('finance-data-json');
+        if (!financeEl) return;
+        const data = JSON.parse(financeEl.textContent || '{}');
+        const income = data.income || [];
+        const expenses = data.expenses || [];
+        const purposes = {
+          'torah':'ליווי תורני', 'prep':'הכנה לשירות', 'welfare':'רווחה וסיוע',
+          'study':'העצמת לימוד התורה בחטיבה', 'alumni':'תוכניות בוגרים', 'general':'כללי'
+        };
+        const purposesEn = {
+          'torah':'Torah Guidance', 'prep':'Service Preparation', 'welfare':'Welfare & Aid',
+          'study':'Torah Study Enhancement', 'alumni':'Alumni Programs', 'general':'General'
+        };
+
+        let totalIncome = 0, totalExpense = 0;
+        const catIncome = {}, catExpense = {};
+
+        // Render income
+        const incBody = document.getElementById('finance-income-body');
+        if (income.length) {
+          incBody.innerHTML = income.map(item => {
+            totalIncome += item.amount || 0;
+            const cat = item.purpose || 'general';
+            catIncome[cat] = (catIncome[cat]||0) + (item.amount||0);
+            return '<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 16px; font-weight:600; color:#1a8a9a;">₪' + (item.amount||0).toLocaleString() + '</td><td style="padding:12px 16px;">' + (item.source||'') + '</td><td style="padding:12px 16px;"><span class="he-only">' + (purposes[cat]||cat) + '</span><span class="en-only">' + (purposesEn[cat]||cat) + '</span></td></tr>';
+          }).join('');
+        }
+
+        // Render expenses
+        const expBody = document.getElementById('finance-expense-body');
+        if (expenses.length) {
+          expBody.innerHTML = expenses.map(item => {
+            totalExpense += item.amount || 0;
+            const cat = item.purpose || 'general';
+            catExpense[cat] = (catExpense[cat]||0) + (item.amount||0);
+            return '<tr style="border-bottom:1px solid #f0f0f0;"><td style="padding:12px 16px; font-weight:600; color:#e67e22;">₪' + (item.amount||0).toLocaleString() + '</td><td style="padding:12px 16px;"><span class="he-only">' + (purposes[cat]||cat) + '</span><span class="en-only">' + (purposesEn[cat]||cat) + '</span></td></tr>';
+          }).join('');
+        }
+
+        // Summary
+        document.getElementById('finance-total-income').textContent = '₪' + totalIncome.toLocaleString();
+        document.getElementById('finance-total-expense').textContent = '₪' + totalExpense.toLocaleString();
+        const balance = totalIncome - totalExpense;
+        const balEl = document.getElementById('finance-balance');
+        balEl.textContent = (balance >= 0 ? '₪' : '-₪') + Math.abs(balance).toLocaleString();
+
+        // Category breakdown
+        const allCats = new Set([...Object.keys(catIncome), ...Object.keys(catExpense)]);
+        const catDiv = document.getElementById('finance-categories');
+        if (allCats.size) {
+          const colors = { torah:'#8e44ad', prep:'#2980b9', welfare:'#27ae60', study:'#f39c12', alumni:'#e74c3c', general:'#95a5a6' };
+          catDiv.innerHTML = [...allCats].map(cat => {
+            const inc = catIncome[cat]||0;
+            const exp = catExpense[cat]||0;
+            const color = colors[cat]||'#1a8a9a';
+            return '<div style="background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.06); border-right:4px solid '+color+';">' +
+              '<div style="font-weight:600; color:var(--dark); margin-bottom:8px;"><span class="he-only">'+(purposes[cat]||cat)+'</span><span class="en-only">'+(purposesEn[cat]||cat)+'</span></div>' +
+              '<div style="display:flex; justify-content:space-between; font-size:0.9rem;">' +
+              '<span style="color:#1a8a9a;"><span class="he-only">הכנסות: </span><span class="en-only">In: </span>₪'+inc.toLocaleString()+'</span>' +
+              '<span style="color:#e67e22;"><span class="he-only">הוצאות: </span><span class="en-only">Out: </span>₪'+exp.toLocaleString()+'</span>' +
+              '</div></div>';
+          }).join('');
+        }
+      } catch(e) { console.error('Finance load error:', e); }
+    }
+
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
       observeFadeInsEnhanced();
@@ -3798,9 +3984,11 @@
       initAboutHeroRotation();
       initProgramSlideshows();
       initScrollTopButton();
+      loadFinanceData();
     });
   </script>
 
-
+<!-- Financial Data Store -->
+<script type="application/json" id="finance-data-json">{"income":[],"expenses":[]}</script>
 
 </body></html>
