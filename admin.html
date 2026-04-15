@@ -194,7 +194,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תחומי פעילות</div>
     <div class="admin-tab" data-tab="media" onclick="switchTab('media')">כתבות ופרסומים</div>
     <div class="admin-tab" data-tab="partners" onclick="switchTab('partners')">השותפים שלנו</div>
-    <div class="admin-tab" data-tab="finance" onclick="switchTab('finance')">שקיפות כספית</div>
+    <div class="admin-tab" data-tab="finance" onclick="switchTab('finance')">שקיפות פיננסית</div>
     <div class="admin-tab" data-tab="donate" onclick="switchTab('donate')">תרומות</div>
     <div class="admin-tab" data-tab="contact" onclick="switchTab('contact')">צור קשר</div>
     <div class="admin-tab" data-tab="settings" onclick="switchTab('settings')">הגדרות</div>
@@ -611,14 +611,23 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <!-- FINANCE MANAGEMENT -->
     <div class="admin-section" id="section-finance">
       <div class="edit-card">
-        <h3>שקיפות כספית - ניהול הכנסות והוצאות</h3>
+        <h3>שקיפות פיננסית - ניהול הכנסות והוצאות</h3>
         <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">הזינו הכנסות והוצאות כדי שיופיעו בעמוד השקיפות הכספית באתר.</p>
 
         <!-- Income Section -->
         <div style="border:1px solid #e0e0e0; border-radius:12px; padding:16px; margin-bottom:20px; background:#f0faf0;">
           <h4 style="color:#1a8a9a; margin-bottom:12px;">הכנסות</h4>
           <div id="financeIncomeList"></div>
-          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px;">
+          <div style="display:grid; grid-template-columns:auto 1fr 1fr 1fr; gap:8px; margin-top:12px;">
+            <div class="edit-field" style="margin:0;">
+              <label>חודש</label>
+              <select id="finIncMonth" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
+                <option value="1">ינואר</option><option value="2">פברואר</option><option value="3">מרץ</option>
+                <option value="4">אפריל</option><option value="5">מאי</option><option value="6">יוני</option>
+                <option value="7">יולי</option><option value="8">אוגוסט</option><option value="9">ספטמבר</option>
+                <option value="10">אוקטובר</option><option value="11">נובמבר</option><option value="12">דצמבר</option>
+              </select>
+            </div>
             <div class="edit-field" style="margin:0;">
               <label>סכום (₪)</label>
               <input type="number" id="finIncAmount" placeholder="0" dir="ltr">
@@ -646,7 +655,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
         <div style="border:1px solid #e0e0e0; border-radius:12px; padding:16px; margin-bottom:20px; background:#fef5ec;">
           <h4 style="color:#e67e22; margin-bottom:12px;">הוצאות</h4>
           <div id="financeExpenseList"></div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px;">
+          <div style="display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; margin-top:12px;">
+            <div class="edit-field" style="margin:0;">
+              <label>חודש</label>
+              <select id="finExpMonth" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
+                <option value="1">ינואר</option><option value="2">פברואר</option><option value="3">מרץ</option>
+                <option value="4">אפריל</option><option value="5">מאי</option><option value="6">יוני</option>
+                <option value="7">יולי</option><option value="8">אוגוסט</option><option value="9">ספטמבר</option>
+                <option value="10">אוקטובר</option><option value="11">נובמבר</option><option value="12">דצמבר</option>
+              </select>
+            </div>
             <div class="edit-field" style="margin:0;">
               <label>סכום (₪)</label>
               <input type="number" id="finExpAmount" placeholder="0" dir="ltr">
@@ -2801,6 +2819,7 @@ function escapeHtml(s) {
 // ========== FINANCE MANAGEMENT ==========
 let financeData = { income: [], expenses: [] };
 const purposeNames = { torah:'ליווי תורני', prep:'הכנה לשירות', welfare:'רווחה וסיוע', study:'העצמת לימוד התורה בחטיבה', alumni:'תוכניות בוגרים', general:'כללי' };
+const monthNames = {1:'ינואר',2:'פברואר',3:'מרץ',4:'אפריל',5:'מאי',6:'יוני',7:'יולי',8:'אוגוסט',9:'ספטמבר',10:'אוקטובר',11:'נובמבר',12:'דצמבר'};
 
 function buildFinance() {
   if (!siteDoc) return;
@@ -2819,6 +2838,7 @@ function renderFinance() {
   if (financeData.income.length) {
     incList.innerHTML = financeData.income.map((item, i) =>
       '<div style="display:flex; align-items:center; gap:8px; padding:8px; background:#fff; border-radius:8px; margin-bottom:4px; border:1px solid #e8e8e8;">' +
+      '<span style="font-size:0.8rem; color:#555; background:#e8f4f8; padding:2px 8px; border-radius:4px; min-width:60px; text-align:center;">' + (monthNames[item.month]||'—') + '</span>' +
       '<span style="font-weight:600; color:#1a8a9a; min-width:80px;">₪' + (item.amount||0).toLocaleString() + '</span>' +
       '<span style="flex:1; font-size:0.9rem;">' + (item.source||'') + '</span>' +
       '<span style="font-size:0.85rem; color:#666; background:#f0f0f0; padding:2px 8px; border-radius:4px;">' + (purposeNames[item.purpose]||item.purpose) + '</span>' +
@@ -2834,6 +2854,7 @@ function renderFinance() {
   if (financeData.expenses.length) {
     expList.innerHTML = financeData.expenses.map((item, i) =>
       '<div style="display:flex; align-items:center; gap:8px; padding:8px; background:#fff; border-radius:8px; margin-bottom:4px; border:1px solid #e8e8e8;">' +
+      '<span style="font-size:0.8rem; color:#555; background:#fef0e0; padding:2px 8px; border-radius:4px; min-width:60px; text-align:center;">' + (monthNames[item.month]||'—') + '</span>' +
       '<span style="font-weight:600; color:#e67e22; min-width:80px;">₪' + (item.amount||0).toLocaleString() + '</span>' +
       '<span style="flex:1; font-size:0.85rem; color:#666; background:#f0f0f0; padding:2px 8px; border-radius:4px;">' + (purposeNames[item.purpose]||item.purpose) + '</span>' +
       '<button onclick="removeFinanceItem(\'expense\',' + i + ')" style="background:#e74c3c; color:#fff; border:none; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.75rem;">מחק</button>' +
@@ -2853,18 +2874,20 @@ function renderFinance() {
 
 function addFinanceItem(type) {
   if (type === 'income') {
+    const month = parseInt(document.getElementById('finIncMonth').value);
     const amount = parseInt(document.getElementById('finIncAmount').value) || 0;
     const source = document.getElementById('finIncSource').value.trim();
     const purpose = document.getElementById('finIncPurpose').value;
     if (!amount) { showStatus('יש להזין סכום', 'error'); return; }
-    financeData.income.push({ amount, source, purpose });
+    financeData.income.push({ month, amount, source, purpose });
     document.getElementById('finIncAmount').value = '';
     document.getElementById('finIncSource').value = '';
   } else {
+    const month = parseInt(document.getElementById('finExpMonth').value);
     const amount = parseInt(document.getElementById('finExpAmount').value) || 0;
     const purpose = document.getElementById('finExpPurpose').value;
     if (!amount) { showStatus('יש להזין סכום', 'error'); return; }
-    financeData.expenses.push({ amount, purpose });
+    financeData.expenses.push({ month, amount, purpose });
     document.getElementById('finExpAmount').value = '';
   }
   renderFinance();
