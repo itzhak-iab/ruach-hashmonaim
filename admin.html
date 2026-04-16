@@ -756,7 +756,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
         <h3>פרטי העברה בנקאית</h3>
         <div class="edit-field">
           <label>שם העמותה</label>
-          <input type="text" data-field="bank-org-name" placeholder='רוח החשמונאים (ע״ר)'>
+          <input type="text" data-field="bank-org-name" placeholder='עמותת החשמונאים (ע״ר)'>
         </div>
         <div class="edit-field">
           <label>שם הבנק + סניף (עברית)</label>
@@ -1004,10 +1004,10 @@ function populate() {
     donateSection.querySelectorAll('span.he-only').forEach(sp => {
       const t = sp.textContent;
       if(t.includes('העברה בנקאית')) {
-        // Parse: "העברה בנקאית: ״רוח החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560"
+        // Parse: "העברה בנקאית: ״עמותת החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560"
         const parts = t.split('·').map(p => p.trim());
         if(parts.length >= 3) {
-          // First part: "העברה בנקאית: ״רוח החשמונאים״ (ע״ר)"
+          // First part: "העברה בנקאית: ״עמותת החשמונאים״ (ע״ר)"
           const orgMatch = parts[0].match(/[״"]([^״"]+)[״"]\s*\(ע[״"]ר\)/);
           if(orgMatch) setVal('bank-org-name', orgMatch[1] + ' (ע״ר)');
           // Bank name + branch
@@ -1756,7 +1756,7 @@ function applyAllChanges(){
       if(pendingChanges['donate-note-en']){const e=donateSection.querySelector('.donate-note .en-only');if(e)e.textContent=pendingChanges['donate-note-en'];}
       // Bank details rebuild
       if(pendingChanges['bank-org-name']||pendingChanges['bank-details-he']||pendingChanges['bank-account']){
-        const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'רוח החשמונאים (ע״ר)';
+        const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'עמותת החשמונאים (ע״ר)';
         const bankInfo = pendingChanges['bank-details-he'] || document.querySelector('[data-field="bank-details-he"]')?.value || '';
         const account = pendingChanges['bank-account'] || document.querySelector('[data-field="bank-account"]')?.value || '';
         donateSection.querySelectorAll('span.he-only').forEach(sp => {
