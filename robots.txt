@@ -1,16 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /admin.html
-Disallow: /admin-assets/
-
 Sitemap: https://ruach-hashmonaim.org/sitemap.xml
-
-# Google
-User-agent: Googlebot
-Allow: /
-
-# Bing
-User-agent: Bingbot
-Allow: /
-
-# Build test
