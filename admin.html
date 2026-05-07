@@ -162,7 +162,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
     <h1>ניהול אתר רוח חשמונאית</h1>
     <div class="admin-header-actions">
       <span id="changesCount" style="display:none" class="changes-badge"></span>
-      <button class="btn btn-preview" onclick="window.open('https://ruach-hashmonaim.org','_blank')">צפה באתר</button>
+      <button class="btn btn-preview" onclick="window.open('https://chashmonayim.org','_blank')">צפה באתר</button>
       <button class="btn" style="background:#3498db;color:#fff;" onclick="loadSite()">🔄 רענן</button>
       <button class="btn btn-save" id="saveBtn" onclick="saveAllChanges()" disabled>שמור שינויים</button>
       <button class="btn btn-logout" onclick="doLogout()">יציאה</button>
@@ -917,7 +917,7 @@ function populate() {
   setVal('hero-title-en', txt('.hero-title .en-only'));
   setVal('hero-subtitle-he', innerText('.hero-subtitle .he-only'));
   setVal('hero-subtitle-en', innerText('.hero-subtitle .en-only'));
-  document.getElementById('preview-hero').src = 'https://ruach-hashmonaim.org/images/hero.jpg?t='+Date.now();
+  document.getElementById('preview-hero').src = 'https://chashmonayim.org/images/hero.jpg?t='+Date.now();
 
   // About
   const aboutPage = siteDoc.getElementById('page-about');
@@ -1099,7 +1099,7 @@ function renderPrograms(){
         <div class="img-upload-inline">
           ${p.images.map((img,j)=>`
           <div class="img-upload-box">
-            <img src="https://ruach-hashmonaim.org/${img}?t=${Date.now()}" id="pimg-${i}-${j}">
+            <img src="https://chashmonayim.org/${img}?t=${Date.now()}" id="pimg-${i}-${j}">
             <input type="file" accept="image/*" onchange="handleImg(this,'${img}','pimg-${i}-${j}')">
           </div>`).join('')}
           <div class="img-upload-box" onclick="">
@@ -1113,7 +1113,7 @@ function renderPrograms(){
         <label>לוגו התוכנית</label>
         <div class="img-upload-inline">
           <div class="img-upload-box" style="width:80px;height:80px;">
-            ${p.logo?`<img src="https://ruach-hashmonaim.org/${p.logo}?t=${Date.now()}" id="plogo-${i}">`:'<span class="upload-label">ללא</span>'}
+            ${p.logo?`<img src="https://chashmonayim.org/${p.logo}?t=${Date.now()}" id="plogo-${i}">`:'<span class="upload-label">ללא</span>'}
             <input type="file" accept="image/*" onchange="handleImg(this,'${p.logo||'images/prog-'+i+'-logo.png'}','plogo-${i}')">
           </div>
         </div>
@@ -1246,7 +1246,7 @@ function renderPartners(){
     </div>
     <div style="display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;">
       <div class="img-upload-box" style="width:80px;height:80px;flex-shrink:0;">
-        ${p.logo&&!p.logo.startsWith('data:')?`<img src="https://ruach-hashmonaim.org/${p.logo}?t=${Date.now()}" id="partner-logo-${i}">`:'<span class="upload-label">לוגו</span>'}
+        ${p.logo&&!p.logo.startsWith('data:')?`<img src="https://chashmonayim.org/${p.logo}?t=${Date.now()}" id="partner-logo-${i}">`:'<span class="upload-label">לוגו</span>'}
         <input type="file" accept="image/*" onchange="handlePartnerLogo(${i},this)">
       </div>
       <div style="flex:1; min-width:200px;">
