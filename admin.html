@@ -3,2925 +3,481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ניהול אתר - רוח חשמונאית</title>
+<title>ניהול שותפים - עמותת החשמונאים</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; direction: rtl; }
-
-/* LOGIN */
-.login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #1a8a9a 0%, #14707d 100%); }
-.login-box { background: #fff; border-radius: 16px; padding: 48px 40px; width: 380px; max-width: 90vw; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
-.login-box h1 { color: #1a8a9a; font-size: 1.6rem; margin-bottom: 8px; }
-.login-box p { color: #666; font-size: 0.9rem; margin-bottom: 24px; }
-.login-box input { width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; direction: ltr; text-align: center; margin-bottom: 12px; }
-.login-box input:focus { outline: none; border-color: #1a8a9a; }
-.login-box button { width: 100%; padding: 14px; background: #1a8a9a; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: 600; }
-.login-box button:hover { background: #14707d; }
-.login-error { color: #e74c3c; font-size: 0.85rem; margin-top: 8px; display: none; }
-
-/* LAYOUT */
-.admin-container { display: none; }
-.admin-header { background: #1a8a9a; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); flex-wrap: wrap; gap: 8px; }
-.admin-header h1 { font-size: 1.2rem; }
-.admin-header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
-.btn-save { background: #c8a84c; color: #fff; }
-.btn-save:hover { background: #a08230; }
-.btn-save:disabled { background: #999; cursor: not-allowed; }
-.btn-logout { background: rgba(255,255,255,0.15); color: #fff; }
-.btn-preview { background: #27ae60; color: #fff; }
-
-/* TABS */
-.admin-tabs { display: flex; background: #fff; border-bottom: 2px solid #e8e8e8; padding: 0 16px; overflow-x: auto; }
-.admin-tab { padding: 14px 20px; cursor: pointer; font-weight: 500; color: #666; border-bottom: 3px solid transparent; white-space: nowrap; font-size: 0.95rem; }
-.admin-tab:hover { color: #1a8a9a; }
-.admin-tab.active { color: #1a8a9a; border-bottom-color: #1a8a9a; font-weight: 600; }
-
-/* CONTENT */
-.admin-content { max-width: 900px; margin: 24px auto; padding: 0 16px; }
-.admin-section { display: none; }
-.admin-section.active { display: block; }
-.edit-card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.edit-card h3 { color: #1a8a9a; font-size: 1.1rem; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 8px; }
-.edit-field { margin-bottom: 16px; }
-.edit-field label { display: block; font-weight: 600; font-size: 0.85rem; color: #555; margin-bottom: 6px; }
-.edit-field input, .edit-field textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem; font-family: inherit; direction: rtl; }
-.edit-field input:focus, .edit-field textarea:focus { outline: none; border-color: #1a8a9a; }
-.edit-field textarea { min-height: 80px; resize: vertical; }
-.edit-field-row { display: flex; gap: 12px; }
-.edit-field-row .edit-field { flex: 1; }
-
-/* IMAGE UPLOAD INLINE */
-.img-upload-inline { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-.img-upload-box { width: 150px; height: 110px; border: 2px dashed #ccc; border-radius: 10px; position: relative; overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; background: #fafafa; }
-.img-upload-box:hover { border-color: #1a8a9a; background: #f0f8fa; }
-.img-upload-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
-.img-upload-box .upload-label { font-size: 0.75rem; color: #999; text-align: center; z-index: 1; }
-.img-upload-box .upload-icon { font-size: 1.5rem; margin-bottom: 4px; }
-.img-upload-box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; }
-
-/* MEDIA CARD EDITOR */
-.media-item-card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-.media-item-card .media-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.media-item-card .media-item-header h4 { font-size: 0.95rem; color: #333; }
-
-/* BUTTONS */
-.btn-add { background: #1a8a9a; color: #fff; padding: 12px 24px; border: none; border-radius: 10px; cursor: pointer; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-top: 16px; }
-.btn-add:hover { background: #14707d; }
-.btn-remove { background: #e74c3c; color: #fff; padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
-.btn-remove:hover { background: #c0392b; }
-
-/* STATUS */
-.save-status { padding: 12px 20px; border-radius: 8px; margin: 16px 24px; text-align: center; font-weight: 600; display: none; }
-.save-status.success { display: block; background: #d4edda; color: #155724; }
-.save-status.error { display: block; background: #f8d7da; color: #721c24; }
-.save-status.loading { display: block; background: #d1ecf1; color: #0c5460; }
-
-/* SAVE LOG */
-.save-log { background: #1a1a2e; color: #0f0; border-radius: 8px; padding: 16px; margin: 16px 24px; font-family: 'Courier New', monospace; font-size: 0.85rem; max-height: 200px; overflow-y: auto; display: none; direction: ltr; text-align: left; white-space: pre-wrap; word-break: break-word; }
-.save-log.active { display: block; }
-
-/* ANALYTICS DASHBOARD */
-.dashboard-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px; }
-@media(max-width:900px) { .dashboard-container { grid-template-columns: repeat(3, 1fr); } }
-@media(max-width:550px) { .dashboard-container { grid-template-columns: repeat(2, 1fr); } }
-.dashboard-card { background: #fff; border-radius: 12px; padding: 16px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
-.dashboard-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-.dashboard-card .card-icon { font-size: 1.5rem; margin-bottom: 4px; }
-.dashboard-card .card-label { font-size: 0.78rem; color: #666; margin-bottom: 6px; white-space: nowrap; }
-.dashboard-card .card-value { font-size: 1.5rem; font-weight: 700; color: #1a8a9a; }
-.dashboard-card .card-status { font-size: 0.7rem; color: #999; margin-top: 4px; }
-.dashboard-card .card-value.loading { opacity: 0.4; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
-.ga-date-bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
-.ga-date-btn { padding:6px 14px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; font-size:0.85rem; transition:all 0.2s; }
-.ga-date-btn:hover { border-color:#1a8a9a; color:#1a8a9a; }
-.ga-date-btn.active { background:#1a8a9a; color:#fff; border-color:#1a8a9a; }
-.ga-chart-container { background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:20px; }
-.ga-chart-container canvas { width:100%!important; max-height:300px; }
-.ga-table { width:100%; border-collapse:collapse; margin-top:12px; }
-.ga-table th { text-align:right; padding:8px 12px; border-bottom:2px solid #eee; font-size:0.85rem; color:#666; }
-.ga-table td { padding:8px 12px; border-bottom:1px solid #f0f0f0; font-size:0.9rem; }
-.ga-table tr:hover td { background:#f8f9fa; }
-.ga-login-box { text-align:center; padding:40px 20px; background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-.ga-login-box h3 { margin-bottom:12px; color:#333; }
-.ga-login-box p { color:#666; font-size:0.9rem; margin-bottom:20px; }
-.ga-google-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; font-size:0.95rem; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
-.ga-google-btn:hover { box-shadow:0 2px 8px rgba(0,0,0,0.15); }
-.ga-google-btn img { width:20px; height:20px; }
-.ga-tabs { display:flex; gap:0; margin-bottom:16px; border-bottom:2px solid #eee; }
-.ga-tab { padding:10px 20px; cursor:pointer; font-size:0.9rem; color:#666; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
-.ga-tab:hover { color:#1a8a9a; }
-.ga-tab.active { color:#1a8a9a; border-bottom-color:#1a8a9a; font-weight:600; }
-.ga-panel { display:none; }
-.ga-panel.active { display:block; }
-
-/* SETUP */
-.setup-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.setup-box h3 { color: #856404; margin-bottom: 8px; }
-.setup-box p { color: #856404; font-size: 0.9rem; margin-bottom: 12px; }
-.setup-box input { width: 100%; padding: 10px; border: 2px solid #ffc107; border-radius: 8px; font-size: 0.9rem; direction: ltr; }
-.setup-box button { margin-top: 8px; padding: 10px 20px; background: #ffc107; color: #856404; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
-
-.changes-badge { background: #e74c3c; color: #fff; border-radius: 12px; padding: 2px 8px; font-size: 0.75rem; }
-.spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; vertical-align: middle; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.collapsible-header { cursor: pointer; user-select: none; }
-.collapsible-header:after { content: ' ▼'; font-size: 0.7em; }
-.collapsible-header.collapsed:after { content: ' ◀'; }
-.collapsible-body.hidden { display: none; }
-
-@media (max-width: 600px) {
-  .admin-header { padding: 12px; }
-  .admin-header h1 { font-size: 0.95rem; }
-  .admin-content { padding: 0 8px; margin: 12px auto; }
-  .edit-card { padding: 16px; }
-  .admin-tab { padding: 12px 14px; font-size: 0.85rem; }
-  .btn { padding: 8px 12px; font-size: 0.8rem; }
-  .edit-field-row { flex-direction: column; gap: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
 }
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+.header h1 { font-size: 2rem; margin-bottom: 8px; }
+.header p { opacity: 0.85; font-size: 0.95rem; }
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+.login-card { max-width: 450px; margin: 60px auto; text-align: center; }
+.login-card h2 { margin-bottom: 20px; color: #333; }
+.input-group { margin-bottom: 16px; text-align: right; }
+.input-group label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 6px; font-weight: 600; }
+.input-group input, .input-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  direction: ltr;
+  text-align: left;
+}
+.input-group input:focus, .input-group select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+.btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+.btn-danger { background: #ef4444; color: white; }
+.btn-danger:hover { background: #dc2626; }
+.btn-success { background: #10b981; color: white; }
+.btn-success:hover { background: #059669; }
+.btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+
+.partners-list { display: grid; gap: 16px; }
+.partner-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+.partner-item:hover { border-color: #667eea; background: #f0f4ff; }
+.partner-item img {
+  width: 60px; height: 60px;
+  border-radius: 12px;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+}
+.partner-info { flex: 1; }
+.partner-info h3 { font-size: 1rem; color: #1e293b; margin-bottom: 4px; }
+.partner-info a { font-size: 0.8rem; color: #667eea; text-decoration: none; direction: ltr; display: inline-block; }
+.partner-actions { display: flex; gap: 8px; }
+.drag-handle { cursor: grab; color: #94a3b8; font-size: 1.2rem; padding: 0 8px; }
+.drag-handle:active { cursor: grabbing; }
+
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; display: none;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: white; border-radius: 16px;
+  padding: 30px; width: 90%; max-width: 500px;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal h2 { margin-bottom: 20px; color: #333; }
+.modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+
+.status-bar {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; color: white; padding: 12px 24px;
+  border-radius: 12px; font-size: 0.9rem; display: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 2000;
+}
+.status-bar.show { display: block; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from { transform: translateX(-50%) translateY(20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.toolbar h2 { color: #1e293b; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
+.empty-state svg { width: 80px; height: 80px; margin-bottom: 16px; opacity: 0.5; }
+
+.img-preview { width: 80px; height: 80px; border-radius: 12px; object-fit: contain; background: #f1f5f9; border: 2px dashed #cbd5e1; display: block; margin: 8px 0; }
+.file-input-wrap { position: relative; }
+.file-input-wrap input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.file-input-label { display: inline-block; padding: 8px 16px; background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 10px; font-size: 0.85rem; color: #64748b; cursor: pointer; text-align: center; width: 100%; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-box">
-    <h1>ניהול האתר</h1>
-    <p>רוח חשמונאית - ממשק ניהול</p>
-    <input type="password" id="passwordInput" placeholder="הזן סיסמה" onkeypress="if(event.key==='Enter')doLogin()">
-    <button onclick="doLogin()">כניסה</button>
-    <div class="login-error" id="loginError">סיסמה שגויה</div>
+<div class="container">
+  <div class="header">
+    <h1>🔧 ניהול שותפים</h1>
+    <p>עמותת החשמונאים - ממשק ניהול אתר</p>
+  </div>
+
+  <!-- Login -->
+  <div id="loginSection" class="card login-card">
+    <h2>התחברות</h2>
+    <p style="color:#64748b; margin-bottom:20px; font-size:0.9rem;">הכנס את הטוקן של GitHub כדי לנהל את השותפים באתר</p>
+    <div class="input-group">
+      <label>GitHub Token</label>
+      <input type="password" id="tokenInput" placeholder="ghp_...">
+    </div>
+    <button class="btn btn-primary" onclick="login()" style="width:100%;">כניסה</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none;">
+    <div class="card">
+      <div class="toolbar">
+        <h2>השותפים שלנו (‎<span id="partnerCount">0</span>)</h2>
+        <button class="btn btn-success" onclick="openAddModal()">+ הוסף שותף</button>
+      </div>
+      <div id="partnersList" class="partners-list"></div>
+    </div>
+    <div style="text-align:center; margin-top:16px;">
+      <button class="btn btn-primary" onclick="saveChanges()" id="saveBtn" style="display:none;">💾 שמור שינויים לאתר</button>
+    </div>
   </div>
 </div>
 
-<!-- ADMIN -->
-<div class="admin-container" id="adminContainer">
-  <div class="admin-header">
-    <h1>ניהול אתר רוח חשמונאית</h1>
-    <div class="admin-header-actions">
-      <span id="changesCount" style="display:none" class="changes-badge"></span>
-      <button class="btn btn-preview" onclick="window.open('https://chashmonayim.org','_blank')">צפה באתר</button>
-      <button class="btn" style="background:#3498db;color:#fff;" onclick="loadSite()">🔄 רענן</button>
-      <button class="btn btn-save" id="saveBtn" onclick="saveAllChanges()" disabled>שמור שינויים</button>
-      <button class="btn btn-logout" onclick="doLogout()">יציאה</button>
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2 id="modalTitle">הוסף שותף חדש</h2>
+    <div class="input-group">
+      <label>שם השותף (עברית)</label>
+      <input type="text" id="partnerName" placeholder="שם השותף" style="direction:rtl; text-align:right;">
     </div>
-  </div>
-
-  <div id="saveStatus" class="save-status"></div>
-
-  <!-- DIAGNOSTIC PANEL -->
-  <div id="diagnosticPanel" style="margin:12px 24px; padding:16px 20px; background:#1a1a2e; color:#0f0; border-radius:12px; font-family:monospace; font-size:0.85rem; display:none; max-height:300px; overflow-y:auto; direction:ltr; text-align:left;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-      <strong style="color:#fff;">🔧 אבחון מערכת</strong>
-      <button onclick="document.getElementById('diagnosticPanel').style.display='none'" style="background:none;border:none;color:#fff;cursor:pointer;font-size:1.2rem;">✕</button>
+    <div class="input-group">
+      <label>שם השותף (English) - אופציונלי</label>
+      <input type="text" id="partnerNameEn" placeholder="Partner name">
     </div>
-    <div id="diagLog" style="white-space:pre-wrap;"></div>
-  </div>
-
-  <div id="setupBox" class="setup-box" style="margin:20px 24px; display:none;">
-    <h3>הגדרה ראשונית - GitHub Token</h3>
-    <p>כדי לשמור שינויים, צריך GitHub Token. הולכים ל-GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → מסמנים "repo" → Generate</p>
-    <input type="text" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxx" dir="ltr">
-    <button onclick="saveToken()">שמור</button>
-  </div>
-
-  <div class="admin-tabs">
-    <div class="admin-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">דשבורד</div>
-    <div class="admin-tab" data-tab="hero" onclick="switchTab('hero')">דף הבית</div>
-    <div class="admin-tab" data-tab="about" onclick="switchTab('about')">אודות</div>
-    <div class="admin-tab" data-tab="programs" onclick="switchTab('programs')">תחומי פעילות</div>
-    <div class="admin-tab" data-tab="media" onclick="switchTab('media')">כתבות ופרסומים</div>
-    <div class="admin-tab" data-tab="partners" onclick="switchTab('partners')">השותפים שלנו</div>
-    <div class="admin-tab" data-tab="finance" onclick="switchTab('finance')">שקיפות פיננסית</div>
-    <div class="admin-tab" data-tab="donate" onclick="switchTab('donate')">תרומות</div>
-    <div class="admin-tab" data-tab="contact" onclick="switchTab('contact')">צור קשר</div>
-    <div class="admin-tab" data-tab="settings" onclick="switchTab('settings')">הגדרות</div>
-  </div>
-
-  <div class="admin-content">
-
-    <!-- DASHBOARD -->
-    <div class="admin-section active" id="section-dashboard">
-
-      <!-- GA Setup (shown when not configured) -->
-      <div class="edit-card" id="ga-setup-card">
-        <h3>הגדרת Google Analytics</h3>
-        <div class="setup-box">
-          <p style="margin-bottom:12px;">כדי לראות נתוני ביקורים באתר, צריך להגדיר חיבור ל-Google Analytics.</p>
-          <p style="font-size:0.85rem; color:#856404; margin-bottom:16px;">
-            <strong>הגדרה חד-פעמית (5 דקות):</strong><br>
-            1. היכנסו ל-<a href="https://console.cloud.google.com/" target="_blank" style="color:#856404;">Google Cloud Console</a><br>
-            2. צרו פרויקט חדש (או בחרו קיים)<br>
-            3. הפעילו את "Google Analytics Data API" (<a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank" style="color:#856404;">לינק ישיר</a>)<br>
-            4. בתפריט Credentials → Create Credentials → OAuth Client ID<br>
-            5. סוג: Web Application, הוסיפו את כתובת האתר ב-Authorized JavaScript origins<br>
-            6. העתיקו את ה-Client ID
-          </p>
-          <div class="edit-field">
-            <label>OAuth Client ID</label>
-            <input type="text" id="gaClientId" dir="ltr" placeholder="xxxx.apps.googleusercontent.com" style="font-size:0.85rem;">
-          </div>
-          <div class="edit-field">
-            <label>GA4 Property ID (מספרי)</label>
-            <input type="text" id="gaPropertyId" dir="ltr" placeholder="לדוגמה: 123456789">
-            <span style="font-size:0.8rem; color:#666;">נמצא ב-Admin → Property Settings ב-Google Analytics</span>
-          </div>
-          <button class="btn btn-save" style="margin-top:8px;" onclick="saveGAConfig()">שמור והתחבר</button>
-          <button class="btn" style="background:#27ae60; color:#fff; margin-right:8px; margin-top:8px;" onclick="window.open('https://analytics.google.com','_blank')">פתח Google Analytics</button>
-        </div>
-      </div>
-
-      <!-- GA Login (shown when configured but not signed in) -->
-      <div class="ga-login-box" id="ga-login-card" style="display:none;">
-        <h3>התחברות ל-Google Analytics</h3>
-        <p>יש להתחבר עם חשבון Google שיש לו גישה ל-Analytics</p>
-        <button class="ga-google-btn" onclick="gaSignIn()">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-          התחברות עם Google
-        </button>
-        <p style="margin-top:12px;"><a href="#" onclick="resetGAConfig(); return false;" style="font-size:0.8rem; color:#999;">שנה הגדרות</a></p>
-      </div>
-
-      <!-- GA Dashboard (shown when connected) -->
-      <div id="ga-dashboard" style="display:none;">
-
-        <!-- User bar -->
-        <div class="edit-card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:12px 20px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:1.2rem;">📊</span>
-            <strong>Google Analytics</strong>
-            <span style="font-size:0.85rem; color:#666;" id="ga-user-email"></span>
-          </div>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <button class="btn" style="padding:6px 14px; font-size:0.8rem;" onclick="gaRefresh()">רענן נתונים</button>
-            <button class="btn" style="padding:6px 14px; font-size:0.8rem; background:#e74c3c; color:#fff;" onclick="gaSignOut()">התנתק</button>
-          </div>
-        </div>
-
-        <!-- Date range bar -->
-        <div class="edit-card" style="padding:12px 20px;">
-          <div class="ga-date-bar">
-            <span style="font-size:0.85rem; color:#666; margin-left:8px;">טווח זמן:</span>
-            <button class="ga-date-btn active" onclick="setGARange('today',this)">היום</button>
-            <button class="ga-date-btn" onclick="setGARange('7days',this)">7 ימים</button>
-            <button class="ga-date-btn" onclick="setGARange('30days',this)">30 יום</button>
-            <button class="ga-date-btn" onclick="setGARange('90days',this)">90 יום</button>
-            <div style="display:flex; gap:4px; align-items:center; margin-right:auto;">
-              <input type="date" id="ga-date-from" style="padding:4px 8px; border:1px solid #ddd; border-radius:6px; font-size:0.85rem;" onchange="setGARange('custom')">
-              <span style="font-size:0.85rem; color:#666;">עד</span>
-              <input type="date" id="ga-date-to" style="padding:4px 8px; border:1px solid #ddd; border-radius:6px; font-size:0.85rem;" onchange="setGARange('custom')">
-            </div>
-          </div>
-        </div>
-
-        <!-- KPI Cards Row 1 -->
-        <div class="dashboard-container" id="ga-kpi-cards">
-          <div class="dashboard-card">
-            <div class="card-icon">👁️</div>
-            <div class="card-label">ביקורים (סשנים)</div>
-            <div class="card-value loading" id="ga-sessions">-</div>
-            <div class="card-status" id="ga-sessions-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">👥</div>
-            <div class="card-label">מבקרים ייחודיים</div>
-            <div class="card-value loading" id="ga-users">-</div>
-            <div class="card-status" id="ga-users-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">📄</div>
-            <div class="card-label">צפיות בדפים</div>
-            <div class="card-value loading" id="ga-pageviews">-</div>
-            <div class="card-status" id="ga-pageviews-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">⏱️</div>
-            <div class="card-label">זמן ממוצע באתר</div>
-            <div class="card-value loading" id="ga-avgTime">-</div>
-            <div class="card-status" id="ga-avgTime-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">📱</div>
-            <div class="card-label">אחוז מובייל</div>
-            <div class="card-value loading" id="ga-mobile">-</div>
-            <div class="card-status" id="ga-mobile-status">טוען...</div>
-          </div>
-        </div>
-
-        <!-- KPI Cards Row 2 -->
-        <div class="dashboard-container">
-          <div class="dashboard-card">
-            <div class="card-icon">🆕</div>
-            <div class="card-label">מבקרים חדשים</div>
-            <div class="card-value loading" id="ga-newUsers">-</div>
-            <div class="card-status" id="ga-newUsers-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">🔄</div>
-            <div class="card-label">מבקרים חוזרים</div>
-            <div class="card-value loading" id="ga-returning">-</div>
-            <div class="card-status" id="ga-returning-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">📊</div>
-            <div class="card-label">דפים לביקור</div>
-            <div class="card-value loading" id="ga-pagesPerSession">-</div>
-            <div class="card-status" id="ga-pagesPerSession-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">🚪</div>
-            <div class="card-label">שיעור נטישה</div>
-            <div class="card-value loading" id="ga-bounceRate">-</div>
-            <div class="card-status" id="ga-bounceRate-status">טוען...</div>
-          </div>
-          <div class="dashboard-card">
-            <div class="card-icon">🎯</div>
-            <div class="card-label">אירועים (קליקים)</div>
-            <div class="card-value loading" id="ga-events">-</div>
-            <div class="card-status" id="ga-events-status">טוען...</div>
-          </div>
-        </div>
-
-        <!-- Tabs for detailed views -->
-        <div class="ga-tabs">
-          <div class="ga-tab active" onclick="switchGATab('overview',this)">סקירה יומית</div>
-          <div class="ga-tab" onclick="switchGATab('pages',this)">דפים</div>
-          <div class="ga-tab" onclick="switchGATab('sources',this)">מקורות</div>
-          <div class="ga-tab" onclick="switchGATab('devices',this)">מכשירים</div>
-          <div class="ga-tab" onclick="switchGATab('geo',this)">מיקום גיאוגרפי</div>
-          <div class="ga-tab" onclick="switchGATab('hours',this)">שעות פעילות</div>
-          <div class="ga-tab" onclick="switchGATab('newret',this)">חדשים vs חוזרים</div>
-        </div>
-
-        <!-- Overview panel - daily chart -->
-        <div class="ga-panel active" id="ga-panel-overview">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">ביקורים ומבקרים לפי יום</h4>
-            <canvas id="ga-chart-daily" height="250"></canvas>
-          </div>
-        </div>
-
-        <!-- Pages panel -->
-        <div class="ga-panel" id="ga-panel-pages">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">דפים הכי נצפים</h4>
-            <table class="ga-table" id="ga-pages-table">
-              <thead><tr><th>דף</th><th>צפיות</th><th>מבקרים</th><th>זמן ממוצע</th></tr></thead>
-              <tbody><tr><td colspan="4" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Sources panel -->
-        <div class="ga-panel" id="ga-panel-sources">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">מקורות תנועה (ערוצים)</h4>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-              <div style="flex:1; min-width:200px;">
-                <canvas id="ga-chart-sources" height="250"></canvas>
-              </div>
-              <div style="flex:1; min-width:200px;">
-                <table class="ga-table" id="ga-sources-table">
-                  <thead><tr><th>ערוץ</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-            <h4 style="margin:20px 0 12px; color:#333;">מקורות ספציפיים (אתרים מפנים)</h4>
-            <table class="ga-table" id="ga-referrers-table">
-              <thead><tr><th>מקור / אתר</th><th>ביקורים</th><th>מבקרים</th></tr></thead>
-              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Devices panel -->
-        <div class="ga-panel" id="ga-panel-devices">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">סוג מכשיר</h4>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-              <div style="flex:1; min-width:200px;">
-                <canvas id="ga-chart-devices" height="250"></canvas>
-              </div>
-              <div style="flex:1; min-width:200px;">
-                <table class="ga-table" id="ga-devices-table">
-                  <thead><tr><th>מכשיר</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-            <h4 style="margin:20px 0 12px; color:#333;">דפדפנים</h4>
-            <table class="ga-table" id="ga-browsers-table">
-              <thead><tr><th>דפדפן</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-            </table>
-            <h4 style="margin:20px 0 12px; color:#333;">מערכות הפעלה</h4>
-            <table class="ga-table" id="ga-os-table">
-              <thead><tr><th>מערכת הפעלה</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Geography panel -->
-        <div class="ga-panel" id="ga-panel-geo">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">מדינות</h4>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-              <div style="flex:1; min-width:200px;">
-                <canvas id="ga-chart-countries" height="250"></canvas>
-              </div>
-              <div style="flex:1; min-width:200px;">
-                <table class="ga-table" id="ga-countries-table">
-                  <thead><tr><th>מדינה</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-            <h4 style="margin:20px 0 12px; color:#333;">ערים</h4>
-            <table class="ga-table" id="ga-cities-table">
-              <thead><tr><th>עיר</th><th>ביקורים</th><th>מבקרים</th></tr></thead>
-              <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Hourly panel -->
-        <div class="ga-panel" id="ga-panel-hours">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">ביקורים לפי שעה ביום</h4>
-            <canvas id="ga-chart-hours" height="250"></canvas>
-            <p style="font-size:0.8rem; color:#999; margin-top:8px;">מראה באילו שעות הגולשים הכי פעילים באתר</p>
-          </div>
-        </div>
-
-        <!-- New vs Returning panel -->
-        <div class="ga-panel" id="ga-panel-newret">
-          <div class="ga-chart-container">
-            <h4 style="margin-bottom:12px; color:#333;">מבקרים חדשים לעומת חוזרים</h4>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-              <div style="flex:1; min-width:200px;">
-                <canvas id="ga-chart-newret" height="250"></canvas>
-              </div>
-              <div style="flex:1; min-width:200px;">
-                <table class="ga-table" id="ga-newret-table">
-                  <thead><tr><th>סוג מבקר</th><th>ביקורים</th><th>אחוז</th></tr></thead>
-                  <tbody><tr><td colspan="3" style="text-align:center; color:#999;">טוען...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p style="color:#999; font-size:0.8rem; text-align:center; margin-top:8px;" id="ga-last-update"></p>
-      </div>
+    <div class="input-group">
+      <label>קישור לאתר</label>
+      <input type="url" id="partnerUrl" placeholder="https://...">
     </div>
-
-    <!-- SAVE LOG -->
-    <div style="position: relative;">
-      <div id="saveLog" class="save-log"></div>
-      <button class="btn" style="background: #666; color: #fff; position: absolute; top: 8px; left: 24px; padding: 6px 12px; font-size: 0.8rem; display: none;" id="clearLogBtn" onclick="clearSaveLog(); this.style.display='none';">מחק לוג</button>
+    <div class="input-group">
+      <label>לוגו</label>
+      <img id="imgPreview" class="img-preview" src="" style="display:none;">
+      <div class="file-input-wrap">
+        <span class="file-input-label">📁 בחר קובץ תמונה (PNG, SVG, JPG)</span>
+        <input type="file" id="partnerLogo" accept="image/*" onchange="previewImage(this)">
+      </div>
+      <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8;">או הכנס URL ישיר:</div>
+      <input type="text" id="partnerLogoUrl" placeholder="images/partner-..." style="margin-top:4px;">
     </div>
-
-    <!-- HERO -->
-    <div class="admin-section" id="section-hero">
-      <div class="edit-card">
-        <h3>כותרת ראשית (Hero)</h3>
-        <div class="edit-field">
-          <label>תמונת רקע</label>
-          <div class="img-upload-inline">
-            <div class="img-upload-box">
-              <img id="preview-hero" src="">
-              <span class="upload-icon">📷</span>
-              <span class="upload-label">החלף תמונה</span>
-              <input type="file" accept="image/*" onchange="handleImg(this,'images/hero.jpg','preview-hero')">
-            </div>
-          </div>
-        </div>
-        <div class="edit-field-row">
-          <div class="edit-field">
-            <label>כותרת עליונה (עברית)</label>
-            <input type="text" data-field="hero-designation-he">
-          </div>
-          <div class="edit-field">
-            <label>כותרת עליונה (English)</label>
-            <input type="text" data-field="hero-designation-en" dir="ltr">
-          </div>
-        </div>
-        <div class="edit-field-row">
-          <div class="edit-field">
-            <label>כותרת ראשית (עברית)</label>
-            <input type="text" data-field="hero-title-he">
-          </div>
-          <div class="edit-field">
-            <label>כותרת ראשית (English)</label>
-            <input type="text" data-field="hero-title-en" dir="ltr">
-          </div>
-        </div>
-        <div class="edit-field">
-          <label>תיאור (עברית)</label>
-          <textarea data-field="hero-subtitle-he"></textarea>
-        </div>
-        <div class="edit-field">
-          <label>תיאור (English)</label>
-          <textarea data-field="hero-subtitle-en" dir="ltr"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- ABOUT -->
-    <div class="admin-section" id="section-about">
-      <div class="edit-card">
-        <h3>כותרת עמוד אודות</h3>
-        <div class="edit-field-row">
-          <div class="edit-field">
-            <label>כותרת (עברית)</label>
-            <input type="text" data-field="about-title-he">
-          </div>
-          <div class="edit-field">
-            <label>כותרת (English)</label>
-            <input type="text" data-field="about-title-en" dir="ltr">
-          </div>
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>תת-כותרת בדף הבית</h3>
-        <div class="edit-field">
-          <label>תת-כותרת (עברית)</label>
-          <textarea data-field="about-subtitle-he" style="min-height:60px;"></textarea>
-        </div>
-        <div class="edit-field">
-          <label>תת-כותרת (English)</label>
-          <textarea data-field="about-subtitle-en" dir="ltr" style="min-height:60px;"></textarea>
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>פסקת פתיחה</h3>
-        <div class="edit-field">
-          <label>פתיחה (עברית)</label>
-          <textarea data-field="about-intro-he" style="min-height:100px;"></textarea>
-        </div>
-        <div class="edit-field">
-          <label>פתיחה (English)</label>
-          <textarea data-field="about-intro-en" dir="ltr" style="min-height:100px;"></textarea>
-        </div>
-      </div>
-      <div id="aboutSubsections"></div>
-      <div class="edit-card">
-        <h3>חזון</h3>
-        <div class="edit-field">
-          <label>חזון (עברית)</label>
-          <textarea data-field="about-vision-he" style="min-height:80px;"></textarea>
-        </div>
-        <div class="edit-field">
-          <label>חזון (English)</label>
-          <textarea data-field="about-vision-en" dir="ltr" style="min-height:80px;"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROGRAMS (with inline images) -->
-    <div class="admin-section" id="section-programs">
-      <div id="programsContainer"></div>
-      <button class="btn-add" onclick="addProgram()">+ הוסף תחום פעילות חדש</button>
-    </div>
-
-    <!-- MEDIA / כתבות ופרסומים -->
-    <div class="admin-section" id="section-media">
-      <div class="edit-card">
-        <h3>כתבות ופרסומים</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">קישורים לסרטונים, כתבות, טיקטוקים ורשתות חברתיות. כל קישור מופיע ככרטיסייה בדף הבית.</p>
-        <div id="pressContainer"></div>
-        <button class="btn-add" onclick="addPressItem()">+ הוסף קישור חדש</button>
-      </div>
-    </div>
-
-    <!-- PARTNERS -->
-    <div class="admin-section" id="section-partners">
-      <div class="edit-card">
-        <h3>השותפים שלנו</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">לוגו + שם + קישור לכל שותף. הלוגואים מופיעים בעיגול בדף הבית.</p>
-        <div id="partnersContainer"></div>
-        <button class="btn-add" onclick="addPartner()">+ הוסף שותף</button>
-      </div>
-    </div>
-
-    <!-- FINANCE MANAGEMENT -->
-    <div class="admin-section" id="section-finance">
-      <div class="edit-card">
-        <h3>שקיפות פיננסית - ניהול הכנסות והוצאות</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">הזינו הכנסות והוצאות כדי שיופיעו בעמוד השקיפות הכספית באתר.</p>
-
-        <!-- Income Section -->
-        <div style="border:1px solid #e0e0e0; border-radius:12px; padding:16px; margin-bottom:20px; background:#f0faf0;">
-          <h4 style="color:#1a8a9a; margin-bottom:12px;">הכנסות</h4>
-          <div id="financeIncomeList"></div>
-          <div style="display:grid; grid-template-columns:auto 1fr 1fr 1fr; gap:8px; margin-top:12px;">
-            <div class="edit-field" style="margin:0;">
-              <label>חודש</label>
-              <select id="finIncMonth" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
-                <option value="1">ינואר</option><option value="2">פברואר</option><option value="3">מרץ</option>
-                <option value="4">אפריל</option><option value="5">מאי</option><option value="6">יוני</option>
-                <option value="7">יולי</option><option value="8">אוגוסט</option><option value="9">ספטמבר</option>
-                <option value="10">אוקטובר</option><option value="11">נובמבר</option><option value="12">דצמבר</option>
-              </select>
-            </div>
-            <div class="edit-field" style="margin:0;">
-              <label>סכום (₪)</label>
-              <input type="number" id="finIncAmount" placeholder="0" dir="ltr">
-            </div>
-            <div class="edit-field" style="margin:0;">
-              <label>מקור</label>
-              <input type="text" id="finIncSource" placeholder="שם התורם / מקור">
-            </div>
-            <div class="edit-field" style="margin:0;">
-              <label>מטרה</label>
-              <select id="finIncPurpose" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
-                <option value="torah">ליווי תורני</option>
-                <option value="prep">הכנה לשירות</option>
-                <option value="welfare">רווחה וסיוע</option>
-                <option value="study">העצמת לימוד התורה בחטיבה</option>
-                <option value="alumni">תוכניות בוגרים</option>
-                <option value="general">כללי</option>
-              </select>
-            </div>
-          </div>
-          <button class="btn-add" style="margin-top:8px;" onclick="addFinanceItem('income')">+ הוסף הכנסה</button>
-        </div>
-
-        <!-- Expense Section -->
-        <div style="border:1px solid #e0e0e0; border-radius:12px; padding:16px; margin-bottom:20px; background:#fef5ec;">
-          <h4 style="color:#e67e22; margin-bottom:12px;">הוצאות</h4>
-          <div id="financeExpenseList"></div>
-          <div style="display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; margin-top:12px;">
-            <div class="edit-field" style="margin:0;">
-              <label>חודש</label>
-              <select id="finExpMonth" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
-                <option value="1">ינואר</option><option value="2">פברואר</option><option value="3">מרץ</option>
-                <option value="4">אפריל</option><option value="5">מאי</option><option value="6">יוני</option>
-                <option value="7">יולי</option><option value="8">אוגוסט</option><option value="9">ספטמבר</option>
-                <option value="10">אוקטובר</option><option value="11">נובמבר</option><option value="12">דצמבר</option>
-              </select>
-            </div>
-            <div class="edit-field" style="margin:0;">
-              <label>סכום (₪)</label>
-              <input type="number" id="finExpAmount" placeholder="0" dir="ltr">
-            </div>
-            <div class="edit-field" style="margin:0;">
-              <label>מטרה</label>
-              <select id="finExpPurpose" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:8px;">
-                <option value="torah">ליווי תורני</option>
-                <option value="prep">הכנה לשירות</option>
-                <option value="welfare">רווחה וסיוע</option>
-                <option value="study">העצמת לימוד התורה בחטיבה</option>
-                <option value="alumni">תוכניות בוגרים</option>
-                <option value="general">כללי</option>
-              </select>
-            </div>
-          </div>
-          <button class="btn-add" style="margin-top:8px;" onclick="addFinanceItem('expense')">+ הוסף הוצאה</button>
-        </div>
-
-        <!-- Summary -->
-        <div style="background:#f8f9fa; border-radius:12px; padding:16px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; text-align:center;">
-          <div>
-            <div style="font-size:0.8rem; color:#666;">סך הכנסות</div>
-            <div id="finSummaryIncome" style="font-size:1.3rem; font-weight:700; color:#1a8a9a;">₪0</div>
-          </div>
-          <div>
-            <div style="font-size:0.8rem; color:#666;">סך הוצאות</div>
-            <div id="finSummaryExpense" style="font-size:1.3rem; font-weight:700; color:#e67e22;">₪0</div>
-          </div>
-          <div>
-            <div style="font-size:0.8rem; color:#666;">יתרה</div>
-            <div id="finSummaryBalance" style="font-size:1.3rem; font-weight:700; color:#2c3e50;">₪0</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DONATE SETTINGS -->
-    <div class="admin-section" id="section-donate">
-      <div class="edit-card">
-        <h3>באנר קריאה לפעולה (CTA)</h3>
-        <div class="edit-field">
-          <label>טקסט CTA (עברית)</label>
-          <input type="text" data-field="cta-text-he">
-        </div>
-        <div class="edit-field">
-          <label>טקסט CTA (English)</label>
-          <input type="text" data-field="cta-text-en" dir="ltr">
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>כותרת אזור תרומות</h3>
-        <div class="edit-field-row">
-          <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="donate-title-he"></div>
-          <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="donate-title-en" dir="ltr"></div>
-        </div>
-        <div class="edit-field-row">
-          <div class="edit-field"><label>תת-כותרת (עברית)</label><input type="text" data-field="donate-subtitle-he"></div>
-          <div class="edit-field"><label>תת-כותרת (English)</label><input type="text" data-field="donate-subtitle-en" dir="ltr"></div>
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>לינקים לתרומה</h3>
-        <div class="edit-field">
-          <label>ישראל - דור אחווה (סעיף 46)</label>
-          <input type="text" data-field="donate-link-israel-dorachva" dir="ltr" placeholder="https://pay.grow.link/...">
-        </div>
-        <div class="edit-field">
-          <label>ארה״ב - Neeman Foundation</label>
-          <input type="text" data-field="donate-link-usa" dir="ltr" placeholder="https://new.neemanfoundation.com/...">
-        </div>
-        <div class="edit-field">
-          <label>קנדה - Mizrachi Canada</label>
-          <input type="text" data-field="donate-link-canada" dir="ltr" placeholder="https://mizrachi.ca/donate/...">
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>הערה בדף תרומות</h3>
-        <div class="edit-field">
-          <label>הערה (עברית)</label>
-          <input type="text" data-field="donate-note-he">
-        </div>
-        <div class="edit-field">
-          <label>הערה (English)</label>
-          <input type="text" data-field="donate-note-en" dir="ltr">
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>פרטי העברה בנקאית</h3>
-        <div class="edit-field">
-          <label>שם העמותה</label>
-          <input type="text" data-field="bank-org-name" placeholder='עמותת החשמונאים (ע״ר)'>
-        </div>
-        <div class="edit-field">
-          <label>שם הבנק + סניף (עברית)</label>
-          <input type="text" data-field="bank-details-he" placeholder="בנק מרכנתיל · סניף 734 ביתר עילית">
-        </div>
-        <div class="edit-field">
-          <label>מספר חשבון</label>
-          <input type="text" data-field="bank-account" dir="ltr" placeholder="10514560">
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTACT -->
-    <div class="admin-section" id="section-contact">
-      <!-- Page Title -->
-      <div class="edit-card">
-        <h3>כותרת הדף</h3>
-        <div class="edit-field-row">
-          <div class="edit-field"><label>כותרת (עברית)</label><input type="text" data-field="contact-page-title-he"></div>
-          <div class="edit-field"><label>כותרת (English)</label><input type="text" data-field="contact-page-title-en" dir="ltr"></div>
-        </div>
-        <div class="edit-field-row">
-          <div class="edit-field"><label>תת-כותרת (עברית)</label><input type="text" data-field="contact-page-subtitle-he"></div>
-          <div class="edit-field"><label>תת-כותרת (English)</label><input type="text" data-field="contact-page-subtitle-en" dir="ltr"></div>
-        </div>
-      </div>
-
-      <!-- Contact Sections -->
-      <div id="contactSectionsContainer"></div>
-      <button class="btn-add" onclick="addContactSection()">+ הוסף קטגוריית קשר</button>
-
-      <!-- Social / Messaging Links -->
-      <div class="edit-card" style="margin-top:20px;">
-        <h3>קישורים לרשתות / מסרים</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">קישורים לווצאפ, פייסבוק, אינסטגרם וכו׳ שיופיעו בדף צור קשר</p>
-        <div id="contactLinksContainer"></div>
-        <button class="btn-add" onclick="addContactLink()">+ הוסף קישור</button>
-      </div>
-
-      <!-- Contact Form Settings -->
-      <div class="edit-card" style="margin-top:20px;">
-        <h3>טופס יצירת קשר</h3>
-        <div class="edit-field-row">
-          <div class="edit-field"><label>כפתור שליחה (עברית)</label><input type="text" data-field="contact-form-btn-he"></div>
-          <div class="edit-field"><label>כפתור שליחה (English)</label><input type="text" data-field="contact-form-btn-en" dir="ltr"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div class="admin-section" id="section-settings">
-      <div class="edit-card">
-        <h3>הגדרות כלליות</h3>
-        <div class="edit-field">
-          <label>שם האתר</label>
-          <input type="text" data-field="site-title">
-        </div>
-        <div class="edit-field">
-          <label>תיאור לגוגל</label>
-          <textarea data-field="meta-desc"></textarea>
-        </div>
-        <div class="edit-field">
-          <label>פוטר - טקסט תחתון (עברית)</label>
-          <input type="text" data-field="footer-text-he">
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>GitHub Token</h3>
-        <div class="edit-field">
-          <label>Personal Access Token</label>
-          <input type="text" id="settingsToken" dir="ltr" placeholder="ghp_xxxxxxxxxxxxx">
-          <button class="btn btn-save" style="margin-top:8px;" onclick="document.getElementById('tokenInput').value=document.getElementById('settingsToken').value;saveToken()">עדכן</button>
-        </div>
-      </div>
-      <div class="edit-card">
-        <h3>🔧 כלי אבחון</h3>
-        <p style="color:#666; font-size:0.9rem; margin-bottom:16px;">אם השמירה לא עובדת, לחצו על "הרץ אבחון" ושלחו את התוצאה</p>
-        <button class="btn btn-save" style="background:#e67e22;" onclick="runDiagnostic()">🔧 הרץ אבחון</button>
-        <button class="btn" style="background:#27ae60; color:#fff; margin-right:8px;" onclick="testSave()">🧪 בדיקת שמירה</button>
-      </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="savePartner()" id="modalSaveBtn">הוסף</button>
+      <button class="btn" style="background:#e2e8f0;" onclick="closeModal()">ביטול</button>
     </div>
   </div>
 </div>
+
+<div class="status-bar" id="statusBar"></div>
 
 <script>
-const PASSWORD_HASH = '897b9cd34d719d9de225a739269f057047f36b4fec3ecd908454a4f4f36f1b3a';
+let token = '';
+let partners = [];
+let currentSha = '';
+let editIndex = -1;
+let hasChanges = false;
 const REPO = 'itzhak-iab/ruach-hashmonaim';
-const BRANCH = 'main';
-let siteSHA = '', siteDoc = null, siteHTML = '';
-let pendingChanges = {}, pendingImages = {};
-let programData = [], videoData = [], socialData = [], newsletterData = [], partnerData = [], pressData = [];
-let aboutSubsections = [];
-let contactSections = [], contactLinks = [];
 
-// AUTH
-async function hashPw(pw) {
-  const d = new TextEncoder().encode(pw);
-  const h = await crypto.subtle.digest('SHA-256', d);
-  return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-async function doLogin() {
-  if (await hashPw(document.getElementById('passwordInput').value) === PASSWORD_HASH) {
-    sessionStorage.setItem('admin_auth','true');
-    showAdmin();
-  } else {
-    document.getElementById('loginError').style.display='block';
-  }
-}
-function doLogout() { sessionStorage.removeItem('admin_auth'); location.reload(); }
-function showAdmin() {
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('adminContainer').style.display='block';
-  if(!localStorage.getItem('github_token')) document.getElementById('setupBox').style.display='block';
-  loadSite();
-}
-function saveToken() {
-  const t = document.getElementById('tokenInput')?.value || document.getElementById('settingsToken')?.value;
-  if(t&&t.startsWith('ghp_')){localStorage.setItem('github_token',t);document.getElementById('setupBox').style.display='none';showStatus('Token נשמר!','success');}
-  else showStatus('Token לא תקין','error');
+function showStatus(msg, duration=3000) {
+  const bar = document.getElementById('statusBar');
+  bar.textContent = msg;
+  bar.classList.add('show');
+  setTimeout(() => bar.classList.remove('show'), duration);
 }
 
-// LOAD
-async function loadSite() {
-  showStatus('טוען את האתר מ-GitHub...','loading');
+async function login() {
+  token = document.getElementById('tokenInput').value.trim();
+  if (!token) return showStatus('⚠️ הכנס טוקן');
+  showStatus('מתחבר...');
   try {
-    const token = localStorage.getItem('github_token');
-    if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token - הזן token למטה','error');return;}
-    const h = {'Authorization':`token ${token}`};
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:h});
-    if(!r.ok){
-      const errData=await r.json().catch(()=>({}));
-      if(r.status===401)throw new Error('GitHub Token לא תקין או שפג תוקפו. עדכנו בהגדרות.');
-      if(r.status===403)throw new Error('חריגה ממגבלת בקשות GitHub. נסו שוב בעוד דקה.');
-      if(r.status===404)throw new Error('קובץ index.html לא נמצא ב-GitHub.');
-      throw new Error('שגיאת GitHub: HTTP '+r.status+' '+(errData.message||''));
-    }
-    const d = await r.json();
-    siteSHA = d.sha;
-    siteHTML = new TextDecoder().decode(Uint8Array.from(atob(d.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
-    siteDoc = new DOMParser().parseFromString(siteHTML,'text/html');
-    pendingChanges={};pendingImages={};
-    populate();
-    showStatus('נטען בהצלחה! (גרסה: '+siteSHA.substring(0,7)+')','success');
-    setTimeout(()=>document.getElementById('saveStatus').style.display='none',3000);
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+    if (!res.ok) throw new Error('טוקן לא תקין');
+    const data = await res.json();
+    currentSha = data.sha;
+    const content = atob(data.content.replace(/\n/g, ''));
+    parsePartners(content);
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderPartners();
+    showStatus('✅ התחברת בהצלחה!');
   } catch(e) {
-    console.error('Load error:',e);
-    showStatus('שגיאה בטעינה: '+e.message,'error');
+    showStatus('❌ ' + e.message);
   }
 }
 
-function populate() {
-  if(!siteDoc) return;
-  try {
-  // Hero
-  setVal('hero-designation-he', txt('.hero-designation .he-only'));
-  setVal('hero-designation-en', txt('.hero-designation .en-only'));
-  setVal('hero-title-he', txt('.hero-title .he-only'));
-  setVal('hero-title-en', txt('.hero-title .en-only'));
-  setVal('hero-subtitle-he', innerText('.hero-subtitle .he-only'));
-  setVal('hero-subtitle-en', innerText('.hero-subtitle .en-only'));
-  document.getElementById('preview-hero').src = 'https://chashmonayim.org/images/hero.jpg?t='+Date.now();
-
-  // About
-  const aboutPage = siteDoc.getElementById('page-about');
-  if(aboutPage) {
-    const st = aboutPage.querySelector('.section-title');
-    if(st){setVal('about-title-he',st.querySelector('.he-only')?.textContent.trim()||'');setVal('about-title-en',st.querySelector('.en-only')?.textContent.trim()||'');}
-    // Intro paragraph (first p with long text)
-    const introP = aboutPage.querySelector('div[style*="margin-bottom:40px"] > p');
-    if(introP){
-      const ih=introP.querySelector('.he-only');if(ih)setVal('about-intro-he',ih.textContent.trim());
-      const ie=introP.querySelector('.en-only');if(ie)setVal('about-intro-en',ie.textContent.trim());
-    }
-    // Subsections (h4 + p pairs)
-    aboutSubsections=[];
-    aboutPage.querySelectorAll('h4').forEach(h4=>{
-      const par=h4.parentElement;
-      const nextP=par.querySelector('p');
-      if(nextP){
-        aboutSubsections.push({
-          titleHe:h4.querySelector('.he-only')?.textContent.trim()||'',
-          titleEn:h4.querySelector('.en-only')?.textContent.trim()||'',
-          textHe:nextP.querySelector('.he-only')?.textContent.trim()||'',
-          textEn:nextP.querySelector('.en-only')?.textContent.trim()||''
-        });
-      }
-    });
-    renderAboutSubsections();
-    // Vision
-    const visionDiv=aboutPage.querySelector('div[style*="background:var(--light-bg)"]');
-    if(visionDiv){
-      const vp=visionDiv.querySelector('p');
-      if(vp){
-        const vh=vp.querySelector('.he-only:last-of-type');if(vh)setVal('about-vision-he',vh.textContent.trim());
-        const ve=vp.querySelector('.en-only:last-of-type');if(ve)setVal('about-vision-en',ve.textContent.trim());
-      }
-    }
-  }
-  // Homepage about subtitle
-  const aboutHome=siteDoc.querySelector('.about-section');
-  if(aboutHome){
-    const sub=aboutHome.querySelector('.section-subtitle');
-    if(sub){
-      const sh=sub.querySelector('.he-only');if(sh)setVal('about-subtitle-he',sh.textContent.trim());
-      const se=sub.querySelector('.en-only');if(se)setVal('about-subtitle-en',se.textContent.trim());
-    }
-  }
-
-  // Programs
-  buildPrograms();
-  // Media / Press
-  buildPress();
-  buildPartners();
-  // Finance
-  buildFinance();
-  // Contact
-  buildContactSections();
-  // Settings
-  setVal('site-title',siteDoc.querySelector('title')?.textContent||'');
-  setVal('meta-desc',siteDoc.querySelector('meta[name="description"]')?.getAttribute('content')||'');
-  const fh = siteDoc.querySelector('.footer-bottom .he-only');
-  if(fh) setVal('footer-text-he', fh.textContent.trim());
-  if(localStorage.getItem('github_token')&&document.getElementById('settingsToken'))document.getElementById('settingsToken').value=localStorage.getItem('github_token');
-
-  // Donate
-  const donateSection = siteDoc.getElementById('page-donate');
-  if(donateSection) {
-    const dt = donateSection.querySelector('.section-title');
-    if(dt) { setVal('donate-title-he', dt.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-title-en', dt.querySelector('.en-only')?.textContent.trim()||''); }
-    const ds = donateSection.querySelector('.section-subtitle');
-    if(ds) { setVal('donate-subtitle-he', ds.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-subtitle-en', ds.querySelector('.en-only')?.textContent.trim()||''); }
-    // Donation links
-    const israelDorLink = donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');
-    if(israelDorLink) setVal('donate-link-israel-dorachva', israelDorLink.getAttribute('href'));
-    const usaLink = donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');
-    if(usaLink) setVal('donate-link-usa', usaLink.getAttribute('href'));
-    const canadaLink = donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');
-    if(canadaLink) setVal('donate-link-canada', canadaLink.getAttribute('href'));
-    // Note
-    const noteEl = donateSection.querySelector('.donate-note');
-    if(noteEl) { setVal('donate-note-he', noteEl.querySelector('.he-only')?.textContent.trim()||''); setVal('donate-note-en', noteEl.querySelector('.en-only')?.textContent.trim()||''); }
-    // Bank details - parse the bank transfer line
-    const bankSpanHe = donateSection.querySelector('.he-only[class]');
-    // Try to find bank info more reliably
-    donateSection.querySelectorAll('span.he-only').forEach(sp => {
-      const t = sp.textContent;
-      if(t.includes('העברה בנקאית')) {
-        // Parse: "העברה בנקאית: ״עמותת החשמונאים״ (ע״ר) · בנק מרכנתיל · סניף 734 ביתר עילית · חשבון: 10514560"
-        const parts = t.split('·').map(p => p.trim());
-        if(parts.length >= 3) {
-          // First part: "העברה בנקאית: ״עמותת החשמונאים״ (ע״ר)"
-          const orgMatch = parts[0].match(/[״"]([^״"]+)[״"]\s*\(ע[״"]ר\)/);
-          if(orgMatch) setVal('bank-org-name', orgMatch[1] + ' (ע״ר)');
-          // Bank name + branch
-          setVal('bank-details-he', parts.slice(1, parts.length-1).join(' · '));
-          // Account number
-          const accMatch = parts[parts.length-1].match(/(\d+)/);
-          if(accMatch) setVal('bank-account', accMatch[1]);
-        }
-      }
+function parsePartners(html) {
+  partners = [];
+  const regex = /<a href="([^"]+)" class="partner-3d-card"[^>]*>\s*<div class="partner-3d-logo">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>\s*<\/div>\s*<span class="partner-3d-name he-only">([^<]*)<\/span>\s*<span class="partner-3d-name en-only">([^<]*)<\/span>\s*<\/a>/g;
+  let match;
+  const seen = new Set();
+  while ((match = regex.exec(html)) !== null) {
+    const key = match[2]+match[3];
+    if (seen.has(key)) continue;
+    seen.add(key);
+    partners.push({
+      url: match[1].trim(),
+      img: match[2],
+      alt: match[3],
+      nameHe: match[4],
+      nameEn: match[5]
     });
   }
-  // CTA banner - use only .cta-banner (not [class*="cta"] which matches hero-cta)
-  const ctaBanner = siteDoc.querySelector('section.cta-banner');
-  if(ctaBanner) {
-    const ctaH2 = ctaBanner.querySelector('h2');
-    if(ctaH2) {
-      const ctaHe = ctaH2.querySelector('.he-only');
-      const ctaEn = ctaH2.querySelector('.en-only');
-      if(ctaHe) setVal('cta-text-he', ctaHe.textContent.trim());
-      if(ctaEn) setVal('cta-text-en', ctaEn.textContent.trim());
-    }
+  document.getElementById('partnerCount').textContent = partners.length;
+}
+
+function renderPartners() {
+  const list = document.getElementById('partnersList');
+  if (partners.length === 0) {
+    list.innerHTML = '<div class="empty-state"><p>אין שותפים עדיין</p></div>';
+    return;
   }
-
-  // Listeners
-  document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
-  } catch(e) {
-    console.error('Error in populate():', e);
-    showStatus('שגיאה בטעינת הנתונים: ' + e.message, 'error');
-  }
-}
-
-function renderAboutSubsections(){
-  const c=document.getElementById('aboutSubsections');
-  if(!c)return;
-  c.innerHTML=aboutSubsections.map((s,i)=>`
-  <div class="edit-card">
-    <h3 class="collapsible-header" onclick="toggleCollapse(this)">תת-סעיף: ${s.titleHe||'סעיף '+(i+1)}</h3>
-    <div class="collapsible-body">
-      <div class="edit-field-row">
-        <div class="edit-field"><label>כותרת (עברית)</label><input type="text" value="${esc(s.titleHe)}" oninput="aboutSubsections[${i}].titleHe=this.value;pendingChanges['_about_subs']='1';updateBadge();"></div>
-        <div class="edit-field"><label>כותרת (English)</label><input type="text" value="${esc(s.titleEn)}" dir="ltr" oninput="aboutSubsections[${i}].titleEn=this.value;pendingChanges['_about_subs']='1';updateBadge();"></div>
+  list.innerHTML = partners.map((p, i) => `
+    <div class="partner-item" draggable="true" ondragstart="dragStart(event,${i})" ondragover="dragOver(event)" ondrop="drop(event,${i})">
+      <span class="drag-handle">⠿</span>
+      <img src="https://chashmonayim.org/${p.img}" alt="${p.alt}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2260%22 x=%2225%22 font-size=%2240%22>🏢</text></svg>'">
+      <div class="partner-info">
+        <h3>${p.nameHe || p.alt}</h3>
+        <a href="${p.url}" target="_blank">${p.url.replace(/https?:\/\//, '').substring(0, 40)}</a>
       </div>
-      <div class="edit-field"><label>טקסט (עברית)</label><textarea oninput="aboutSubsections[${i}].textHe=this.value;pendingChanges['_about_subs']='1';updateBadge();">${esc(s.textHe)}</textarea></div>
-      <div class="edit-field"><label>טקסט (English)</label><textarea dir="ltr" oninput="aboutSubsections[${i}].textEn=this.value;pendingChanges['_about_subs']='1';updateBadge();">${esc(s.textEn)}</textarea></div>
-    </div>
-  </div>`).join('');
-}
-
-function txt(sel){const e=siteDoc.querySelector(sel);return e?e.textContent.trim():'';}
-function innerText(sel){const e=siteDoc.querySelector(sel);if(!e)return'';return e.innerHTML.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'').trim();}
-function setVal(f,v){const e=document.querySelector(`[data-field="${f}"]`);if(e)e.value=v;}
-function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-// PROGRAMS
-function buildPrograms(){
-  programData=[];
-  const details=siteDoc.querySelectorAll('.program-detail-item');
-  const cards=siteDoc.querySelectorAll('.program-card');
-  details.forEach((item,i)=>{
-    const imgs=[];
-    item.querySelectorAll('.program-detail-img img').forEach(img=>{const s=img.getAttribute('src');if(s&&!s.startsWith('data:'))imgs.push(s);});
-    const cardImg=cards[i]?.querySelector('.program-card-img img');
-    const cardImgSrc=cardImg?cardImg.getAttribute('src'):'';
-    const iconEl=item.querySelector('.program-icon img');
-    const iconSrc=iconEl?iconEl.getAttribute('src'):'';
-    programData.push({
-      nameHe:item.querySelector('h3 .he-only')?.textContent.trim()||'',
-      nameEn:item.querySelector('h3 .en-only')?.textContent.trim()||'',
-      descHe:item.querySelector('p .he-only')?.textContent.trim()||'',
-      descEn:item.querySelector('p .en-only')?.textContent.trim()||'',
-      images:imgs,
-      cardImage:(!cardImgSrc||cardImgSrc.startsWith('data:'))?'':cardImgSrc,
-      logo:iconSrc
-    });
-  });
-  renderPrograms();
-}
-
-function renderPrograms(){
-  const c=document.getElementById('programsContainer');
-  c.innerHTML=programData.map((p,i)=>`
-  <div class="edit-card">
-    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${p.nameHe||'תחום פעילות '+(i+1)}
-      <button class="btn-remove" style="margin-right:auto;" onclick="event.stopPropagation();removeProgram(${i})">מחק</button>
-    </h3>
-    <div class="collapsible-body">
-      <div class="edit-field">
-        <label>תמונות התוכנית</label>
-        <div class="img-upload-inline">
-          ${p.images.map((img,j)=>`
-          <div class="img-upload-box">
-            <img src="https://chashmonayim.org/${img}?t=${Date.now()}" id="pimg-${i}-${j}">
-            <input type="file" accept="image/*" onchange="handleImg(this,'${img}','pimg-${i}-${j}')">
-          </div>`).join('')}
-          <div class="img-upload-box" onclick="">
-            <span class="upload-icon">+</span>
-            <span class="upload-label">הוסף תמונה</span>
-            <input type="file" accept="image/*" onchange="addProgramImage(${i},this)">
-          </div>
-        </div>
-      </div>
-      <div class="edit-field">
-        <label>לוגו התוכנית</label>
-        <div class="img-upload-inline">
-          <div class="img-upload-box" style="width:80px;height:80px;">
-            ${p.logo?`<img src="https://chashmonayim.org/${p.logo}?t=${Date.now()}" id="plogo-${i}">`:'<span class="upload-label">ללא</span>'}
-            <input type="file" accept="image/*" onchange="handleImg(this,'${p.logo||'images/prog-'+i+'-logo.png'}','plogo-${i}')">
-          </div>
-        </div>
-      </div>
-      <div class="edit-field-row">
-        <div class="edit-field"><label>שם (עברית)</label><input type="text" data-field="prog-${i}-name-he" value="${esc(p.nameHe)}" oninput="markChanged()"></div>
-        <div class="edit-field"><label>שם (English)</label><input type="text" data-field="prog-${i}-name-en" value="${esc(p.nameEn)}" dir="ltr" oninput="markChanged()"></div>
-      </div>
-      <div class="edit-field"><label>תיאור (עברית)</label><textarea data-field="prog-${i}-desc-he" oninput="markChanged()">${esc(p.descHe)}</textarea></div>
-      <div class="edit-field"><label>תיאור (English)</label><textarea data-field="prog-${i}-desc-en" dir="ltr" oninput="markChanged()">${esc(p.descEn)}</textarea></div>
-    </div>
-  </div>`).join('');
-  // Re-attach listeners
-  c.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{pendingChanges[el.dataset.field]=el.value;updateBadge();}));
-}
-
-function addProgramImage(progIdx,input){
-  const file=input.files[0];if(!file)return;
-  const fname=`images/prog-${progIdx}-${Date.now()}.jpg`;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    pendingImages[fname]=e.target.result.split(',')[1];
-    programData[progIdx].images.push(fname);
-    pendingChanges['_programs_structural']='true';
-    renderPrograms();updateBadge();
-  };
-  reader.readAsDataURL(file);
-}
-
-function removeProgram(i){if(confirm('למחוק את תחום הפעילות?')){programData.splice(i,1);pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();}}
-function addProgram(){
-  programData.push({nameHe:'תחום פעילות חדש',nameEn:'New Program',descHe:'',descEn:'',images:[],cardImage:'',logo:''});
-  pendingChanges['_programs_structural']='true';renderPrograms();updateBadge();
-}
-
-// VIDEOS
-// PRESS / כתבות ופרסומים
-function buildPress(){
-  pressData=[];
-  siteDoc.querySelectorAll('.press-card').forEach(card=>{
-    const img=card.querySelector('.press-card-thumb img');
-    const badge=card.querySelector('.press-badge');
-    const source=card.querySelector('.press-source');
-    const title=card.querySelector('.press-card-body h4');
-    const hasPlay=!!card.querySelector('.press-card-play');
-    const thumbDiv=card.querySelector('.press-card-thumb');
-    // Detect type from badge or style
-    let type='article';
-    const badgeText=(badge?.textContent||'').trim().toLowerCase();
-    if(badgeText.includes('youtube')||badgeText.includes('ערוץ 12'))type='video';
-    else if(badgeText.includes('tiktok'))type='tiktok';
-    else if(badgeText.includes('instagram'))type='instagram';
-    // Get thumb style for non-image cards
-    let thumbStyle=thumbDiv?.getAttribute('style')||'';
-    pressData.push({
-      title:title?.textContent.trim()||'',
-      source:source?.textContent.trim()||'',
-      link:card.getAttribute('href')||'#',
-      image:img?.getAttribute('src')||'',
-      badge:badge?.textContent.trim()||'',
-      badgeStyle:badge?.getAttribute('style')||'',
-      thumbStyle:thumbStyle,
-      type:type,
-      hasPlay:hasPlay
-    });
-  });
-  renderPress();
-}
-
-function renderPress(){
-  const c=document.getElementById('pressContainer');
-  const typeOptions=['video','article','tiktok','instagram','social'];
-  c.innerHTML=pressData.map((p,i)=>`
-  <div class="media-item-card" style="border-right:4px solid ${p.type==='video'?'#c00':p.type==='tiktok'?'#000':p.type==='instagram'?'#e6683c':'#1a472a'};">
-    <div class="media-item-header">
-      <h4>${p.badge||p.source||'קישור '+(i+1)} — ${(p.title||'').substring(0,40)}${(p.title||'').length>40?'...':''}</h4>
-      <div>
-        <button class="btn-remove" style="margin-left:4px;" onclick="if(${i}>0){pressData.splice(${i-1},0,pressData.splice(${i},1)[0]);pendingChanges['_media']='1';renderPress();updateBadge();}">&#9650;</button>
-        <button class="btn-remove" style="margin-left:4px;" onclick="if(${i}<pressData.length-1){pressData.splice(${i+1},0,pressData.splice(${i},1)[0]);pendingChanges['_media']='1';renderPress();updateBadge();}">&#9660;</button>
-        <button class="btn-remove" onclick="pressData.splice(${i},1);pendingChanges['_media']='1';renderPress();updateBadge();">מחק</button>
+      <div class="partner-actions">
+        <button class="btn btn-sm" style="background:#e2e8f0;" onclick="editPartner(${i})">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deletePartner(${i})">🗑️</button>
       </div>
     </div>
-    <div class="edit-field-row">
-      <div class="edit-field" style="flex:2;"><label>קישור</label><input type="text" value="${esc(p.link)}" dir="ltr" oninput="pressData[${i}].link=this.value;markChanged()"></div>
-      <div class="edit-field" style="flex:1;"><label>סוג</label><select oninput="pressData[${i}].type=this.value;pressData[${i}].hasPlay=(this.value==='video'||this.value==='tiktok');markChanged()">
-        <option value="video" ${p.type==='video'?'selected':''}>סרטון</option>
-        <option value="article" ${p.type==='article'?'selected':''}>כתבה</option>
-        <option value="tiktok" ${p.type==='tiktok'?'selected':''}>TikTok</option>
-        <option value="instagram" ${p.type==='instagram'?'selected':''}>Instagram</option>
-        <option value="social" ${p.type==='social'?'selected':''}>רשת חברתית</option>
-      </select></div>
-    </div>
-    <div class="edit-field-row">
-      <div class="edit-field" style="flex:2;"><label>כותרת</label><input type="text" value="${esc(p.title)}" oninput="pressData[${i}].title=this.value;markChanged()"></div>
-      <div class="edit-field" style="flex:1;"><label>מקור</label><input type="text" value="${esc(p.source)}" oninput="pressData[${i}].source=this.value;markChanged()"></div>
-    </div>
-    <div class="edit-field-row">
-      <div class="edit-field" style="flex:2;"><label>קישור לתמונה</label><input type="text" value="${esc(p.image)}" dir="ltr" oninput="pressData[${i}].image=this.value;markChanged()"></div>
-      <div class="edit-field" style="flex:1;"><label>תג (Badge)</label><input type="text" value="${esc(p.badge)}" oninput="pressData[${i}].badge=this.value;markChanged()"></div>
-    </div>
-  </div>`).join('');
+  `).join('');
+  document.getElementById('partnerCount').textContent = partners.length;
 }
 
-function addPressItem(){
-  pressData.push({title:'קישור חדש',source:'',link:'#',image:'',badge:'',badgeStyle:'',thumbStyle:'',type:'article',hasPlay:false});
-  pendingChanges['_media']='1';renderPress();updateBadge();
-}
-
-// PARTNERS
-function buildPartners(){
-  partnerData=[];
-  siteDoc.querySelectorAll('.partner-card').forEach(card=>{
-    const img=card.querySelector('img');
-    partnerData.push({
-      name: card.querySelector('.he-only')?.textContent.trim()||'',
-      nameEn: card.querySelector('.en-only')?.textContent.trim()||'',
-      link: card.getAttribute('href')||'#',
-      logo: img?img.getAttribute('src'):''
-    });
-  });
+let dragIdx = -1;
+function dragStart(e, i) { dragIdx = i; e.dataTransfer.effectAllowed = 'move'; }
+function dragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
+function drop(e, i) {
+  e.preventDefault();
+  if (dragIdx === i) return;
+  const item = partners.splice(dragIdx, 1)[0];
+  partners.splice(i, 0, item);
   renderPartners();
+  markChanged();
 }
-function renderPartners(){
-  const c=document.getElementById('partnersContainer');
-  c.innerHTML=partnerData.map((p,i)=>`
-  <div class="media-item-card">
-    <div class="media-item-header">
-      <h4>${p.name||'שותף '+(i+1)}</h4>
-      <button class="btn-remove" onclick="partnerData.splice(${i},1);pendingChanges['_partners']='1';renderPartners();updateBadge();">מחק</button>
-    </div>
-    <div style="display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;">
-      <div class="img-upload-box" style="width:80px;height:80px;flex-shrink:0;">
-        ${p.logo&&!p.logo.startsWith('data:')?`<img src="https://chashmonayim.org/${p.logo}?t=${Date.now()}" id="partner-logo-${i}">`:'<span class="upload-label">לוגו</span>'}
-        <input type="file" accept="image/*" onchange="handlePartnerLogo(${i},this)">
-      </div>
-      <div style="flex:1; min-width:200px;">
-        <div class="edit-field" style="margin-bottom:8px;"><label>שם (עברית)</label><input type="text" value="${esc(p.name)}" oninput="partnerData[${i}].name=this.value;markPartnerChanged()"></div>
-        <div class="edit-field" style="margin-bottom:8px;"><label>שם (English)</label><input type="text" value="${esc(p.nameEn)}" dir="ltr" oninput="partnerData[${i}].nameEn=this.value;markPartnerChanged()"></div>
-        <div class="edit-field"><label>קישור</label><input type="text" value="${esc(p.link)}" dir="ltr" oninput="partnerData[${i}].link=this.value;markPartnerChanged()"></div>
-      </div>
-    </div>
-  </div>`).join('');
-}
-function handlePartnerLogo(idx,input){
-  const file=input.files[0];if(!file)return;
-  const fname='images/partner-'+idx+'-'+Date.now()+'.png';
-  const reader=new FileReader();
-  reader.onload=function(e){
-    pendingImages[fname]=e.target.result.split(',')[1];
-    partnerData[idx].logo=fname;
-    markPartnerChanged();renderPartners();
-  };
-  reader.readAsDataURL(file);
-}
-function markPartnerChanged(){pendingChanges['_partners']='1';updateBadge();}
-function addPartner(){partnerData.push({name:'שותף חדש',nameEn:'New Partner',link:'#',logo:''});pendingChanges['_partners']='1';renderPartners();updateBadge();}
 
-// CONTACT SECTIONS
-function buildContactSections(){
-  contactSections=[];
-  contactLinks=[];
-  const cp=siteDoc.getElementById('page-contact');
-  if(!cp)return;
-  // Page titles
-  const st=cp.querySelector('.section-title');
-  if(st){setVal('contact-page-title-he',st.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-page-title-en',st.querySelector('.en-only')?.textContent.trim()||'');}
-  const ss=cp.querySelector('.section-subtitle');
-  if(ss){setVal('contact-page-subtitle-he',ss.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-page-subtitle-en',ss.querySelector('.en-only')?.textContent.trim()||'');}
-  // Form button
-  const formBtn=cp.querySelector('.contact-form button[type="submit"]');
-  if(formBtn){setVal('contact-form-btn-he',formBtn.querySelector('.he-only')?.textContent.trim()||'');setVal('contact-form-btn-en',formBtn.querySelector('.en-only')?.textContent.trim()||'');}
-  // Contact boxes
-  cp.querySelectorAll('.contact-section-box').forEach(box=>{
-    const items=[];
-    box.querySelectorAll('.contact-item').forEach(ci=>{
-      items.push({
-        icon:ci.querySelector('.icon')?.textContent.trim()||'📧',
-        labelHe:ci.querySelector('h4 .he-only')?.textContent.trim()||'',
-        labelEn:ci.querySelector('h4 .en-only')?.textContent.trim()||'',
-        value:ci.querySelector('p')?.textContent.trim()||''
+function openAddModal() {
+  editIndex = -1;
+  document.getElementById('modalTitle').textContent = 'הוסף שותף חדש';
+  document.getElementById('modalSaveBtn').textContent = 'הוסף';
+  document.getElementById('partnerName').value = '';
+  document.getElementById('partnerNameEn').value = '';
+  document.getElementById('partnerUrl').value = '';
+  document.getElementById('partnerLogoUrl').value = '';
+  document.getElementById('imgPreview').style.display = 'none';
+  document.getElementById('modal').classList.add('active');
+}
+
+function editPartner(i) {
+  editIndex = i;
+  const p = partners[i];
+  document.getElementById('modalTitle').textContent = 'ערוך שותף';
+  document.getElementById('modalSaveBtn').textContent = 'שמור';
+  document.getElementById('partnerName').value = p.nameHe || p.alt;
+  document.getElementById('partnerNameEn').value = p.nameEn || '';
+  document.getElementById('partnerUrl').value = p.url;
+  document.getElementById('partnerLogoUrl').value = p.img;
+  const preview = document.getElementById('imgPreview');
+  preview.src = `https://chashmonayim.org/${p.img}`;
+  preview.style.display = 'block';
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('active'); }
+
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('imgPreview').src = e.target.result;
+      document.getElementById('imgPreview').style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function savePartner() {
+  const name = document.getElementById('partnerName').value.trim();
+  const nameEn = document.getElementById('partnerNameEn').value.trim();
+  const url = document.getElementById('partnerUrl').value.trim();
+  let img = document.getElementById('partnerLogoUrl').value.trim();
+  const fileInput = document.getElementById('partnerLogo');
+
+  if (!name) return showStatus('⚠️ הכנס שם שותף');
+  if (!url) return showStatus('⚠️ הכנס קישור');
+
+  // Upload image if file selected
+  if (fileInput.files && fileInput.files[0]) {
+    showStatus('מעלה תמונה...');
+    const file = fileInput.files[0];
+    const ext = file.name.split('.').pop();
+    const imgName = `images/partner-${Date.now()}.${ext}`;
+    const base64 = await fileToBase64(file);
+    
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${imgName}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Add partner logo: ${name}`, content: base64 })
       });
-    });
-    contactSections.push({
-      titleHe:box.querySelector('h3 .he-only')?.textContent.trim()||'',
-      titleEn:box.querySelector('h3 .en-only')?.textContent.trim()||'',
-      descHe:box.querySelector('.contact-section-desc .he-only')?.textContent.trim()||'',
-      descEn:box.querySelector('.contact-section-desc .en-only')?.textContent.trim()||'',
-      items:items
-    });
-  });
-  // Look for social/messaging links in contact page
-  cp.querySelectorAll('.contact-social-link').forEach(link=>{
-    contactLinks.push({
-      icon:link.querySelector('.icon')?.textContent.trim()||'🔗',
-      nameHe:link.querySelector('.he-only')?.textContent.trim()||'',
-      nameEn:link.querySelector('.en-only')?.textContent.trim()||'',
-      url:link.getAttribute('href')||'#'
-    });
-  });
-  renderContactSections();
-  renderContactLinks();
-}
-
-function renderContactSections(){
-  const c=document.getElementById('contactSectionsContainer');
-  c.innerHTML=contactSections.map((s,i)=>`
-  <div class="edit-card">
-    <h3 class="collapsible-header" onclick="toggleCollapse(this)">${s.titleHe||'קטגוריה '+(i+1)}
-      <button class="btn-remove" style="margin-right:auto;" onclick="event.stopPropagation();contactSections.splice(${i},1);pendingChanges['_contact']='1';renderContactSections();updateBadge();">מחק</button>
-    </h3>
-    <div class="collapsible-body">
-      <div class="edit-field-row">
-        <div class="edit-field"><label>כותרת (עברית)</label><input type="text" value="${esc(s.titleHe)}" oninput="contactSections[${i}].titleHe=this.value;markContactChanged()"></div>
-        <div class="edit-field"><label>כותרת (English)</label><input type="text" value="${esc(s.titleEn)}" dir="ltr" oninput="contactSections[${i}].titleEn=this.value;markContactChanged()"></div>
-      </div>
-      <div class="edit-field-row">
-        <div class="edit-field"><label>תיאור (עברית)</label><input type="text" value="${esc(s.descHe)}" oninput="contactSections[${i}].descHe=this.value;markContactChanged()"></div>
-        <div class="edit-field"><label>תיאור (English)</label><input type="text" value="${esc(s.descEn)}" dir="ltr" oninput="contactSections[${i}].descEn=this.value;markContactChanged()"></div>
-      </div>
-      <div style="margin-top:12px;">
-        <label style="font-weight:600; font-size:0.85rem; color:#555;">פרטי קשר בקטגוריה:</label>
-        ${s.items.map((it,j)=>`
-        <div class="media-item-card" style="margin-top:8px;">
-          <div class="media-item-header">
-            <h4>${it.icon} ${it.labelHe||it.value}</h4>
-            <button class="btn-remove" onclick="contactSections[${i}].items.splice(${j},1);markContactChanged();renderContactSections();">מחק</button>
-          </div>
-          <div class="edit-field-row">
-            <div class="edit-field" style="flex:0 0 60px;"><label>אייקון</label><input type="text" value="${esc(it.icon)}" style="width:50px;text-align:center;" oninput="contactSections[${i}].items[${j}].icon=this.value;markContactChanged()"></div>
-            <div class="edit-field"><label>תווית (עברית)</label><input type="text" value="${esc(it.labelHe)}" oninput="contactSections[${i}].items[${j}].labelHe=this.value;markContactChanged()"></div>
-            <div class="edit-field"><label>תווית (English)</label><input type="text" value="${esc(it.labelEn)}" dir="ltr" oninput="contactSections[${i}].items[${j}].labelEn=this.value;markContactChanged()"></div>
-          </div>
-          <div class="edit-field"><label>ערך (מייל / טלפון / קישור)</label><input type="text" value="${esc(it.value)}" dir="ltr" oninput="contactSections[${i}].items[${j}].value=this.value;markContactChanged()"></div>
-        </div>`).join('')}
-        <button class="btn-add" style="font-size:0.85rem; padding:8px 16px;" onclick="contactSections[${i}].items.push({icon:'📧',labelHe:'',labelEn:'',value:''});markContactChanged();renderContactSections();">+ הוסף פרט קשר</button>
-      </div>
-    </div>
-  </div>`).join('');
-}
-
-function renderContactLinks(){
-  const c=document.getElementById('contactLinksContainer');
-  c.innerHTML=contactLinks.map((l,i)=>`
-  <div class="media-item-card">
-    <div class="media-item-header">
-      <h4>${l.icon} ${l.nameHe||'קישור '+(i+1)}</h4>
-      <button class="btn-remove" onclick="contactLinks.splice(${i},1);pendingChanges['_contact']='1';renderContactLinks();updateBadge();">מחק</button>
-    </div>
-    <div class="edit-field-row">
-      <div class="edit-field" style="flex:0 0 60px;"><label>אייקון</label><input type="text" value="${esc(l.icon)}" style="width:50px;text-align:center;" oninput="contactLinks[${i}].icon=this.value;markContactChanged()"></div>
-      <div class="edit-field"><label>שם (עברית)</label><input type="text" value="${esc(l.nameHe)}" oninput="contactLinks[${i}].nameHe=this.value;markContactChanged()"></div>
-      <div class="edit-field"><label>שם (English)</label><input type="text" value="${esc(l.nameEn)}" dir="ltr" oninput="contactLinks[${i}].nameEn=this.value;markContactChanged()"></div>
-    </div>
-    <div class="edit-field"><label>קישור (URL)</label><input type="text" value="${esc(l.url)}" dir="ltr" placeholder="https://wa.me/972... או https://facebook.com/..." oninput="contactLinks[${i}].url=this.value;markContactChanged()"></div>
-  </div>`).join('');
-}
-
-function markContactChanged(){pendingChanges['_contact']='1';updateBadge();}
-function addContactSection(){contactSections.push({titleHe:'קטגוריה חדשה',titleEn:'New Category',descHe:'',descEn:'',items:[{icon:'📧',labelHe:'דוא"ל',labelEn:'Email',value:''},{icon:'📱',labelHe:'טלפון',labelEn:'Phone',value:''}]});pendingChanges['_contact']='1';renderContactSections();updateBadge();}
-function addContactLink(){contactLinks.push({icon:'🔗',nameHe:'',nameEn:'',url:'#'});pendingChanges['_contact']='1';renderContactLinks();updateBadge();}
-
-// IMAGE HANDLING
-function handleImg(input,path,previewId){
-  const file=input.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    pendingImages[path]=e.target.result.split(',')[1];
-    const prev=document.getElementById(previewId);
-    if(prev)prev.src=e.target.result;
-    // If this is a program logo, update programData and mark structural change
-    const logoMatch=path.match(/images\/prog-(\d+)-logo\./);
-    if(logoMatch){
-      const idx=parseInt(logoMatch[1]);
-      if(programData[idx]){
-        programData[idx].logo=path;
-        pendingChanges['_programs_structural']='true';
-      }
-    }
-    updateBadge();
-  };
-  reader.readAsDataURL(file);
-}
-
-function markChanged(){pendingChanges['_media']='1';updateBadge();}
-
-// SAVE LOG FUNCTIONS
-function initSaveLog(){
-  const logEl=document.getElementById('saveLog');
-  logEl.innerHTML='';
-  logEl.classList.add('active');
-  document.getElementById('clearLogBtn').style.display='inline-block';
-  return logEl;
-}
-function addSaveLog(msg){
-  const logEl=document.getElementById('saveLog');
-  const timestamp=new Date().toLocaleTimeString('he-IL');
-  logEl.textContent+='['+timestamp+'] '+msg+'\n';
-  logEl.scrollTop=logEl.scrollHeight;
-}
-
-// SAVE
-async function saveAllChanges(){
-  const token=localStorage.getItem('github_token');
-  if(!token){document.getElementById('setupBox').style.display='block';showStatus('צריך GitHub Token - הזן token בהגדרות','error');return;}
-
-  const btn=document.getElementById('saveBtn');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> שומר...';
-  showStatus('שומר...','loading');
-
-  const oldSHA=siteSHA;
-  initSaveLog();
-  addSaveLog('מתחיל שמירה...');
-
-  try {
-    addSaveLog('מחיל שינויים על ה-DOM...');
-    applyAllChanges();
-    addSaveLog('✓ שינויים הוחלו בהצלחה');
-
-    addSaveLog('מקודד HTML ל-Base64...');
-    const newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
-    const b64Content=utf8ToBase64(newHTML);
-    addSaveLog('✓ גודל קובץ: '+newHTML.length+' תווים');
-
-    // Try to push, auto-retry on SHA conflict (409)
-    let pushSuccess=false;
-    for(let attempt=0;attempt<3;attempt++){
-      try{
-        addSaveLog('שולח ל-GitHub (ניסיון '+(attempt+1)+')...');
-        await pushFile('index.html',b64Content,siteSHA,'Update via admin panel');
-        addSaveLog('✓ שליחה הצליחה');
-        pushSuccess=true;
-        break;
-      }catch(pushErr){
-        if(pushErr.message&&(pushErr.message.includes('409')||pushErr.message.includes('conflict')||pushErr.message.includes('does not match'))){
-          addSaveLog('⚠️ התנגשות גרסאות - מרענן גרסה...');
-          showStatus('מרענן גרסה... (ניסיון '+(attempt+2)+')','loading');
-          const freshR=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
-          if(!freshR.ok)throw new Error('שגיאה בקריאת הגרסה: HTTP '+freshR.status);
-          const freshD=await freshR.json();
-          addSaveLog('SHA חדש: '+freshD.sha.substring(0,10));
-          siteSHA=freshD.sha;
-          // Re-apply changes on fresh version
-          const freshHTML=new TextDecoder().decode(Uint8Array.from(atob(freshD.content.replace(/\n/g,'')),c=>c.charCodeAt(0)));
-          siteDoc=new DOMParser().parseFromString(freshHTML,'text/html');
-          applyAllChanges();
-          const freshNewHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
-          const freshB64=utf8ToBase64(freshNewHTML);
-          try{
-            await pushFile('index.html',freshB64,siteSHA,'Update via admin panel');
-            addSaveLog('✓ שליחה הצליחה לאחר רענון');
-            pushSuccess=true;break;
-          }catch(e2){
-            if(attempt===2)throw e2;
-          }
-        } else if(pushErr.message&&(pushErr.message.includes('401')||pushErr.message.includes('Bad credentials'))){
-          throw new Error('GitHub Token לא תקין או שפג תוקפו. יש לעדכן את ה-Token בהגדרות.');
-        } else {
-          throw pushErr;
-        }
-      }
-    }
-    if(!pushSuccess)throw new Error('לא הצלחנו לשמור אחרי 3 ניסיונות');
-
-    // Verify SHA changed after successful push
-    addSaveLog('מאמת שינוי גרסה...');
-    const r=await fetch(`https://api.github.com/repos/${REPO}/contents/index.html?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});
-    const d=await r.json();
-    const newSHA=d.sha;
-    addSaveLog('SHA ישן: '+oldSHA.substring(0,10));
-    addSaveLog('SHA חדש: '+newSHA.substring(0,10));
-    if(newSHA===oldSHA){
-      addSaveLog('⚠️ אזהרה: SHA לא השתנה!');
-    } else {
-      addSaveLog('✓ SHA השתנה בהצלחה');
-    }
-    siteSHA=newSHA;
-
-    // Upload images
-    if(Object.keys(pendingImages).length>0){
-      addSaveLog('מעלה '+Object.keys(pendingImages).length+' תמונות...');
-      for(const[path,b64] of Object.entries(pendingImages)){
-        let sha=null;
-        try{const x=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`,{headers:{'Authorization':`token ${token}`}});if(x.ok){sha=(await x.json()).sha;}}catch(e){}
-        await pushFile(path,b64,sha,'Upload '+path);
-        addSaveLog('  ✓ '+path);
-      }
-      addSaveLog('✓ תמונות הועלו בהצלחה');
-    }
-
-    pendingChanges={};pendingImages={};updateBadge();
-    addSaveLog('הצלחה! האתר יתעדכן תוך 1-2 דקות.');
-    showStatus('נשמר בהצלחה! האתר יתעדכן תוך 1-2 דקות.','success');
-  } catch(e) {
-    console.error('Save error:',e);
-    addSaveLog('❌ שגיאה: '+e.message);
-    let msg=e.message||'שגיאה לא ידועה';
-    if(msg.includes('401')||msg.includes('Bad credentials'))msg='GitHub Token לא תקין. עדכנו בהגדרות.';
-    else if(msg.includes('403'))msg='אין הרשאות לשמור. בדקו שה-Token מאפשר repo access.';
-    else if(msg.includes('404'))msg='הקובץ לא נמצא ב-GitHub. בדקו את שם ה-repo.';
-    showStatus('שגיאה: '+msg,'error');
-  }
-  btn.disabled=false;btn.innerHTML='שמור שינויים';
-}
-
-function applyAllChanges(){
-  // Hero
-  try {
-    applyText('.hero-designation .he-only','hero-designation-he');
-    applyText('.hero-designation .en-only','hero-designation-en');
-    applyText('.hero-title .he-only','hero-title-he');
-    applyText('.hero-title .en-only','hero-title-en');
-    applyHTML('.hero-subtitle .he-only','hero-subtitle-he');
-    applyHTML('.hero-subtitle .en-only','hero-subtitle-en');
-  } catch(e) {
-    console.error('Error applying hero changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Hero: '+e.message);
-  }
-
-  // About page
-  try {
-  const aboutPage=siteDoc.getElementById('page-about');
-  if(aboutPage){
-    if(pendingChanges['about-title-he']){const e=aboutPage.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['about-title-he'];}
-    if(pendingChanges['about-title-en']){const e=aboutPage.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['about-title-en'];}
-    // Intro paragraph
-    if(pendingChanges['about-intro-he']){
-      const introDiv=aboutPage.querySelector('div[style*="margin-bottom:40px"]');
-      if(introDiv){const h=introDiv.querySelector('p .he-only');if(h)h.textContent=pendingChanges['about-intro-he'];}
-    }
-    if(pendingChanges['about-intro-en']){
-      const introDiv=aboutPage.querySelector('div[style*="margin-bottom:40px"]');
-      if(introDiv){const e=introDiv.querySelector('p .en-only');if(e)e.textContent=pendingChanges['about-intro-en'];}
-    }
-    // Subsections
-    if(pendingChanges['_about_subs']){
-      const h4s=aboutPage.querySelectorAll('h4');
-      h4s.forEach((h4,i)=>{
-        if(i<aboutSubsections.length){
-          const s=aboutSubsections[i];
-          const th=h4.querySelector('.he-only');if(th)th.textContent=s.titleHe;
-          const te=h4.querySelector('.en-only');if(te)te.textContent=s.titleEn;
-          const par=h4.parentElement;
-          const p=par.querySelector('p');
-          if(p){
-            const ph=p.querySelector('.he-only');if(ph)ph.textContent=s.textHe;
-            const pe=p.querySelector('.en-only');if(pe)pe.textContent=s.textEn;
-          }
-        }
-      });
-    }
-    // Vision
-    if(pendingChanges['about-vision-he']||pendingChanges['about-vision-en']){
-      const visionDiv=aboutPage.querySelector('div[style*="background:var(--light-bg)"]');
-      if(visionDiv){
-        const vp=visionDiv.querySelector('p');
-        if(vp){
-          if(pendingChanges['about-vision-he']){const vh=vp.querySelector('.he-only:last-of-type');if(vh)vh.textContent=pendingChanges['about-vision-he'];}
-          if(pendingChanges['about-vision-en']){const ve=vp.querySelector('.en-only:last-of-type');if(ve)ve.textContent=pendingChanges['about-vision-en'];}
-        }
-      }
+      if (!res.ok) throw new Error('שגיאה בהעלאת התמונה');
+      img = imgName;
+    } catch(e) {
+      return showStatus('❌ ' + e.message);
     }
   }
-  } catch(e) {
-    console.error('Error applying about changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון About: '+e.message);
-  }
-  // About on homepage - subtitle
-  try {
-  const aboutHome=siteDoc.querySelector('.about-section');
-  if(aboutHome){
-    if(pendingChanges['about-subtitle-he']){const e=aboutHome.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['about-subtitle-he'];}
-    if(pendingChanges['about-subtitle-en']){const e=aboutHome.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['about-subtitle-en'];}
-  }
-  } catch(e) {
-    console.error('Error applying about homepage subtitle:', e);
-    addSaveLog('⚠️ שגיאה בעדכון About Homepage: '+e.message);
-  }
 
-  // Meta
-  try {
-  if(pendingChanges['site-title'])siteDoc.querySelector('title').textContent=pendingChanges['site-title'];
-  if(pendingChanges['meta-desc']){const m=siteDoc.querySelector('meta[name="description"]');if(m)m.setAttribute('content',pendingChanges['meta-desc']);}
-  if(pendingChanges['footer-text-he']){const f=siteDoc.querySelector('.footer-bottom .he-only');if(f)f.textContent=pendingChanges['footer-text-he'];}
-  } catch(e) {
-    console.error('Error applying meta changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Meta: '+e.message);
-  }
+  if (!img) return showStatus('⚠️ בחר תמונה או הכנס נתיב');
 
-  // Programs - text fields + structural rebuild
-  try {
-  const details=siteDoc.querySelectorAll('.program-detail-item');
-  const cards=siteDoc.querySelectorAll('.program-card');
-  // Update current program fields from admin inputs
-  programData.forEach((p,i)=>{
-    const nameHe=document.querySelector(`[data-field="prog-${i}-name-he"]`)?.value;
-    const nameEn=document.querySelector(`[data-field="prog-${i}-name-en"]`)?.value;
-    const descHe=document.querySelector(`[data-field="prog-${i}-desc-he"]`)?.value;
-    const descEn=document.querySelector(`[data-field="prog-${i}-desc-en"]`)?.value;
-    if(nameHe)p.nameHe=nameHe;if(nameEn)p.nameEn=nameEn;
-    if(descHe)p.descHe=descHe;if(descEn)p.descEn=descEn;
-  });
-  // Apply to DOM
-  details.forEach((item,i)=>{
-    if(i>=programData.length)return;
-    if(pendingChanges[`prog-${i}-name-he`]){const e=item.querySelector('h3 .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-he`];}
-    if(pendingChanges[`prog-${i}-name-en`]){const e=item.querySelector('h3 .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-en`];}
-    if(pendingChanges[`prog-${i}-desc-he`]){const e=item.querySelector('p .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-he`];}
-    if(pendingChanges[`prog-${i}-desc-en`]){const e=item.querySelector('p .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-en`];}
-    if(cards[i]){
-      if(pendingChanges[`prog-${i}-name-he`]){const e=cards[i].querySelector('.program-card-name .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-he`];}
-      if(pendingChanges[`prog-${i}-name-en`]){const e=cards[i].querySelector('.program-card-name .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-name-en`];}
-      if(pendingChanges[`prog-${i}-desc-he`]){const e=cards[i].querySelector('.program-card-desc .he-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-he`];}
-      if(pendingChanges[`prog-${i}-desc-en`]){const e=cards[i].querySelector('.program-card-desc .en-only');if(e)e.textContent=pendingChanges[`prog-${i}-desc-en`];}
-    }
-  });
-
-  // Structural rebuild: update images/logos in DOM when changed
-  if(pendingChanges['_programs_structural']){
-    addSaveLog('מעדכן מבנה תוכניות (תמונות/לוגואים)...');
-    programData.forEach((p,i)=>{
-      // Update detail section images
-      if(details[i]){
-        const imgContainer=details[i].querySelector('.program-detail-img');
-        if(imgContainer && p.images.length>0){
-          imgContainer.innerHTML='';
-          p.images.forEach(src=>{
-            const img=siteDoc.createElement('img');
-            img.setAttribute('src',src);
-            img.setAttribute('alt',p.nameHe);
-            imgContainer.appendChild(img);
-          });
-        }
-        // Update logo in detail
-        if(p.logo){
-          const iconEl=details[i].querySelector('.program-icon');
-          if(iconEl){
-            iconEl.innerHTML='<img src=\"'+p.logo+'\" alt=\"לוגו\" style=\"width:40px;height:40px;object-fit:contain;vertical-align:middle;\">';
-          }
-        }
-      }
-      // Update card images
-      if(cards[i]){
-        const cardImgDiv=cards[i].querySelector('.program-card-img');
-        if(cardImgDiv){
-          // Remove old images (keep overlay)
-          const overlay=cardImgDiv.querySelector('.program-card-overlay');
-          const existingImgs=cardImgDiv.querySelectorAll('img:not(.program-card-overlay img)');
-          existingImgs.forEach(img=>img.remove());
-          // Add new image(s)
-          const imgSources=p.images.length>0?p.images:(p.cardImage?[p.cardImage]:[]);
-          if(imgSources.length===1){
-            const img=siteDoc.createElement('img');
-            img.setAttribute('src',imgSources[0]);
-            img.setAttribute('alt',p.nameHe);
-            cardImgDiv.insertBefore(img,overlay);
-          } else if(imgSources.length>1){
-            cardImgDiv.classList.add('program-card-slideshow');
-            imgSources.forEach((src,si)=>{
-              const img=siteDoc.createElement('img');
-              img.setAttribute('src',src);
-              img.setAttribute('alt',p.nameHe);
-              img.classList.add('slide');
-              if(si===0)img.classList.add('active');
-              cardImgDiv.insertBefore(img,overlay);
-            });
-          }
-          // Update logo overlay
-          if(p.logo && overlay){
-            overlay.innerHTML='<img src=\"'+p.logo+'\" alt=\"לוגו '+p.nameHe+'\" style=\"width:36px;height:36px;object-fit:contain;\">';
-          }
-        }
-      }
-    });
-    addSaveLog('✓ מבנה תוכניות עודכן');
-  }
-  } catch(e) {
-    console.error('Error applying programs changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Programs: '+e.message);
-  }
-
-  // Media - rebuild video cards if changed
-  try {
-    if(pendingChanges['_media']){
-      rebuildMediaSection();
-    }
-  } catch(e) {
-    console.error('Error applying media changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Media: '+e.message);
-  }
-
-  // Partners
-  try {
-    if(pendingChanges['_partners']){
-      rebuildPartners();
-    }
-  } catch(e) {
-    console.error('Error applying partners changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Partners: '+e.message);
-  }
-
-  // Contact
-  try {
-    if(pendingChanges['_contact']||pendingChanges['contact-page-title-he']||pendingChanges['contact-page-title-en']||pendingChanges['contact-page-subtitle-he']||pendingChanges['contact-page-subtitle-en']||pendingChanges['contact-form-btn-he']||pendingChanges['contact-form-btn-en']){
-      rebuildContact();
-    }
-  } catch(e) {
-    console.error('Error applying contact changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Contact: '+e.message);
-  }
-
-  // CTA banner - target the h2 inside section.cta-banner
-  try {
-    const ctaSec = siteDoc.querySelector('section.cta-banner');
-    if(ctaSec) {
-      const ctaH2 = ctaSec.querySelector('h2');
-      if(ctaH2) {
-        if(pendingChanges['cta-text-he']){const e=ctaH2.querySelector('.he-only');if(e)e.textContent=pendingChanges['cta-text-he'];}
-        if(pendingChanges['cta-text-en']){const e=ctaH2.querySelector('.en-only');if(e)e.textContent=pendingChanges['cta-text-en'];}
-      }
-    }
-  } catch(e) {
-    console.error('Error applying CTA changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון CTA Banner: '+e.message);
-  }
-
-  // Donate section
-  try {
-    const donateSection = siteDoc.getElementById('page-donate');
-    if(donateSection) {
-      if(pendingChanges['donate-title-he']){const e=donateSection.querySelector('.section-title .he-only');if(e)e.textContent=pendingChanges['donate-title-he'];}
-      if(pendingChanges['donate-title-en']){const e=donateSection.querySelector('.section-title .en-only');if(e)e.textContent=pendingChanges['donate-title-en'];}
-      if(pendingChanges['donate-subtitle-he']){const e=donateSection.querySelector('.section-subtitle .he-only');if(e)e.textContent=pendingChanges['donate-subtitle-he'];}
-      if(pendingChanges['donate-subtitle-en']){const e=donateSection.querySelector('.section-subtitle .en-only');if(e)e.textContent=pendingChanges['donate-subtitle-en'];}
-      // Links
-      if(pendingChanges['donate-link-israel-dorachva']){const a=donateSection.querySelector('#donate-panel-israel a[href*="grow.link"]');if(a)a.setAttribute('href',pendingChanges['donate-link-israel-dorachva']);}
-      if(pendingChanges['donate-link-usa']){const a=donateSection.querySelector('#donate-panel-usa a[href*="neemanfoundation"]');if(a)a.setAttribute('href',pendingChanges['donate-link-usa']);}
-      if(pendingChanges['donate-link-canada']){const a=donateSection.querySelector('#donate-panel-canada a[href*="mizrachi"]');if(a)a.setAttribute('href',pendingChanges['donate-link-canada']);}
-      // Note
-      if(pendingChanges['donate-note-he']){const e=donateSection.querySelector('.donate-note .he-only');if(e)e.textContent=pendingChanges['donate-note-he'];}
-      if(pendingChanges['donate-note-en']){const e=donateSection.querySelector('.donate-note .en-only');if(e)e.textContent=pendingChanges['donate-note-en'];}
-      // Bank details rebuild
-      if(pendingChanges['bank-org-name']||pendingChanges['bank-details-he']||pendingChanges['bank-account']){
-        const orgName = pendingChanges['bank-org-name'] || document.querySelector('[data-field="bank-org-name"]')?.value || 'עמותת החשמונאים (ע״ר)';
-        const bankInfo = pendingChanges['bank-details-he'] || document.querySelector('[data-field="bank-details-he"]')?.value || '';
-        const account = pendingChanges['bank-account'] || document.querySelector('[data-field="bank-account"]')?.value || '';
-        donateSection.querySelectorAll('span.he-only').forEach(sp => {
-          if(sp.textContent.includes('העברה בנקאית')) {
-            sp.textContent = ' העברה בנקאית: ״' + orgName + '״ · ' + bankInfo + ' · חשבון: ' + account;
-          }
-        });
-        donateSection.querySelectorAll('span.en-only').forEach(sp => {
-          if(sp.textContent.includes('Bank Transfer')) {
-            sp.textContent = ' Bank Transfer: "' + orgName.replace('(ע״ר)','(R.A.)') + '" · ' + bankInfo + ' · Account: ' + account;
-          }
-        });
-      }
-    }
-  } catch(e) {
-    console.error('Error applying donate changes:', e);
-    addSaveLog('⚠️ שגיאה בעדכון Donate: '+e.message);
-  }
-}
-
-function rebuildMediaSection(){
-  // Rebuild press grid
-  const grid=siteDoc.querySelector('.press-grid');
-  if(grid){
-    grid.innerHTML=pressData.map(p=>{
-      const badgeClass=p.type==='video'?'badge-yt':p.type==='tiktok'?'badge-tiktok':p.type==='instagram'?'badge-ig':'badge-news';
-      const badgeStyleAttr=p.badgeStyle?' style="'+p.badgeStyle+'"':'';
-      let thumbContent='';
-      if(p.image){
-        thumbContent=`<img src="${p.image}" alt="${p.title}">`;
-      } else if(p.thumbStyle){
-        thumbContent='';
-      }
-      const playBtn=(p.hasPlay||p.type==='video'||p.type==='tiktok')?'<div class="press-card-play">&#9654;</div>':'';
-      const thumbStyleAttr=(!p.image&&p.thumbStyle)?' style="'+p.thumbStyle+'"':'';
-      return `
-        <a href="${p.link}" class="press-card fade-in" target="_blank" rel="noopener">
-          <div class="press-card-thumb"${thumbStyleAttr}>
-            ${thumbContent}
-            <span class="press-badge ${badgeClass}"${badgeStyleAttr}>${p.badge}</span>
-            ${playBtn}
-          </div>
-          <div class="press-card-body">
-            <div class="press-source">${p.source}</div>
-            <h4>${p.title}</h4>
-          </div>
-        </a>`;
-    }).join('\n');
-  }
-}
-
-function rebuildPartners(){
-  const grid=siteDoc.querySelector('.partners-grid');
-  if(grid){
-    grid.innerHTML=partnerData.map(p=>`
-      <a href="${p.link}" class="partner-card fade-in" target="_blank" rel="noopener" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; width:140px; text-align:center;">
-        <div style="width:100px; height:100px; border-radius:50%; background:var(--light-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-          ${p.logo?'<img src="'+p.logo+'" alt="'+p.name+'" style="width:70px; height:70px; object-fit:contain;">':''}
-        </div>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="he-only">${p.name}</span>
-        <span style="font-weight:600; color:var(--dark); font-size:0.9rem;" class="en-only">${p.nameEn}</span>
-      </a>`).join('\n');
-  }
-}
-
-function rebuildContact(){
-  const cp=siteDoc.getElementById('page-contact');
-  if(!cp)return;
-  // Page title
-  const st=cp.querySelector('.section-title');
-  if(st){
-    const titleHe=document.querySelector('[data-field="contact-page-title-he"]')?.value;
-    const titleEn=document.querySelector('[data-field="contact-page-title-en"]')?.value;
-    if(titleHe){const e=st.querySelector('.he-only');if(e)e.textContent=titleHe;}
-    if(titleEn){const e=st.querySelector('.en-only');if(e)e.textContent=titleEn;}
-  }
-  const ss=cp.querySelector('.section-subtitle');
-  if(ss){
-    const subHe=document.querySelector('[data-field="contact-page-subtitle-he"]')?.value;
-    const subEn=document.querySelector('[data-field="contact-page-subtitle-en"]')?.value;
-    if(subHe){const e=ss.querySelector('.he-only');if(e)e.textContent=subHe;}
-    if(subEn){const e=ss.querySelector('.en-only');if(e)e.textContent=subEn;}
-  }
-  // Form button
-  const formBtn=cp.querySelector('.contact-form button[type="submit"]');
-  if(formBtn){
-    const btnHe=document.querySelector('[data-field="contact-form-btn-he"]')?.value;
-    const btnEn=document.querySelector('[data-field="contact-form-btn-en"]')?.value;
-    if(btnHe){const e=formBtn.querySelector('.he-only');if(e)e.textContent=btnHe;}
-    if(btnEn){const e=formBtn.querySelector('.en-only');if(e)e.textContent=btnEn;}
-  }
-  // Rebuild contact sections grid
-  const grid=cp.querySelector('.contact-sections-grid');
-  if(grid){
-    grid.innerHTML=contactSections.map(s=>`
-        <div class="contact-section-box">
-          <h3>
-            <span class="he-only">${s.titleHe}</span>
-            <span class="en-only">${s.titleEn}</span>
-          </h3>
-          <p class="contact-section-desc">
-            <span class="he-only">${s.descHe}</span>
-            <span class="en-only">${s.descEn}</span>
-          </p>
-          <div class="contact-info">
-            ${s.items.map(it=>{
-              let linkWrap='';
-              const v=it.value;
-              if(v.includes('@'))linkWrap=`<a href="mailto:${v}" style="color:var(--turquoise);">${v}</a>`;
-              else if(v.match(/^[\d+\-\s()]+$/))linkWrap=`<a href="tel:${v.replace(/[\s\-()]/g,'')}" style="color:var(--turquoise);" dir="ltr">${v}</a>`;
-              else linkWrap=`<span dir="ltr">${v}</span>`;
-              return `
-            <div class="contact-item">
-              <div class="icon">${it.icon}</div>
-              <div>
-                <h4>
-                  <span class="he-only">${it.labelHe}</span>
-                  <span class="en-only">${it.labelEn}</span>
-                </h4>
-                <p>${linkWrap}</p>
-              </div>
-            </div>`;}).join('')}
-          </div>
-        </div>`).join('\n');
-    // Add social/messaging links block if any
-    if(contactLinks.length>0){
-      grid.innerHTML+=`
-        <div class="contact-section-box" style="grid-column: 1 / -1;">
-          <h3>
-            <span class="he-only">עקבו אחרינו</span>
-            <span class="en-only">Follow Us</span>
-          </h3>
-          <div class="contact-info" style="display:flex; flex-wrap:wrap; gap:16px;">
-            ${contactLinks.map(l=>`
-            <a href="${l.url}" class="contact-social-link" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 20px; background:var(--light-gray,#f5f5f5); border-radius:12px; text-decoration:none; color:var(--dark,#1a1a2e); transition:all 0.3s;">
-              <span class="icon" style="font-size:1.5rem;">${l.icon}</span>
-              <span>
-                <span class="he-only" style="font-weight:600;">${l.nameHe}</span>
-                <span class="en-only" style="font-weight:600;">${l.nameEn}</span>
-              </span>
-            </a>`).join('')}
-          </div>
-        </div>`;
-    }
-  }
-}
-
-function applyText(sel,key){if(!pendingChanges[key])return;const e=siteDoc.querySelector(sel);if(e)e.textContent=pendingChanges[key];}
-function applyHTML(sel,key){if(!pendingChanges[key])return;const e=siteDoc.querySelector(sel);if(e)e.innerHTML=pendingChanges[key].replace(/\n/g,'<br>');}
-
-async function pushFile(path,b64,sha,msg){
-  const body={message:msg,content:b64,branch:BRANCH};if(sha)body.sha=sha;
-  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{method:'PUT',headers:{'Authorization':`token ${localStorage.getItem('github_token')}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok)throw new Error((await r.json()).message||'API error');
-  return r.json();
-}
-
-function utf8ToBase64(s){const b=new TextEncoder().encode(s);let r='';b.forEach(x=>r+=String.fromCharCode(x));return btoa(r);}
-
-// UI
-function switchTab(t){
-  document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));
-  document.querySelector(`[data-tab="${t}"]`).classList.add('active');
-  document.getElementById(`section-${t}`).classList.add('active');
-}
-
-function updateBadge(){
-  const n=Object.keys(pendingChanges).length+Object.keys(pendingImages).length;
-  const b=document.getElementById('changesCount'),s=document.getElementById('saveBtn');
-  if(n>0){b.style.display='inline';b.textContent=n+' שינויים';s.disabled=false;}
-  else{b.style.display='none';s.disabled=true;}
-}
-
-function toggleCollapse(el){
-  el.classList.toggle('collapsed');
-  el.nextElementSibling.classList.toggle('hidden');
-}
-
-function showStatus(msg,type){const e=document.getElementById('saveStatus');e.textContent=msg;e.className='save-status '+type;}
-
-function diagLog(msg){
-  const d=document.getElementById('diagLog');
-  if(d) d.textContent+=msg+'\n';
-  console.log('[DIAG]',msg);
-}
-
-async function runDiagnostic(){
-  const panel=document.getElementById('diagnosticPanel');
-  panel.style.display='block';
-  document.getElementById('diagLog').textContent='';
-  diagLog('=== אבחון מערכת ===');
-  diagLog('זמן: '+new Date().toLocaleString('he-IL'));
-
-  // Check token
-  const token=localStorage.getItem('github_token');
-  diagLog('GitHub Token: '+(token?'✅ קיים ('+token.substring(0,8)+'...)':'❌ חסר!'));
-
-  // Check site loaded
-  diagLog('Site SHA: '+(siteSHA||'❌ לא נטען'));
-  diagLog('siteDoc: '+(siteDoc?'✅ נטען':'❌ לא נטען'));
-  diagLog('siteHTML length: '+(siteHTML?siteHTML.length+' chars':'❌ ריק'));
-
-  // Check pending changes
-  const changeCount=Object.keys(pendingChanges).length;
-  const imageCount=Object.keys(pendingImages).length;
-  diagLog('שינויים ממתינים: '+changeCount);
-  diagLog('תמונות ממתינות: '+imageCount);
-  if(changeCount>0) diagLog('  מפתחות: '+Object.keys(pendingChanges).join(', '));
-
-  // Check save button state
-  const saveBtn=document.getElementById('saveBtn');
-  diagLog('כפתור שמירה: '+(saveBtn.disabled?'❌ מושבת':'✅ פעיל'));
-
-  // Test GitHub API connection
-  if(token){
-    diagLog('\nבודק חיבור ל-GitHub...');
-    try{
-      const r=await fetch('https://api.github.com/repos/'+REPO,{headers:{'Authorization':'token '+token}});
-      const d=await r.json();
-      if(r.ok){
-        diagLog('✅ חיבור תקין! Repo: '+d.full_name);
-        diagLog('  הרשאות: '+(d.permissions?.push?'✅ כתיבה':'❌ קריאה בלבד'));
-      }else{
-        diagLog('❌ שגיאה: HTTP '+r.status+' - '+d.message);
-        if(r.status===401) diagLog('  ⚠️ Token לא תקין או שפג תוקפו!');
-        if(r.status===403) diagLog('  ⚠️ אין הרשאות מספיקות');
-      }
-    }catch(e){diagLog('❌ שגיאת רשת: '+e.message);}
-
-    // Check current SHA matches
-    diagLog('\nבודק גרסת הקובץ...');
-    try{
-      const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html?ref='+BRANCH,{headers:{'Authorization':'token '+token}});
-      const d=await r.json();
-      if(r.ok){
-        diagLog('SHA בגיטהאב: '+d.sha.substring(0,10)+'...');
-        diagLog('SHA בממשק: '+(siteSHA?siteSHA.substring(0,10)+'...':'לא נטען'));
-        if(d.sha===siteSHA) diagLog('✅ גרסאות תואמות');
-        else diagLog('⚠️ גרסאות לא תואמות! לחץ רענן');
-      }else{diagLog('❌ שגיאה: '+d.message);}
-    }catch(e){diagLog('❌ שגיאה: '+e.message);}
-  }
-
-  // Check DOM parsing
-  if(siteDoc){
-    diagLog('\nבודק מבנה DOM...');
-    const checks=[
-      ['.hero-title .he-only','Hero Title'],
-      ['#page-about','About Page'],
-      ['.program-card','Program Cards'],
-      ['#page-donate','Donate Page'],
-      ['section.cta-banner','CTA Banner'],
-      ['.footer-bottom .he-only','Footer']
-    ];
-    checks.forEach(([sel,name])=>{
-      const el=siteDoc.querySelector(sel);
-      diagLog('  '+name+': '+(el?'✅':'❌'));
-    });
-  }
-
-  diagLog('\n=== סיום אבחון ===');
-  diagLog('העתיקו את הטקסט הזה ושלחו אותו אלי');
-}
-
-async function testSave(){
-  const panel=document.getElementById('diagnosticPanel');
-  panel.style.display='block';
-  document.getElementById('diagLog').textContent='';
-  diagLog('=== בדיקת שמירה ===');
-
-  const token=localStorage.getItem('github_token');
-  if(!token){diagLog('❌ אין Token! הגדירו ב-Settings');return;}
-  if(!siteDoc){diagLog('❌ האתר לא נטען! לחצו רענן');return;}
-  if(!siteSHA){diagLog('❌ אין SHA! לחצו רענן');return;}
-
-  diagLog('1. מחיל שינויים על ה-DOM...');
-  try{
-    applyAllChanges();
-    diagLog('   ✅ הצלחה');
-  }catch(e){
-    diagLog('   ❌ שגיאה ב-applyAllChanges: '+e.message);
-    diagLog('   Stack: '+e.stack);
-    return;
-  }
-
-  diagLog('2. מסריאליזציה ל-HTML...');
-  let newHTML;
-  try{
-    newHTML='<!DOCTYPE html>\n'+siteDoc.documentElement.outerHTML;
-    diagLog('   ✅ גודל: '+newHTML.length+' תווים');
-  }catch(e){
-    diagLog('   ❌ שגיאה: '+e.message);
-    return;
-  }
-
-  diagLog('3. קידוד ל-Base64...');
-  let b64;
-  try{
-    b64=utf8ToBase64(newHTML);
-    diagLog('   ✅ גודל: '+b64.length+' תווים');
-  }catch(e){
-    diagLog('   ❌ שגיאה: '+e.message);
-    return;
-  }
-
-  diagLog('4. בודק גרסה עדכנית...');
-  try{
-    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html?ref='+BRANCH,{headers:{'Authorization':'token '+token}});
-    const d=await r.json();
-    if(!r.ok){diagLog('   ❌ HTTP '+r.status+': '+d.message);return;}
-    if(d.sha!==siteSHA){
-      diagLog('   ⚠️ SHA שונה! מעדכן: '+d.sha.substring(0,10));
-      siteSHA=d.sha;
-    }else{
-      diagLog('   ✅ SHA תואם');
-    }
-  }catch(e){diagLog('   ❌ '+e.message);return;}
-
-  diagLog('5. שולח ל-GitHub...');
-  try{
-    const body={message:'Test save from admin diagnostic',content:b64,sha:siteSHA,branch:BRANCH};
-    const r=await fetch('https://api.github.com/repos/'+REPO+'/contents/index.html',{
-      method:'PUT',
-      headers:{'Authorization':'token '+token,'Content-Type':'application/json'},
-      body:JSON.stringify(body)
-    });
-    const d=await r.json();
-    if(r.ok){
-      diagLog('   ✅ נשמר בהצלחה!');
-      diagLog('   SHA חדש: '+d.content.sha.substring(0,10));
-      siteSHA=d.content.sha;
-      pendingChanges={};pendingImages={};updateBadge();
-      showStatus('נשמר בהצלחה!','success');
-    }else{
-      diagLog('   ❌ HTTP '+r.status+': '+d.message);
-      if(r.status===409) diagLog('   ⚠️ התנגשות גרסאות - לחצו רענן ונסו שוב');
-      if(r.status===401) diagLog('   ⚠️ Token לא תקין');
-      if(r.status===422) diagLog('   ⚠️ תוכן לא תקין');
-    }
-  }catch(e){
-    diagLog('   ❌ שגיאת רשת: '+e.message);
-    diagLog('   Stack: '+e.stack);
-  }
-
-  diagLog('\n=== סיום בדיקה ===');
-}
-
-// ========== GOOGLE ANALYTICS DASHBOARD ==========
-let gaAccessToken = null;
-let gaPropertyId = '526467796';
-let gaClientId = '996341650604-lb9v7459dhfm4o82a013pepje3451lqd.apps.googleusercontent.com';
-let gaDateRange = { start: 'today', end: 'today', label: 'today' };
-let gaTokenClient = null;
-let gaChartDaily = null;
-let gaChartSources = null;
-let gaChartDevices = null;
-
-function saveGAConfig() {
-  const clientId = document.getElementById('gaClientId').value.trim();
-  const propertyId = document.getElementById('gaPropertyId').value.trim();
-  if (!clientId || !clientId.includes('.apps.googleusercontent.com')) {
-    showStatus('Client ID לא תקין. חייב להיגמר ב-.apps.googleusercontent.com', 'error');
-    return;
-  }
-  if (!propertyId || !/^\d+$/.test(propertyId)) {
-    showStatus('Property ID חייב להיות מספרי', 'error');
-    return;
-  }
-  localStorage.setItem('ga_client_id', clientId);
-  localStorage.setItem('ga_property_id', propertyId);
-  gaClientId = clientId;
-  gaPropertyId = propertyId;
-  showStatus('ההגדרות נשמרו! כעת התחברו עם Google.', 'success');
-  initGADashboard();
-}
-
-function resetGAConfig() {
-  localStorage.removeItem('ga_client_id');
-  localStorage.removeItem('ga_property_id');
-  gaAccessToken = null;
-  gaPropertyId = null;
-  gaClientId = null;
-  document.getElementById('ga-setup-card').style.display = '';
-  document.getElementById('ga-login-card').style.display = 'none';
-  document.getElementById('ga-dashboard').style.display = 'none';
-}
-
-function initGADashboard() {
-  if (!gaClientId) gaClientId = localStorage.getItem('ga_client_id');
-  if (!gaPropertyId) gaPropertyId = localStorage.getItem('ga_property_id');
-  if (!gaClientId || !gaPropertyId) {
-    document.getElementById('ga-setup-card').style.display = '';
-    document.getElementById('ga-login-card').style.display = 'none';
-    document.getElementById('ga-dashboard').style.display = 'none';
-    if (gaPropertyId) document.getElementById('gaPropertyId').value = gaPropertyId;
-    if (gaClientId) document.getElementById('gaClientId').value = gaClientId;
-    return;
-  }
-  document.getElementById('ga-setup-card').style.display = 'none';
-  if (!gaAccessToken) {
-    document.getElementById('ga-login-card').style.display = '';
-    document.getElementById('ga-dashboard').style.display = 'none';
-    loadGISScript();
+  const partner = { url, img, alt: name, nameHe: name, nameEn };
+  if (editIndex >= 0) {
+    partners[editIndex] = partner;
   } else {
-    document.getElementById('ga-login-card').style.display = 'none';
-    document.getElementById('ga-dashboard').style.display = '';
+    partners.push(partner);
   }
+  
+  closeModal();
+  renderPartners();
+  markChanged();
+  showStatus(editIndex >= 0 ? '✅ שותף עודכן' : '✅ שותף נוסף');
 }
 
-function loadGISScript() {
-  if (document.getElementById('gis-script')) return;
-  const s = document.createElement('script');
-  s.id = 'gis-script';
-  s.src = 'https://accounts.google.com/gsi/client';
-  s.onload = () => initGISClient();
-  document.head.appendChild(s);
+function deletePartner(i) {
+  if (!confirm(`למחוק את "${partners[i].nameHe || partners[i].alt}"?`)) return;
+  partners.splice(i, 1);
+  renderPartners();
+  markChanged();
+  showStatus('🗑️ שותף הוסר');
 }
 
-function initGISClient() {
-  if (!gaClientId) return;
-  gaTokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: gaClientId,
-    scope: 'https://www.googleapis.com/auth/analytics.readonly',
-    callback: (resp) => {
-      if (resp.error) {
-        showStatus('שגיאת התחברות: ' + resp.error, 'error');
-        return;
-      }
-      gaAccessToken = resp.access_token;
-      document.getElementById('ga-login-card').style.display = 'none';
-      document.getElementById('ga-dashboard').style.display = '';
-      fetchGAUserInfo();
-      setGARange('7days', document.querySelectorAll('.ga-date-btn')[1]);
-    }
-  });
+function markChanged() {
+  hasChanges = true;
+  document.getElementById('saveBtn').style.display = 'inline-block';
 }
 
-function gaSignIn() {
-  if (gaTokenClient) {
-    gaTokenClient.requestAccessToken();
-  } else {
-    loadGISScript();
-    setTimeout(() => {
-      if (gaTokenClient) gaTokenClient.requestAccessToken();
-      else showStatus('טוען... נסה שוב בעוד שנייה', 'error');
-    }, 1500);
-  }
-}
-
-function gaSignOut() {
-  if (gaAccessToken) {
-    google.accounts.oauth2.revoke(gaAccessToken);
-  }
-  gaAccessToken = null;
-  document.getElementById('ga-login-card').style.display = '';
-  document.getElementById('ga-dashboard').style.display = 'none';
-}
-
-async function fetchGAUserInfo() {
+async function saveChanges() {
+  if (!hasChanges) return;
+  showStatus('שומר שינויים...', 10000);
+  
   try {
-    const resp = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-      headers: { 'Authorization': 'Bearer ' + gaAccessToken }
+    // Fetch current file
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+      headers: { 'Authorization': `token ${token}` }
     });
-    const data = await resp.json();
-    document.getElementById('ga-user-email').textContent = data.email || '';
-  } catch(e) {}
-}
-
-function getDateRange(label) {
-  const today = new Date();
-  const fmt = d => d.toISOString().split('T')[0];
-  switch(label) {
-    case 'today': return { startDate: fmt(today), endDate: fmt(today) };
-    case '7days': {
-      const d = new Date(today); d.setDate(d.getDate()-6);
-      return { startDate: fmt(d), endDate: fmt(today) };
+    const data = await res.json();
+    currentSha = data.sha;
+    let html = atob(data.content.replace(/\n/g, ''));
+    
+    // Build new partners HTML
+    const partnersHtml = partners.map(p => `
+          <a href="${p.url}" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="${p.img}" alt="${p.alt}" loading="lazy">
+            </div>
+            <span class="partner-3d-name he-only">${p.nameHe}</span>
+            <span class="partner-3d-name en-only">${p.nameEn || ''}</span>
+          </a>`).join('\n');
+    
+    // Duplicate for seamless marquee
+    const trackContent = partnersHtml + '\n' + partnersHtml;
+    
+    // Replace the marquee track content
+    const trackStart = html.indexOf('<div class="partners-marquee-track">');
+    const trackInner = html.indexOf('>', trackStart) + 1;
+    const trackEnd = html.indexOf('</div>', trackInner);
+    
+    // Find the correct closing div (the one that closes the track)
+    let depth = 1;
+    let pos = trackInner;
+    while (depth > 0 && pos < html.length) {
+      const nextOpen = html.indexOf('<div', pos);
+      const nextClose = html.indexOf('</div>', pos);
+      if (nextClose === -1) break;
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        pos = nextOpen + 4;
+      } else {
+        depth--;
+        if (depth === 0) {
+          html = html.substring(0, trackInner) + '\n' + trackContent + '\n        ' + html.substring(nextClose);
+          break;
+        }
+        pos = nextClose + 6;
+      }
     }
-    case '30days': {
-      const d = new Date(today); d.setDate(d.getDate()-29);
-      return { startDate: fmt(d), endDate: fmt(today) };
-    }
-    case '90days': {
-      const d = new Date(today); d.setDate(d.getDate()-89);
-      return { startDate: fmt(d), endDate: fmt(today) };
-    }
-    case 'custom': {
-      const from = document.getElementById('ga-date-from').value;
-      const to = document.getElementById('ga-date-to').value;
-      if (from && to) return { startDate: from, endDate: to };
-      return { startDate: fmt(today), endDate: fmt(today) };
-    }
-  }
-}
-
-function setGARange(label, btn) {
-  gaDateRange.label = label;
-  if (btn) {
-    document.querySelectorAll('.ga-date-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  if (label === 'custom') {
-    document.querySelectorAll('.ga-date-btn').forEach(b => b.classList.remove('active'));
-  }
-  if (gaAccessToken) fetchAllGAData();
-}
-
-function gaRefresh() { if (gaAccessToken) fetchAllGAData(); }
-
-async function gaRunReport(body) {
-  const url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + gaPropertyId + ':runReport';
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + gaAccessToken,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  });
-  if (resp.status === 401) {
-    gaAccessToken = null;
-    document.getElementById('ga-login-card').style.display = '';
-    document.getElementById('ga-dashboard').style.display = 'none';
-    showStatus('פג תוקף ההתחברות. יש להתחבר מחדש.', 'error');
-    throw new Error('Token expired');
-  }
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(err.error?.message || 'API Error ' + resp.status);
-  }
-  return resp.json();
-}
-
-async function fetchAllGAData() {
-  const range = getDateRange(gaDateRange.label);
-  const statusLabel = gaDateRange.label === 'today' ? 'היום' :
-    gaDateRange.label === '7days' ? '7 ימים אחרונים' :
-    gaDateRange.label === '30days' ? '30 יום אחרונים' :
-    gaDateRange.label === '90days' ? '90 יום אחרונים' : 'תאריכים מותאמים';
-
-  // Set loading state for all KPI cards
-  ['ga-sessions','ga-users','ga-pageviews','ga-avgTime','ga-mobile','ga-newUsers','ga-returning','ga-pagesPerSession','ga-bounceRate','ga-events'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) { el.textContent = '...'; el.classList.add('loading'); }
-  });
-
-  try {
-    const dr = [{ startDate: range.startDate, endDate: range.endDate }];
-
-    // Fetch all reports in parallel
-    const [kpiData, kpi2Data, dailyData, pagesData, sourcesData, devicesData, referrersData, countriesData, citiesData, hourlyData, newRetData, browsersData, osData] = await Promise.all([
-      // KPI batch 1: sessions, users, pageviews, avg duration
-      gaRunReport({
-        dateRanges: dr,
-        metrics: [
-          { name: 'sessions' },
-          { name: 'totalUsers' },
-          { name: 'screenPageViews' },
-          { name: 'averageSessionDuration' }
-        ]
-      }),
-      // KPI batch 2: new users, bounce rate, events, pages/session
-      gaRunReport({
-        dateRanges: dr,
-        metrics: [
-          { name: 'newUsers' },
-          { name: 'bounceRate' },
-          { name: 'eventCount' },
-          { name: 'screenPageViewsPerSession' }
-        ]
-      }),
-      // Daily chart
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'date' }],
-        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
-        orderBys: [{ dimension: { dimensionName: 'date' } }]
-      }),
-      // Pages
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'pageTitle' }],
-        metrics: [{ name: 'screenPageViews' }, { name: 'totalUsers' }, { name: 'averageSessionDuration' }],
-        orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
-        limit: 10
-      }),
-      // Sources (channels)
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 8
-      }),
-      // Devices
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'deviceCategory' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
-      }),
-      // Specific referrers
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'sessionSource' }],
-        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 10
-      }),
-      // Countries
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'country' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 10
-      }),
-      // Cities
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'city' }],
-        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 15
-      }),
-      // Hourly
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'hour' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ dimension: { dimensionName: 'hour' } }]
-      }),
-      // New vs returning
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'newVsReturning' }],
-        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
-      }),
-      // Browsers
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'browser' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 8
-      }),
-      // Operating systems
-      gaRunReport({
-        dateRanges: dr,
-        dimensions: [{ name: 'operatingSystem' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 8
+    
+    // Upload
+    const encoded = btoa(unescape(encodeURIComponent(html)));
+    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Update partners via admin panel',
+        content: encoded,
+        sha: currentSha
       })
-    ]);
-
-    // === Update KPI Row 1 ===
-    const kpiRow = kpiData.rows?.[0]?.metricValues || [];
-    const sessions = parseInt(kpiRow[0]?.value || 0);
-    const users = parseInt(kpiRow[1]?.value || 0);
-    const pageviews = parseInt(kpiRow[2]?.value || 0);
-    const avgDuration = parseFloat(kpiRow[3]?.value || 0);
-
-    setKPI('ga-sessions', sessions.toLocaleString(), statusLabel);
-    setKPI('ga-users', users.toLocaleString(), statusLabel);
-    setKPI('ga-pageviews', pageviews.toLocaleString(), statusLabel);
-    setKPI('ga-avgTime', formatDuration(avgDuration), statusLabel);
-
-    // Mobile percent
-    const deviceRows = devicesData.rows || [];
-    let totalDevSessions = 0, mobileSessions = 0;
-    deviceRows.forEach(r => {
-      const cat = r.dimensionValues[0].value.toLowerCase();
-      const cnt = parseInt(r.metricValues[0].value);
-      totalDevSessions += cnt;
-      if (cat === 'mobile') mobileSessions = cnt;
     });
-    const mobilePct = totalDevSessions ? Math.round(mobileSessions / totalDevSessions * 100) : 0;
-    setKPI('ga-mobile', mobilePct + '%', statusLabel);
-
-    // === Update KPI Row 2 ===
-    const kpi2Row = kpi2Data.rows?.[0]?.metricValues || [];
-    const newUsers = parseInt(kpi2Row[0]?.value || 0);
-    const bounceRate = parseFloat(kpi2Row[1]?.value || 0);
-    const eventCount = parseInt(kpi2Row[2]?.value || 0);
-    const pagesPerSession = parseFloat(kpi2Row[3]?.value || 0);
-    const returningUsers = Math.max(0, users - newUsers);
-
-    setKPI('ga-newUsers', newUsers.toLocaleString(), statusLabel);
-    setKPI('ga-returning', returningUsers.toLocaleString(), statusLabel);
-    setKPI('ga-pagesPerSession', pagesPerSession.toFixed(1), statusLabel);
-    setKPI('ga-bounceRate', Math.round(bounceRate * 100) + '%', statusLabel);
-    setKPI('ga-events', eventCount.toLocaleString(), statusLabel);
-
-    // === Render charts and tables ===
-    renderDailyChart(dailyData.rows || []);
-    renderPagesTable(pagesData.rows || []);
-    renderSourcesData(sourcesData.rows || []);
-    renderReferrersTable(referrersData.rows || []);
-    renderDevicesData(deviceRows);
-    renderGenericTable('ga-browsers-table', browsersData.rows || [], 'sessions');
-    renderGenericTable('ga-os-table', osData.rows || [], 'sessions');
-    renderCountriesData(countriesData.rows || []);
-    renderCitiesTable(citiesData.rows || []);
-    renderHourlyChart(hourlyData.rows || []);
-    renderNewRetData(newRetData.rows || []);
-
-    document.getElementById('ga-last-update').textContent = 'עדכון אחרון: ' + new Date().toLocaleString('he-IL');
-
+    
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || 'שגיאה בשמירה');
+    }
+    
+    hasChanges = false;
+    document.getElementById('saveBtn').style.display = 'none';
+    showStatus('✅ השינויים נשמרו באתר בהצלחה!');
   } catch(e) {
-    if (e.message !== 'Token expired') {
-      showStatus('שגיאה בטעינת נתונים: ' + e.message, 'error');
-      console.error('GA Error:', e);
-    }
+    showStatus('❌ ' + e.message);
   }
 }
 
-function setKPI(id, value, statusText) {
-  const el = document.getElementById(id);
-  el.textContent = value;
-  el.classList.remove('loading');
-  const statusEl = document.getElementById(id + '-status');
-  if (statusEl) statusEl.textContent = statusText;
-}
-
-function formatDuration(seconds) {
-  if (seconds < 60) return Math.round(seconds) + 'ש';
-  const m = Math.floor(seconds / 60);
-  const s = Math.round(seconds % 60);
-  return m + ':' + String(s).padStart(2, '0') + ' דק';
-}
-
-// ===== SIMPLE CANVAS CHARTS =====
-function renderDailyChart(rows) {
-  const canvas = document.getElementById('ga-chart-daily');
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.parentElement.clientWidth - 40;
-  canvas.height = 250;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (!rows.length) {
-    ctx.fillStyle = '#999';
-    ctx.font = '14px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('אין נתונים לתקופה זו', canvas.width/2, canvas.height/2);
-    return;
-  }
-
-  const labels = rows.map(r => {
-    const d = r.dimensionValues[0].value;
-    return d.substring(6,8) + '/' + d.substring(4,6);
-  });
-  const sessions = rows.map(r => parseInt(r.metricValues[0].value));
-  const users = rows.map(r => parseInt(r.metricValues[1].value));
-  const maxVal = Math.max(...sessions, ...users, 1);
-
-  const padding = { top: 20, right: 20, bottom: 40, left: 50 };
-  const chartW = canvas.width - padding.left - padding.right;
-  const chartH = canvas.height - padding.top - padding.bottom;
-
-  // Grid lines
-  ctx.strokeStyle = '#f0f0f0';
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = padding.top + chartH * (1 - i/4);
-    ctx.beginPath(); ctx.moveTo(padding.left, y); ctx.lineTo(canvas.width - padding.right, y); ctx.stroke();
-    ctx.fillStyle = '#999';
-    ctx.font = '11px sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(Math.round(maxVal * i/4), padding.left - 8, y + 4);
-  }
-
-  // Draw line
-  function drawLine(data, color) {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2.5;
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    data.forEach((v, i) => {
-      const x = padding.left + (i / Math.max(data.length - 1, 1)) * chartW;
-      const y = padding.top + chartH * (1 - v / maxVal);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-
-    // Fill area
-    ctx.globalAlpha = 0.1;
-    ctx.fillStyle = color;
-    ctx.lineTo(padding.left + chartW, padding.top + chartH);
-    ctx.lineTo(padding.left, padding.top + chartH);
-    ctx.closePath();
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
-
-  drawLine(sessions, '#1a8a9a');
-  drawLine(users, '#e67e22');
-
-  // X labels
-  ctx.fillStyle = '#999';
-  ctx.font = '10px sans-serif';
-  ctx.textAlign = 'center';
-  const step = Math.max(1, Math.floor(labels.length / 10));
-  labels.forEach((l, i) => {
-    if (i % step === 0 || i === labels.length - 1) {
-      const x = padding.left + (i / Math.max(labels.length - 1, 1)) * chartW;
-      ctx.fillText(l, x, canvas.height - 8);
-    }
-  });
-
-  // Legend
-  ctx.font = '12px sans-serif';
-  ctx.fillStyle = '#1a8a9a';
-  ctx.fillRect(canvas.width - 180, 8, 12, 12);
-  ctx.fillText('סשנים', canvas.width - 195, 18);
-  ctx.fillStyle = '#e67e22';
-  ctx.fillRect(canvas.width - 100, 8, 12, 12);
-  ctx.fillText('משתמשים', canvas.width - 115, 18);
-}
-
-function renderPagesTable(rows) {
-  const tbody = document.querySelector('#ga-pages-table tbody');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#999;">אין נתונים</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => {
-    const title = r.dimensionValues[0].value || '(ללא כותרת)';
-    const views = parseInt(r.metricValues[0].value).toLocaleString();
-    const users = parseInt(r.metricValues[1].value).toLocaleString();
-    const dur = formatDuration(parseFloat(r.metricValues[2].value));
-    return '<tr><td>' + escapeHtml(title) + '</td><td>' + views + '</td><td>' + users + '</td><td>' + dur + '</td></tr>';
-  }).join('');
-}
-
-function renderSourcesData(rows) {
-  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
-  const tbody = document.querySelector('#ga-sources-table tbody');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => {
-    const name = r.dimensionValues[0].value;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = total ? Math.round(val / total * 100) : 0;
-    return '<tr><td>' + escapeHtml(name) + '</td><td>' + val.toLocaleString() + '</td><td>' + pct + '%</td></tr>';
-  }).join('');
-
-  // Pie chart
-  renderPieChart('ga-chart-sources', rows.map(r => ({
-    label: r.dimensionValues[0].value,
-    value: parseInt(r.metricValues[0].value)
-  })));
-}
-
-function renderDevicesData(rows) {
-  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
-  const tbody = document.querySelector('#ga-devices-table tbody');
-  const deviceNames = { desktop: 'מחשב', mobile: 'נייד', tablet: 'טאבלט' };
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => {
-    const name = r.dimensionValues[0].value;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = total ? Math.round(val / total * 100) : 0;
-    return '<tr><td>' + (deviceNames[name.toLowerCase()] || name) + '</td><td>' + val.toLocaleString() + '</td><td>' + pct + '%</td></tr>';
-  }).join('');
-
-  renderPieChart('ga-chart-devices', rows.map(r => ({
-    label: deviceNames[r.dimensionValues[0].value.toLowerCase()] || r.dimensionValues[0].value,
-    value: parseInt(r.metricValues[0].value)
-  })));
-}
-
-function renderPieChart(canvasId, data) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.parentElement.clientWidth - 40;
-  canvas.height = 250;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const total = data.reduce((s, d) => s + d.value, 0);
-  if (!total) return;
-
-  const colors = ['#1a8a9a','#e67e22','#9b59b6','#27ae60','#e74c3c','#3498db','#f39c12','#1abc9c'];
-  const cx = canvas.width / 2;
-  const cy = canvas.height / 2;
-  const radius = Math.min(cx, cy) - 40;
-  let startAngle = -Math.PI / 2;
-
-  data.forEach((d, i) => {
-    const sliceAngle = (d.value / total) * 2 * Math.PI;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
-    ctx.closePath();
-    ctx.fillStyle = colors[i % colors.length];
-    ctx.fill();
-
-    // Label
-    if (d.value / total > 0.05) {
-      const midAngle = startAngle + sliceAngle / 2;
-      const lx = cx + (radius * 0.65) * Math.cos(midAngle);
-      const ly = cy + (radius * 0.65) * Math.sin(midAngle);
-      ctx.fillStyle = '#fff';
-      ctx.font = 'bold 12px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(Math.round(d.value / total * 100) + '%', lx, ly);
-    }
-
-    startAngle += sliceAngle;
-  });
-
-  // Legend below
-  ctx.font = '11px sans-serif';
-  ctx.textAlign = 'right';
-  let legendY = canvas.height - 15;
-  let legendX = canvas.width - 10;
-  data.forEach((d, i) => {
-    ctx.fillStyle = colors[i % colors.length];
-    ctx.fillRect(legendX - 10, legendY - 9, 10, 10);
-    ctx.fillStyle = '#333';
-    ctx.fillText(d.label, legendX - 14, legendY);
-    legendX -= ctx.measureText(d.label).width + 30;
-    if (legendX < 50) { legendX = canvas.width - 10; legendY += 18; }
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
   });
 }
 
-function switchGATab(tab, el) {
-  document.querySelectorAll('.ga-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.ga-panel').forEach(p => p.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.getElementById('ga-panel-' + tab).classList.add('active');
+// Auto-login if token in URL hash
+if (window.location.hash) {
+  document.getElementById('tokenInput').value = window.location.hash.substring(1);
+  login();
 }
-
-function renderReferrersTable(rows) {
-  const tbody = document.querySelector('#ga-referrers-table tbody');
-  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const src = r.dimensionValues[0].value;
-    const sess = parseInt(r.metricValues[0].value).toLocaleString();
-    const users = parseInt(r.metricValues[1].value).toLocaleString();
-    return '<tr><td>' + escapeHtml(src) + '</td><td>' + sess + '</td><td>' + users + '</td></tr>';
-  }).join('');
-}
-
-function renderCountriesData(rows) {
-  const total = rows.reduce((s,r) => s + parseInt(r.metricValues[0].value), 0);
-  const tbody = document.querySelector('#ga-countries-table tbody');
-  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const name = r.dimensionValues[0].value;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = total ? Math.round(val/total*100) : 0;
-    return '<tr><td>'+escapeHtml(name)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
-  }).join('');
-  renderPieChart('ga-chart-countries', rows.map(r => ({
-    label: r.dimensionValues[0].value,
-    value: parseInt(r.metricValues[0].value)
-  })));
-}
-
-function renderCitiesTable(rows) {
-  const tbody = document.querySelector('#ga-cities-table tbody');
-  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const city = r.dimensionValues[0].value;
-    const sess = parseInt(r.metricValues[0].value).toLocaleString();
-    const users = parseInt(r.metricValues[1].value).toLocaleString();
-    return '<tr><td>'+escapeHtml(city)+'</td><td>'+sess+'</td><td>'+users+'</td></tr>';
-  }).join('');
-}
-
-function renderHourlyChart(rows) {
-  const canvas = document.getElementById('ga-chart-hours');
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.parentElement.clientWidth - 40;
-  canvas.height = 250;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  // Build 24h array
-  const hourData = new Array(24).fill(0);
-  rows.forEach(r => {
-    const h = parseInt(r.dimensionValues[0].value);
-    hourData[h] = parseInt(r.metricValues[0].value);
-  });
-  const maxVal = Math.max(...hourData, 1);
-  const padding = {top:20,right:20,bottom:40,left:50};
-  const chartW = canvas.width - padding.left - padding.right;
-  const chartH = canvas.height - padding.top - padding.bottom;
-  const barW = chartW / 24 - 2;
-
-  // Grid
-  ctx.strokeStyle = '#f0f0f0'; ctx.lineWidth = 1;
-  for(let i=0;i<=4;i++){
-    const y = padding.top + chartH*(1-i/4);
-    ctx.beginPath(); ctx.moveTo(padding.left,y); ctx.lineTo(canvas.width-padding.right,y); ctx.stroke();
-    ctx.fillStyle='#999'; ctx.font='11px sans-serif'; ctx.textAlign='right';
-    ctx.fillText(Math.round(maxVal*i/4), padding.left-8, y+4);
-  }
-
-  // Bars
-  hourData.forEach((v,i) => {
-    const x = padding.left + (i/24)*chartW + 1;
-    const h = (v/maxVal)*chartH;
-    const gradient = ctx.createLinearGradient(x,padding.top+chartH-h,x,padding.top+chartH);
-    gradient.addColorStop(0,'#1a8a9a');
-    gradient.addColorStop(1,'#2bc0d4');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(x, padding.top+chartH-h, barW, h);
-  });
-
-  // X labels
-  ctx.fillStyle='#999'; ctx.font='10px sans-serif'; ctx.textAlign='center';
-  for(let i=0;i<24;i+=2){
-    const x = padding.left + (i/24)*chartW + barW/2;
-    ctx.fillText(String(i).padStart(2,'0')+':00', x, canvas.height-8);
-  }
-}
-
-function renderNewRetData(rows) {
-  const total = rows.reduce((s,r)=>s+parseInt(r.metricValues[0].value),0);
-  const tbody = document.querySelector('#ga-newret-table tbody');
-  const labels = { new:'מבקרים חדשים', returning:'מבקרים חוזרים' };
-  if(!rows.length) { tbody.innerHTML='<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const type = r.dimensionValues[0].value;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = total ? Math.round(val/total*100) : 0;
-    return '<tr><td>'+(labels[type]||type)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
-  }).join('');
-  renderPieChart('ga-chart-newret', rows.map(r => ({
-    label: labels[r.dimensionValues[0].value] || r.dimensionValues[0].value,
-    value: parseInt(r.metricValues[0].value)
-  })));
-}
-
-function renderGenericTable(tableId, rows, metricLabel) {
-  const tbody = document.querySelector('#'+tableId+' tbody');
-  const total = rows.reduce((s,r)=>s+parseInt(r.metricValues[0].value),0);
-  if(!rows.length) { tbody.innerHTML='<tr><td colspan="3" style="text-align:center; color:#999;">אין נתונים</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const name = r.dimensionValues[0].value;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = total ? Math.round(val/total*100) : 0;
-    return '<tr><td>'+escapeHtml(name)+'</td><td>'+val.toLocaleString()+'</td><td>'+pct+'%</td></tr>';
-  }).join('');
-}
-
-function escapeHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ========== FINANCE MANAGEMENT ==========
-let financeData = { income: [], expenses: [] };
-const purposeNames = { torah:'ליווי תורני', prep:'הכנה לשירות', welfare:'רווחה וסיוע', study:'העצמת לימוד התורה בחטיבה', alumni:'תוכניות בוגרים', general:'כללי' };
-const monthNames = {1:'ינואר',2:'פברואר',3:'מרץ',4:'אפריל',5:'מאי',6:'יוני',7:'יולי',8:'אוגוסט',9:'ספטמבר',10:'אוקטובר',11:'נובמבר',12:'דצמבר'};
-
-function buildFinance() {
-  if (!siteDoc) return;
-  const jsonEl = siteDoc.getElementById('finance-data-json');
-  if (jsonEl) {
-    try { financeData = JSON.parse(jsonEl.textContent || '{}'); } catch(e) { financeData = { income:[], expenses:[] }; }
-  }
-  if (!financeData.income) financeData.income = [];
-  if (!financeData.expenses) financeData.expenses = [];
-  renderFinance();
-}
-
-function renderFinance() {
-  // Income list
-  const incList = document.getElementById('financeIncomeList');
-  if (financeData.income.length) {
-    incList.innerHTML = financeData.income.map((item, i) =>
-      '<div style="display:flex; align-items:center; gap:8px; padding:8px; background:#fff; border-radius:8px; margin-bottom:4px; border:1px solid #e8e8e8;">' +
-      '<span style="font-size:0.8rem; color:#555; background:#e8f4f8; padding:2px 8px; border-radius:4px; min-width:60px; text-align:center;">' + (monthNames[item.month]||'—') + '</span>' +
-      '<span style="font-weight:600; color:#1a8a9a; min-width:80px;">₪' + (item.amount||0).toLocaleString() + '</span>' +
-      '<span style="flex:1; font-size:0.9rem;">' + (item.source||'') + '</span>' +
-      '<span style="font-size:0.85rem; color:#666; background:#f0f0f0; padding:2px 8px; border-radius:4px;">' + (purposeNames[item.purpose]||item.purpose) + '</span>' +
-      '<button onclick="removeFinanceItem(\'income\',' + i + ')" style="background:#e74c3c; color:#fff; border:none; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.75rem;">מחק</button>' +
-      '</div>'
-    ).join('');
-  } else {
-    incList.innerHTML = '<p style="color:#999; font-size:0.85rem; text-align:center;">אין הכנסות</p>';
-  }
-
-  // Expense list
-  const expList = document.getElementById('financeExpenseList');
-  if (financeData.expenses.length) {
-    expList.innerHTML = financeData.expenses.map((item, i) =>
-      '<div style="display:flex; align-items:center; gap:8px; padding:8px; background:#fff; border-radius:8px; margin-bottom:4px; border:1px solid #e8e8e8;">' +
-      '<span style="font-size:0.8rem; color:#555; background:#fef0e0; padding:2px 8px; border-radius:4px; min-width:60px; text-align:center;">' + (monthNames[item.month]||'—') + '</span>' +
-      '<span style="font-weight:600; color:#e67e22; min-width:80px;">₪' + (item.amount||0).toLocaleString() + '</span>' +
-      '<span style="flex:1; font-size:0.85rem; color:#666; background:#f0f0f0; padding:2px 8px; border-radius:4px;">' + (purposeNames[item.purpose]||item.purpose) + '</span>' +
-      '<button onclick="removeFinanceItem(\'expense\',' + i + ')" style="background:#e74c3c; color:#fff; border:none; border-radius:4px; padding:4px 8px; cursor:pointer; font-size:0.75rem;">מחק</button>' +
-      '</div>'
-    ).join('');
-  } else {
-    expList.innerHTML = '<p style="color:#999; font-size:0.85rem; text-align:center;">אין הוצאות</p>';
-  }
-
-  // Summary
-  const totalInc = financeData.income.reduce((s,i) => s + (i.amount||0), 0);
-  const totalExp = financeData.expenses.reduce((s,i) => s + (i.amount||0), 0);
-  document.getElementById('finSummaryIncome').textContent = '₪' + totalInc.toLocaleString();
-  document.getElementById('finSummaryExpense').textContent = '₪' + totalExp.toLocaleString();
-  document.getElementById('finSummaryBalance').textContent = '₪' + (totalInc - totalExp).toLocaleString();
-}
-
-function addFinanceItem(type) {
-  if (type === 'income') {
-    const month = parseInt(document.getElementById('finIncMonth').value);
-    const amount = parseInt(document.getElementById('finIncAmount').value) || 0;
-    const source = document.getElementById('finIncSource').value.trim();
-    const purpose = document.getElementById('finIncPurpose').value;
-    if (!amount) { showStatus('יש להזין סכום', 'error'); return; }
-    financeData.income.push({ month, amount, source, purpose });
-    document.getElementById('finIncAmount').value = '';
-    document.getElementById('finIncSource').value = '';
-  } else {
-    const month = parseInt(document.getElementById('finExpMonth').value);
-    const amount = parseInt(document.getElementById('finExpAmount').value) || 0;
-    const purpose = document.getElementById('finExpPurpose').value;
-    if (!amount) { showStatus('יש להזין סכום', 'error'); return; }
-    financeData.expenses.push({ month, amount, purpose });
-    document.getElementById('finExpAmount').value = '';
-  }
-  renderFinance();
-  rebuildFinanceInSite();
-}
-
-function removeFinanceItem(type, index) {
-  if (type === 'income') financeData.income.splice(index, 1);
-  else financeData.expenses.splice(index, 1);
-  renderFinance();
-  rebuildFinanceInSite();
-}
-
-function rebuildFinanceInSite() {
-  if (!siteDoc) return;
-  let jsonEl = siteDoc.getElementById('finance-data-json');
-  if (!jsonEl) {
-    jsonEl = siteDoc.createElement('script');
-    jsonEl.type = 'application/json';
-    jsonEl.id = 'finance-data-json';
-    siteDoc.body.appendChild(jsonEl);
-  }
-  jsonEl.textContent = JSON.stringify(financeData);
-}
-
-// SAVE LOG CLEAR BUTTON
-function clearSaveLog(){
-  document.getElementById('saveLog').innerHTML='';
-  document.getElementById('saveLog').classList.remove('active');
-}
-
-if(sessionStorage.getItem('admin_auth')==='true') showAdmin();
-// Load GA dashboard on init
-setTimeout(()=>{if(sessionStorage.getItem('admin_auth')==='true') initGADashboard();},500);
 </script>
 </body>
 </html>
