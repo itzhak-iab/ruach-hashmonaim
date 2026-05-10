@@ -2448,12 +2448,12 @@
     </section>
 
     <!-- PARTNERS SECTION -->
-    <section class="section partners-section" style="background: var(--white); padding: 60px 0; overflow: hidden;">
-      <h2 class="section-title">
+    <section class="section partners-section" style="background: linear-gradient(180deg, #fafbfc 0%, #f0f4f8 100%); padding: 80px 0; overflow: hidden;">
+      <h2 class="section-title" style="margin-bottom: 8px;">
         <span class="he-only">השותפים שלנו</span>
         <span class="en-only">Our Partners</span>
       </h2>
-      <div style="width:4px; height:4px; background:var(--gold); margin:12px auto 40px; border-radius:50%;"></div>
+      <div style="width:40px; height:3px; background:linear-gradient(90deg, var(--gold), var(--gold-dark)); margin:0 auto 50px; border-radius:2px;"></div>
       
       <style>
         @keyframes marquee-scroll {
@@ -2464,242 +2464,287 @@
           width: 100%;
           overflow: hidden;
           direction: ltr;
-          mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-          padding: 20px 0;
+          mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+          padding: 30px 0;
+          perspective: 800px;
         }
         .partners-marquee-track {
           display: flex;
-          gap: 48px;
-          animation: marquee-scroll 35s linear infinite;
+          gap: 40px;
+          animation: marquee-scroll 40s linear infinite;
           width: max-content;
+          align-items: center;
         }
         .partners-marquee-track:hover {
           animation-play-state: paused;
         }
-        .partner-marquee-card {
+        .partner-3d-card {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
-          min-width: 130px;
+          gap: 14px;
+          min-width: 150px;
           text-decoration: none;
-          transition: transform 0.3s ease;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          transform-style: preserve-3d;
         }
-        .partner-marquee-card:hover {
-          transform: scale(1.08);
+        .partner-3d-card:hover {
+          transform: translateY(-8px) scale(1.05);
         }
-        .partner-marquee-logo {
-          width: 90px;
-          height: 90px;
-          border-radius: 50%;
-          background: var(--light-gray);
+        .partner-3d-logo {
+          width: 100px;
+          height: 100px;
+          border-radius: 20px;
+          background: white;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-          transition: box-shadow 0.3s ease;
+          box-shadow: 
+            0 4px 6px rgba(0,0,0,0.04),
+            0 10px 24px rgba(0,0,0,0.06),
+            0 1px 2px rgba(0,0,0,0.04);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
         }
-        .partner-marquee-card:hover .partner-marquee-logo {
-          box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        .partner-3d-logo::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 20px;
+          border: 1px solid rgba(255,255,255,0.8);
+          pointer-events: none;
         }
-        .partner-marquee-logo img {
-          width: 60px;
-          height: 60px;
+        .partner-3d-card:hover .partner-3d-logo {
+          box-shadow: 
+            0 8px 16px rgba(0,0,0,0.08),
+            0 20px 40px rgba(0,0,0,0.1),
+            0 1px 3px rgba(0,0,0,0.06);
+          transform: translateZ(20px);
+        }
+        .partner-3d-logo img {
+          width: 65px;
+          height: 65px;
           object-fit: contain;
+          transition: transform 0.4s ease;
         }
-        .partner-marquee-name {
+        .partner-3d-card:hover .partner-3d-logo img {
+          transform: scale(1.1);
+        }
+        .partner-3d-name {
           font-weight: 600;
-          color: var(--dark);
-          font-size: 0.85rem;
+          color: #334155;
+          font-size: 0.82rem;
           white-space: nowrap;
+          letter-spacing: -0.01em;
+          transition: color 0.3s ease;
+        }
+        .partner-3d-card:hover .partner-3d-name {
+          color: var(--primary-dark);
+        }
+        @media (max-width: 768px) {
+          .partner-3d-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+          }
+          .partner-3d-logo img {
+            width: 52px;
+            height: 52px;
+          }
+          .partners-marquee-track {
+            gap: 28px;
+          }
+          .partner-3d-card {
+            min-width: 120px;
+          }
         }
       </style>
 
       <div class="partners-marquee-wrapper">
         <div class="partners-marquee-track">
-          <a href="https://anashim.org.il/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-0-1772709356923.png" alt="מנהלת אנ״שים">
+          <a href="https://anashim.org.il/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-0-1772709356923.png" alt="מנהלת אנ״שים" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מנהלת אנ״שים</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מנהלת אנ״שים</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://mod.gov.il/%D7%90%D7%92%D7%A4%D7%99%D7%9D/%D7%90%D7%92%D7%A3-%D7%91%D7%99%D7%98%D7%97%D7%95%D7%A0%D7%99-%D7%97%D7%91%D7%A8%D7%AA%D7%99" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-1-1772709623297.png" alt="האגף בטחוני חברתי">
+          <a href="https://mod.gov.il/%D7%90%D7%92%D7%A4%D7%99%D7%9D/%D7%90%D7%92%D7%A3-%D7%91%D7%99%D7%98%D7%97%D7%95%D7%A0%D7%99-%D7%97%D7%91%D7%A8%D7%AA%D7%99" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-1-1772709623297.png" alt="האגף בטחוני חברתי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">האגף בטחוני חברתי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">האגף בטחוני חברתי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.efficapital.co.il/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-2-1772709754426.png" alt="אפי קפיטל">
+          <a href="https://www.efficapital.co.il/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-2-1772709754426.png" alt="אפי קפיטל" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">אפי קפיטל</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">אפי קפיטל</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://kerendanielle.org/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-3-1772709832599.png" alt="קרן דניאלי">
+          <a href="https://kerendanielle.org/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-3-1772709832599.png" alt="קרן דניאלי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן דניאלי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קרן דניאלי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href=" https://bendavidgroup.co.il/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-4-1772710795513.png" alt="קבוצת בן דוד">
+          <a href=" https://bendavidgroup.co.il/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-4-1772710795513.png" alt="קבוצת בן דוד" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קבוצת בן דוד</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קבוצת בן דוד</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://degelami.com/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-5-1772713437338.png" alt="דגל עמי">
+          <a href="https://degelami.com/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-5-1772713437338.png" alt="דגל עמי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">דגל עמי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">דגל עמי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.marathon-fund.com/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-6-1772789351217.png" alt="קרן מרתון">
+          <a href="https://www.marathon-fund.com/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-6-1772789351217.png" alt="קרן מרתון" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן מרתון</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קרן מרתון</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.wix.com/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-7-1778174627365.png" alt="Wix">
+          <a href="https://www.wix.com/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-7-1778174627365.png" alt="Wix" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">Wix</span>
-            <span class="partner-marquee-name en-only">Wix</span>
+            <span class="partner-3d-name he-only">Wix</span>
+            <span class="partner-3d-name en-only">Wix</span>
           </a>
-          <a href="https://shomeril.org/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-7-1772992771057.png" alt="שומר ישראל">
+          <a href="https://shomeril.org/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-7-1772992771057.png" alt="שומר ישראל" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">שומר ישראל</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">שומר ישראל</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.mehina.net/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-8-1772992852380.png" alt="מכינות שחר">
+          <a href="https://www.mehina.net/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-8-1772992852380.png" alt="מכינות שחר" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מכינות שחר</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מכינות שחר</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://maaminim.org.il/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-maaminim.svg" alt="מאמינים">
+          <a href="https://maaminim.org.il/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-maaminim.svg" alt="מאמינים" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מאמינים</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מאמינים</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.amyisraelchai.org/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-10-1777835103993.png" alt="קרן עם ישראל חי">
+          <a href="https://www.amyisraelchai.org/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-10-1777835103993.png" alt="קרן עם ישראל חי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן עם ישראל חי</span>
-            <span class="partner-marquee-name en-only">Am Yisrael Chai</span>
+            <span class="partner-3d-name he-only">קרן עם ישראל חי</span>
+            <span class="partner-3d-name en-only">Am Yisrael Chai</span>
           </a>
-          <a href="https://www.emeklonesoldiers.org/" class="partner-marquee-card" target="_blank" rel="noopener">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-11-1777836170060.png" alt="Emek Lone Soldiers">
+          <a href="https://www.emeklonesoldiers.org/" class="partner-3d-card" target="_blank" rel="noopener">
+            <div class="partner-3d-logo">
+              <img src="images/partner-11-1777836170060.png" alt="Emek Lone Soldiers" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">Emek Lone Soldiers</span>
-            <span class="partner-marquee-name en-only">Emek Lone Soldiers</span>
+            <span class="partner-3d-name he-only">Emek Lone Soldiers</span>
+            <span class="partner-3d-name en-only">Emek Lone Soldiers</span>
           </a>
-          <a href="https://anashim.org.il/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-0-1772709356923.png" alt="מנהלת אנ״שים">
+          <a href="https://anashim.org.il/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-0-1772709356923.png" alt="מנהלת אנ״שים" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מנהלת אנ״שים</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מנהלת אנ״שים</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://mod.gov.il/%D7%90%D7%92%D7%A4%D7%99%D7%9D/%D7%90%D7%92%D7%A3-%D7%91%D7%99%D7%98%D7%97%D7%95%D7%A0%D7%99-%D7%97%D7%91%D7%A8%D7%AA%D7%99" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-1-1772709623297.png" alt="האגף בטחוני חברתי">
+          <a href="https://mod.gov.il/%D7%90%D7%92%D7%A4%D7%99%D7%9D/%D7%90%D7%92%D7%A3-%D7%91%D7%99%D7%98%D7%97%D7%95%D7%A0%D7%99-%D7%97%D7%91%D7%A8%D7%AA%D7%99" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-1-1772709623297.png" alt="האגף בטחוני חברתי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">האגף בטחוני חברתי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">האגף בטחוני חברתי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.efficapital.co.il/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-2-1772709754426.png" alt="אפי קפיטל">
+          <a href="https://www.efficapital.co.il/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-2-1772709754426.png" alt="אפי קפיטל" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">אפי קפיטל</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">אפי קפיטל</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://kerendanielle.org/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-3-1772709832599.png" alt="קרן דניאלי">
+          <a href="https://kerendanielle.org/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-3-1772709832599.png" alt="קרן דניאלי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן דניאלי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קרן דניאלי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href=" https://bendavidgroup.co.il/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-4-1772710795513.png" alt="קבוצת בן דוד">
+          <a href=" https://bendavidgroup.co.il/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-4-1772710795513.png" alt="קבוצת בן דוד" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קבוצת בן דוד</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קבוצת בן דוד</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://degelami.com/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-5-1772713437338.png" alt="דגל עמי">
+          <a href="https://degelami.com/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-5-1772713437338.png" alt="דגל עמי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">דגל עמי</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">דגל עמי</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.marathon-fund.com/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-6-1772789351217.png" alt="קרן מרתון">
+          <a href="https://www.marathon-fund.com/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-6-1772789351217.png" alt="קרן מרתון" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן מרתון</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">קרן מרתון</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.wix.com/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-7-1778174627365.png" alt="Wix">
+          <a href="https://www.wix.com/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-7-1778174627365.png" alt="Wix" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">Wix</span>
-            <span class="partner-marquee-name en-only">Wix</span>
+            <span class="partner-3d-name he-only">Wix</span>
+            <span class="partner-3d-name en-only">Wix</span>
           </a>
-          <a href="https://shomeril.org/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-7-1772992771057.png" alt="שומר ישראל">
+          <a href="https://shomeril.org/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-7-1772992771057.png" alt="שומר ישראל" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">שומר ישראל</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">שומר ישראל</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.mehina.net/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-8-1772992852380.png" alt="מכינות שחר">
+          <a href="https://www.mehina.net/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-8-1772992852380.png" alt="מכינות שחר" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מכינות שחר</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מכינות שחר</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://maaminim.org.il/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-maaminim.svg" alt="מאמינים">
+          <a href="https://maaminim.org.il/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-maaminim.svg" alt="מאמינים" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">מאמינים</span>
-            <span class="partner-marquee-name en-only"></span>
+            <span class="partner-3d-name he-only">מאמינים</span>
+            <span class="partner-3d-name en-only"></span>
           </a>
-          <a href="https://www.amyisraelchai.org/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-10-1777835103993.png" alt="קרן עם ישראל חי">
+          <a href="https://www.amyisraelchai.org/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-10-1777835103993.png" alt="קרן עם ישראל חי" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">קרן עם ישראל חי</span>
-            <span class="partner-marquee-name en-only">Am Yisrael Chai</span>
+            <span class="partner-3d-name he-only">קרן עם ישראל חי</span>
+            <span class="partner-3d-name en-only">Am Yisrael Chai</span>
           </a>
-          <a href="https://www.emeklonesoldiers.org/" class="partner-marquee-card" target="_blank" rel="noopener" aria-hidden="true">
-            <div class="partner-marquee-logo">
-              <img src="images/partner-11-1777836170060.png" alt="Emek Lone Soldiers">
+          <a href="https://www.emeklonesoldiers.org/" class="partner-3d-card" target="_blank" rel="noopener" aria-hidden="true">
+            <div class="partner-3d-logo">
+              <img src="images/partner-11-1777836170060.png" alt="Emek Lone Soldiers" loading="lazy">
             </div>
-            <span class="partner-marquee-name he-only">Emek Lone Soldiers</span>
-            <span class="partner-marquee-name en-only">Emek Lone Soldiers</span>
+            <span class="partner-3d-name he-only">Emek Lone Soldiers</span>
+            <span class="partner-3d-name en-only">Emek Lone Soldiers</span>
           </a>
         </div>
       </div>
