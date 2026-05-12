@@ -857,36 +857,35 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
         <!-- Config Panel (shown when not configured) -->
         <div id="gaConfigPanel" class="card">
-          <div class="card-header"><h3>📊 הגדרת Google Analytics</h3></div>
+          <div class="card-header"><h3>📊 Google Analytics</h3></div>
           <div class="ga-config-panel">
-            <div class="analytics-placeholder" style="padding:20px 0 24px;">
-              <div class="icon">🔑</div>
-              <h3>חיבור ל-Google Analytics</h3>
-              <p>כדי לצפות בנתוני האנליטיקס, יש להגדיר OAuth Client ID ואת מזהה הנכס (Property ID).</p>
+            <div class="analytics-placeholder" style="padding:30px 0 24px;">
+              <div class="icon" style="font-size:60px;">📊</div>
+              <h3>התחבר ל-Google Analytics</h3>
+              <p>לחץ על הכפתור למטה כדי להתחבר עם חשבון Google שלך ולצפות בנתוני האתר.</p>
+              <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">המערכת תזהה אוטומטית את נכס האנליטיקס (G-DLNEH3K485)</p>
             </div>
-            <div class="form-group">
-              <label>Google Cloud OAuth Client ID</label>
-              <input type="text" class="form-input" id="gaClientIdInput" placeholder="123456789-xxxxxx.apps.googleusercontent.com">
-              <div class="hint">
-                צור ב-<a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a> &rarr;
-                Credentials &rarr; Create OAuth Client ID (Web application).
-                הוסף <code>https://chashmonayim.org</code> ל-Authorized JavaScript origins.
-                הפעל את <strong>Google Analytics Data API</strong> ב-<a href="https://console.cloud.google.com/apis/library/analyticsdata.googleapis.com" target="_blank">API Library</a>.
+            <div style="text-align:center;margin:20px 0;">
+              <button class="btn btn-primary" onclick="gaSaveConfig()" style="padding:14px 40px;font-size:1.05rem;">
+                🔗 התחבר עם Google
+              </button>
+            </div>
+            <details style="margin-top:24px;border-top:1px solid var(--border);padding-top:16px;">
+              <summary style="cursor:pointer;color:var(--text-secondary);font-size:0.9rem;">⚙️ הגדרות מתקדמות</summary>
+              <div style="margin-top:12px;">
+                <div class="form-group">
+                  <label>Google Cloud OAuth Client ID</label>
+                  <input type="text" class="form-input" id="gaClientIdInput" placeholder="123456789-xxxxxx.apps.googleusercontent.com">
+                </div>
+                <div class="form-group">
+                  <label>GA4 Property ID (מספרי) - יזוהה אוטומטית</label>
+                  <input type="text" class="form-input" id="gaPropertyIdInput" placeholder="יזוהה אוטומטית אחרי התחברות" style="direction:ltr;text-align:left;">
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                  <button class="btn btn-outline" onclick="gaClearConfig()">🗑️ נקה הגדרות</button>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label>GA4 Property ID (מספרי)</label>
-              <input type="text" class="form-input" id="gaPropertyIdInput" placeholder="123456789" style="direction:ltr;text-align:left;">
-              <div class="hint">
-                ניתן למצוא ב-<a href="https://analytics.google.com/" target="_blank">Google Analytics</a> &rarr;
-                Admin &rarr; Property Settings &rarr; Property ID.
-                <br>Measurement ID: <strong>G-DLNEH3K485</strong>
-              </div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:20px;">
-              <button class="btn btn-primary" onclick="gaSaveConfig()">💾 שמור והתחבר</button>
-              <button class="btn btn-outline" onclick="gaClearConfig()">🗑️ נקה הגדרות</button>
-            </div>
+            </details>
           </div>
         </div>
 
@@ -1864,27 +1863,29 @@ let gaTokenClient = null;
 let gaCharts = {};
 
 function gaInit() {
-  gaClientId = localStorage.getItem('ga_client_id') || '';
+  gaClientId = localStorage.getItem('ga_client_id') || '996341650604-lb9v7459dhfm4o82a013pepje3451lqd.apps.googleusercontent.com';
   gaPropertyId = localStorage.getItem('ga_property_id') || '';
   document.getElementById('gaClientIdInput').value = gaClientId;
   document.getElementById('gaPropertyIdInput').value = gaPropertyId;
-  if (gaClientId && gaPropertyId) {
+  if (gaClientId) {
     gaInitTokenClient();
+    if (gaPropertyId) {
+      // Already configured, just need auth
+    }
   }
 }
 
 function gaSaveConfig() {
-  const cid = document.getElementById('gaClientIdInput').value.trim();
+  const cid = document.getElementById('gaClientIdInput').value.trim() || '996341650604-lb9v7459dhfm4o82a013pepje3451lqd.apps.googleusercontent.com';
   const pid = document.getElementById('gaPropertyIdInput').value.trim();
-  if (!cid) { showToast('נא להזין OAuth Client ID', 'warning'); return; }
-  if (!pid) { showToast('נא להזין Property ID', 'warning'); return; }
   gaClientId = cid;
-  gaPropertyId = pid;
+  if (pid) {
+    gaPropertyId = pid;
+    localStorage.setItem('ga_property_id', pid);
+  }
   localStorage.setItem('ga_client_id', cid);
-  localStorage.setItem('ga_property_id', pid);
-  showToast('ההגדרות נשמרו', 'success');
   gaInitTokenClient();
-  gaRequestToken();
+  setTimeout(gaRequestToken, 300);
 }
 
 function gaClearConfig() {
@@ -1915,13 +1916,57 @@ function gaInitTokenClient() {
   }
   gaTokenClient = google.accounts.oauth2.initTokenClient({
     client_id: gaClientId,
-    scope: 'https://www.googleapis.com/auth/analytics.readonly',
-    callback: (response) => {
+    scope: 'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/analytics.edit',
+    callback: async (response) => {
       if (response.error) {
         showToast('שגיאת אימות: ' + (response.error_description || response.error), 'error');
         return;
       }
       gaAccessToken = response.access_token;
+      // Auto-discover Property ID if not set
+      if (!gaPropertyId) {
+        showToast('מחפש את נכס האנליטיקס...', 'info');
+        try {
+          const accts = await fetch('https://analyticsadmin.googleapis.com/v1beta/accountSummaries', {
+            headers: { 'Authorization': 'Bearer ' + gaAccessToken }
+          }).then(r => r.json());
+          if (accts.accountSummaries) {
+            for (const acct of accts.accountSummaries) {
+              if (acct.propertySummaries) {
+                for (const prop of acct.propertySummaries) {
+                  // Check each property for our measurement ID
+                  const propId = prop.property.replace('properties/', '');
+                  try {
+                    const streams = await fetch(`https://analyticsadmin.googleapis.com/v1beta/properties/${propId}/dataStreams`, {
+                      headers: { 'Authorization': 'Bearer ' + gaAccessToken }
+                    }).then(r => r.json());
+                    if (streams.dataStreams) {
+                      for (const stream of streams.dataStreams) {
+                        if (stream.webStreamData && stream.webStreamData.measurementId === GA_MEASUREMENT_ID) {
+                          gaPropertyId = propId;
+                          localStorage.setItem('ga_property_id', propId);
+                          document.getElementById('gaPropertyIdInput').value = propId;
+                          showToast('נמצא נכס: ' + (prop.displayName || propId), 'success');
+                          break;
+                        }
+                      }
+                    }
+                  } catch(e) {}
+                  if (gaPropertyId) break;
+                }
+              }
+              if (gaPropertyId) break;
+            }
+          }
+          if (!gaPropertyId) {
+            showToast('לא נמצא נכס מתאים. הזן Property ID ידנית.', 'warning');
+            return;
+          }
+        } catch(e) {
+          showToast('שגיאה בחיפוש נכסים: ' + e.message, 'error');
+          return;
+        }
+      }
       document.getElementById('gaConfigPanel').style.display = 'none';
       document.getElementById('gaDashboard').style.display = '';
       document.getElementById('gaUserEmail').textContent = 'מחובר ל-Google Analytics';
