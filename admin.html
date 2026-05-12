@@ -1588,7 +1588,9 @@ async function savePartners() {
       const aOpen = p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer">` : '<a href="#" target="_blank">';
       return `
               ${aOpen}<div class="partner-3d-card">
-                <img src="${p.imgSrc}" alt="${p.alt}">
+                <div class="partner-3d-logo">
+                  <img src="${p.imgSrc}" alt="${p.alt}">
+                </div>
                 <div class="partner-3d-name he-only">${p.nameHe}</div>
                 <div class="partner-3d-name en-only">${p.nameEn}</div>
               </div></a>`;
