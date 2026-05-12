@@ -3,481 +3,1481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ניהול שותפים - עמותת החשמונאים</title>
+<title>פאנל ניהול - רוח חשמונאים</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  padding: 20px;
-}
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.header {
-  text-align: center;
-  color: white;
-  margin-bottom: 30px;
-}
-.header h1 { font-size: 2rem; margin-bottom: 8px; }
-.header p { opacity: 0.85; font-size: 0.95rem; }
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-}
-.login-card { max-width: 450px; margin: 60px auto; text-align: center; }
-.login-card h2 { margin-bottom: 20px; color: #333; }
-.input-group { margin-bottom: 16px; text-align: right; }
-.input-group label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 6px; font-weight: 600; }
-.input-group input, .input-group select {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  transition: border-color 0.2s;
-  direction: ltr;
-  text-align: left;
-}
-.input-group input:focus, .input-group select:focus {
-  outline: none;
-  border-color: #667eea;
-}
-.btn {
-  padding: 12px 28px;
-  border: none;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
-.btn-danger { background: #ef4444; color: white; }
-.btn-danger:hover { background: #dc2626; }
-.btn-success { background: #10b981; color: white; }
-.btn-success:hover { background: #059669; }
-.btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.partners-list { display: grid; gap: 16px; }
-.partner-item {
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --primary-bg: #eef2ff;
+  --accent: #8b5cf6;
+  --bg: #f8fafc;
+  --sidebar-bg: #1e1b4b;
+  --sidebar-hover: #312e81;
+  --sidebar-active: #4338ca;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
+  --transition: .2s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== LOGIN ===== */
+.login-screen {
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background: #f8fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #6366f1 100%);
+  padding: 20px;
 }
-.partner-item:hover { border-color: #667eea; background: #f0f4ff; }
+
+.login-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  animation: fadeUp .5s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card .logo {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 32px; color: #fff;
+}
+
+.login-card h1 { font-size: 24px; margin-bottom: 8px; }
+.login-card p { color: var(--text-secondary); margin-bottom: 32px; font-size: 14px; }
+
+.form-group { text-align: right; margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  direction: ltr;
+  text-align: left;
+  transition: border-color var(--transition);
+  outline: none;
+}
+.form-input:focus { border-color: var(--primary); }
+
+.form-input-rtl { direction: rtl; text-align: right; }
+
+textarea.form-input { resize: vertical; min-height: 80px; }
+
+.checkbox-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--text-secondary);
+  margin-bottom: 24px; justify-content: flex-start;
+}
+.checkbox-row input { width: 16px; height: 16px; accent-color: var(--primary); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 24px;
+  border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover:not(:disabled) { background: #059669; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover:not(:disabled) { background: #dc2626; }
+.btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+.btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.btn-ghost { background: transparent; color: var(--text-secondary); padding: 8px 12px; }
+.btn-ghost:hover { color: var(--primary); background: var(--primary-bg); }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+.btn-full { width: 100%; }
+.btn-icon { width: 36px; height: 36px; padding: 0; border-radius: var(--radius-sm); }
+
+.login-error { color: var(--danger); font-size: 13px; margin-top: 12px; display: none; }
+
+/* ===== APP LAYOUT ===== */
+.app { display: none; min-height: 100vh; }
+.app.active { display: flex; }
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  z-index: 100;
+  transition: transform .3s ease;
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.sidebar-header h2 { font-size: 18px; font-weight: 700; }
+.sidebar-header p { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
+
+.sidebar-nav { flex: 1; padding: 12px 8px; overflow-y: auto; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  color: rgba(255,255,255,.7);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.nav-item:hover { background: var(--sidebar-hover); color: #fff; }
+.nav-item.active { background: var(--sidebar-active); color: #fff; font-weight: 600; }
+.nav-item .nav-icon { font-size: 18px; width: 24px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.sidebar-footer .btn { width: 100%; justify-content: center; background: rgba(255,255,255,.1); color: #fff; }
+.sidebar-footer .btn:hover { background: rgba(255,255,255,.2); }
+
+/* Main content */
+.main-content {
+  flex: 1;
+  margin-right: 260px;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.top-bar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.top-bar h1 { font-size: 20px; }
+.top-bar-actions { display: flex; gap: 8px; align-items: center; }
+
+.page-content { padding: 32px; }
+
+.mobile-toggle {
+  display: none;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ===== PAGE SECTIONS ===== */
+.page-section { display: none; }
+.page-section.active { display: block; animation: fadeUp .3s ease; }
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.card-header h3 { font-size: 16px; }
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.stat-card .stat-icon { font-size: 28px; margin-bottom: 8px; }
+.stat-card .stat-value { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat-card .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+/* Partners list */
+.partner-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  background: var(--card-bg);
+  cursor: grab;
+  transition: all var(--transition);
+}
+.partner-item:hover { box-shadow: var(--shadow-lg); }
+.partner-item.dragging { opacity: .5; transform: scale(.98); }
+.partner-item .drag-handle { color: var(--text-light); font-size: 18px; cursor: grab; }
 .partner-item img {
-  width: 60px; height: 60px;
-  border-radius: 12px;
+  width: 48px; height: 48px;
   object-fit: contain;
-  background: white;
-  padding: 8px;
-  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: #f1f5f9;
+  padding: 4px;
 }
 .partner-info { flex: 1; }
-.partner-info h3 { font-size: 1rem; color: #1e293b; margin-bottom: 4px; }
-.partner-info a { font-size: 0.8rem; color: #667eea; text-decoration: none; direction: ltr; display: inline-block; }
-.partner-actions { display: flex; gap: 8px; }
-.drag-handle { cursor: grab; color: #94a3b8; font-size: 1.2rem; padding: 0 8px; }
-.drag-handle:active { cursor: grabbing; }
+.partner-info .name-he { font-weight: 600; font-size: 15px; }
+.partner-info .name-en { font-size: 13px; color: var(--text-secondary); direction: ltr; text-align: right; }
+.partner-info .url { font-size: 12px; color: var(--primary); direction: ltr; text-align: right; word-break: break-all; }
+.partner-actions { display: flex; gap: 4px; }
 
+/* Modal */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,.5);
   display: flex; align-items: center; justify-content: center;
-  z-index: 1000; display: none;
+  z-index: 1000;
+  opacity: 0; visibility: hidden;
+  transition: all .2s;
+  padding: 20px;
 }
-.modal-overlay.active { display: flex; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
 .modal {
-  background: white; border-radius: 16px;
-  padding: 30px; width: 90%; max-width: 500px;
-  max-height: 90vh; overflow-y: auto;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  transform: translateY(20px);
+  transition: transform .2s;
 }
-.modal h2 { margin-bottom: 20px; color: #333; }
-.modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+.modal-overlay.active .modal { transform: translateY(0); }
+.modal h2 { font-size: 20px; margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-start; margin-top: 24px; }
 
-.status-bar {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-  background: #1e293b; color: white; padding: 12px 24px;
-  border-radius: 12px; font-size: 0.9rem; display: none;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 2000;
+/* Toast */
+.toast-container { position: fixed; top: 24px; left: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+.toast {
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  box-shadow: var(--shadow-xl);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px;
+  animation: slideIn .3s ease;
+  border-right: 4px solid var(--primary);
+  max-width: 380px;
 }
-.status-bar.show { display: block; animation: slideUp 0.3s ease; }
-@keyframes slideUp { from { transform: translateX(-50%) translateY(20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+.toast.success { border-right-color: var(--success); }
+.toast.error { border-right-color: var(--danger); }
+.toast.warning { border-right-color: var(--warning); }
 
-.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.toolbar h2 { color: #1e293b; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 
-.empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
-.empty-state svg { width: 80px; height: 80px; margin-bottom: 16px; opacity: 0.5; }
+/* Section editing */
+.content-section-item {
+  margin-bottom: 16px;
+}
+.content-section-item label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
 
-.img-preview { width: 80px; height: 80px; border-radius: 12px; object-fit: contain; background: #f1f5f9; border: 2px dashed #cbd5e1; display: block; margin: 8px 0; }
-.file-input-wrap { position: relative; }
-.file-input-wrap input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-.file-input-label { display: inline-block; padding: 8px 16px; background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 10px; font-size: 0.85rem; color: #64748b; cursor: pointer; text-align: center; width: 100%; }
+/* Tag input */
+.tag-input-wrapper {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-height: 44px;
+  align-items: center;
+  cursor: text;
+  transition: border-color var(--transition);
+}
+.tag-input-wrapper:focus-within { border-color: var(--primary); }
+.tag-input-wrapper .tag {
+  background: var(--primary-bg);
+  color: var(--primary-dark);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tag-input-wrapper .tag .remove-tag { cursor: pointer; font-size: 14px; }
+.tag-input-wrapper input {
+  border: none; outline: none;
+  flex: 1; min-width: 80px;
+  font-size: 14px; font-family: inherit;
+  background: transparent;
+}
+
+/* Analytics placeholder */
+.analytics-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+.analytics-placeholder .icon { font-size: 48px; margin-bottom: 16px; }
+.analytics-placeholder h3 { margin-bottom: 8px; color: var(--text); }
+.analytics-placeholder p { max-width: 500px; margin: 0 auto 20px; font-size: 14px; line-height: 1.8; }
+
+/* Loading */
+.spinner {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-overlay {
+  position: fixed; inset: 0;
+  background: rgba(255,255,255,.8);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3000;
+  flex-direction: column; gap: 12px;
+  opacity: 0; visibility: hidden;
+  transition: all .2s;
+}
+.loading-overlay.active { opacity: 1; visibility: visible; }
+.loading-overlay .spinner { width: 40px; height: 40px; }
+
+/* Settings links */
+.settings-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all var(--transition);
+}
+.settings-link:hover { background: var(--primary-bg); border-color: var(--primary-light); }
+.settings-link .link-icon { font-size: 24px; }
+.settings-link .link-info { flex: 1; }
+.settings-link .link-info .link-title { font-weight: 600; font-size: 15px; }
+.settings-link .link-info .link-desc { font-size: 13px; color: var(--text-secondary); }
+
+/* Confirm dialog */
+.confirm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1500;
+  opacity: 0; visibility: hidden;
+  transition: all .2s;
+  padding: 20px;
+}
+.confirm-overlay.active { opacity: 1; visibility: visible; }
+.confirm-box {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+}
+.confirm-box .confirm-icon { font-size: 48px; margin-bottom: 16px; }
+.confirm-box h3 { margin-bottom: 8px; }
+.confirm-box p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+.confirm-box .confirm-actions { display: flex; gap: 8px; justify-content: center; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(100%); width: 280px; }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-right: 0; }
+  .mobile-toggle { display: block; }
+  .page-content { padding: 20px; }
+  .top-bar { padding: 12px 16px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .partner-item { flex-wrap: wrap; }
+  .modal { padding: 24px; margin: 10px; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="header">
-    <h1>🔧 ניהול שותפים</h1>
-    <p>עמותת החשמונאים - ממשק ניהול אתר</p>
-  </div>
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
 
-  <!-- Login -->
-  <div id="loginSection" class="card login-card">
-    <h2>התחברות</h2>
-    <p style="color:#64748b; margin-bottom:20px; font-size:0.9rem;">הכנס את הטוקן של GitHub כדי לנהל את השותפים באתר</p>
-    <div class="input-group">
-      <label>GitHub Token</label>
-      <input type="password" id="tokenInput" placeholder="ghp_...">
-    </div>
-    <button class="btn btn-primary" onclick="login()" style="width:100%;">כניסה</button>
-  </div>
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <span style="color:var(--text-secondary); font-size:14px;">טוען...</span>
+</div>
 
-  <!-- Dashboard -->
-  <div id="dashboard" style="display:none;">
-    <div class="card">
-      <div class="toolbar">
-        <h2>השותפים שלנו (‎<span id="partnerCount">0</span>)</h2>
-        <button class="btn btn-success" onclick="openAddModal()">+ הוסף שותף</button>
-      </div>
-      <div id="partnersList" class="partners-list"></div>
-    </div>
-    <div style="text-align:center; margin-top:16px;">
-      <button class="btn btn-primary" onclick="saveChanges()" id="saveBtn" style="display:none;">💾 שמור שינויים לאתר</button>
+<!-- Confirm dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <h3 id="confirmTitle">אישור</h3>
+    <p id="confirmMessage">האם אתה בטוח?</p>
+    <div class="confirm-actions">
+      <button class="btn btn-danger" id="confirmYes">מחק</button>
+      <button class="btn btn-outline" id="confirmNo">ביטול</button>
     </div>
   </div>
 </div>
 
-<!-- Add/Edit Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h2 id="modalTitle">הוסף שותף חדש</h2>
-    <div class="input-group">
-      <label>שם השותף (עברית)</label>
-      <input type="text" id="partnerName" placeholder="שם השותף" style="direction:rtl; text-align:right;">
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="logo">🛡️</div>
+    <h1>פאנל ניהול</h1>
+    <p>רוח חשמונאים - התחברות עם GitHub Token</p>
+    <div class="form-group">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" class="form-input" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
     </div>
-    <div class="input-group">
-      <label>שם השותף (English) - אופציונלי</label>
-      <input type="text" id="partnerNameEn" placeholder="Partner name">
+    <div class="checkbox-row">
+      <input type="checkbox" id="rememberToken" checked>
+      <label for="rememberToken">זכור אותי</label>
     </div>
-    <div class="input-group">
-      <label>קישור לאתר</label>
-      <input type="url" id="partnerUrl" placeholder="https://...">
-    </div>
-    <div class="input-group">
-      <label>לוגו</label>
-      <img id="imgPreview" class="img-preview" src="" style="display:none;">
-      <div class="file-input-wrap">
-        <span class="file-input-label">📁 בחר קובץ תמונה (PNG, SVG, JPG)</span>
-        <input type="file" id="partnerLogo" accept="image/*" onchange="previewImage(this)">
-      </div>
-      <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8;">או הכנס URL ישיר:</div>
-      <input type="text" id="partnerLogoUrl" placeholder="images/partner-..." style="margin-top:4px;">
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-primary" onclick="savePartner()" id="modalSaveBtn">הוסף</button>
-      <button class="btn" style="background:#e2e8f0;" onclick="closeModal()">ביטול</button>
-    </div>
+    <button class="btn btn-primary btn-full" id="loginBtn" onclick="handleLogin()">התחברות</button>
+    <div class="login-error" id="loginError"></div>
   </div>
 </div>
 
-<div class="status-bar" id="statusBar"></div>
+<!-- APP -->
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>🛡️ רוח חשמונאים</h2>
+      <p>פאנל ניהול</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+        <span class="nav-icon">🏠</span> ראשי
+      </div>
+      <div class="nav-item" data-page="partners" onclick="navigateTo('partners')">
+        <span class="nav-icon">🤝</span> ניהול שותפים
+      </div>
+      <div class="nav-item" data-page="content" onclick="navigateTo('content')">
+        <span class="nav-icon">📝</span> עריכת תוכן
+      </div>
+      <div class="nav-item" data-page="seo" onclick="navigateTo('seo')">
+        <span class="nav-icon">🔍</span> הגדרות SEO
+      </div>
+      <div class="nav-item" data-page="analytics" onclick="navigateTo('analytics')">
+        <span class="nav-icon">📊</span> אנליטיקס
+      </div>
+      <div class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+        <span class="nav-icon">⚙️</span> הגדרות
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn" onclick="handleLogout()">🚪 התנתק</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-content">
+    <div class="top-bar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        <h1 id="pageTitle">ראשי</h1>
+      </div>
+      <div class="top-bar-actions">
+        <a href="https://chashmonayim.org/" target="_blank" class="btn btn-ghost btn-sm">🌐 צפה באתר</a>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page-section active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🤝</div>
+            <div class="stat-value" id="statPartners">-</div>
+            <div class="stat-label">שותפים</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-value" id="statLastUpdate" style="font-size:16px;">-</div>
+            <div class="stat-label">עדכון אחרון</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📄</div>
+            <div class="stat-value" id="statFileSize">-</div>
+            <div class="stat-label">גודל קובץ (KB)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-value" style="font-size:14px;">chashmonayim.org</div>
+            <div class="stat-label">דומיין</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>פעולות מהירות</h3>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="navigateTo('partners')">🤝 ניהול שותפים</button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('content')">📝 עריכת תוכן</button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('seo')">🔍 הגדרות SEO</button>
+            <button class="btn btn-outline btn-sm" onclick="window.open('https://chashmonayim.org/','_blank')">🌐 פתח אתר</button>
+            <button class="btn btn-outline btn-sm" onclick="window.open('https://github.com/itzhak-iab/ruach-hashmonaim','_blank')">📦 GitHub Repo</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Google Analytics</h3>
+          </div>
+          <div class="analytics-placeholder">
+            <div class="icon">📈</div>
+            <h3>Google Analytics</h3>
+            <p>כדי לצפות בנתוני האנליטיקס כאן, ודא שהאתר מחובר ל-Google Analytics. ניתן לצפות בנתונים ישירות בעמוד האנליטיקס.</p>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('analytics')">עבור לאנליטיקס</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARTNERS PAGE -->
+      <div class="page-section" id="page-partners">
+        <div class="card">
+          <div class="card-header">
+            <h3>🤝 רשימת שותפים</h3>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-primary btn-sm" onclick="openAddPartnerModal()">+ הוסף שותף</button>
+              <button class="btn btn-success btn-sm" id="savePartnersBtn" onclick="savePartners()" style="display:none;">💾 שמור שינויים</button>
+            </div>
+          </div>
+          <div id="partnersList">
+            <div style="text-align:center;padding:40px;color:var(--text-secondary);">
+              <div class="spinner"></div>
+              <p style="margin-top:12px;">טוען שותפים...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT PAGE -->
+      <div class="page-section" id="page-content">
+        <div class="card">
+          <div class="card-header">
+            <h3>📝 עריכת תוכן האתר</h3>
+            <button class="btn btn-success btn-sm" onclick="saveContent()">💾 שמור שינויים</button>
+          </div>
+          <div id="contentEditor">
+            <div style="text-align:center;padding:40px;color:var(--text-secondary);">
+              <div class="spinner"></div>
+              <p style="margin-top:12px;">טוען תוכן...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO PAGE -->
+      <div class="page-section" id="page-seo">
+        <div class="card">
+          <div class="card-header">
+            <h3>🔍 הגדרות SEO</h3>
+            <button class="btn btn-success btn-sm" onclick="saveSEO()">💾 שמור שינויים</button>
+          </div>
+          <div id="seoEditor">
+            <div style="text-align:center;padding:40px;color:var(--text-secondary);">
+              <div class="spinner"></div>
+              <p style="margin-top:12px;">טוען הגדרות SEO...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS PAGE -->
+      <div class="page-section" id="page-analytics">
+        <div class="card">
+          <div class="card-header"><h3>📊 Google Analytics</h3></div>
+          <div class="analytics-placeholder">
+            <div class="icon">📊</div>
+            <h3>חיבור Google Analytics</h3>
+            <p>כדי לצפות בנתונים סטטיסטיים של האתר, יש להגדיר Google Analytics. להלן הצעדים:</p>
+            <div style="text-align:right;max-width:500px;margin:0 auto 24px;font-size:14px;line-height:2;">
+              <p>1. היכנס ל-<a href="https://analytics.google.com/" target="_blank">Google Analytics</a></p>
+              <p>2. צור חשבון חדש או השתמש בחשבון קיים</p>
+              <p>3. הוסף נכס (Property) עבור chashmonayim.org</p>
+              <p>4. העתק את קוד המעקב (gtag) והוסף אותו לאתר</p>
+              <p>5. לאחר ההגדרה, הנתונים יהיו זמינים בדשבורד</p>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+              <a href="https://analytics.google.com/" target="_blank" class="btn btn-primary btn-sm">📊 פתח Google Analytics</a>
+              <a href="https://search.google.com/search-console" target="_blank" class="btn btn-outline btn-sm">🔍 Google Search Console</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS PAGE -->
+      <div class="page-section" id="page-settings">
+        <div class="card">
+          <div class="card-header"><h3>⚙️ הגדרות כלליות</h3></div>
+
+          <a href="https://github.com/itzhak-iab/ruach-hashmonaim/settings" target="_blank" class="settings-link">
+            <span class="link-icon">📦</span>
+            <div class="link-info">
+              <div class="link-title">הגדרות GitHub Repository</div>
+              <div class="link-desc">ניהול הגדרות הריפו, branches, webhooks ועוד</div>
+            </div>
+            <span>←</span>
+          </a>
+
+          <a href="https://github.com/itzhak-iab/ruach-hashmonaim/settings/pages" target="_blank" class="settings-link">
+            <span class="link-icon">🌐</span>
+            <div class="link-info">
+              <div class="link-title">GitHub Pages</div>
+              <div class="link-desc">הגדרת דומיין מותאם אישית, HTTPS, ו-branch</div>
+            </div>
+            <span>←</span>
+          </a>
+
+          <div class="settings-link" style="cursor:pointer;" onclick="cacheBust()">
+            <span class="link-icon">🔄</span>
+            <div class="link-info">
+              <div class="link-title">ניקוי מטמון (Cache Bust)</div>
+              <div class="link-desc">הוסף פרמטר גרסה לקבצים כדי לכפות טעינה מחדש</div>
+            </div>
+            <span>←</span>
+          </div>
+
+          <a href="https://chashmonayim.org/" target="_blank" class="settings-link">
+            <span class="link-icon">🌍</span>
+            <div class="link-info">
+              <div class="link-title">דומיין: chashmonayim.org</div>
+              <div class="link-desc">פתח את האתר בחלון חדש</div>
+            </div>
+            <span>←</span>
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>מידע על המערכת</h3></div>
+          <div style="font-size:14px;color:var(--text-secondary);line-height:2;">
+            <p><strong>ריפו:</strong> itzhak-iab/ruach-hashmonaim</p>
+            <p><strong>קובץ ראשי:</strong> index.html</p>
+            <p><strong>פלטפורמה:</strong> GitHub Pages</p>
+            <p><strong>גרסת פאנל:</strong> 2.0.0</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </div><!-- /main-content -->
+</div><!-- /app -->
 
 <script>
+// ===== CONFIG =====
+const REPO_OWNER = 'itzhak-iab';
+const REPO_NAME = 'ruach-hashmonaim';
+const FILE_PATH = 'index.html';
+const API_BASE = 'https://api.github.com';
+
 let token = '';
+let fileSHA = '';
+let htmlContent = '';
 let partners = [];
-let currentSha = '';
-let editIndex = -1;
-let hasChanges = false;
-const REPO = 'itzhak-iab/ruach-hashmonaim';
+let partnersChanged = false;
+let draggedItem = null;
 
-function showStatus(msg, duration=3000) {
-  const bar = document.getElementById('statusBar');
-  bar.textContent = msg;
-  bar.classList.add('show');
-  setTimeout(() => bar.classList.remove('show'), duration);
+// ===== UTF-8 BASE64 FIX =====
+function decodeBase64UTF8(base64) {
+  const binary = atob(base64.replace(/\n/g, ''));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
 }
 
-async function login() {
-  token = document.getElementById('tokenInput').value.trim();
-  if (!token) return showStatus('⚠️ הכנס טוקן');
-  showStatus('מתחבר...');
+function encodeUTF8Base64(str) {
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(str);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+
+// ===== TOAST =====
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+  toast.innerHTML = `<span>${icons[type] || 'ℹ️'}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 4000);
+}
+
+// ===== LOADING =====
+function showLoading(show) {
+  document.getElementById('loadingOverlay').classList.toggle('active', show);
+}
+
+// ===== CONFIRM DIALOG =====
+function showConfirm(title, message, onYes) {
+  const overlay = document.getElementById('confirmOverlay');
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMessage').textContent = message;
+  overlay.classList.add('active');
+  document.getElementById('confirmYes').onclick = () => { overlay.classList.remove('active'); onYes(); };
+  document.getElementById('confirmNo').onclick = () => overlay.classList.remove('active');
+}
+
+// ===== MODAL =====
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// ===== NAVIGATION =====
+function navigateTo(page) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`page-${page}`).classList.add('active');
+  document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+  const titles = { dashboard: 'ראשי', partners: 'ניהול שותפים', content: 'עריכת תוכן', seo: 'הגדרות SEO', analytics: 'אנליטיקס', settings: 'הגדרות' };
+  document.getElementById('pageTitle').textContent = titles[page] || page;
+  // Close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ===== API HELPERS =====
+async function apiRequest(endpoint, options = {}) {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: {
+      'Authorization': `token ${token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+      ...options.headers
+    },
+    ...options
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `API error: ${res.status}`);
+  }
+  return res.json();
+}
+
+async function fetchFileContent() {
+  const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`);
+  fileSHA = data.sha;
+  htmlContent = decodeBase64UTF8(data.content);
+  return htmlContent;
+}
+
+async function saveFileContent(content, message) {
+  const encoded = encodeUTF8Base64(content);
+  const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: message || 'Update via admin panel',
+      content: encoded,
+      sha: fileSHA
+    })
+  });
+  fileSHA = data.content.sha;
+  return data;
+}
+
+// ===== LOGIN =====
+async function handleLogin() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (!t) { document.getElementById('loginError').style.display = 'block'; document.getElementById('loginError').textContent = 'נא להזין Token'; return; }
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> מתחבר...';
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
-      headers: { 'Authorization': `token ${token}` }
-    });
-    if (!res.ok) throw new Error('טוקן לא תקין');
-    const data = await res.json();
-    currentSha = data.sha;
-    const content = atob(data.content.replace(/\n/g, ''));
-    parsePartners(content);
-    document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    renderPartners();
-    showStatus('✅ התחברת בהצלחה!');
-  } catch(e) {
-    showStatus('❌ ' + e.message);
+    token = t;
+    await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}`);
+    if (document.getElementById('rememberToken').checked) {
+      localStorage.setItem('gh_admin_token', t);
+    }
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').classList.add('active');
+    await initApp();
+  } catch (e) {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginError').textContent = 'שגיאת התחברות: ' + e.message;
+    token = '';
   }
+  btn.disabled = false; btn.textContent = 'התחברות';
 }
 
-function parsePartners(html) {
-  partners = [];
-  const regex = /<a href="([^"]+)" class="partner-3d-card"[^>]*>\s*<div class="partner-3d-logo">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>\s*<\/div>\s*<span class="partner-3d-name he-only">([^<]*)<\/span>\s*<span class="partner-3d-name en-only">([^<]*)<\/span>\s*<\/a>/g;
-  let match;
-  const seen = new Set();
-  while ((match = regex.exec(html)) !== null) {
-    const key = match[2]+match[3];
-    if (seen.has(key)) continue;
-    seen.add(key);
-    partners.push({
-      url: match[1].trim(),
-      img: match[2],
-      alt: match[3],
-      nameHe: match[4],
-      nameEn: match[5]
-    });
+function handleLogout() {
+  localStorage.removeItem('gh_admin_token');
+  token = '';
+  document.getElementById('app').classList.remove('active');
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('tokenInput').value = '';
+}
+
+// ===== INIT =====
+async function initApp() {
+  showLoading(true);
+  try {
+    await fetchFileContent();
+    parsePartners();
+    parseContentSections();
+    parseSEOSettings();
+    updateDashboardStats();
+    showToast('נטען בהצלחה', 'success');
+  } catch (e) {
+    showToast('שגיאה בטעינה: ' + e.message, 'error');
   }
-  document.getElementById('partnerCount').textContent = partners.length;
+  showLoading(false);
+}
+
+// ===== PARSE PARTNERS =====
+function parsePartners() {
+  partners = [];
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+  const cards = doc.querySelectorAll('.partner-3d-card');
+  const seen = new Set();
+
+  cards.forEach(card => {
+    const link = card.closest('a') || card.querySelector('a');
+    const img = card.querySelector('img');
+    const nameHe = card.querySelector('.partner-3d-name.he-only');
+    const nameEn = card.querySelector('.partner-3d-name.en-only');
+
+    const url = link ? link.getAttribute('href') : '';
+    const imgSrc = img ? img.getAttribute('src') : '';
+    const alt = img ? img.getAttribute('alt') : '';
+    const he = nameHe ? nameHe.textContent.trim() : '';
+    const en = nameEn ? nameEn.textContent.trim() : '';
+
+    const key = `${he}|${en}|${imgSrc}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      partners.push({ url, imgSrc, alt, nameHe: he, nameEn: en });
+    }
+  });
+
+  renderPartners();
 }
 
 function renderPartners() {
-  const list = document.getElementById('partnersList');
+  const container = document.getElementById('partnersList');
   if (partners.length === 0) {
-    list.innerHTML = '<div class="empty-state"><p>אין שותפים עדיין</p></div>';
+    container.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">לא נמצאו שותפים</p>';
     return;
   }
-  list.innerHTML = partners.map((p, i) => `
-    <div class="partner-item" draggable="true" ondragstart="dragStart(event,${i})" ondragover="dragOver(event)" ondrop="drop(event,${i})">
+  container.innerHTML = partners.map((p, i) => `
+    <div class="partner-item" draggable="true" data-index="${i}"
+         ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragend="onDragEnd(event)">
       <span class="drag-handle">⠿</span>
-      <img src="https://chashmonayim.org/${p.img}" alt="${p.alt}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2260%22 x=%2225%22 font-size=%2240%22>🏢</text></svg>'">
+      <img src="${escapeHtml(p.imgSrc)}" alt="${escapeHtml(p.alt)}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23f1f5f9%22 width=%2248%22 height=%2248%22/><text x=%2224%22 y=%2228%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2216%22>?</text></svg>'">
       <div class="partner-info">
-        <h3>${p.nameHe || p.alt}</h3>
-        <a href="${p.url}" target="_blank">${p.url.replace(/https?:\/\//, '').substring(0, 40)}</a>
+        <div class="name-he">${escapeHtml(p.nameHe)}</div>
+        <div class="name-en">${escapeHtml(p.nameEn)}</div>
+        <div class="url">${escapeHtml(p.url)}</div>
       </div>
       <div class="partner-actions">
-        <button class="btn btn-sm" style="background:#e2e8f0;" onclick="editPartner(${i})">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="deletePartner(${i})">🗑️</button>
+        <button class="btn btn-ghost btn-icon" onclick="openEditPartnerModal(${i})" title="ערוך">✏️</button>
+        <button class="btn btn-ghost btn-icon" onclick="deletePartner(${i})" title="מחק">🗑️</button>
       </div>
     </div>
   `).join('');
-  document.getElementById('partnerCount').textContent = partners.length;
+  document.getElementById('statPartners').textContent = partners.length;
 }
 
-let dragIdx = -1;
-function dragStart(e, i) { dragIdx = i; e.dataTransfer.effectAllowed = 'move'; }
-function dragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
-function drop(e, i) {
-  e.preventDefault();
-  if (dragIdx === i) return;
-  const item = partners.splice(dragIdx, 1)[0];
-  partners.splice(i, 0, item);
+function escapeHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== ADD/EDIT PARTNER =====
+function openAddPartnerModal() {
+  openModal(`
+    <h2>הוסף שותף חדש</h2>
+    <div class="form-group">
+      <label>שם בעברית</label>
+      <input type="text" class="form-input form-input-rtl" id="pNameHe" placeholder="שם השותף">
+    </div>
+    <div class="form-group">
+      <label>שם באנגלית</label>
+      <input type="text" class="form-input" id="pNameEn" placeholder="Partner Name">
+    </div>
+    <div class="form-group">
+      <label>כתובת URL</label>
+      <input type="url" class="form-input" id="pUrl" placeholder="https://example.com">
+    </div>
+    <div class="form-group">
+      <label>כתובת לוגו (URL)</label>
+      <input type="text" class="form-input" id="pImg" placeholder="https://example.com/logo.png">
+    </div>
+    <div class="form-group">
+      <label>טקסט חלופי (alt)</label>
+      <input type="text" class="form-input form-input-rtl" id="pAlt" placeholder="תיאור התמונה">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="addPartner()">הוסף</button>
+      <button class="btn btn-outline" onclick="closeModal()">ביטול</button>
+    </div>
+  `);
+}
+
+function addPartner() {
+  const nameHe = document.getElementById('pNameHe').value.trim();
+  const nameEn = document.getElementById('pNameEn').value.trim();
+  const url = document.getElementById('pUrl').value.trim();
+  const imgSrc = document.getElementById('pImg').value.trim();
+  const alt = document.getElementById('pAlt').value.trim();
+  if (!nameHe) { showToast('נא להזין שם בעברית', 'warning'); return; }
+  partners.push({ nameHe, nameEn, url, imgSrc, alt });
+  partnersChanged = true;
+  document.getElementById('savePartnersBtn').style.display = '';
   renderPartners();
-  markChanged();
-}
-
-function openAddModal() {
-  editIndex = -1;
-  document.getElementById('modalTitle').textContent = 'הוסף שותף חדש';
-  document.getElementById('modalSaveBtn').textContent = 'הוסף';
-  document.getElementById('partnerName').value = '';
-  document.getElementById('partnerNameEn').value = '';
-  document.getElementById('partnerUrl').value = '';
-  document.getElementById('partnerLogoUrl').value = '';
-  document.getElementById('imgPreview').style.display = 'none';
-  document.getElementById('modal').classList.add('active');
-}
-
-function editPartner(i) {
-  editIndex = i;
-  const p = partners[i];
-  document.getElementById('modalTitle').textContent = 'ערוך שותף';
-  document.getElementById('modalSaveBtn').textContent = 'שמור';
-  document.getElementById('partnerName').value = p.nameHe || p.alt;
-  document.getElementById('partnerNameEn').value = p.nameEn || '';
-  document.getElementById('partnerUrl').value = p.url;
-  document.getElementById('partnerLogoUrl').value = p.img;
-  const preview = document.getElementById('imgPreview');
-  preview.src = `https://chashmonayim.org/${p.img}`;
-  preview.style.display = 'block';
-  document.getElementById('modal').classList.add('active');
-}
-
-function closeModal() { document.getElementById('modal').classList.remove('active'); }
-
-function previewImage(input) {
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      document.getElementById('imgPreview').src = e.target.result;
-      document.getElementById('imgPreview').style.display = 'block';
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-async function savePartner() {
-  const name = document.getElementById('partnerName').value.trim();
-  const nameEn = document.getElementById('partnerNameEn').value.trim();
-  const url = document.getElementById('partnerUrl').value.trim();
-  let img = document.getElementById('partnerLogoUrl').value.trim();
-  const fileInput = document.getElementById('partnerLogo');
-
-  if (!name) return showStatus('⚠️ הכנס שם שותף');
-  if (!url) return showStatus('⚠️ הכנס קישור');
-
-  // Upload image if file selected
-  if (fileInput.files && fileInput.files[0]) {
-    showStatus('מעלה תמונה...');
-    const file = fileInput.files[0];
-    const ext = file.name.split('.').pop();
-    const imgName = `images/partner-${Date.now()}.${ext}`;
-    const base64 = await fileToBase64(file);
-    
-    try {
-      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${imgName}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: `Add partner logo: ${name}`, content: base64 })
-      });
-      if (!res.ok) throw new Error('שגיאה בהעלאת התמונה');
-      img = imgName;
-    } catch(e) {
-      return showStatus('❌ ' + e.message);
-    }
-  }
-
-  if (!img) return showStatus('⚠️ בחר תמונה או הכנס נתיב');
-
-  const partner = { url, img, alt: name, nameHe: name, nameEn };
-  if (editIndex >= 0) {
-    partners[editIndex] = partner;
-  } else {
-    partners.push(partner);
-  }
-  
   closeModal();
+  showToast('שותף נוסף בהצלחה', 'success');
+}
+
+function openEditPartnerModal(index) {
+  const p = partners[index];
+  openModal(`
+    <h2>ערוך שותף</h2>
+    <div class="form-group">
+      <label>שם בעברית</label>
+      <input type="text" class="form-input form-input-rtl" id="pNameHe" value="${escapeHtml(p.nameHe)}">
+    </div>
+    <div class="form-group">
+      <label>שם באנגלית</label>
+      <input type="text" class="form-input" id="pNameEn" value="${escapeHtml(p.nameEn)}">
+    </div>
+    <div class="form-group">
+      <label>כתובת URL</label>
+      <input type="url" class="form-input" id="pUrl" value="${escapeHtml(p.url)}">
+    </div>
+    <div class="form-group">
+      <label>כתובת לוגו (URL)</label>
+      <input type="text" class="form-input" id="pImg" value="${escapeHtml(p.imgSrc)}">
+    </div>
+    <div class="form-group">
+      <label>טקסט חלופי (alt)</label>
+      <input type="text" class="form-input form-input-rtl" id="pAlt" value="${escapeHtml(p.alt)}">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveEditPartner(${index})">שמור</button>
+      <button class="btn btn-outline" onclick="closeModal()">ביטול</button>
+    </div>
+  `);
+}
+
+function saveEditPartner(index) {
+  partners[index].nameHe = document.getElementById('pNameHe').value.trim();
+  partners[index].nameEn = document.getElementById('pNameEn').value.trim();
+  partners[index].url = document.getElementById('pUrl').value.trim();
+  partners[index].imgSrc = document.getElementById('pImg').value.trim();
+  partners[index].alt = document.getElementById('pAlt').value.trim();
+  partnersChanged = true;
+  document.getElementById('savePartnersBtn').style.display = '';
   renderPartners();
-  markChanged();
-  showStatus(editIndex >= 0 ? '✅ שותף עודכן' : '✅ שותף נוסף');
+  closeModal();
+  showToast('שותף עודכן בהצלחה', 'success');
 }
 
-function deletePartner(i) {
-  if (!confirm(`למחוק את "${partners[i].nameHe || partners[i].alt}"?`)) return;
-  partners.splice(i, 1);
-  renderPartners();
-  markChanged();
-  showStatus('🗑️ שותף הוסר');
-}
-
-function markChanged() {
-  hasChanges = true;
-  document.getElementById('saveBtn').style.display = 'inline-block';
-}
-
-async function saveChanges() {
-  if (!hasChanges) return;
-  showStatus('שומר שינויים...', 10000);
-  
-  try {
-    // Fetch current file
-    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
-      headers: { 'Authorization': `token ${token}` }
-    });
-    const data = await res.json();
-    currentSha = data.sha;
-    let html = atob(data.content.replace(/\n/g, ''));
-    
-    // Build new partners HTML
-    const partnersHtml = partners.map(p => `
-          <a href="${p.url}" class="partner-3d-card" target="_blank" rel="noopener">
-            <div class="partner-3d-logo">
-              <img src="${p.img}" alt="${p.alt}" loading="lazy">
-            </div>
-            <span class="partner-3d-name he-only">${p.nameHe}</span>
-            <span class="partner-3d-name en-only">${p.nameEn || ''}</span>
-          </a>`).join('\n');
-    
-    // Duplicate for seamless marquee
-    const trackContent = partnersHtml + '\n' + partnersHtml;
-    
-    // Replace the marquee track content
-    const trackStart = html.indexOf('<div class="partners-marquee-track">');
-    const trackInner = html.indexOf('>', trackStart) + 1;
-    const trackEnd = html.indexOf('</div>', trackInner);
-    
-    // Find the correct closing div (the one that closes the track)
-    let depth = 1;
-    let pos = trackInner;
-    while (depth > 0 && pos < html.length) {
-      const nextOpen = html.indexOf('<div', pos);
-      const nextClose = html.indexOf('</div>', pos);
-      if (nextClose === -1) break;
-      if (nextOpen !== -1 && nextOpen < nextClose) {
-        depth++;
-        pos = nextOpen + 4;
-      } else {
-        depth--;
-        if (depth === 0) {
-          html = html.substring(0, trackInner) + '\n' + trackContent + '\n        ' + html.substring(nextClose);
-          break;
-        }
-        pos = nextClose + 6;
-      }
-    }
-    
-    // Upload
-    const encoded = btoa(unescape(encodeURIComponent(html)));
-    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: 'Update partners via admin panel',
-        content: encoded,
-        sha: currentSha
-      })
-    });
-    
-    if (!putRes.ok) {
-      const err = await putRes.json();
-      throw new Error(err.message || 'שגיאה בשמירה');
-    }
-    
-    hasChanges = false;
-    document.getElementById('saveBtn').style.display = 'none';
-    showStatus('✅ השינויים נשמרו באתר בהצלחה!');
-  } catch(e) {
-    showStatus('❌ ' + e.message);
-  }
-}
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+function deletePartner(index) {
+  showConfirm('מחיקת שותף', `האם למחוק את "${partners[index].nameHe}"?`, () => {
+    partners.splice(index, 1);
+    partnersChanged = true;
+    document.getElementById('savePartnersBtn').style.display = '';
+    renderPartners();
+    showToast('שותף נמחק', 'success');
   });
 }
 
-// Auto-login if token in URL hash
-if (window.location.hash) {
-  document.getElementById('tokenInput').value = window.location.hash.substring(1);
-  login();
+// ===== DRAG & DROP =====
+function onDragStart(e) {
+  draggedItem = e.currentTarget;
+  draggedItem.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
 }
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+function onDrop(e) {
+  e.preventDefault();
+  const target = e.currentTarget;
+  if (draggedItem && draggedItem !== target) {
+    const fromIdx = parseInt(draggedItem.dataset.index);
+    const toIdx = parseInt(target.dataset.index);
+    const [moved] = partners.splice(fromIdx, 1);
+    partners.splice(toIdx, 0, moved);
+    partnersChanged = true;
+    document.getElementById('savePartnersBtn').style.display = '';
+    renderPartners();
+  }
+}
+function onDragEnd(e) {
+  if (draggedItem) draggedItem.classList.remove('dragging');
+  draggedItem = null;
+}
+
+// ===== SAVE PARTNERS =====
+async function savePartners() {
+  showLoading(true);
+  try {
+    // Re-fetch to get latest SHA
+    await fetchFileContent();
+
+    // Build the new partner HTML block (duplicated for marquee)
+    const partnerCardHTML = (p) => {
+      const aOpen = p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer">` : '<a href="#" target="_blank">';
+      return `
+              ${aOpen}<div class="partner-3d-card">
+                <img src="${p.imgSrc}" alt="${p.alt}">
+                <div class="partner-3d-name he-only">${p.nameHe}</div>
+                <div class="partner-3d-name en-only">${p.nameEn}</div>
+              </div></a>`;
+    };
+
+    const allCards = partners.map(p => partnerCardHTML(p)).join('\n');
+    // Duplicate for seamless marquee scrolling
+    const duplicatedCards = allCards + '\n' + allCards;
+
+    // Find and replace the marquee content
+    // Look for the partner marquee container
+    let newHTML = htmlContent;
+    const marqueeRegex = /(class="partners-marquee-track"[^>]*>)([\s\S]*?)(<\/div>\s*<\/div>\s*<\/section>)/i;
+    const marqueeMatch = newHTML.match(marqueeRegex);
+
+    if (marqueeMatch) {
+      newHTML = newHTML.replace(marqueeRegex, `$1\n${duplicatedCards}\n            $3`);
+    } else {
+      // Fallback: try to find partner-3d-card blocks and replace them
+      const cardBlockRegex = /(<a[^>]*>[\s\S]*?<div class="partner-3d-card">[\s\S]*?<\/div><\/a>\s*)+/gi;
+      const firstMatch = newHTML.match(cardBlockRegex);
+      if (firstMatch && firstMatch.length > 0) {
+        // Replace all partner card blocks
+        let replaced = false;
+        newHTML = newHTML.replace(cardBlockRegex, (match) => {
+          if (!replaced) {
+            replaced = true;
+            return duplicatedCards + '\n';
+          }
+          return ''; // Remove subsequent duplicate blocks
+        });
+      }
+    }
+
+    await saveFileContent(newHTML, 'Update partners via admin panel');
+    htmlContent = newHTML;
+    partnersChanged = false;
+    document.getElementById('savePartnersBtn').style.display = 'none';
+    showToast('השותפים נשמרו בהצלחה!', 'success');
+    updateDashboardStats();
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+  showLoading(false);
+}
+
+// ===== CONTENT EDITOR =====
+function parseContentSections() {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+  const sections = [];
+
+  // Hero section
+  const heroTitle = doc.querySelector('.hero h1, .hero-title, [class*="hero"] h1');
+  const heroSubtitle = doc.querySelector('.hero p, .hero-subtitle, [class*="hero"] .subtitle, [class*="hero"] h2');
+  if (heroTitle) sections.push({ id: 'hero-title', label: 'כותרת ראשית (Hero)', value: heroTitle.innerHTML.trim(), tag: 'input', selector: '.hero h1, .hero-title, [class*="hero"] h1' });
+  if (heroSubtitle) sections.push({ id: 'hero-subtitle', label: 'תת-כותרת (Hero)', value: heroSubtitle.innerHTML.trim(), tag: 'input', selector: '.hero p, .hero-subtitle, [class*="hero"] .subtitle, [class*="hero"] h2' });
+
+  // About section
+  const aboutSection = doc.querySelector('#about, .about, [class*="about"]');
+  if (aboutSection) {
+    const aboutTitle = aboutSection.querySelector('h2, h3');
+    const aboutTexts = aboutSection.querySelectorAll('p');
+    if (aboutTitle) sections.push({ id: 'about-title', label: 'כותרת אודות', value: aboutTitle.innerHTML.trim(), tag: 'input', selector: '#about h2, .about h2, [class*="about"] h2, #about h3, .about h3' });
+    aboutTexts.forEach((p, i) => {
+      if (p.textContent.trim().length > 10) {
+        sections.push({ id: `about-text-${i}`, label: `טקסט אודות ${i + 1}`, value: p.innerHTML.trim(), tag: 'textarea', selector: null, rawText: p.innerHTML.trim() });
+      }
+    });
+  }
+
+  // Contact info
+  const contactSection = doc.querySelector('#contact, .contact, [class*="contact"]');
+  if (contactSection) {
+    const contactTitle = contactSection.querySelector('h2, h3');
+    if (contactTitle) sections.push({ id: 'contact-title', label: 'כותרת צור קשר', value: contactTitle.innerHTML.trim(), tag: 'input', selector: '#contact h2, .contact h2, [class*="contact"] h2, #contact h3' });
+    const contactTexts = contactSection.querySelectorAll('p, .contact-info, address');
+    contactTexts.forEach((el, i) => {
+      if (el.textContent.trim().length > 3) {
+        sections.push({ id: `contact-text-${i}`, label: `פרטי קשר ${i + 1}`, value: el.innerHTML.trim(), tag: 'textarea', selector: null, rawText: el.innerHTML.trim() });
+      }
+    });
+  }
+
+  // If nothing found by specific selectors, try generic approach
+  if (sections.length === 0) {
+    // Look for any h1, first significant p, and sections
+    const h1 = doc.querySelector('h1');
+    if (h1) sections.push({ id: 'main-title', label: 'כותרת ראשית', value: h1.innerHTML.trim(), tag: 'input', selector: null, rawText: h1.innerHTML.trim() });
+
+    const allSections = doc.querySelectorAll('section');
+    allSections.forEach((sec, si) => {
+      const heading = sec.querySelector('h2, h3');
+      if (heading && heading.textContent.trim().length > 2) {
+        sections.push({ id: `section-${si}-title`, label: `כותרת - ${heading.textContent.trim().substring(0,30)}`, value: heading.innerHTML.trim(), tag: 'input', selector: null, rawText: heading.innerHTML.trim() });
+      }
+      const paras = sec.querySelectorAll('p');
+      paras.forEach((p, pi) => {
+        if (p.textContent.trim().length > 20) {
+          sections.push({ id: `section-${si}-p-${pi}`, label: `טקסט - ${p.textContent.trim().substring(0,30)}...`, value: p.innerHTML.trim(), tag: 'textarea', selector: null, rawText: p.innerHTML.trim() });
+        }
+      });
+    });
+  }
+
+  const container = document.getElementById('contentEditor');
+  if (sections.length === 0) {
+    container.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text-secondary);">לא נמצאו חלקי תוכן ניתנים לעריכה</p>';
+    return;
+  }
+
+  container.innerHTML = sections.map(s => `
+    <div class="content-section-item" data-raw="${escapeHtml(s.rawText || s.value)}">
+      <label>${s.label}</label>
+      ${s.tag === 'textarea'
+        ? `<textarea class="form-input form-input-rtl" id="content-${s.id}" rows="3">${escapeHtml(s.value)}</textarea>`
+        : `<input type="text" class="form-input form-input-rtl" id="content-${s.id}" value="${escapeHtml(s.value)}">`
+      }
+    </div>
+  `).join('');
+
+  // Store sections for saving
+  window._contentSections = sections;
+}
+
+async function saveContent() {
+  if (!window._contentSections || window._contentSections.length === 0) {
+    showToast('אין תוכן לשמור', 'warning');
+    return;
+  }
+  showLoading(true);
+  try {
+    await fetchFileContent();
+    let newHTML = htmlContent;
+
+    window._contentSections.forEach(section => {
+      const el = document.getElementById(`content-${section.id}`);
+      if (!el) return;
+      const newValue = el.value.trim();
+      const oldValue = section.rawText || section.value;
+      if (newValue !== oldValue && oldValue) {
+        // Replace in HTML string
+        const escaped = oldValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(escaped, 'g');
+        newHTML = newHTML.replace(regex, newValue);
+      }
+    });
+
+    if (newHTML !== htmlContent) {
+      await saveFileContent(newHTML, 'Update content via admin panel');
+      htmlContent = newHTML;
+      showToast('התוכן נשמר בהצלחה!', 'success');
+      // Re-parse
+      parseContentSections();
+      updateDashboardStats();
+    } else {
+      showToast('לא זוהו שינויים', 'info');
+    }
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+  showLoading(false);
+}
+
+// ===== SEO EDITOR =====
+function parseSEOSettings() {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+
+  const metaTitle = doc.querySelector('title');
+  const metaDesc = doc.querySelector('meta[name="description"]');
+  const metaKeywords = doc.querySelector('meta[name="keywords"]');
+  const ogTitle = doc.querySelector('meta[property="og:title"]');
+  const ogDesc = doc.querySelector('meta[property="og:description"]');
+  const ogImage = doc.querySelector('meta[property="og:image"]');
+  const ogUrl = doc.querySelector('meta[property="og:url"]');
+  const canonical = doc.querySelector('link[rel="canonical"]');
+
+  const container = document.getElementById('seoEditor');
+  container.innerHTML = `
+    <div class="content-section-item">
+      <label>כותרת העמוד (Title)</label>
+      <input type="text" class="form-input form-input-rtl" id="seo-title" value="${escapeHtml(metaTitle ? metaTitle.textContent : '')}">
+    </div>
+    <div class="content-section-item">
+      <label>תיאור (Meta Description)</label>
+      <textarea class="form-input form-input-rtl" id="seo-description" rows="3">${escapeHtml(metaDesc ? metaDesc.getAttribute('content') : '')}</textarea>
+    </div>
+    <div class="content-section-item">
+      <label>מילות מפתח (Keywords) - מופרדות בפסיקים</label>
+      <input type="text" class="form-input form-input-rtl" id="seo-keywords" value="${escapeHtml(metaKeywords ? metaKeywords.getAttribute('content') : '')}">
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:24px 0;">
+    <h4 style="margin-bottom:16px;">Open Graph (שיתוף ברשתות חברתיות)</h4>
+    <div class="content-section-item">
+      <label>OG Title</label>
+      <input type="text" class="form-input form-input-rtl" id="seo-og-title" value="${escapeHtml(ogTitle ? ogTitle.getAttribute('content') : '')}">
+    </div>
+    <div class="content-section-item">
+      <label>OG Description</label>
+      <textarea class="form-input form-input-rtl" id="seo-og-desc" rows="2">${escapeHtml(ogDesc ? ogDesc.getAttribute('content') : '')}</textarea>
+    </div>
+    <div class="content-section-item">
+      <label>OG Image URL</label>
+      <input type="text" class="form-input" id="seo-og-image" value="${escapeHtml(ogImage ? ogImage.getAttribute('content') : '')}">
+    </div>
+    <div class="content-section-item">
+      <label>OG URL</label>
+      <input type="text" class="form-input" id="seo-og-url" value="${escapeHtml(ogUrl ? ogUrl.getAttribute('content') : '')}">
+    </div>
+    <div class="content-section-item">
+      <label>Canonical URL</label>
+      <input type="text" class="form-input" id="seo-canonical" value="${escapeHtml(canonical ? canonical.getAttribute('href') : '')}">
+    </div>
+  `;
+
+  // Store original values
+  window._seoOriginal = {
+    title: metaTitle ? metaTitle.textContent : '',
+    description: metaDesc ? metaDesc.getAttribute('content') : '',
+    keywords: metaKeywords ? metaKeywords.getAttribute('content') : '',
+    ogTitle: ogTitle ? ogTitle.getAttribute('content') : '',
+    ogDesc: ogDesc ? ogDesc.getAttribute('content') : '',
+    ogImage: ogImage ? ogImage.getAttribute('content') : '',
+    ogUrl: ogUrl ? ogUrl.getAttribute('content') : '',
+    canonical: canonical ? canonical.getAttribute('href') : ''
+  };
+}
+
+async function saveSEO() {
+  showLoading(true);
+  try {
+    await fetchFileContent();
+    let newHTML = htmlContent;
+    const orig = window._seoOriginal;
+
+    function replaceTag(html, oldVal, newVal, pattern) {
+      if (!oldVal && !newVal) return html;
+      if (oldVal === newVal) return html;
+      if (pattern) {
+        return html.replace(pattern, (match) => {
+          return match.replace(oldVal, newVal);
+        });
+      }
+      return html;
+    }
+
+    // Title
+    const newTitle = document.getElementById('seo-title').value.trim();
+    if (newTitle !== orig.title) {
+      newHTML = newHTML.replace(/<title>[^<]*<\/title>/, `<title>${newTitle}</title>`);
+    }
+
+    // Meta description
+    const newDesc = document.getElementById('seo-description').value.trim();
+    if (newDesc !== orig.description) {
+      if (orig.description) {
+        newHTML = newHTML.replace(new RegExp(`(<meta\\s+name=["']description["']\\s+content=["'])${escapeRegex(orig.description)}(["'])`), `$1${newDesc}$2`);
+      } else {
+        newHTML = newHTML.replace('</title>', `</title>\n<meta name="description" content="${newDesc}">`);
+      }
+    }
+
+    // Keywords
+    const newKeywords = document.getElementById('seo-keywords').value.trim();
+    if (newKeywords !== orig.keywords) {
+      if (orig.keywords) {
+        newHTML = newHTML.replace(new RegExp(`(<meta\\s+name=["']keywords["']\\s+content=["'])${escapeRegex(orig.keywords)}(["'])`), `$1${newKeywords}$2`);
+      } else if (newKeywords) {
+        newHTML = newHTML.replace('</title>', `</title>\n<meta name="keywords" content="${newKeywords}">`);
+      }
+    }
+
+    // OG tags
+    const ogFields = [
+      { id: 'seo-og-title', prop: 'og:title', orig: orig.ogTitle },
+      { id: 'seo-og-desc', prop: 'og:description', orig: orig.ogDesc },
+      { id: 'seo-og-image', prop: 'og:image', orig: orig.ogImage },
+      { id: 'seo-og-url', prop: 'og:url', orig: orig.ogUrl },
+    ];
+
+    ogFields.forEach(f => {
+      const newVal = document.getElementById(f.id).value.trim();
+      if (newVal !== f.orig) {
+        if (f.orig) {
+          newHTML = newHTML.replace(
+            new RegExp(`(<meta\\s+property=["']${escapeRegex(f.prop)}["']\\s+content=["'])${escapeRegex(f.orig)}(["'])`),
+            `$1${newVal}$2`
+          );
+        } else if (newVal) {
+          newHTML = newHTML.replace('</head>', `<meta property="${f.prop}" content="${newVal}">\n</head>`);
+        }
+      }
+    });
+
+    // Canonical
+    const newCanonical = document.getElementById('seo-canonical').value.trim();
+    if (newCanonical !== orig.canonical) {
+      if (orig.canonical) {
+        newHTML = newHTML.replace(
+          new RegExp(`(<link\\s+rel=["']canonical["']\\s+href=["'])${escapeRegex(orig.canonical)}(["'])`),
+          `$1${newCanonical}$2`
+        );
+      } else if (newCanonical) {
+        newHTML = newHTML.replace('</head>', `<link rel="canonical" href="${newCanonical}">\n</head>`);
+      }
+    }
+
+    if (newHTML !== htmlContent) {
+      await saveFileContent(newHTML, 'Update SEO settings via admin panel');
+      htmlContent = newHTML;
+      parseSEOSettings();
+      showToast('הגדרות SEO נשמרו בהצלחה!', 'success');
+    } else {
+      showToast('לא זוהו שינויים', 'info');
+    }
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+  showLoading(false);
+}
+
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ===== DASHBOARD STATS =====
+function updateDashboardStats() {
+  document.getElementById('statPartners').textContent = partners.length;
+  const sizeKB = Math.round(new TextEncoder().encode(htmlContent).length / 1024);
+  document.getElementById('statFileSize').textContent = sizeKB;
+  const now = new Date();
+  document.getElementById('statLastUpdate').textContent = now.toLocaleDateString('he-IL') + ' ' + now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+}
+
+// ===== CACHE BUST =====
+async function cacheBust() {
+  showLoading(true);
+  try {
+    await fetchFileContent();
+    const ts = Date.now();
+    let newHTML = htmlContent;
+    // Add/update ?v= param on CSS and JS references
+    newHTML = newHTML.replace(/(\.css)(\?v=\d+)?(")/g, `$1?v=${ts}$3`);
+    newHTML = newHTML.replace(/(\.js)(\?v=\d+)?(")/g, `$1?v=${ts}$3`);
+
+    if (newHTML !== htmlContent) {
+      await saveFileContent(newHTML, `Cache bust: v=${ts}`);
+      htmlContent = newHTML;
+      showToast('ניקוי מטמון בוצע בהצלחה', 'success');
+    } else {
+      showToast('לא נמצאו קבצי CSS/JS לעדכון', 'info');
+    }
+  } catch (e) {
+    showToast('שגיאה: ' + e.message, 'error');
+  }
+  showLoading(false);
+}
+
+// ===== AUTO LOGIN =====
+(function() {
+  const saved = localStorage.getItem('gh_admin_token');
+  if (saved) {
+    document.getElementById('tokenInput').value = saved;
+    // Auto-login
+    handleLogin();
+  }
+})();
 </script>
 </body>
 </html>
