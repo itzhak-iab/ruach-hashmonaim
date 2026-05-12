@@ -1424,7 +1424,7 @@ async function uploadLogoFile(file, partnerName) {
     reader.onload = async () => {
       const base64 = reader.result.split(',')[1];
       try {
-        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${imgName}`, {
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${imgName}`, {
           method: 'PUT',
           headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: `Add partner logo: ${partnerName}`, content: base64 })
