@@ -1355,6 +1355,7 @@ function escapeHtml(s) {
 
 // ===== ADD/EDIT PARTNER =====
 function openAddPartnerModal() {
+  pendingLogoFile = null;
   openModal(`
     <h2>הוסף שותף חדש</h2>
     <div class="form-group">
@@ -1370,8 +1371,18 @@ function openAddPartnerModal() {
       <input type="url" class="form-input" id="pUrl" placeholder="https://example.com">
     </div>
     <div class="form-group">
-      <label>כתובת לוגו (URL)</label>
-      <input type="text" class="form-input" id="pImg" placeholder="https://example.com/logo.png">
+      <label>לוגו</label>
+      <div id="pImgPreview" style="display:none;margin-bottom:8px;text-align:center;">
+        <img id="pImgPreviewImg" src="" style="max-width:100px;max-height:100px;border-radius:12px;border:1px solid var(--border);padding:8px;background:white;">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <label style="flex:1;cursor:pointer;padding:12px;background:var(--primary-bg);border:2px dashed var(--primary-light);border-radius:var(--radius-sm);text-align:center;color:var(--primary);font-weight:500;font-size:0.9rem;">
+          📁 בחר תמונה מהמחשב
+          <input type="file" id="pFile" accept="image/*" onchange="previewPartnerLogo(this)" style="display:none;">
+        </label>
+      </div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-light);">או הכנס כתובת URL ישירה:</div>
+      <input type="text" class="form-input" id="pImg" placeholder="images/partner-..." style="margin-top:4px;font-size:0.85rem;">
     </div>
     <div class="form-group">
       <label>טקסט חלופי (alt)</label>
@@ -1384,14 +1395,72 @@ function openAddPartnerModal() {
   `);
 }
 
-function addPartner() {
+let pendingLogoFile = null;
+
+function previewPartnerLogo(input) {
+  if (input.files && input.files[0]) {
+    pendingLogoFile = input.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      const preview = document.getElementById('pImgPreview');
+      const img = document.getElementById('pImgPreviewImg');
+      img.src = e.target.result;
+      img.style.display = '';
+      preview.style.display = '';
+      // Clear the URL field since we're using a file
+      document.getElementById('pImg').value = '';
+      document.getElementById('pImg').placeholder = 'יועלה אוטומטית...';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function uploadLogoFile(file, partnerName) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const imgName = `images/partner-${Date.now()}.${ext}`;
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result.split(',')[1];
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${imgName}`, {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `Add partner logo: ${partnerName}`, content: base64 })
+        });
+        if (!res.ok) throw new Error('שגיאה בהעלאת התמונה');
+        resolve(imgName);
+      } catch(e) { reject(e); }
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function addPartner() {
   const nameHe = document.getElementById('pNameHe').value.trim();
   const nameEn = document.getElementById('pNameEn').value.trim();
   const url = document.getElementById('pUrl').value.trim();
-  const imgSrc = document.getElementById('pImg').value.trim();
+  let imgSrc = document.getElementById('pImg').value.trim();
   const alt = document.getElementById('pAlt').value.trim();
   if (!nameHe) { showToast('נא להזין שם בעברית', 'warning'); return; }
-  partners.push({ nameHe, nameEn, url, imgSrc, alt });
+
+  // Upload file if selected
+  if (pendingLogoFile) {
+    showToast('מעלה תמונה...', 'info');
+    try {
+      imgSrc = await uploadLogoFile(pendingLogoFile, nameHe);
+      pendingLogoFile = null;
+    } catch(e) {
+      showToast('שגיאה בהעלאת התמונה: ' + e.message, 'error');
+      return;
+    }
+  }
+
+  if (!imgSrc) { showToast('נא לבחור תמונה או להזין כתובת URL', 'warning'); return; }
+
+  partners.push({ nameHe, nameEn, url, imgSrc, alt: alt || nameHe });
   partnersChanged = true;
   document.getElementById('savePartnersBtn').style.display = '';
   renderPartners();
@@ -1400,6 +1469,7 @@ function addPartner() {
 }
 
 function openEditPartnerModal(index) {
+  pendingLogoFile = null;
   const p = partners[index];
   openModal(`
     <h2>ערוך שותף</h2>
@@ -1416,8 +1486,18 @@ function openEditPartnerModal(index) {
       <input type="url" class="form-input" id="pUrl" value="${escapeHtml(p.url)}">
     </div>
     <div class="form-group">
-      <label>כתובת לוגו (URL)</label>
-      <input type="text" class="form-input" id="pImg" value="${escapeHtml(p.imgSrc)}">
+      <label>לוגו</label>
+      <div id="pImgPreview" style="margin-bottom:8px;text-align:center;">
+        <img id="pImgPreviewImg" src="https://chashmonayim.org/${escapeHtml(p.imgSrc)}" style="max-width:100px;max-height:100px;border-radius:12px;border:1px solid var(--border);padding:8px;background:white;" onerror="this.style.display='none'">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <label style="flex:1;cursor:pointer;padding:12px;background:var(--primary-bg);border:2px dashed var(--primary-light);border-radius:var(--radius-sm);text-align:center;color:var(--primary);font-weight:500;font-size:0.9rem;">
+          📁 בחר תמונה חדשה
+          <input type="file" id="pFile" accept="image/*" onchange="previewPartnerLogo(this)" style="display:none;">
+        </label>
+      </div>
+      <div style="margin-top:8px;font-size:0.8rem;color:var(--text-light);">או כתובת URL ישירה:</div>
+      <input type="text" class="form-input" id="pImg" value="${escapeHtml(p.imgSrc)}" style="margin-top:4px;font-size:0.85rem;">
     </div>
     <div class="form-group">
       <label>טקסט חלופי (alt)</label>
@@ -1430,12 +1510,27 @@ function openEditPartnerModal(index) {
   `);
 }
 
-function saveEditPartner(index) {
-  partners[index].nameHe = document.getElementById('pNameHe').value.trim();
+async function saveEditPartner(index) {
+  const nameHe = document.getElementById('pNameHe').value.trim();
+  let imgSrc = document.getElementById('pImg').value.trim();
+
+  // Upload file if selected
+  if (pendingLogoFile) {
+    showToast('מעלה תמונה...', 'info');
+    try {
+      imgSrc = await uploadLogoFile(pendingLogoFile, nameHe);
+      pendingLogoFile = null;
+    } catch(e) {
+      showToast('שגיאה בהעלאת התמונה: ' + e.message, 'error');
+      return;
+    }
+  }
+
+  partners[index].nameHe = nameHe;
   partners[index].nameEn = document.getElementById('pNameEn').value.trim();
   partners[index].url = document.getElementById('pUrl').value.trim();
-  partners[index].imgSrc = document.getElementById('pImg').value.trim();
-  partners[index].alt = document.getElementById('pAlt').value.trim();
+  partners[index].imgSrc = imgSrc;
+  partners[index].alt = document.getElementById('pAlt').value.trim() || nameHe;
   partnersChanged = true;
   document.getElementById('savePartnersBtn').style.display = '';
   renderPartners();
