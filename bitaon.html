@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בטאון החטיבה | עמותת החשמונאים - חטיבת חשמונאים</title>
+    <meta name="description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים של החטיבה החרדית בצה״ל. עמותת החשמונאים - ידידי ובוגרי חטיבת החשמונאים.">
+    <meta name="keywords" content="בטאון החטיבה, חטיבת חשמונאים, עלון בחטיבה, שיח לוחמים, על קידוש השם, מגזין חשמונאים, עמותת החשמונאים">
+    <meta property="og:title" content="בטאון החטיבה | עמותת החשמונאים">
+    <meta property="og:description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים. הפרסומים השבועיים של החטיבה החרדית בצה״ל.">
+    <meta property="og:image" content="https://chashmonayim.org/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="בטאון חטיבת החשמונאים">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chashmonayim.org/bitaon.html">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:site_name" content="עמותת החשמונאים">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="בטאון החטיבה | עמותת החשמונאים">
+    <meta name="twitter:description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים.">
+    <link rel="icon" type="image/png" href="https://chashmonayim.org/images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLNEH3K485"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DLNEH3K485');
+    </script>
+
+    <style>
+        :root {
+            --primary: #1a2a5e;
+            --primary-dark: #111d42;
+            --primary-light: #243573;
+            --gold: #c8a45c;
+            --gold-light: #d4b87a;
+            --gold-dark: #b08f4a;
+            --bg-light: #f5f3ef;
+            --bg-white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #6b7280;
+            --text-light: #9ca3af;
+            --border: #e5e7eb;
+            --shadow: 0 4px 24px rgba(26, 42, 94, 0.10);
+            --shadow-hover: 0 8px 40px rgba(26, 42, 94, 0.18);
+            --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--primary);
+            border-bottom: 3px solid var(--gold);
+            padding: 0 2rem;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .navbar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar-brand img {
+            height: 48px;
+            width: 48px;
+            object-fit: contain;
+        }
+
+        .navbar-brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .navbar-brand-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        .navbar-brand-sub {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: var(--gold);
+            background: rgba(200, 164, 92, 0.1);
+        }
+
+        .navbar-links .btn-home {
+            background: var(--gold);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .navbar-links .btn-home:hover {
+            background: var(--gold-light);
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            margin: 6px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .mobile-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .mobile-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            position: relative;
+            padding: 80px 2rem 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(200,164,92,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200,164,92,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(200,164,92,0.03) 40px,
+                    rgba(200,164,92,0.03) 41px
+                );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(200, 164, 92, 0.15);
+            border: 1px solid rgba(200, 164, 92, 0.3);
+            color: var(--gold);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 28px auto 0;
+            border-radius: 3px;
+        }
+
+        /* ===== TAB NAVIGATION ===== */
+        .tabs-section {
+            max-width: 1280px;
+            margin: -40px auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tabs-wrapper {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 6px;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: max-content;
+            padding: 14px 24px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--gold);
+            box-shadow: 0 2px 8px rgba(26, 42, 94, 0.2);
+        }
+
+        .tab-icon {
+            display: inline-block;
+            margin-left: 6px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-area {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 2rem 80px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* ===== FEATURED / LATEST ISSUE ===== */
+        .featured-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(200,164,92,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .featured-preview {
+            flex-shrink: 0;
+            width: 200px;
+            height: 280px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border: 2px solid rgba(200,164,92,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-preview .pdf-icon {
+            font-size: 4rem;
+            color: rgba(200,164,92,0.5);
+        }
+
+        .featured-preview .issue-num {
+            position: absolute;
+            bottom: 16px;
+            right: 0;
+            left: 0;
+            text-align: center;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+
+        .featured-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-info h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .featured-info .parsha {
+            color: var(--gold);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .featured-info .meta {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .featured-info .desc {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(200,164,92,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid rgba(200,164,92,0.4);
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            background: rgba(200,164,92,0.1);
+        }
+
+        /* ===== ISSUE CARDS GRID ===== */
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .issue-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border);
+        }
+
+        .issue-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+
+        .issue-card-top {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .issue-card-top .issue-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(200,164,92,0.2);
+            position: absolute;
+        }
+
+        .issue-card-top .pdf-symbol {
+            width: 64px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            border: 2px solid rgba(200,164,92,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .issue-card-top .pdf-symbol svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--gold);
+            opacity: 0.7;
+        }
+
+        .issue-card-body {
+            padding: 20px;
+        }
+
+        .issue-card-body .issue-label {
+            display: inline-block;
+            background: rgba(26, 42, 94, 0.08);
+            color: var(--primary);
+            padding: 3px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .issue-card-body h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .issue-card-body .parsha-name {
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .issue-card-body .date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+
+        .issue-card-body .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: var(--gold);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .issue-card-body .btn-view:hover {
+            background: var(--primary-light);
+        }
+
+        /* ===== VIDEO CARDS ===== */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .video-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+
+        .video-thumb {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-thumb::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center, rgba(200,164,92,0.1) 0%, transparent 60%);
+        }
+
+        .video-thumb .play-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(200,164,92,0.4);
+        }
+
+        .video-card:hover .play-btn {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(200,164,92,0.6);
+        }
+
+        .play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary);
+            margin-right: -2px;
+        }
+
+        .video-thumb .episode-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .video-body {
+            padding: 20px;
+        }
+
+        .video-body h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .video-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ===== MAGAZINE CARDS ===== */
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .magazine-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .magazine-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+
+        .magazine-cover {
+            height: 320px;
+            background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .magazine-cover::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border: 1px solid rgba(200,164,92,0.2);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .magazine-cover .mag-title {
+            color: var(--gold);
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .magazine-cover .mag-num {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(200,164,92,0.3);
+            font-size: 3rem;
+            font-weight: 900;
+        }
+
+        .magazine-body {
+            padding: 20px;
+        }
+
+        .magazine-body h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .magazine-body .mag-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .magazine-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .magazine-body .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: var(--gold);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .magazine-body .btn-view:hover {
+            background: var(--primary-light);
+        }
+
+        /* ===== PDF MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 900px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .modal-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .modal-body iframe,
+        .modal-body object {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-body .pdf-fallback {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .modal-body .pdf-fallback p {
+            color: var(--text-muted);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--primary-dark);
+            border-top: 3px solid var(--gold);
+            padding: 48px 2rem 24px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-brand img {
+            height: 44px;
+            width: 44px;
+            object-fit: contain;
+        }
+
+        .footer-brand-text {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .footer-brand-text strong {
+            color: var(--gold);
+            display: block;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 500;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .featured-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+            }
+
+            .featured-preview {
+                width: 160px;
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                right: 0;
+                left: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 16px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            }
+
+            .navbar-links.open {
+                display: flex;
+            }
+
+            .navbar-links a {
+                padding: 12px 16px;
+                text-align: center;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 60px 1.5rem 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tabs-section {
+                margin-top: -28px;
+                padding: 0 1rem;
+            }
+
+            .tabs-wrapper {
+                padding: 4px;
+            }
+
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .content-area {
+                padding: 24px 1rem 60px;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .featured-card {
+                padding: 24px 16px;
+                gap: 24px;
+            }
+
+            .featured-badge {
+                top: 12px;
+                left: 12px;
+            }
+
+            .featured-info h3 {
+                font-size: 1.4rem;
+            }
+
+            .issues-grid,
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+
+            .magazine-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .modal-container {
+                height: 90vh;
+            }
+
+            .modal-header {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .tabs-wrapper {
+                flex-wrap: nowrap;
+            }
+
+            .tab-btn {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+
+            .tab-icon {
+                display: none;
+            }
+
+            .issues-grid,
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-preview {
+                width: 130px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="https://chashmonayim.org" class="navbar-brand">
+                <img src="https://chashmonayim.org/images/logo.png" alt="לוגו עמותת החשמונאים">
+                <div class="navbar-brand-text">
+                    <span class="navbar-brand-title">עמותת החשמונאים</span>
+                    <span class="navbar-brand-sub">בטאון החטיבה</span>
+                </div>
+            </a>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="תפריט">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#newsletter" data-tab="newsletter">עלון בחטיבה</a></li>
+                <li><a href="#warriors" data-tab="warriors">שיח לוחמים</a></li>
+                <li><a href="#kiddush" data-tab="kiddush">על קידוש השם</a></li>
+                <li><a href="#magazine" data-tab="magazine">מגזין</a></li>
+                <li><a href="https://chashmonayim.org" class="btn-home">לאתר העמותה</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">פרסומי חטיבת החשמונאים</div>
+            <h1>בטאון <span>החטיבה</span></h1>
+            <p>עמותת החשמונאים | הפרסומים השבועיים של חטיבת החשמונאים</p>
+            <div class="hero-divider"></div>
+        </div>
+    </section>
+
+    <!-- ===== TAB NAVIGATION ===== -->
+    <div class="tabs-section">
+        <div class="tabs-wrapper">
+            <button class="tab-btn active" data-tab="newsletter">
+                <span class="tab-icon">&#128240;</span>
+                עלון ״בחטיבה״
+            </button>
+            <button class="tab-btn" data-tab="warriors">
+                <span class="tab-icon">&#127909;</span>
+                שיח לוחמים
+            </button>
+            <button class="tab-btn" data-tab="kiddush">
+                <span class="tab-icon">&#127909;</span>
+                על קידוש השם
+            </button>
+            <button class="tab-btn" data-tab="magazine">
+                <span class="tab-icon">&#128214;</span>
+                מגזין
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== CONTENT ===== -->
+    <main class="content-area">
+
+        <!-- TAB 1: Newsletter -->
+        <div class="tab-content active" id="tab-newsletter">
+            <div class="section-header">
+                <h2>עלון ״בחטיבה״</h2>
+                <p>העלון השבועי של חטיבת החשמונאים - תוכן תורני, ערכי ומבצעי לכל שבת</p>
+            </div>
+
+            <!-- Featured Latest Issue -->
+            <div class="featured-card">
+                <div class="featured-badge">הגיליון האחרון</div>
+                <div class="featured-preview">
+                    <svg class="pdf-icon" viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="rgba(200,164,92,0.5)" stroke-width="1.5">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="9" y1="15" x2="15" y2="15"/>
+                        <line x1="9" y1="11" x2="15" y2="11"/>
+                    </svg>
+                    <div class="issue-num">36</div>
+                </div>
+                <div class="featured-info">
+                    <h3>עלון בחטיבה - גיליון 36</h3>
+                    <div class="parsha">פרשת במדבר</div>
+                    <div class="meta">כ״ח אייר תשפ״ו | 16 במאי 2026</div>
+                    <div class="desc">הגיליון האחרון של העלון השבועי ״בחטיבה״ - דברי תורה, עדכוני החטיבה, ומסרים ערכיים ללוחמים ולמפקדים לקראת שבת קודש.</div>
+                    <button class="btn-primary" onclick="openPDF('newsletter-36-bamidbar.pdf', 'עלון בחטיבה - גיליון 36 | פרשת במדבר')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        צפה בעלון
+                    </button>
+                    <a href="newsletter-36-bamidbar.pdf" download class="btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        הורדה
+                    </a>
+                </div>
+            </div>
+
+            <!-- Issues Grid -->
+            <div class="issues-grid">
+                <div class="issue-card" onclick="openPDF('newsletter-35-bechukotai.pdf', 'עלון בחטיבה - גיליון 35 | פרשת בחוקותי')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">35</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 35</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת בחוקותי</div>
+                        <div class="date">כ״א אייר תשפ״ו | 9 במאי 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+
+                <div class="issue-card" onclick="openPDF('newsletter-34-behar.pdf', 'עלון בחטיבה - גיליון 34 | פרשת בהר')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">34</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 34</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת בהר</div>
+                        <div class="date">י״ד אייר תשפ״ו | 2 במאי 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+
+                <div class="issue-card" onclick="openPDF('newsletter-33-emor.pdf', 'עלון בחטיבה - גיליון 33 | פרשת אמור')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">33</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 33</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת אמור</div>
+                        <div class="date">ז׳ אייר תשפ״ו | 25 באפריל 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+
+                <div class="issue-card" onclick="openPDF('newsletter-32-kedoshim.pdf', 'עלון בחטיבה - גיליון 32 | פרשת קדושים')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">32</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 32</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת קדושים</div>
+                        <div class="date">ל׳ ניסן תשפ״ו | 18 באפריל 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+
+                <div class="issue-card" onclick="openPDF('newsletters/newsletter-31-mishpatim.pdf', 'עלון בחטיבה - גיליון 31 | פרשת משפטים')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">31</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 31</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת משפטים</div>
+                        <div class="date">כ״ד שבט תשפ״ו | 13 בפברואר 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+
+                <div class="issue-card" onclick="openPDF('newsletters/newsletter-30-yitro.pdf', 'עלון בחטיבה - גיליון 30 | פרשת יתרו')">
+                    <div class="issue-card-top">
+                        <div class="issue-number">30</div>
+                        <div class="pdf-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                    </div>
+                    <div class="issue-card-body">
+                        <span class="issue-label">גיליון 30</span>
+                        <h4>עלון בחטיבה</h4>
+                        <div class="parsha-name">פרשת יתרו</div>
+                        <div class="date">י״ז שבט תשפ״ו | 6 בפברואר 2026</div>
+                        <button class="btn-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            צפה בעלון
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Warriors Dialogue -->
+        <div class="tab-content" id="tab-warriors">
+            <div class="section-header">
+                <h2>סדרת סרטונים ״שיח לוחמים״</h2>
+                <p>שיחות אישיות עם לוחמי ומפקדי חטיבת החשמונאים - על השירות, הזהות והייעוד</p>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 1</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>המפקד והלוחם</h4>
+                        <p>שיחה אישית על מנהיגות בקרב, על האתגרים הייחודיים של מפקד חרדי ועל בניית אמון בצוות.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 2</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>שמירת הזהות בשדה הקרב</h4>
+                        <p>לוחמים מספרים על השמירה על אורח חיים חרדי בתנאי שטח מאתגרים ועל חיזוק האמונה.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 3</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>מהישיבה לקרבי</h4>
+                        <p>המעבר מספסל הלימודים לשדה הקרב - סיפורים אישיים על הגיוס, ההסתגלות והצמיחה.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 4</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>אחווה חשמונאית</h4>
+                        <p>על הקשר המיוחד בין לוחמי החטיבה, על ערבות הדדית ועל הרגעים שיוצרים חיבור אמיתי.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Al Kiddush Hashem -->
+        <div class="tab-content" id="tab-kiddush">
+            <div class="section-header">
+                <h2>סדרת סרטונים ״על קידוש השם״</h2>
+                <p>סדרה ייחודית העוסקת בערך המסירות, ההקרבה וקידוש השם בשירות הצבאי</p>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 1</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>מסירות נפש</h4>
+                        <p>על המשמעות העמוקה של מסירות נפש בהקשר הצבאי והתורני - שיח עם רבנים ולוחמים.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 2</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>קדושת המחנה</h4>
+                        <p>כיצד שומרים על קדושת המחנה במציאות צבאית - הלכה למעשה בשדה הקרב.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 3</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>לוחמים ומאמינים</h4>
+                        <p>עדויות אישיות של לוחמים על רגעי אמונה בזמן לחימה ועל הכוח הרוחני שמלווה אותם.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumb">
+                        <div class="episode-badge">פרק 4</div>
+                        <div class="play-btn">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <h4>השליחות שלנו</h4>
+                        <p>על הייעוד הכפול של הלוחם החרדי - שליחות ביטחונית ושליחות רוחנית בעולם המעשה.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Magazine -->
+        <div class="tab-content" id="tab-magazine">
+            <div class="section-header">
+                <h2>מגזין</h2>
+                <p>מגזין חטיבת החשמונאים - כתבות מעמיקות, ראיונות ותוכן מיוחד</p>
+            </div>
+
+            <div class="magazine-grid">
+                <div class="magazine-card">
+                    <div class="magazine-cover">
+                        <div class="mag-title">מגזין<br>חשמונאים</div>
+                        <div class="mag-num">01</div>
+                    </div>
+                    <div class="magazine-body">
+                        <h4>מגזין חשמונאים - גיליון ראשון</h4>
+                        <div class="mag-date">אדר תשפ״ו | מרץ 2026</div>
+                        <p>הגיליון הראשון של המגזין - סיפורם של לוחמי החטיבה, ראיונות עומק וכתבות מיוחדות.</p>
+                        <button class="btn-view" onclick="openPDF('magazine-01.pdf', 'מגזין חשמונאים - גיליון 1')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            קרא את המגזין
+                        </button>
+                    </div>
+                </div>
+
+                <div class="magazine-card">
+                    <div class="magazine-cover">
+                        <div class="mag-title">מגזין<br>חשמונאים</div>
+                        <div class="mag-num">02</div>
+                    </div>
+                    <div class="magazine-body">
+                        <h4>מגזין חשמונאים - גיליון שני</h4>
+                        <div class="mag-date">ניסן תשפ״ו | אפריל 2026</div>
+                        <p>גיליון מיוחד לחג הפסח - סיפורי חירות ומסירות, פרופילים של מפקדים ועדכוני החטיבה.</p>
+                        <button class="btn-view" onclick="openPDF('magazine-02.pdf', 'מגזין חשמונאים - גיליון 2')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            קרא את המגזין
+                        </button>
+                    </div>
+                </div>
+
+                <div class="magazine-card">
+                    <div class="magazine-cover">
+                        <div class="mag-title">מגזין<br>חשמונאים</div>
+                        <div class="mag-num">03</div>
+                    </div>
+                    <div class="magazine-body">
+                        <h4>מגזין חשמונאים - גיליון שלישי</h4>
+                        <div class="mag-date">אייר תשפ״ו | מאי 2026</div>
+                        <p>גיליון יום העצמאות - על הזכות לשרת, על גאוות הלוחם החרדי ועל חזון העתיד.</p>
+                        <button class="btn-view" onclick="openPDF('magazine-03.pdf', 'מגזין חשמונאים - גיליון 3')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            קרא את המגזין
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== PDF MODAL ===== -->
+    <div class="modal-overlay" id="pdfModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modalTitle">עלון בחטיבה</h3>
+                <button class="modal-close" id="modalClose" aria-label="סגור">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- PDF will be embedded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="https://chashmonayim.org/images/logo.png" alt="לוגו עמותת החשמונאים">
+                <div class="footer-brand-text">
+                    <strong>עמותת החשמונאים</strong>
+                    ידידי ובוגרי חטיבת החשמונאים
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="https://chashmonayim.org">דף הבית</a></li>
+                <li><a href="https://chashmonayim.org#programs">תוכניות</a></li>
+                <li><a href="https://chashmonayim.org#media">כתבות</a></li>
+                <li><a href="https://chashmonayim.org#donate">תרומה</a></li>
+                <li><a href="https://chashmonayim.org#contact">צור קשר</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 עמותת ״רוח חשמונאית״ (ע״ר 580814234) | כל הזכויות שמורות.
+            <br>
+            נבנה ע״י <a href="https://chashmonayim.org">IAB Smart AI Solutions</a>
+        </div>
+    </footer>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" aria-label="חזרה למעלה">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== Tab Navigation =====
+        (function() {
+            var tabBtns = document.querySelectorAll('.tab-btn');
+            var tabContents = document.querySelectorAll('.tab-content');
+            var navLinks = document.querySelectorAll('.navbar-links a[data-tab]');
+
+            function activateTab(tabId) {
+                tabBtns.forEach(function(btn) {
+                    btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+                });
+                tabContents.forEach(function(content) {
+                    content.classList.toggle('active', content.id === 'tab-' + tabId);
+                });
+                navLinks.forEach(function(link) {
+                    link.classList.toggle('active', link.getAttribute('data-tab') === tabId);
+                });
+            }
+
+            tabBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    activateTab(this.getAttribute('data-tab'));
+                });
+            });
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    var tab = this.getAttribute('data-tab');
+                    if (tab) {
+                        e.preventDefault();
+                        activateTab(tab);
+                        document.querySelector('.tabs-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Close mobile menu
+                        document.getElementById('navLinks').classList.remove('open');
+                        document.getElementById('mobileToggle').classList.remove('open');
+                    }
+                });
+            });
+        })();
+
+        // ===== Mobile Menu =====
+        (function() {
+            var toggle = document.getElementById('mobileToggle');
+            var navLinks = document.getElementById('navLinks');
+
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+        })();
+
+        // ===== Sticky Navbar Shadow =====
+        (function() {
+            var navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.scrollY > 20);
+            });
+        })();
+
+        // ===== Back to Top =====
+        (function() {
+            var btn = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                btn.classList.toggle('visible', window.scrollY > 400);
+            });
+            btn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // ===== PDF Modal =====
+        function openPDF(pdfUrl, title) {
+            var modal = document.getElementById('pdfModal');
+            var modalTitle = document.getElementById('modalTitle');
+            var modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = title || 'צפייה בעלון';
+
+            // Try to embed PDF, with fallback
+            modalBody.innerHTML =
+                '<object data="' + pdfUrl + '" type="application/pdf" width="100%" height="100%">' +
+                    '<iframe src="' + pdfUrl + '" width="100%" height="100%" style="border:none;">' +
+                        '<div class="pdf-fallback">' +
+                            '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c8a45c" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+                            '<p>הדפדפן שלך אינו תומך בהצגת PDF מוטמע.</p>' +
+                            '<a href="' + pdfUrl + '" target="_blank" class="btn-primary" download>הורד את הקובץ</a>' +
+                        '</div>' +
+                    '</iframe>' +
+                '</object>';
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        (function() {
+            var modal = document.getElementById('pdfModal');
+            var closeBtn = document.getElementById('modalClose');
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                document.getElementById('modalBody').innerHTML = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        })();
+
+        // ===== Smooth scroll for anchor links =====
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== Hash-based tab activation on load =====
+        (function() {
+            var hash = window.location.hash.replace('#', '');
+            var validTabs = ['newsletter', 'warriors', 'kiddush', 'magazine'];
+            if (validTabs.indexOf(hash) !== -1) {
+                var btn = document.querySelector('.tab-btn[data-tab="' + hash + '"]');
+                if (btn) btn.click();
+            }
+        })();
+    </script>
+
+</body>
+</html>
