@@ -1,2009 +1,297 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בטאון החטיבה | חטיבת החשמונאים</title>
-    <meta name="description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים של החטיבה החרדית בצה״ל.">
-    <meta name="keywords" content="בטאון החטיבה, חטיבת חשמונאים, עלון בחטיבה, שיח לוחמים, על קידוש השם, מגזין חשמונאים">
-    <meta property="og:title" content="בטאון החטיבה | חטיבת החשמונאים">
-    <meta property="og:description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים. הפרסומים השבועיים של החטיבה החרדית בצה״ל.">
-    <meta property="og:image" content="https://chashmonayim.org/images/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:alt" content="בטאון חטיבת החשמונאים">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chashmonayim.org/bitaon.html">
-    <meta property="og:locale" content="he_IL">
-    <meta property="og:site_name" content="חטיבת החשמונאים">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="בטאון החטיבה | חטיבת החשמונאים">
-    <meta name="twitter:description" content="בטאון חטיבת החשמונאים - עלוני בחטיבה, סדרות סרטונים ומגזינים.">
-    <link rel="icon" type="image/png" href="https://chashmonayim.org/images/logo.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cinzel:wght@400;600;900&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLNEH3K485"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DLNEH3K485');
-    </script>
-
-    <style>
-        :root {
-            --navy: #1a2a4a;
-            --navy-deep: #0f1d3b;
-            --gold: #a37416;
-            --gold-light: #c89b3c;
-            --gold-deep: #7a5610;
-            --cream: #fbf6ec;
-            --cream-warm: #fdfaf3;
-            --paper: #fdfcf7;
-            --ink: #1f1d18;
-            --rule: #c5b083;
-            --sand: #efe6d2;
-            --shadow: 0 4px 24px rgba(15, 29, 59, 0.12);
-            --shadow-hover: 0 8px 40px rgba(15, 29, 59, 0.20);
-            --radius: 4px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Heebo', 'EB Garamond', sans-serif;
-            background: var(--paper);
-            color: var(--ink);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--navy-deep);
-            border-bottom: 2px solid var(--gold);
-            padding: 0 2rem;
-            transition: var(--transition);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-        }
-
-        .navbar.scrolled {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-        }
-
-        .navbar-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .navbar-brand img {
-            height: 44px;
-            width: 44px;
-            object-fit: contain;
-        }
-
-        .navbar-brand-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .navbar-brand-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.15rem;
-            color: var(--gold-light);
-            letter-spacing: 0.5px;
-        }
-
-        .navbar-brand-sub {
-            font-family: 'Heebo', sans-serif;
-            font-size: 0.7rem;
-            color: var(--cream);
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
-        .navbar-links {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            list-style: none;
-        }
-
-        .navbar-links a {
-            color: var(--cream);
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 6px 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-bottom: 1px solid transparent;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        .navbar-links a:hover,
-        .navbar-links a.active {
-            color: var(--gold-light);
-            border-bottom-color: var(--gold-light);
-        }
-
-        .navbar-links .btn-home {
-            background: var(--gold);
-            color: var(--navy-deep);
-            padding: 6px 14px;
-            border-radius: 3px;
-            font-weight: 700;
-            border-bottom: none;
-        }
-
-        .navbar-links .btn-home:hover {
-            background: var(--gold-light);
-            color: var(--navy-deep);
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .mobile-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--gold-light);
-            margin: 6px 0;
-            transition: var(--transition);
-            border-radius: 2px;
-        }
-
-        .mobile-toggle.open span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-
-        .mobile-toggle.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-toggle.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
-
-        /* ===== HERO / MASTHEAD ===== */
-        .hero {
-            background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 100%);
-            position: relative;
-            padding: 48px 2rem 56px;
-            text-align: center;
-            overflow: hidden;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 30% 70%, rgba(163,116,22,0.06) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, rgba(163,116,22,0.04) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-bsd {
-            position: absolute;
-            top: 16px;
-            right: 24px;
-            font-family: 'Heebo', sans-serif;
-            font-size: 0.85rem;
-            color: var(--cream);
-            opacity: 0.6;
-            z-index: 3;
-        }
-
-        .hero-logo {
-            display: block;
-            margin: 0 auto 20px;
-            height: 72px;
-            width: 72px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-        }
-
-        .hero-eyebrow {
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold-light);
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 7vw, 4rem);
-            font-weight: 900;
-            color: var(--cream);
-            margin-bottom: 8px;
-            line-height: 1;
-            letter-spacing: -1px;
-        }
-
-        .hero h1 span {
-            color: var(--gold-light);
-        }
-
-        .hero-rule {
-            border: none;
-            border-top: 1px solid var(--gold);
-            border-bottom: 0.5px solid var(--gold);
-            height: 4px;
-            width: min(400px, 60%);
-            margin: 16px auto;
-        }
-
-        .hero p {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--cream);
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-            opacity: 0.85;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===== TAB NAVIGATION ===== */
-        .tabs-section {
-            background: var(--navy);
-            border-bottom: 1px solid var(--gold-deep);
-            position: sticky;
-            top: 64px;
-            z-index: 99;
-        }
-
-        .tabs-wrapper {
-            max-width: 1180px;
-            margin: 0 auto;
-            display: flex;
-            gap: 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 0 2rem;
-        }
-
-        .tabs-wrapper::-webkit-scrollbar {
-            display: none;
-        }
-
-        .tab-btn {
-            flex: 1;
-            min-width: max-content;
-            padding: 14px 28px;
-            border: none;
-            background: transparent;
-            color: var(--cream);
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            text-align: center;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border-bottom: 2px solid transparent;
-            opacity: 0.75;
-        }
-
-        .tab-btn:hover {
-            color: var(--gold-light);
-            opacity: 1;
-        }
-
-        .tab-btn.active {
-            color: var(--gold-light);
-            border-bottom-color: var(--gold-light);
-            opacity: 1;
-            background: rgba(163,116,22,0.08);
-        }
-
-        .tab-icon {
-            display: inline-block;
-            margin-left: 6px;
-            font-size: 1rem;
-        }
-
-        /* ===== CONTENT SECTIONS ===== */
-        .content-area {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 40px 2rem 80px;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
-            margin-bottom: 32px;
-            text-align: center;
-        }
-
-        .section-eyebrow {
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--navy-deep);
-            margin-bottom: 8px;
-        }
-
-        .section-header p {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: var(--gold-deep);
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
-        .section-ornament {
-            text-align: center;
-            color: var(--rule);
-            font-size: 1.2rem;
-            margin: 8px 0 24px;
-            letter-spacing: 8px;
-        }
-
-        /* ===== FEATURED / LATEST ISSUE ===== */
-        .featured-card {
-            background: var(--cream);
-            border: 2px solid var(--gold);
-            border-radius: var(--radius);
-            padding: 0;
-            display: flex;
-            align-items: stretch;
-            margin-bottom: 48px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 24px rgba(15,29,59,0.08);
-        }
-
-        .featured-badge {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: var(--gold);
-            color: var(--navy-deep);
-            padding: 6px 20px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            z-index: 2;
-        }
-
-        .featured-preview {
-            flex-shrink: 0;
-            width: 240px;
-            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 40px 20px;
-        }
-
-        .featured-preview::before {
-            content: '';
-            position: absolute;
-            inset: 16px;
-            border: 1px solid rgba(200,155,60,0.25);
-            pointer-events: none;
-        }
-
-        .featured-preview .masthead-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.55rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold-light);
-            margin-bottom: 8px;
-        }
-
-        .featured-preview .masthead-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.3rem;
-            color: var(--cream);
-            text-align: center;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-
-        .featured-preview .issue-num {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 3.5rem;
-            color: rgba(200,155,60,0.25);
-            line-height: 1;
-        }
-
-        .featured-preview .issue-num-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.55rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold-light);
-            opacity: 0.7;
-        }
-
-        .featured-info {
-            flex: 1;
-            padding: 48px 40px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .featured-info h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--navy-deep);
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-bottom: 6px;
-        }
-
-        .featured-info .parsha {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: var(--gold);
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .featured-info .meta {
-            font-family: 'EB Garamond', serif;
-            color: var(--gold-deep);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            opacity: 0.8;
-        }
-
-        .featured-info .desc {
-            font-family: 'Heebo', sans-serif;
-            color: var(--ink);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 24px;
-            opacity: 0.8;
-        }
-
-        .featured-buttons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 28px;
-            background: var(--gold);
-            color: var(--navy-deep);
-            border: none;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .btn-primary:hover {
-            background: var(--gold-light);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(163,116,22,0.3);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 22px;
-            background: transparent;
-            color: var(--navy-deep);
-            border: 1.5px solid var(--gold);
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--gold-light);
-            background: rgba(163,116,22,0.06);
-        }
-
-        .btn-small-link {
-            font-family: 'EB Garamond', serif;
-            color: var(--gold-deep);
-            font-size: 0.85rem;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            transition: var(--transition);
-        }
-
-        .btn-small-link:hover {
-            color: var(--gold);
-        }
-
-        /* ===== ISSUE CARDS GRID ===== */
-        .issues-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .issue-card {
-            background: var(--cream);
-            border: 1px solid var(--rule);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(15,29,59,0.06);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .issue-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--gold);
-        }
-
-        .issue-card-top {
-            height: 160px;
-            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .issue-card-top::before {
-            content: '';
-            position: absolute;
-            inset: 12px;
-            border: 1px solid rgba(200,155,60,0.15);
-            pointer-events: none;
-        }
-
-        .issue-card-top .issue-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 900;
-            color: rgba(200,155,60,0.18);
-            position: absolute;
-        }
-
-        .issue-card-top .pdf-symbol {
-            width: 56px;
-            height: 72px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 3px;
-            border: 1.5px solid rgba(200,155,60,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .issue-card-top .pdf-symbol svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--gold-light);
-            opacity: 0.6;
-        }
-
-        .issue-card-body {
-            padding: 20px;
-        }
-
-        .issue-card-body .issue-label {
-            display: inline-block;
-            font-family: 'Cinzel', serif;
-            font-size: 0.55rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gold);
-            border: 1px solid var(--rule);
-            padding: 3px 12px;
-            border-radius: 2px;
-            margin-bottom: 10px;
-        }
-
-        .issue-card-body h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--navy-deep);
-            margin-bottom: 4px;
-        }
-
-        .issue-card-body .parsha-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-        }
-
-        .issue-card-body .date {
-            font-family: 'EB Garamond', serif;
-            color: var(--gold-deep);
-            font-size: 0.82rem;
-            margin-bottom: 16px;
-            opacity: 0.7;
-        }
-
-        .issue-card-body .btn-view {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 20px;
-            background: var(--gold);
-            color: var(--navy-deep);
-            border: none;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.6rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            justify-content: center;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .issue-card-body .btn-view:hover {
-            background: var(--gold-light);
-        }
-
-        /* ===== VIDEO CARDS ===== */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .video-card {
-            background: var(--cream);
-            border: 1px solid var(--rule);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(15,29,59,0.06);
-            transition: var(--transition);
-        }
-
-        .video-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--gold);
-        }
-
-        .video-thumb {
-            position: relative;
-            height: 200px;
-            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .video-thumb::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at center, rgba(163,116,22,0.08) 0%, transparent 60%);
-        }
-
-        .video-thumb .play-btn {
-            width: 56px;
-            height: 56px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(163,116,22,0.4);
-        }
-
-        .video-card:hover .play-btn {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(163,116,22,0.5);
-        }
-
-        .play-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: var(--navy-deep);
-            margin-right: -2px;
-        }
-
-        .video-thumb .episode-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--gold);
-            color: var(--navy-deep);
-            padding: 4px 12px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            z-index: 2;
-        }
-
-        .video-body {
-            padding: 20px;
-        }
-
-        .video-body h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--navy-deep);
-            margin-bottom: 8px;
-        }
-
-        .video-body p {
-            font-family: 'Heebo', sans-serif;
-            color: var(--ink);
-            font-size: 0.88rem;
-            line-height: 1.7;
-            opacity: 0.75;
-        }
-
-        /* ===== MAGAZINE CARDS ===== */
-        .magazine-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 28px;
-        }
-
-        .magazine-card {
-            background: var(--cream);
-            border: 1px solid var(--rule);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(15,29,59,0.06);
-            transition: var(--transition);
-        }
-
-        .magazine-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--gold);
-        }
-
-        .magazine-cover {
-            height: 300px;
-            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .magazine-cover::before {
-            content: '';
-            position: absolute;
-            inset: 16px;
-            border: 1px solid rgba(200,155,60,0.2);
-            pointer-events: none;
-        }
-
-        .magazine-cover .mag-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold-light);
-            font-size: 1.3rem;
-            font-weight: 900;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .magazine-cover .mag-num {
-            position: absolute;
-            bottom: 24px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            color: rgba(200,155,60,0.2);
-            font-size: 3rem;
-            font-weight: 900;
-        }
-
-        .magazine-body {
-            padding: 20px;
-        }
-
-        .magazine-body h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--navy-deep);
-            margin-bottom: 6px;
-        }
-
-        .magazine-body .mag-date {
-            font-family: 'EB Garamond', serif;
-            color: var(--gold-deep);
-            font-size: 0.82rem;
-            margin-bottom: 6px;
-            opacity: 0.7;
-        }
-
-        .magazine-body p {
-            font-family: 'Heebo', sans-serif;
-            color: var(--ink);
-            font-size: 0.88rem;
-            line-height: 1.7;
-            margin-bottom: 16px;
-            opacity: 0.75;
-        }
-
-        .magazine-body .btn-view {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 20px;
-            background: var(--gold);
-            color: var(--navy-deep);
-            border: none;
-            border-radius: 3px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.6rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .magazine-body .btn-view:hover {
-            background: var(--gold-light);
-        }
-
-        /* ===== PDF MODAL ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15,29,59,0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-container {
-            background: var(--paper);
-            border-radius: var(--radius);
-            width: 100%;
-            max-width: 900px;
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            border: 1px solid var(--gold);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            background: var(--navy-deep);
-            color: #fff;
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .modal-header h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--gold-light);
-        }
-
-        .modal-close {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(200,155,60,0.3);
-            color: var(--cream);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .modal-close:hover {
-            background: rgba(200,155,60,0.15);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .modal-body iframe,
-        .modal-body object {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .modal-body .pdf-fallback {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            gap: 16px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .modal-body .pdf-fallback p {
-            font-family: 'Heebo', sans-serif;
-            color: var(--ink);
-            opacity: 0.7;
-        }
-
-        /* ===== WHATSAPP/EMAIL INFO BAR ===== */
-        .info-bar {
-            background: var(--navy-deep);
-            border-top: 1px solid rgba(200,155,60,0.2);
-            border-bottom: 1px solid rgba(200,155,60,0.2);
-            padding: 12px 2rem;
-        }
-
-        .info-bar-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .info-bar-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            font-family: 'Heebo', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 6px 16px;
-            border-radius: 3px;
-            transition: var(--transition);
-        }
-
-        .info-bar-item.whatsapp {
-            color: #25D366;
-        }
-
-        .info-bar-item.whatsapp:hover {
-            background: rgba(37, 211, 102, 0.1);
-        }
-
-        .info-bar-item.email {
-            color: var(--gold-light);
-        }
-
-        .info-bar-item.email:hover {
-            background: rgba(200,155,60,0.08);
-        }
-
-        .info-bar-item svg {
-            flex-shrink: 0;
-        }
-
-        /* ===== ISSUE CARD DISABLED ===== */
-        .issue-card.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-            cursor: default;
-        }
-
-        .issue-card.disabled .btn-view {
-            background: var(--rule);
-            cursor: default;
-            opacity: 0.6;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--navy-deep);
-            border-top: 2px solid var(--gold);
-            padding: 48px 2rem 24px;
-        }
-
-        .footer-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .footer-brand img {
-            height: 40px;
-            width: 40px;
-            object-fit: contain;
-        }
-
-        .footer-brand-text {
-            font-family: 'Heebo', sans-serif;
-            color: var(--cream);
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
-        .footer-brand-text strong {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold-light);
-            display: block;
-            font-size: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-        }
-
-        .footer-links a {
-            font-family: 'Cinzel', serif;
-            color: var(--cream);
-            text-decoration: none;
-            font-size: 0.6rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.6;
-            transition: var(--transition);
-            border-bottom: 1px solid transparent;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold-light);
-            opacity: 1;
-            border-bottom-color: var(--gold-light);
-        }
-
-        .footer-bottom {
-            max-width: 1180px;
-            margin: 24px auto 0;
-            padding-top: 24px;
-            border-top: 1px solid rgba(200,155,60,0.15);
-            text-align: center;
-            font-family: 'Heebo', sans-serif;
-            color: var(--cream);
-            font-size: 0.78rem;
-            opacity: 0.5;
-        }
-
-        .footer-bottom a {
-            color: var(--gold-light);
-            text-decoration: none;
-        }
-
-        /* ===== BACK TO TOP ===== */
-        .back-to-top {
-            position: fixed;
-            bottom: 32px;
-            left: 32px;
-            width: 44px;
-            height: 44px;
-            background: var(--navy-deep);
-            color: var(--gold-light);
-            border: 1.5px solid var(--gold);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 500;
-            font-size: 1.2rem;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--gold);
-            color: var(--navy-deep);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .featured-card {
-                flex-direction: column;
-            }
-
-            .featured-preview {
-                width: 100%;
-                height: 200px;
-                padding: 32px 20px;
-            }
-
-            .featured-info {
-                padding: 32px 24px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar-links {
-                display: none;
-                position: absolute;
-                top: 64px;
-                right: 0;
-                left: 0;
-                background: var(--navy-deep);
-                flex-direction: column;
-                padding: 16px;
-                border-top: 1px solid rgba(200,155,60,0.15);
-                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            }
-
-            .navbar-links.open {
-                display: flex;
-            }
-
-            .navbar-links a {
-                padding: 12px 16px;
-                text-align: center;
-                font-size: 0.7rem;
-            }
-
-            .mobile-toggle {
-                display: block;
-            }
-
-            .hero {
-                padding: 40px 1.5rem 48px;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-logo {
-                height: 56px;
-                width: 56px;
-            }
-
-            .tabs-section {
-                top: 64px;
-            }
-
-            .tabs-wrapper {
-                padding: 0 1rem;
-            }
-
-            .tab-btn {
-                padding: 12px 16px;
-                font-size: 0.6rem;
-                letter-spacing: 1px;
-            }
-
-            .content-area {
-                padding: 24px 1rem 60px;
-            }
-
-            .section-header h2 {
-                font-size: 1.4rem;
-            }
-
-            .featured-card {
-                flex-direction: column;
-            }
-
-            .featured-preview {
-                width: 100%;
-                height: 180px;
-            }
-
-            .featured-info {
-                padding: 24px 20px;
-            }
-
-            .featured-info h3 {
-                font-size: 1.3rem;
-            }
-
-            .issues-grid,
-            .video-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 16px;
-            }
-
-            .magazine-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 16px;
-            }
-
-            .modal-container {
-                height: 90vh;
-            }
-
-            .modal-header {
-                padding: 12px 16px;
-            }
-
-            .info-bar-inner {
-                gap: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero-bsd {
-                right: 12px;
-                top: 12px;
-                font-size: 0.75rem;
-            }
-
-            .tabs-wrapper {
-                flex-wrap: nowrap;
-            }
-
-            .tab-btn {
-                font-size: 0.55rem;
-                padding: 10px 12px;
-                letter-spacing: 0.5px;
-            }
-
-            .tab-icon {
-                display: none;
-            }
-
-            .issues-grid,
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .featured-preview {
-                height: 160px;
-            }
-
-            .info-bar-inner {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .featured-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .featured-buttons .btn-primary,
-            .featured-buttons .btn-secondary {
-                justify-content: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בטאון החטיבה | חטיבת החשמונאים</title>
+<link rel="icon" href="images/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DLNEH3K485"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DLNEH3K485');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy-deep:#0f1d3b;--navy:#1a2a4a;--gold:#c89b3c;--gold-dark:#a37416;
+  --cream:#faf8f3;--paper:#fdfcf7;--white:#ffffff;--ink:#1f1d18;--muted:#6b7280;
+  --shadow:0 2px 20px rgba(15,29,59,.08);--shadow-lg:0 8px 40px rgba(15,29,59,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Heebo',sans-serif;font-weight:400;font-size:19px;line-height:1.7;
+  color:var(--ink);background:var(--paper);direction:rtl;-webkit-font-smoothing:antialiased;
+}
+.navbar{
+  position:sticky;top:0;z-index:1000;background:var(--navy-deep);
+  border-bottom:2px solid var(--gold);padding:0 clamp(16px,4vw,48px);
+  display:flex;align-items:center;justify-content:space-between;height:60px;transition:box-shadow .3s;
+}
+.navbar.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.navbar-brand{display:flex;align-items:center;gap:12px}
+.navbar-brand img{height:36px;width:36px;object-fit:contain;border-radius:50%;border:1.5px solid rgba(200,155,60,.4)}
+.navbar-brand-text{display:flex;flex-direction:column;line-height:1.2}
+.navbar-brand-title{color:var(--white);font-weight:700;font-size:17px;letter-spacing:.3px}
+.navbar-brand-sub{color:rgba(255,255,255,.55);font-size:12px;font-weight:300}
+.navbar-link{
+  color:var(--white);text-decoration:none;font-size:14px;font-weight:500;
+  padding:7px 18px;border:1px solid rgba(200,155,60,.5);border-radius:4px;transition:all .25s;
+}
+.navbar-link:hover{background:var(--gold);color:var(--navy-deep);border-color:var(--gold)}
+.hero{position:relative;height:clamp(340px,50vh,520px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('images/group-flags.jpg') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,29,59,.82) 0%,rgba(15,29,59,.88) 60%,rgba(15,29,59,.95) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:32px 24px}
+.hero-bsd{position:absolute;top:24px;right:clamp(20px,5vw,60px);color:rgba(255,255,255,.5);font-size:15px;font-family:'Frank Ruhl Libre',serif;z-index:3}
+.hero-logo{width:80px;height:80px;object-fit:contain;margin-bottom:18px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4));border-radius:50%;border:2px solid rgba(200,155,60,.35)}
+.hero-title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(38px,7vw,64px);color:var(--white);letter-spacing:1px;margin-bottom:8px;line-height:1.15}
+.hero-subtitle{color:rgba(255,255,255,.7);font-size:clamp(16px,2.5vw,21px);font-weight:300;margin-bottom:20px}
+.hero-divider{width:60px;height:3px;background:var(--gold);margin:0 auto;border-radius:2px}
+.info-bar{background:var(--navy-deep);padding:14px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,60px);flex-wrap:wrap}
+.info-bar a,.info-bar span{color:rgba(255,255,255,.85);text-decoration:none;font-size:15px;display:flex;align-items:center;gap:8px;font-weight:400;transition:color .2s}
+.info-bar a:hover{color:var(--white)}
+.latest-section{padding:clamp(36px,6vw,72px) clamp(16px,4vw,48px);background:var(--cream)}
+.latest-card{
+  max-width:1100px;margin:0 auto;background:var(--white);border-radius:10px;
+  box-shadow:var(--shadow-lg);border:1px solid rgba(200,155,60,.15);overflow:hidden;
+  display:grid;grid-template-columns:1fr 380px;min-height:400px;
+}
+.latest-info{padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+.latest-eyebrow{font-size:13px;font-weight:700;color:var(--gold-dark);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.latest-title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(32px,4vw,46px);color:var(--navy-deep);line-height:1.15;margin-bottom:4px}
+.latest-issue-num{font-family:'Heebo',sans-serif;font-weight:600;font-size:clamp(20px,2.5vw,26px);color:var(--navy);margin-bottom:8px}
+.latest-parasha{font-family:'Frank Ruhl Libre',serif;font-weight:500;font-style:italic;color:var(--gold-dark);font-size:20px;margin-bottom:6px}
+.latest-date{font-size:15px;color:var(--muted);font-weight:400;margin-bottom:16px}
+.latest-desc{font-size:17px;color:#4a4a4a;line-height:1.65;margin-bottom:24px}
+.latest-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:6px;font-size:16px;font-weight:600;text-decoration:none;transition:all .25s;cursor:pointer;border:none;letter-spacing:.2px}
+.btn-gold{background:var(--gold);color:var(--navy-deep)}
+.btn-gold:hover{background:var(--gold-dark);color:var(--white)}
+.btn-navy{background:var(--navy);color:var(--white)}
+.btn-navy:hover{background:var(--navy-deep)}
+.latest-pdf-link{font-size:14px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;transition:color .2s}
+.latest-pdf-link:hover{color:var(--gold-dark)}
+.latest-cover{position:relative;overflow:hidden;background:url('images/learning.jpg') center/cover no-repeat}
+.latest-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,29,59,.55),rgba(26,42,74,.7))}
+.latest-cover-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px}
+.latest-cover-frame{border:2px solid var(--gold);border-radius:8px;padding:28px 36px;text-align:center}
+.latest-cover-num{font-family:'Playfair Display',serif;font-weight:700;font-size:72px;color:var(--gold);line-height:1;margin-bottom:4px}
+.latest-cover-label{font-size:16px;color:rgba(255,255,255,.8);font-weight:500;letter-spacing:1px}
+.tabs-section{max-width:1100px;margin:0 auto;padding:clamp(28px,4vw,52px) clamp(16px,4vw,48px) 0}
+.tab-bar{display:flex;gap:0;border-bottom:2px solid #e5e7eb;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-btn{
+  background:none;border:none;cursor:pointer;padding:12px 24px;font-family:'Heebo',sans-serif;
+  font-size:17px;font-weight:500;color:var(--muted);white-space:nowrap;position:relative;
+  transition:color .2s;border-bottom:3px solid transparent;margin-bottom:-2px;
+}
+.tab-btn.active{color:var(--navy-deep);border-bottom-color:var(--gold);font-weight:700}
+.tab-btn:hover:not(.active){color:var(--ink)}
+.tab-panel{display:none;padding:clamp(28px,4vw,48px) 0 clamp(48px,6vw,72px)}
+.tab-panel.active{display:block}
+.archive-card{display:grid;grid-template-columns:220px 1fr;border-radius:8px;overflow:hidden;background:var(--white);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.archive-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.archive-card-img{background:url('images/study.jpg') center/cover no-repeat;min-height:200px;position:relative}
+.archive-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,29,59,.4),rgba(26,42,74,.6))}
+.archive-card-body{padding:24px 28px;display:flex;flex-direction:column;justify-content:center}
+.archive-card-body .latest-eyebrow{margin-bottom:6px}
+.archive-card-body h3{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:24px;color:var(--navy-deep);margin-bottom:4px}
+.archive-card-body .meta{font-size:14px;color:var(--muted);margin-bottom:12px}
+.archive-card-body .btn{padding:10px 20px;font-size:14px}
+.archive-more{text-align:center;margin-top:36px;font-family:'Frank Ruhl Libre',serif;font-style:italic;font-size:19px;color:var(--muted)}
+.banner-section{position:relative;border-radius:10px;overflow:hidden;min-height:320px;display:flex;align-items:center;justify-content:center}
+.banner-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.banner-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,29,59,.65),rgba(15,29,59,.85))}
+.banner-content{position:relative;z-index:2;text-align:center;padding:48px 32px}
+.banner-content h2{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:clamp(28px,4vw,38px);color:var(--white);margin-bottom:10px}
+.banner-content p{font-size:18px;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto 18px;line-height:1.6}
+.banner-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,155,60,.2);border:1px solid rgba(200,155,60,.4);padding:10px 24px;border-radius:50px;color:var(--gold);font-size:16px;font-weight:500}
+.footer{background:var(--navy-deep);padding:clamp(36px,5vw,56px) clamp(16px,4vw,48px) 24px;text-align:center;margin-top:40px}
+.footer-brand{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:24px;color:var(--white);margin-bottom:4px}
+.footer-sub{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:24px}
+.footer-links{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-bottom:28px}
+.footer-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:15px;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{color:rgba(255,255,255,.35);font-size:13px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px}
+.back-top{
+  position:fixed;bottom:28px;left:28px;z-index:999;width:46px;height:46px;border-radius:50%;border:none;
+  background:var(--navy);color:var(--white);font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.2);
+  opacity:0;visibility:hidden;transition:all .3s;display:flex;align-items:center;justify-content:center;
+}
+.back-top.visible{opacity:1;visibility:visible}
+.back-top:hover{background:var(--gold);color:var(--navy-deep)}
+@media(max-width:860px){
+  .latest-card{grid-template-columns:1fr}.latest-cover{min-height:220px}
+  .archive-card{grid-template-columns:1fr}.archive-card-img{min-height:180px}
+}
+@media(max-width:600px){
+  .navbar{height:54px}.navbar-brand img{height:30px;width:30px}
+  .navbar-brand-title{font-size:15px}.navbar-brand-sub{font-size:11px}
+  .navbar-link{font-size:13px;padding:6px 14px}
+  .hero{height:clamp(280px,45vh,380px)}.hero-logo{width:60px;height:60px}
+  .hero-bsd{top:16px;right:16px;font-size:13px}
+  .latest-info{padding:24px 20px}.latest-buttons{flex-direction:column}
+  .btn{justify-content:center;width:100%}
+  .tab-btn{padding:10px 16px;font-size:15px}
+  .info-bar{flex-direction:column;gap:10px;padding:12px 16px}
+  .banner-section{min-height:260px}
+}
+</style>
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar" id="navbar">
-        <div class="navbar-inner">
-            <a href="https://chashmonayim.org" class="navbar-brand">
-                <img src="images/logo.png" alt="לוגו חטיבת החשמונאים">
-                <div class="navbar-brand-text">
-                    <span class="navbar-brand-title">בטאון החטיבה</span>
-                    <span class="navbar-brand-sub">העלון השבועי של חטיבת החשמונאים</span>
-                </div>
-            </a>
-
-            <button class="mobile-toggle" id="mobileToggle" aria-label="תפריט">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <ul class="navbar-links" id="navLinks">
-                <li><a href="#newsletter" data-tab="newsletter">עלון בחטיבה</a></li>
-                <li><a href="#warriors" data-tab="warriors">שיח לוחמים</a></li>
-                <li><a href="#kiddush" data-tab="kiddush">על קידוש השם</a></li>
-                <li><a href="#magazine" data-tab="magazine">מגזין</a></li>
-                <li><a href="https://chashmonayim.org" class="btn-home">לאתר הראשי</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- ===== HERO / MASTHEAD ===== -->
-    <section class="hero">
-        <div class="hero-bsd">בס״ד</div>
-        <div class="hero-content">
-            <img src="images/logo.png" alt="סמל חטיבת החשמונאים" class="hero-logo">
-            <div class="hero-eyebrow">&#9670; חטיבת החשמונאים &#9670;</div>
-            <h1>בטאון <span>החטיבה</span></h1>
-            <hr class="hero-rule">
-            <p>הפרסומים השבועיים של חטיבת החשמונאים</p>
-        </div>
-    </section>
-
-    <!-- ===== TAB NAVIGATION ===== -->
-    <div class="tabs-section">
-        <div class="tabs-wrapper">
-            <button class="tab-btn active" data-tab="newsletter">
-                <span class="tab-icon">&#128240;</span>
-                עלון ״בחטיבה״
-            </button>
-            <button class="tab-btn" data-tab="warriors">
-                <span class="tab-icon">&#127909;</span>
-                שיח לוחמים
-            </button>
-            <button class="tab-btn" data-tab="kiddush">
-                <span class="tab-icon">&#127909;</span>
-                על קידוש השם
-            </button>
-            <button class="tab-btn" data-tab="magazine">
-                <span class="tab-icon">&#128214;</span>
-                מגזין
-            </button>
-        </div>
+<nav class="navbar" id="navbar">
+  <div class="navbar-brand">
+    <img src="images/logo.png" alt="סמל חטיבת החשמונאים">
+    <div class="navbar-brand-text">
+      <span class="navbar-brand-title">בטאון החטיבה</span>
+      <span class="navbar-brand-sub">העלון השבועי של חטיבת החשמונאים</span>
     </div>
+  </div>
+  <a href="https://chashmonayim.org" class="navbar-link">לאתר הראשי ←</a>
+</nav>
 
-    <!-- ===== WHATSAPP / EMAIL INFO BAR ===== -->
-    <div class="info-bar">
-        <div class="info-bar-inner">
-            <a href="https://chat.whatsapp.com/GtnA5TVKyn1GpxQwiiSIdb" target="_blank" class="info-bar-item whatsapp">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                הצטרפו לקבוצת הווצאפ
-            </a>
-            <a href="mailto:bachativa@gmail.com" class="info-bar-item email">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
-                להערות והארות: bachativa@gmail.com
-            </a>
-        </div>
+<header class="hero">
+  <span class="hero-bsd">בס״ד</span>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="images/logo.png" alt="סמל החטיבה" class="hero-logo">
+    <h1 class="hero-title">בטאון החטיבה</h1>
+    <p class="hero-subtitle">הפרסומים השבועיים של חטיבת החשמונאים</p>
+    <div class="hero-divider"></div>
+  </div>
+</header>
+
+<div class="info-bar">
+  <a href="https://chat.whatsapp.com/GtnA5TVKyn1GpxQwiiSIdb" target="_blank" rel="noopener">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    הצטרפו לקבוצת הווצאפ של בחטיבה
+  </a>
+  <span style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:15px">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#c89b3c"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    להערות והארות: <a href="mailto:bachativa@gmail.com" style="color:#c89b3c;text-decoration:underline;text-underline-offset:3px">bachativa@gmail.com</a>
+  </span>
+</div>
+
+<section class="latest-section">
+  <div class="latest-card">
+    <div class="latest-info">
+      <div class="latest-eyebrow">הגיליון האחרון</div>
+      <h2 class="latest-title">בחטיבה</h2>
+      <div class="latest-issue-num">גיליון 36</div>
+      <div class="latest-parasha">פרשת במדבר</div>
+      <div class="latest-date">כ״ח אייר תשפ״ו &nbsp;|&nbsp; 16 במאי 2026</div>
+      <p class="latest-desc">עלון שבועי עם דברי תורה, סיפורים מהשטח, ראיונות עם לוחמים ומפקדים, ותכנים מעולם הערכים של חטיבת החשמונאים.</p>
+      <div class="latest-buttons">
+        <a href="newsletters/bachativa-issue-36-he.pdf" class="btn btn-gold" target="_blank">📖 צפה בעלון בעברית</a>
+        <a href="newsletters/issue-36-en.html" class="btn btn-navy">📖 Read in English</a>
+      </div>
+      <a href="newsletters/BaChativa-Issue36-English.pdf" class="latest-pdf-link" target="_blank">הורד PDF באנגלית →</a>
     </div>
-
-    <!-- ===== CONTENT ===== -->
-    <main class="content-area">
-
-        <!-- TAB 1: Newsletter -->
-        <div class="tab-content active" id="tab-newsletter">
-            <div class="section-header">
-                <div class="section-eyebrow">The Weekly Bulletin</div>
-                <h2>עלון ״בחטיבה״</h2>
-                <p>העלון השבועי של חטיבת החשמונאים - תוכן תורני, ערכי ומבצעי לכל שבת</p>
-            </div>
-            <div class="section-ornament">&#10087; &#9670; &#10087;</div>
-
-            <!-- Featured Latest Issue -->
-            <div class="featured-card">
-                <div class="featured-badge">&#9670; הגיליון האחרון &#9670;</div>
-                <div class="featured-preview">
-                    <div class="masthead-label">בחטיבה</div>
-                    <div class="masthead-title">בחטיבה<br>גיליון 36</div>
-                    <div class="issue-num">36</div>
-                    <div class="issue-num-label">Issue XXXVI</div>
-                </div>
-                <div class="featured-info">
-                    <h3>בחטיבה - גיליון 36</h3>
-                    <div class="parsha">פרשת במדבר</div>
-                    <div class="meta">כ״ח אייר תשפ״ו | 16 במאי 2026</div>
-                    <div class="desc">הגיליון האחרון של העלון השבועי ״בחטיבה״ - דברי תורה, עדכוני החטיבה, ומסרים ערכיים ללוחמים ולמפקדים לקראת שבת קודש.</div>
-                    <div class="featured-buttons">
-                        <a href="newsletters/bachativa-issue-36-he.pdf" target="_blank" class="btn-primary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                            צפה בעלון בעברית
-                        </a>
-                        <a href="newsletters/issue-36-en.html" class="btn-secondary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            Read in English
-                        </a>
-                        <a href="newsletters/BaChativa-Issue36-English.pdf" target="_blank" class="btn-small-link">PDF English</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Issues Grid -->
-            <div class="issues-grid">
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">35</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 35</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת בחוקותי</div>
-                        <div class="date">כ״א אייר תשפ״ו | 9 במאי 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">34</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 34</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת בהר</div>
-                        <div class="date">י״ד אייר תשפ״ו | 2 במאי 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">33</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 33</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת אמור</div>
-                        <div class="date">ז׳ אייר תשפ״ו | 25 באפריל 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">32</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 32</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת קדושים</div>
-                        <div class="date">ל׳ ניסן תשפ״ו | 18 באפריל 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">31</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 31</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת משפטים</div>
-                        <div class="date">כ״ד שבט תשפ״ו | 13 בפברואר 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-
-                <div class="issue-card disabled">
-                    <div class="issue-card-top">
-                        <div class="issue-number">30</div>
-                        <div class="pdf-symbol">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        </div>
-                    </div>
-                    <div class="issue-card-body">
-                        <span class="issue-label">גיליון 30</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת יתרו</div>
-                        <div class="date">י״ז שבט תשפ״ו | 6 בפברואר 2026</div>
-                        <button class="btn-view" disabled>בקרוב</button>
-                    </div>
-                </div>
-            </div>
+    <div class="latest-cover">
+      <div class="latest-cover-inner">
+        <div class="latest-cover-frame">
+          <div class="latest-cover-num">36</div>
+          <div class="latest-cover-label">גיליון</div>
         </div>
-
-        <!-- TAB 2: Warriors Dialogue -->
-        <div class="tab-content" id="tab-warriors">
-            <div class="section-header">
-                <div class="section-eyebrow">Video Series</div>
-                <h2>סדרת סרטונים ״שיח לוחמים״</h2>
-                <p>שיחות אישיות עם לוחמי ומפקדי חטיבת החשמונאים - על השירות, הזהות והייעוד</p>
-            </div>
-            <div class="section-ornament">&#10087; &#9670; &#10087;</div>
-
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 1</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>המפקד והלוחם</h4>
-                        <p>שיחה אישית על מנהיגות בקרב, על האתגרים הייחודיים של מפקד חרדי ועל בניית אמון בצוות.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 2</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>שמירת הזהות בשדה הקרב</h4>
-                        <p>לוחמים מספרים על השמירה על אורח חיים חרדי בתנאי שטח מאתגרים ועל חיזוק האמונה.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 3</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>מהישיבה לקרבי</h4>
-                        <p>המעבר מספסל הלימודים לשדה הקרב - סיפורים אישיים על הגיוס, ההסתגלות והצמיחה.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 4</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>אחווה חשמונאית</h4>
-                        <p>על הקשר המיוחד בין לוחמי החטיבה, על ערבות הדדית ועל הרגעים שיוצרים חיבור אמיתי.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: Al Kiddush Hashem -->
-        <div class="tab-content" id="tab-kiddush">
-            <div class="section-header">
-                <div class="section-eyebrow">Video Series</div>
-                <h2>סדרת סרטונים ״על קידוש השם״</h2>
-                <p>סדרה ייחודית העוסקת בערך המסירות, ההקרבה וקידוש השם בשירות הצבאי</p>
-            </div>
-            <div class="section-ornament">&#10087; &#9670; &#10087;</div>
-
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 1</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>מסירות נפש</h4>
-                        <p>על המשמעות העמוקה של מסירות נפש בהקשר הצבאי והתורני - שיח עם רבנים ולוחמים.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 2</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>קדושת המחנה</h4>
-                        <p>כיצד שומרים על קדושת המחנה במציאות צבאית - הלכה למעשה בשדה הקרב.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 3</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>לוחמים ומאמינים</h4>
-                        <p>עדויות אישיות של לוחמים על רגעי אמונה בזמן לחימה ועל הכוח הרוחני שמלווה אותם.</p>
-                    </div>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-thumb">
-                        <div class="episode-badge">פרק 4</div>
-                        <div class="play-btn">
-                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </div>
-                    </div>
-                    <div class="video-body">
-                        <h4>השליחות שלנו</h4>
-                        <p>על הייעוד הכפול של הלוחם החרדי - שליחות ביטחונית ושליחות רוחנית בעולם המעשה.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 4: Magazine -->
-        <div class="tab-content" id="tab-magazine">
-            <div class="section-header">
-                <div class="section-eyebrow">Magazine</div>
-                <h2>מגזין</h2>
-                <p>מגזין חטיבת החשמונאים - כתבות מעמיקות, ראיונות ותוכן מיוחד</p>
-            </div>
-            <div class="section-ornament">&#10087; &#9670; &#10087;</div>
-
-            <div class="magazine-grid">
-                <div class="magazine-card">
-                    <div class="magazine-cover">
-                        <div class="mag-title">מגזין<br>חשמונאים</div>
-                        <div class="mag-num">01</div>
-                    </div>
-                    <div class="magazine-body">
-                        <h4>מגזין חשמונאים - גיליון ראשון</h4>
-                        <div class="mag-date">אדר תשפ״ו | מרץ 2026</div>
-                        <p>הגיליון הראשון של המגזין - סיפורם של לוחמי החטיבה, ראיונות עומק וכתבות מיוחדות.</p>
-                        <button class="btn-view" onclick="openPDF('magazine-01.pdf', 'מגזין חשמונאים - גיליון 1')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            קרא את המגזין
-                        </button>
-                    </div>
-                </div>
-
-                <div class="magazine-card">
-                    <div class="magazine-cover">
-                        <div class="mag-title">מגזין<br>חשמונאים</div>
-                        <div class="mag-num">02</div>
-                    </div>
-                    <div class="magazine-body">
-                        <h4>מגזין חשמונאים - גיליון שני</h4>
-                        <div class="mag-date">ניסן תשפ״ו | אפריל 2026</div>
-                        <p>גיליון מיוחד לחג הפסח - סיפורי חירות ומסירות, פרופילים של מפקדים ועדכוני החטיבה.</p>
-                        <button class="btn-view" onclick="openPDF('magazine-02.pdf', 'מגזין חשמונאים - גיליון 2')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            קרא את המגזין
-                        </button>
-                    </div>
-                </div>
-
-                <div class="magazine-card">
-                    <div class="magazine-cover">
-                        <div class="mag-title">מגזין<br>חשמונאים</div>
-                        <div class="mag-num">03</div>
-                    </div>
-                    <div class="magazine-body">
-                        <h4>מגזין חשמונאים - גיליון שלישי</h4>
-                        <div class="mag-date">אייר תשפ״ו | מאי 2026</div>
-                        <p>גיליון יום העצמאות - על הזכות לשרת, על גאוות הלוחם החרדי ועל חזון העתיד.</p>
-                        <button class="btn-view" onclick="openPDF('magazine-03.pdf', 'מגזין חשמונאים - גיליון 3')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            קרא את המגזין
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- ===== PDF MODAL ===== -->
-    <div class="modal-overlay" id="pdfModal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h3 id="modalTitle">עלון בחטיבה</h3>
-                <button class="modal-close" id="modalClose" aria-label="סגור">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- PDF will be embedded here -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <img src="images/logo.png" alt="לוגו חטיבת החשמונאים">
-                <div class="footer-brand-text">
-                    <strong>עמותת החשמונאים</strong>
-                    ידידי ובוגרי חטיבת החשמונאים
-                </div>
-            </div>
-            <ul class="footer-links">
-                <li><a href="https://chashmonayim.org">חזרה לאתר</a></li>
-                <li><a href="https://chat.whatsapp.com/GtnA5TVKyn1GpxQwiiSIdb" target="_blank">ווצאפ</a></li>
-                <li><a href="mailto:bachativa@gmail.com">הערות</a></li>
-                <li><a href="https://chashmonayim.org#donate">תרומה</a></li>
-                <li><a href="https://chashmonayim.org#contact">צור קשר</a></li>
-            </ul>
+<section class="tabs-section">
+  <div class="tab-bar" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" data-tab="newsletter">עלון ״בחטיבה״</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="siach">שיח לוחמים</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="kiddush">על קידוש השם</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="magazine">מגזין</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-newsletter">
+    <div class="archive-card">
+      <div class="archive-card-img"></div>
+      <div class="archive-card-body">
+        <div class="latest-eyebrow">גיליון 36</div>
+        <h3>בחטיבה — פרשת במדבר</h3>
+        <div class="meta">כ״ח אייר תשפ״ו &nbsp;|&nbsp; 16 במאי 2026</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="newsletters/bachativa-issue-36-he.pdf" class="btn btn-gold" target="_blank">📖 עברית</a>
+          <a href="newsletters/issue-36-en.html" class="btn btn-navy">📖 English</a>
         </div>
-        <div class="footer-bottom">
-            &copy; 2026 עמותת ״רוח חשמונאית״ (ע״ר 580814234) | כל הזכויות שמורות.
-            <br>
-            נבנה ע״י <a href="https://chashmonayim.org">IAB Smart AI Solutions</a>
+      </div>
+    </div>
+    <p class="archive-more">גיליונות נוספים יתווספו בקרוב...</p>
+  </div>
+
+  <div class="tab-panel" id="panel-siach">
+    <div class="banner-section">
+      <div class="banner-bg" style="background-image:url('images/soldiers-sitting.jpg')"></div>
+      <div class="banner-content">
+        <h2>שיח לוחמים</h2>
+        <p>שיחות עומק עם לוחמים ומפקדים על ערכים, חוויות מהשטח, ומה שמניע אותם.</p>
+        <div class="banner-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          פרקים יעלו בקרוב
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
 
-    <!-- ===== BACK TO TOP ===== -->
-    <button class="back-to-top" id="backToTop" aria-label="חזרה למעלה">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
+  <div class="tab-panel" id="panel-kiddush">
+    <div class="banner-section">
+      <div class="banner-bg" style="background-image:url('images/field-march.jpg')"></div>
+      <div class="banner-content">
+        <h2>על קידוש השם</h2>
+        <p>סיפורי גבורה ומסירות נפש של לוחמי חטיבת החשמונאים לאורך הדורות.</p>
+        <div class="banner-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          פרקים יעלו בקרוב
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- ===== JAVASCRIPT ===== -->
-    <script>
-        // ===== Tab Navigation =====
-        (function() {
-            var tabBtns = document.querySelectorAll('.tab-btn');
-            var tabContents = document.querySelectorAll('.tab-content');
-            var navLinks = document.querySelectorAll('.navbar-links a[data-tab]');
+  <div class="tab-panel" id="panel-magazine">
+    <div class="banner-section">
+      <div class="banner-bg" style="background-image:url('images/group-photo.jpg')"></div>
+      <div class="banner-content">
+        <h2>מגזין החטיבה</h2>
+        <p>כתבות מעמיקות, ראיונות, ותמונות מחיי החטיבה — המגזין השלם של חטיבת החשמונאים.</p>
+        <div class="banner-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+          בקרוב
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            function activateTab(tabId) {
-                tabBtns.forEach(function(btn) {
-                    btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
-                });
-                tabContents.forEach(function(content) {
-                    content.classList.toggle('active', content.id === 'tab-' + tabId);
-                });
-                navLinks.forEach(function(link) {
-                    link.classList.toggle('active', link.getAttribute('data-tab') === tabId);
-                });
-            }
+<footer class="footer">
+  <div class="footer-brand">בטאון החטיבה</div>
+  <div class="footer-sub">העלון השבועי של חטיבת החשמונאים</div>
+  <div class="footer-links">
+    <a href="https://chashmonayim.org" target="_blank" rel="noopener">לאתר העמותה</a>
+    <a href="https://chat.whatsapp.com/GtnA5TVKyn1GpxQwiiSIdb" target="_blank" rel="noopener">קבוצת ווצאפ</a>
+    <a href="mailto:bachativa@gmail.com">צור קשר</a>
+  </div>
+  <div class="footer-copy">© 2026 בטאון החטיבה — חטיבת החשמונאים</div>
+</footer>
 
-            tabBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    activateTab(this.getAttribute('data-tab'));
-                });
-            });
+<button class="back-top" id="backTop" aria-label="חזור למעלה">↑</button>
 
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    var tab = this.getAttribute('data-tab');
-                    if (tab) {
-                        e.preventDefault();
-                        activateTab(tab);
-                        document.querySelector('.tabs-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        document.getElementById('navLinks').classList.remove('open');
-                        document.getElementById('mobileToggle').classList.remove('open');
-                    }
-                });
-            });
-        })();
-
-        // ===== Mobile Menu =====
-        (function() {
-            var toggle = document.getElementById('mobileToggle');
-            var navLinks = document.getElementById('navLinks');
-
-            toggle.addEventListener('click', function() {
-                this.classList.toggle('open');
-                navLinks.classList.toggle('open');
-            });
-        })();
-
-        // ===== Sticky Navbar Shadow =====
-        (function() {
-            var navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                navbar.classList.toggle('scrolled', window.scrollY > 20);
-            });
-        })();
-
-        // ===== Back to Top =====
-        (function() {
-            var btn = document.getElementById('backToTop');
-            window.addEventListener('scroll', function() {
-                btn.classList.toggle('visible', window.scrollY > 400);
-            });
-            btn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        })();
-
-        // ===== PDF Modal =====
-        function openPDF(pdfUrl, title) {
-            var modal = document.getElementById('pdfModal');
-            var modalTitle = document.getElementById('modalTitle');
-            var modalBody = document.getElementById('modalBody');
-
-            modalTitle.textContent = title || 'צפייה בעלון';
-
-            modalBody.innerHTML =
-                '<object data="' + pdfUrl + '" type="application/pdf" width="100%" height="100%">' +
-                    '<iframe src="' + pdfUrl + '" width="100%" height="100%" style="border:none;">' +
-                        '<div class="pdf-fallback">' +
-                            '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
-                            '<p>הדפדפן שלך אינו תומך בהצגת PDF מוטמע.</p>' +
-                            '<a href="' + pdfUrl + '" target="_blank" class="btn-primary" download>הורד את הקובץ</a>' +
-                        '</div>' +
-                    '</iframe>' +
-                '</object>';
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        (function() {
-            var modal = document.getElementById('pdfModal');
-            var closeBtn = document.getElementById('modalClose');
-
-            function closeModal() {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-                document.getElementById('modalBody').innerHTML = '';
-            }
-
-            closeBtn.addEventListener('click', closeModal);
-
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
-                    closeModal();
-                }
-            });
-        })();
-
-        // ===== Smooth scroll for anchor links =====
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function(e) {
-                var target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // ===== Hash-based tab activation on load =====
-        (function() {
-            var hash = window.location.hash.replace('#', '');
-            var validTabs = ['newsletter', 'warriors', 'kiddush', 'magazine'];
-            if (validTabs.indexOf(hash) !== -1) {
-                var btn = document.querySelector('.tab-btn[data-tab="' + hash + '"]');
-                if (btn) btn.click();
-            }
-        })();
-    </script>
-
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');btn.setAttribute('aria-selected','true');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>30)},{passive:true});
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>500)},{passive:true});
+backTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
+</script>
 </body>
 </html>
