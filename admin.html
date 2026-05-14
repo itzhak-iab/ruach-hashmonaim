@@ -718,6 +718,9 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div class="nav-item" data-page="partners" onclick="navigateTo('partners')">
         <span class="nav-icon">🤝</span> ניהול שותפים
       </div>
+      <div class="nav-item" data-page="bitaon" onclick="navigateTo('bitaon')">
+        <span class="nav-icon">📰</span> בטאון החטיבה
+      </div>
       <div class="nav-item" data-page="content" onclick="navigateTo('content')">
         <span class="nav-icon">📝</span> עריכת תוכן
       </div>
@@ -781,6 +784,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="navigateTo('partners')">🤝 ניהול שותפים</button>
+            <button class="btn btn-primary btn-sm" onclick="navigateTo('bitaon')">📰 בטאון החטיבה</button>
             <button class="btn btn-outline btn-sm" onclick="navigateTo('content')">📝 עריכת תוכן</button>
             <button class="btn btn-outline btn-sm" onclick="navigateTo('seo')">🔍 הגדרות SEO</button>
             <button class="btn btn-outline btn-sm" onclick="window.open('https://chashmonayim.org/','_blank')">🌐 פתח אתר</button>
@@ -1065,6 +1069,156 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         </div><!-- /gaDashboard -->
       </div>
 
+      <!-- BITAON PAGE -->
+      <div class="page-section" id="page-bitaon">
+
+        <!-- Newsletter Issues Management -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📰 ניהול גיליונות</h3>
+            <button class="btn btn-primary btn-sm" onclick="toggleBitaonForm()">+ הוסף גיליון חדש</button>
+          </div>
+
+          <!-- Add/Edit Form (hidden by default) -->
+          <div id="bitaonForm" style="display:none; padding:20px; border-bottom:1px solid var(--border);">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label>מספר גיליון</label>
+                <input type="number" id="bitaonIssueNumber" class="form-input form-input-rtl" placeholder="לדוגמה: 12">
+              </div>
+              <div class="form-group">
+                <label>פרשה</label>
+                <input type="text" id="bitaonParsha" class="form-input form-input-rtl" placeholder="לדוגמה: בראשית">
+              </div>
+              <div class="form-group">
+                <label>תאריך עברי</label>
+                <input type="text" id="bitaonHebrewDate" class="form-input form-input-rtl" placeholder="לדוגמה: כ״ה באייר תשפ״ו">
+              </div>
+              <div class="form-group">
+                <label>תאריך לועזי</label>
+                <input type="date" id="bitaonGregDate" class="form-input">
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px;">
+              <div class="form-group">
+                <label>קובץ HTML - גרסת אינטרנט</label>
+                <input type="file" id="bitaonHtmlFile" accept=".html,.htm" class="form-input" style="padding:8px;">
+              </div>
+              <div class="form-group">
+                <label>PDF עברית</label>
+                <input type="file" id="bitaonPdfHe" accept=".pdf" class="form-input" style="padding:8px;">
+              </div>
+              <div class="form-group">
+                <label>PDF אנגלית</label>
+                <input type="file" id="bitaonPdfEn" accept=".pdf" class="form-input" style="padding:8px;">
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:16px; justify-content:flex-start;">
+              <button class="btn btn-success btn-sm" onclick="saveBitaonIssue()">💾 שמור גיליון</button>
+              <button class="btn btn-sm" onclick="toggleBitaonForm()">ביטול</button>
+            </div>
+          </div>
+
+          <!-- Issues List -->
+          <div id="bitaonIssuesList" style="padding:20px;">
+            <div style="text-align:center;padding:40px;color:var(--text-secondary);">
+              <p>לחץ על "הוסף גיליון חדש" כדי להתחיל, או טוען גיליונות...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Series Management -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <h3>🎬 ניהול סדרות וידאו</h3>
+          </div>
+          <div style="padding:20px;">
+            <!-- Video Series Tabs -->
+            <div style="display:flex; gap:8px; margin-bottom:20px;">
+              <button class="btn btn-primary btn-sm" id="btnSeriesSiach" onclick="switchVideoSeries('siach')" style="opacity:1;">שיח לוחמים</button>
+              <button class="btn btn-sm" id="btnSeriesKiddush" onclick="switchVideoSeries('kiddush')" style="opacity:0.6;">על קידוש השם</button>
+            </div>
+
+            <!-- Siach Lochamim -->
+            <div id="videoSeriesSiach">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h4 style="font-size:14px; color:var(--text-secondary);">פרקי שיח לוחמים</h4>
+                <button class="btn btn-primary btn-sm" onclick="toggleVideoForm('siach')">+ הוסף פרק</button>
+              </div>
+              <div id="videoFormSiach" style="display:none; padding:16px; background:var(--bg); border-radius:var(--radius-sm); margin-bottom:12px;">
+                <div class="form-group">
+                  <label>כותרת הפרק</label>
+                  <input type="text" id="videoTitleSiach" class="form-input form-input-rtl" placeholder="כותרת הפרק">
+                </div>
+                <div class="form-group">
+                  <label>תיאור</label>
+                  <textarea id="videoDescSiach" class="form-input form-input-rtl" rows="2" placeholder="תיאור קצר"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>קישור לסרטון (YouTube / Google Drive)</label>
+                  <input type="text" id="videoUrlSiach" class="form-input" placeholder="https://..." dir="ltr">
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-success btn-sm" onclick="saveVideoEpisode('siach')">💾 שמור פרק</button>
+                  <button class="btn btn-sm" onclick="toggleVideoForm('siach')">ביטול</button>
+                </div>
+              </div>
+              <div id="videoListSiach" style="color:var(--text-secondary); font-size:14px;">טוען פרקים...</div>
+            </div>
+
+            <!-- Al Kiddush Hashem -->
+            <div id="videoSeriesKiddush" style="display:none;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h4 style="font-size:14px; color:var(--text-secondary);">פרקי על קידוש השם</h4>
+                <button class="btn btn-primary btn-sm" onclick="toggleVideoForm('kiddush')">+ הוסף פרק</button>
+              </div>
+              <div id="videoFormKiddush" style="display:none; padding:16px; background:var(--bg); border-radius:var(--radius-sm); margin-bottom:12px;">
+                <div class="form-group">
+                  <label>כותרת הפרק</label>
+                  <input type="text" id="videoTitleKiddush" class="form-input form-input-rtl" placeholder="כותרת הפרק">
+                </div>
+                <div class="form-group">
+                  <label>תיאור</label>
+                  <textarea id="videoDescKiddush" class="form-input form-input-rtl" rows="2" placeholder="תיאור קצר"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>קישור לסרטון (YouTube / Google Drive)</label>
+                  <input type="text" id="videoUrlKiddush" class="form-input" placeholder="https://..." dir="ltr">
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-success btn-sm" onclick="saveVideoEpisode('kiddush')">💾 שמור פרק</button>
+                  <button class="btn btn-sm" onclick="toggleVideoForm('kiddush')">ביטול</button>
+                </div>
+              </div>
+              <div id="videoListKiddush" style="color:var(--text-secondary); font-size:14px;">טוען פרקים...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <h3>🔗 קישורים מהירים</h3>
+            <button class="btn btn-success btn-sm" onclick="saveBitaonLinks()">💾 שמור שינויים</button>
+          </div>
+          <div style="padding:20px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label>קישור לקבוצת WhatsApp</label>
+                <input type="text" id="bitaonWhatsapp" class="form-input" placeholder="https://chat.whatsapp.com/..." dir="ltr">
+              </div>
+              <div class="form-group">
+                <label>כתובת אימייל ליצירת קשר</label>
+                <input type="email" id="bitaonEmail" class="form-input" placeholder="example@domain.com" dir="ltr">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <!-- SETTINGS PAGE -->
       <div class="page-section" id="page-settings">
         <div class="card">
@@ -1196,7 +1350,7 @@ function navigateTo(page) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById(`page-${page}`).classList.add('active');
   document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
-  const titles = { dashboard: 'ראשי', partners: 'ניהול שותפים', content: 'עריכת תוכן', seo: 'הגדרות SEO', analytics: 'אנליטיקס', settings: 'הגדרות' };
+  const titles = { dashboard: 'ראשי', partners: 'ניהול שותפים', bitaon: 'בטאון החטיבה', content: 'עריכת תוכן', seo: 'הגדרות SEO', analytics: 'אנליטיקס', settings: 'הגדרות' };
   document.getElementById('pageTitle').textContent = titles[page] || page;
   // Close sidebar on mobile
   document.getElementById('sidebar').classList.remove('open');
@@ -2439,6 +2593,372 @@ navigateTo = function(page) {
   _origNavigateTo(page);
   if (page === 'analytics' && !gaAccessToken && gaClientId && gaPropertyId) {
     // Config is set but not authenticated yet - prompt
+  }
+};
+
+// ===== BITAON (NEWSLETTER) MANAGEMENT =====
+let bitaonIssues = [];
+let bitaonDataSHA = null;
+
+function toggleBitaonForm() {
+  const form = document.getElementById('bitaonForm');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  if (form.style.display === 'block') {
+    document.getElementById('bitaonIssueNumber').value = '';
+    document.getElementById('bitaonParsha').value = '';
+    document.getElementById('bitaonHebrewDate').value = '';
+    document.getElementById('bitaonGregDate').value = '';
+    document.getElementById('bitaonHtmlFile').value = '';
+    document.getElementById('bitaonPdfHe').value = '';
+    document.getElementById('bitaonPdfEn').value = '';
+  }
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadFileToRepo(path, base64Content, message) {
+  // Check if file exists first to get SHA for update
+  let sha = null;
+  try {
+    const existing = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`);
+    sha = existing.sha;
+  } catch (e) {
+    // File doesn't exist yet, that's fine
+  }
+
+  const body = {
+    message: message,
+    content: base64Content
+  };
+  if (sha) body.sha = sha;
+
+  return apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+    method: 'PUT',
+    body: JSON.stringify(body)
+  });
+}
+
+async function loadBitaonData() {
+  try {
+    const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/newsletters/data.json`);
+    bitaonDataSHA = data.sha;
+    const content = decodeBase64UTF8(data.content);
+    const parsed = JSON.parse(content);
+    bitaonIssues = parsed.issues || [];
+    renderBitaonIssues();
+
+    // Load quick links
+    if (parsed.whatsappLink) document.getElementById('bitaonWhatsapp').value = parsed.whatsappLink;
+    if (parsed.contactEmail) document.getElementById('bitaonEmail').value = parsed.contactEmail;
+
+    // Load video series
+    if (parsed.videoSeries) {
+      renderVideoList('siach', parsed.videoSeries.siach || []);
+      renderVideoList('kiddush', parsed.videoSeries.kiddush || []);
+    }
+  } catch (e) {
+    // data.json doesn't exist yet
+    bitaonIssues = [];
+    renderBitaonIssues();
+    document.getElementById('videoListSiach').innerHTML = '<p style="text-align:center;padding:20px;">אין פרקים עדיין</p>';
+    document.getElementById('videoListKiddush').innerHTML = '<p style="text-align:center;padding:20px;">אין פרקים עדיין</p>';
+  }
+}
+
+function renderBitaonIssues() {
+  const container = document.getElementById('bitaonIssuesList');
+  if (bitaonIssues.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-secondary);"><p>אין גיליונות עדיין. לחץ על "הוסף גיליון חדש" כדי להתחיל.</p></div>';
+    return;
+  }
+
+  container.innerHTML = bitaonIssues.map((issue, idx) => `
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border);">
+      <div>
+        <strong>גיליון ${issue.number} - פרשת ${issue.parsha}</strong>
+        <div style="font-size:13px; color:var(--text-secondary); margin-top:2px;">
+          ${issue.hebrewDate} | ${issue.gregDate}
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        ${issue.htmlFile ? '<span style="font-size:12px; background:var(--primary-bg); color:var(--primary); padding:2px 8px; border-radius:4px;">HTML</span>' : ''}
+        ${issue.pdfHe ? '<span style="font-size:12px; background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:4px;">PDF עב</span>' : ''}
+        ${issue.pdfEn ? '<span style="font-size:12px; background:#d1fae5; color:#065f46; padding:2px 8px; border-radius:4px;">PDF EN</span>' : ''}
+        <button class="btn btn-sm" style="color:var(--danger); font-size:12px;" onclick="deleteBitaonIssue(${idx})">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function saveBitaonIssue() {
+  const number = document.getElementById('bitaonIssueNumber').value.trim();
+  const parsha = document.getElementById('bitaonParsha').value.trim();
+  const hebrewDate = document.getElementById('bitaonHebrewDate').value.trim();
+  const gregDate = document.getElementById('bitaonGregDate').value;
+
+  if (!number || !parsha) {
+    showToast('נא למלא מספר גיליון ופרשה', 'warning');
+    return;
+  }
+
+  try {
+    showToast('מעלה גיליון...', 'info');
+
+    const issue = { number, parsha, hebrewDate, gregDate, htmlFile: '', pdfHe: '', pdfEn: '' };
+    const prefix = `newsletters/issue-${number}`;
+
+    // Upload HTML file
+    const htmlFile = document.getElementById('bitaonHtmlFile').files[0];
+    if (htmlFile) {
+      const htmlBase64 = await readFileAsBase64(htmlFile);
+      await uploadFileToRepo(`${prefix}/index.html`, htmlBase64, `Add newsletter issue ${number} HTML`);
+      issue.htmlFile = `${prefix}/index.html`;
+    }
+
+    // Upload Hebrew PDF
+    const pdfHeFile = document.getElementById('bitaonPdfHe').files[0];
+    if (pdfHeFile) {
+      const pdfHeBase64 = await readFileAsBase64(pdfHeFile);
+      await uploadFileToRepo(`${prefix}/newsletter-he.pdf`, pdfHeBase64, `Add newsletter issue ${number} Hebrew PDF`);
+      issue.pdfHe = `${prefix}/newsletter-he.pdf`;
+    }
+
+    // Upload English PDF
+    const pdfEnFile = document.getElementById('bitaonPdfEn').files[0];
+    if (pdfEnFile) {
+      const pdfEnBase64 = await readFileAsBase64(pdfEnFile);
+      await uploadFileToRepo(`${prefix}/newsletter-en.pdf`, pdfEnBase64, `Add newsletter issue ${number} English PDF`);
+      issue.pdfEn = `${prefix}/newsletter-en.pdf`;
+    }
+
+    // Update issues list
+    bitaonIssues.unshift(issue);
+    await saveBitaonDataJson();
+
+    // Update bitaon.html with latest issue
+    await updateBitaonHtml();
+
+    renderBitaonIssues();
+    toggleBitaonForm();
+    showToast('הגיליון נשמר בהצלחה!', 'success');
+  } catch (e) {
+    showToast('שגיאה בשמירת הגיליון: ' + e.message, 'error');
+  }
+}
+
+async function saveBitaonDataJson() {
+  const data = {
+    issues: bitaonIssues,
+    whatsappLink: document.getElementById('bitaonWhatsapp').value.trim(),
+    contactEmail: document.getElementById('bitaonEmail').value.trim(),
+    videoSeries: {
+      siach: getCurrentVideoList('siach'),
+      kiddush: getCurrentVideoList('kiddush')
+    }
+  };
+
+  const encoded = encodeUTF8Base64(JSON.stringify(data, null, 2));
+  const body = {
+    message: 'Update newsletter data',
+    content: encoded
+  };
+  if (bitaonDataSHA) body.sha = bitaonDataSHA;
+
+  const result = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/newsletters/data.json`, {
+    method: 'PUT',
+    body: JSON.stringify(body)
+  });
+  bitaonDataSHA = result.content.sha;
+}
+
+function getCurrentVideoList(series) {
+  return (window._bitaonVideoData && window._bitaonVideoData[series]) || [];
+}
+
+async function updateBitaonHtml() {
+  if (bitaonIssues.length === 0) return;
+
+  try {
+    // Fetch current bitaon.html
+    const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bitaon.html`);
+    let html = decodeBase64UTF8(data.content);
+    const sha = data.sha;
+
+    // Find and update the latest issue section
+    const latest = bitaonIssues[0];
+
+    // Update issue number and parsha in the page
+    const issueRegex = /(<span[^>]*id="currentIssueNumber"[^>]*>)(.*?)(<\/span>)/;
+    if (issueRegex.test(html)) {
+      html = html.replace(issueRegex, `$1${latest.number}$3`);
+    }
+
+    const parshaRegex = /(<span[^>]*id="currentParsha"[^>]*>)(.*?)(<\/span>)/;
+    if (parshaRegex.test(html)) {
+      html = html.replace(parshaRegex, `$1${latest.parsha}$3`);
+    }
+
+    const hebrewDateRegex = /(<span[^>]*id="currentHebrewDate"[^>]*>)(.*?)(<\/span>)/;
+    if (hebrewDateRegex.test(html)) {
+      html = html.replace(hebrewDateRegex, `$1${latest.hebrewDate}$3`);
+    }
+
+    // Update PDF links
+    if (latest.pdfHe) {
+      const pdfHeRegex = /(href=")[^"]*("[\s\S]*?id="pdfHeLink")/;
+      const pdfHeRegex2 = /(id="pdfHeLink"[\s\S]*?href=")[^"]*(")/;
+      if (pdfHeRegex.test(html)) html = html.replace(pdfHeRegex, `$1${latest.pdfHe}$2`);
+      if (pdfHeRegex2.test(html)) html = html.replace(pdfHeRegex2, `$1${latest.pdfHe}$2`);
+    }
+    if (latest.pdfEn) {
+      const pdfEnRegex = /(href=")[^"]*("[\s\S]*?id="pdfEnLink")/;
+      const pdfEnRegex2 = /(id="pdfEnLink"[\s\S]*?href=")[^"]*(")/;
+      if (pdfEnRegex.test(html)) html = html.replace(pdfEnRegex, `$1${latest.pdfEn}$2`);
+      if (pdfEnRegex2.test(html)) html = html.replace(pdfEnRegex2, `$1${latest.pdfEn}$2`);
+    }
+    if (latest.htmlFile) {
+      const htmlRegex = /(href=")[^"]*("[\s\S]*?id="webVersionLink")/;
+      const htmlRegex2 = /(id="webVersionLink"[\s\S]*?href=")[^"]*(")/;
+      if (htmlRegex.test(html)) html = html.replace(htmlRegex, `$1${latest.htmlFile}$2`);
+      if (htmlRegex2.test(html)) html = html.replace(htmlRegex2, `$1${latest.htmlFile}$2`);
+    }
+
+    // Save updated bitaon.html
+    const encoded = encodeUTF8Base64(html);
+    await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bitaon.html`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `Update bitaon.html with issue ${latest.number}`,
+        content: encoded,
+        sha: sha
+      })
+    });
+  } catch (e) {
+    console.warn('Could not update bitaon.html:', e.message);
+    // Not fatal - the data.json was already saved
+  }
+}
+
+async function deleteBitaonIssue(idx) {
+  if (!confirm(`למחוק את גיליון ${bitaonIssues[idx].number}?`)) return;
+  bitaonIssues.splice(idx, 1);
+  try {
+    await saveBitaonDataJson();
+    renderBitaonIssues();
+    showToast('הגיליון הוסר', 'success');
+  } catch (e) {
+    showToast('שגיאה במחיקה: ' + e.message, 'error');
+  }
+}
+
+async function saveBitaonLinks() {
+  try {
+    await saveBitaonDataJson();
+    showToast('הקישורים נשמרו בהצלחה!', 'success');
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+}
+
+// ===== VIDEO SERIES =====
+window._bitaonVideoData = { siach: [], kiddush: [] };
+
+function switchVideoSeries(series) {
+  document.getElementById('videoSeriesSiach').style.display = series === 'siach' ? 'block' : 'none';
+  document.getElementById('videoSeriesKiddush').style.display = series === 'kiddush' ? 'block' : 'none';
+  document.getElementById('btnSeriesSiach').style.opacity = series === 'siach' ? '1' : '0.6';
+  document.getElementById('btnSeriesKiddush').style.opacity = series === 'kiddush' ? '1' : '0.6';
+  document.getElementById('btnSeriesSiach').className = series === 'siach' ? 'btn btn-primary btn-sm' : 'btn btn-sm';
+  document.getElementById('btnSeriesKiddush').className = series === 'kiddush' ? 'btn btn-primary btn-sm' : 'btn btn-sm';
+}
+
+function toggleVideoForm(series) {
+  const formId = series === 'siach' ? 'videoFormSiach' : 'videoFormKiddush';
+  const form = document.getElementById(formId);
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function renderVideoList(series, episodes) {
+  window._bitaonVideoData[series] = episodes;
+  const containerId = series === 'siach' ? 'videoListSiach' : 'videoListKiddush';
+  const container = document.getElementById(containerId);
+
+  if (!episodes || episodes.length === 0) {
+    container.innerHTML = '<p style="text-align:center;padding:20px;color:var(--text-secondary);">אין פרקים עדיין</p>';
+    return;
+  }
+
+  container.innerHTML = episodes.map((ep, idx) => `
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:8px;">
+      <div>
+        <strong style="font-size:14px;">${ep.title}</strong>
+        <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">${ep.description || ''}</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        ${ep.url ? `<a href="${ep.url}" target="_blank" class="btn btn-sm" style="font-size:12px;">▶ צפה</a>` : ''}
+        <button class="btn btn-sm" style="color:var(--danger); font-size:12px;" onclick="deleteVideoEpisode('${series}', ${idx})">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function saveVideoEpisode(series) {
+  const titleEl = document.getElementById(series === 'siach' ? 'videoTitleSiach' : 'videoTitleKiddush');
+  const descEl = document.getElementById(series === 'siach' ? 'videoDescSiach' : 'videoDescKiddush');
+  const urlEl = document.getElementById(series === 'siach' ? 'videoUrlSiach' : 'videoUrlKiddush');
+
+  const title = titleEl.value.trim();
+  const description = descEl.value.trim();
+  const url = urlEl.value.trim();
+
+  if (!title) {
+    showToast('נא להזין כותרת לפרק', 'warning');
+    return;
+  }
+
+  window._bitaonVideoData[series].push({ title, description, url });
+
+  try {
+    await saveBitaonDataJson();
+    renderVideoList(series, window._bitaonVideoData[series]);
+    toggleVideoForm(series);
+    titleEl.value = '';
+    descEl.value = '';
+    urlEl.value = '';
+    showToast('הפרק נשמר בהצלחה!', 'success');
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+}
+
+async function deleteVideoEpisode(series, idx) {
+  if (!confirm('למחוק את הפרק?')) return;
+  window._bitaonVideoData[series].splice(idx, 1);
+  try {
+    await saveBitaonDataJson();
+    renderVideoList(series, window._bitaonVideoData[series]);
+    showToast('הפרק הוסר', 'success');
+  } catch (e) {
+    showToast('שגיאה במחיקה: ' + e.message, 'error');
+  }
+}
+
+// Load bitaon data when navigating to the page
+const _origNavigateTo2 = navigateTo;
+navigateTo = function(page) {
+  _origNavigateTo2(page);
+  if (page === 'bitaon') {
+    loadBitaonData();
   }
 };
 
