@@ -2745,7 +2745,7 @@ async function saveBitaonIssue() {
     bitaonIssues.unshift(issue);
     await saveBitaonDataJson();
 
-    // Update bitaon.html with latest issue
+    // Update bachativa.html with latest issue
     await updateBitaonHtml();
 
     renderBitaonIssues();
@@ -2789,8 +2789,8 @@ async function updateBitaonHtml() {
   if (bitaonIssues.length === 0) return;
 
   try {
-    // Fetch current bitaon.html
-    const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bitaon.html`);
+    // Fetch current bachativa.html
+    const data = await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bachativa.html`);
     let html = decodeBase64UTF8(data.content);
     const sha = data.sha;
 
@@ -2833,18 +2833,18 @@ async function updateBitaonHtml() {
       if (htmlRegex2.test(html)) html = html.replace(htmlRegex2, `$1${latest.htmlFile}$2`);
     }
 
-    // Save updated bitaon.html
+    // Save updated bachativa.html
     const encoded = encodeUTF8Base64(html);
-    await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bitaon.html`, {
+    await apiRequest(`/repos/${REPO_OWNER}/${REPO_NAME}/contents/bachativa.html`, {
       method: 'PUT',
       body: JSON.stringify({
-        message: `Update bitaon.html with issue ${latest.number}`,
+        message: `Update bachativa.html with issue ${latest.number}`,
         content: encoded,
         sha: sha
       })
     });
   } catch (e) {
-    console.warn('Could not update bitaon.html:', e.message);
+    console.warn('Could not update bachativa.html:', e.message);
     // Not fatal - the data.json was already saved
   }
 }
