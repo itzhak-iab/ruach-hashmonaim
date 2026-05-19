@@ -273,15 +273,18 @@
         .slider-wrapper {
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
         .slider-track {
             display: flex;
+            flex-wrap: nowrap;
             gap: 24px;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
         .slider-track .issue-card {
             flex: 0 0 220px;
+            min-width: 220px;
         }
         .slider-arrow {
             position: absolute;
