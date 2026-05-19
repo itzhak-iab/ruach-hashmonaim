@@ -269,13 +269,88 @@
             font-size: 0.95rem;
         }
 
-        /* ===== ISSUE CARDS — COVER IMAGE STYLE ===== */
-        .issues-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        /* ===== SLIDER WRAPPER ===== */
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .slider-track {
+            display: flex;
             gap: 24px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        .slider-track .issue-card {
+            flex: 0 0 220px;
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+        .slider-arrow:hover {
+            background: var(--gold);
+            color: var(--primary);
+            opacity: 1;
+        }
+        .slider-arrow.prev { right: 12px; }
+        .slider-arrow.next { left: 12px; }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .slider-dot.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+        .slider-pause {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .slider-pause button {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.78rem;
+            padding: 4px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .slider-pause button:hover {
+            border-color: var(--gold);
+            color: var(--primary);
         }
 
+        /* ===== ISSUE CARDS — COVER IMAGE STYLE ===== */
         .issue-card {
             background: var(--bg-white);
             border-radius: var(--radius);
@@ -716,7 +791,7 @@
             .tabs-section { padding: 12px 1rem 0; }
             .tab-btn { padding: 9px 12px; font-size: 0.82rem; }
             .content-area { padding: 16px 1rem 50px; }
-            .issues-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+            .slider-track .issue-card { flex: 0 0 170px; }
             .issue-info { padding: 10px 12px; }
             .issue-info h4 { font-size: 0.85rem; }
             .modal-card { max-width: 100%; }
@@ -728,7 +803,7 @@
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.7rem; }
             .tab-icon { display: none; }
-            .issues-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .slider-track .issue-card { flex: 0 0 150px; }
         }
     </style>
 </head>
@@ -806,90 +881,102 @@
                 <p>העלון השבועי של חטיבת החשמונאים — לחצו על גיליון כדי לצפות בעברית או באנגלית</p>
             </div>
 
-            <div class="issues-grid">
-                <div class="issue-card" onclick="openIssue(36, 'במדבר', 'newsletters/bachativa-issue-36-he.pdf', 'newsletters/BaChativa-Issue36-English.pdf')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-36.jpg" alt="גיליון 36" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+            <div class="slider-wrapper" id="issuesSlider">
+                <button class="slider-arrow prev" id="sliderPrev" aria-label="הגיליון הבא">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button class="slider-arrow next" id="sliderNext" aria-label="הגיליון הקודם">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <div class="slider-track" id="sliderTrack">
+                    <div class="issue-card" onclick="openIssue(36, 'במדבר', 'newsletters/bachativa-issue-36-he.pdf', 'newsletters/BaChativa-Issue36-English.pdf')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-36.jpg" alt="גיליון 36" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 36</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת במדבר</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 36</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת במדבר</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(31, 'משפטים', 'newsletters/newsletter-31-mishpatim.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-31.jpg" alt="גיליון 31" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                    <div class="issue-card" onclick="openIssue(31, 'משפטים', 'newsletters/newsletter-31-mishpatim.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-31.jpg" alt="גיליון 31" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 31</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת משפטים</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 31</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת משפטים</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(30, 'יתרו', 'newsletters/newsletter-30-yitro.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-30.jpg" alt="גיליון 30" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                    <div class="issue-card" onclick="openIssue(30, 'יתרו', 'newsletters/newsletter-30-yitro.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-30.jpg" alt="גיליון 30" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 30</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת יתרו</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 30</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת יתרו</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(29, 'בשלח', 'newsletters/newsletter-29-beshalach.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-29.jpg" alt="גיליון 29" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                    <div class="issue-card" onclick="openIssue(29, 'בשלח', 'newsletters/newsletter-29-beshalach.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-29.jpg" alt="גיליון 29" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 29</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת בשלח</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 29</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת בשלח</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(28, 'בא', 'newsletters/newsletter-28-bo.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-28.jpg" alt="גיליון 28" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                    <div class="issue-card" onclick="openIssue(28, 'בא', 'newsletters/newsletter-28-bo.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-28.jpg" alt="גיליון 28" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 28</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת בא</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 28</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת בא</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(27, 'וארא', 'newsletters/newsletter-27-vaera.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-27.jpg" alt="גיליון 27" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                    <div class="issue-card" onclick="openIssue(27, 'וארא', 'newsletters/newsletter-27-vaera.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-27.jpg" alt="גיליון 27" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 27</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת וארא</div>
+                        </div>
                     </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 27</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת וארא</div>
-                    </div>
-                </div>
 
-                <div class="issue-card" onclick="openIssue(26, 'שמות', 'newsletters/newsletter-26-shemot.pdf', '')">
-                    <div class="issue-cover">
-                        <img src="newsletters/covers/cover-26.jpg" alt="גיליון 26" loading="lazy">
-                        <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
-                    </div>
-                    <div class="issue-info">
-                        <span class="issue-label">גיליון 26</span>
-                        <h4>עלון בחטיבה</h4>
-                        <div class="parsha-name">פרשת שמות</div>
+                    <div class="issue-card" onclick="openIssue(26, 'שמות', 'newsletters/newsletter-26-shemot.pdf', '')">
+                        <div class="issue-cover">
+                            <img src="newsletters/covers/cover-26.jpg" alt="גיליון 26" loading="lazy">
+                            <div class="issue-overlay"><span class="view-label">לחץ לצפייה</span></div>
+                        </div>
+                        <div class="issue-info">
+                            <span class="issue-label">גיליון 26</span>
+                            <h4>עלון בחטיבה</h4>
+                            <div class="parsha-name">פרשת שמות</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
+            <div class="slider-pause">
+                <button id="sliderPauseBtn" onclick="toggleAutoSlide()">⏸ עצור החלפה אוטומטית</button>
             </div>
         </div>
 
@@ -1196,6 +1283,146 @@
                 var btn = document.querySelector('.tab-btn[data-tab="' + hash + '"]');
                 if (btn) btn.click();
             }
+        })();
+
+        // ===== ISSUES SLIDER =====
+        (function() {
+            var track = document.getElementById('sliderTrack');
+            var cards = track.querySelectorAll('.issue-card');
+            var prevBtn = document.getElementById('sliderPrev');
+            var nextBtn = document.getElementById('sliderNext');
+            var dotsContainer = document.getElementById('sliderDots');
+            var pauseBtn = document.getElementById('sliderPauseBtn');
+
+            var currentIndex = 0;
+            var autoInterval = null;
+            var isAutoPlaying = true;
+            var AUTO_DELAY = 3500; // ms
+
+            function getVisibleCount() {
+                var wrapper = document.getElementById('issuesSlider');
+                var wrapperWidth = wrapper.clientWidth;
+                var cardWidth = cards[0].offsetWidth + 24; // card + gap
+                return Math.max(1, Math.floor(wrapperWidth / cardWidth));
+            }
+
+            function getMaxIndex() {
+                return Math.max(0, cards.length - getVisibleCount());
+            }
+
+            function buildDots() {
+                dotsContainer.innerHTML = '';
+                var maxIdx = getMaxIndex();
+                for (var i = 0; i <= maxIdx; i++) {
+                    var dot = document.createElement('button');
+                    dot.className = 'slider-dot' + (i === currentIndex ? ' active' : '');
+                    dot.setAttribute('aria-label', 'גיליון ' + (i + 1));
+                    dot.dataset.index = i;
+                    dot.addEventListener('click', function() {
+                        goTo(parseInt(this.dataset.index));
+                        resetAuto();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function updateDots() {
+                var dots = dotsContainer.querySelectorAll('.slider-dot');
+                dots.forEach(function(d, i) {
+                    d.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function slide() {
+                var cardWidth = cards[0].offsetWidth + 24;
+                // RTL: positive translateX to move right
+                track.style.transform = 'translateX(' + (currentIndex * cardWidth) + 'px)';
+                updateDots();
+            }
+
+            function goTo(idx) {
+                var maxIdx = getMaxIndex();
+                currentIndex = Math.max(0, Math.min(idx, maxIdx));
+                slide();
+            }
+
+            // RTL: "next" means lower index visually to the left, "prev" means higher index to the right
+            function goNext() {
+                if (currentIndex >= getMaxIndex()) {
+                    goTo(0); // loop
+                } else {
+                    goTo(currentIndex + 1);
+                }
+            }
+
+            function goPrev() {
+                if (currentIndex <= 0) {
+                    goTo(getMaxIndex());
+                } else {
+                    goTo(currentIndex - 1);
+                }
+            }
+
+            // In RTL: right arrow (prev class) goes to previous, left arrow (next class) goes to next
+            prevBtn.addEventListener('click', function() { goPrev(); resetAuto(); });
+            nextBtn.addEventListener('click', function() { goNext(); resetAuto(); });
+
+            function startAuto() {
+                stopAuto();
+                autoInterval = setInterval(goNext, AUTO_DELAY);
+            }
+
+            function stopAuto() {
+                if (autoInterval) { clearInterval(autoInterval); autoInterval = null; }
+            }
+
+            function resetAuto() {
+                if (isAutoPlaying) { startAuto(); }
+            }
+
+            window.toggleAutoSlide = function() {
+                isAutoPlaying = !isAutoPlaying;
+                if (isAutoPlaying) {
+                    startAuto();
+                    pauseBtn.textContent = '⏸ עצור החלפה אוטומטית';
+                } else {
+                    stopAuto();
+                    pauseBtn.textContent = '▶ הפעל החלפה אוטומטית';
+                }
+            };
+
+            // Touch/swipe support
+            var startX = 0, isDragging = false;
+            track.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }, { passive: true });
+            track.addEventListener('touchend', function(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                var diff = e.changedTouches[0].clientX - startX;
+                if (Math.abs(diff) > 50) {
+                    // RTL: swipe right = next (positive diff), swipe left = prev (negative diff)
+                    if (diff > 0) goNext(); else goPrev();
+                    resetAuto();
+                }
+            }, { passive: true });
+
+            // Pause on hover
+            var wrapper = document.getElementById('issuesSlider');
+            wrapper.addEventListener('mouseenter', stopAuto);
+            wrapper.addEventListener('mouseleave', function() { if (isAutoPlaying) startAuto(); });
+
+            // Init
+            buildDots();
+            slide();
+            startAuto();
+
+            // Recalc on resize
+            window.addEventListener('resize', function() {
+                buildDots();
+                goTo(Math.min(currentIndex, getMaxIndex()));
+            });
         })();
     </script>
 
