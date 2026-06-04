@@ -93,7 +93,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('https://chashmonayim.org/images/group-flags.jpg') center 35% / cover no-repeat;
+      background: url('https://chashmonayim.org/images/kupat-group-tent.jpg') center 40% / cover no-repeat;
     }
     .hero-overlay {
       position: absolute;
@@ -230,9 +230,6 @@
       margin: 0 auto 60px;
       padding: 0 24px;
     }
-    .gallery.three-up {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
     .gallery img {
       width: 100%;
       height: 280px;
@@ -242,6 +239,43 @@
       transition: transform 0.4s;
     }
     .gallery img:hover { transform: scale(1.02); }
+
+    /* ─── Videos Section ─── */
+    .videos-section {
+      padding: 60px 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .videos-section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .videos-section .gold-line {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 32px;
+      border-radius: 2px;
+    }
+    .videos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .video-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #000;
+    }
+    .video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* ─── What we do section ─── */
     .what-we-do {
@@ -434,6 +468,7 @@
       .story p { font-size: 17px; }
       .gallery { grid-template-columns: 1fr; gap: 12px; }
       .gallery img { height: 220px; }
+      .videos-grid { grid-template-columns: 1fr; }
       .features { grid-template-columns: 1fr; gap: 16px; }
       .quote-section blockquote { font-size: 20px; }
       .donate-frame-wrapper iframe { height: 600px; }
@@ -497,11 +532,30 @@
   </section>
 
   <!-- Photo Gallery -->
-  <div class="gallery three-up">
-    <img src="https://chashmonayim.org/images/kupat-group1.jpg" alt="לוחמי חשמונאים — תמונה קבוצתית בבסיס">
-    <img src="https://chashmonayim.org/images/kupat-group2.jpg" alt="לוחמי חשמונאים — פלוגה">
-    <img src="https://chashmonayim.org/images/kupat-meal.jpg" alt="ארוחת שבת בשטח">
+  <div class="gallery">
+    <img src="https://chashmonayim.org/images/kupat-group-tent.jpg" alt="לוחמי חשמונאים — תמונה קבוצתית בבסיס">
+    <img src="https://chashmonayim.org/images/kupat-group-blurred.jpg" alt="לוחמי חשמונאים — שבת בבסיס">
+    <img src="https://chashmonayim.org/images/kupat-kumzitz.jpg" alt="קומזיץ שבת — לוחמי חשמונאים">
+    <img src="https://chashmonayim.org/images/kupat-meal-tent.jpg" alt="ארוחת שבת באוהל">
   </div>
+
+  <!-- Video Section -->
+  <section class="videos-section">
+    <h2>שבת בחטיבת חשמונאים</h2>
+    <div class="gold-line"></div>
+    <div class="videos-grid">
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata" poster="https://chashmonayim.org/images/kupat-kumzitz.jpg">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata" poster="https://chashmonayim.org/images/kupat-meal-tent.jpg">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-2.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
 
   <!-- What We Do -->
   <section class="what-we-do">
@@ -509,19 +563,19 @@
     <div class="gold-line"></div>
     <div class="features">
       <div class="feature-card">
-        <div class="feature-icon">🍲</div>
-        <h3>מאכלי שבת</h3>
-        <p>חלות, סלטים, תבשילים ומאכלי שבת חמים — שהחיילים ירגישו את אווירת השבת גם בבסיס ובשטח</p>
+        <div class="feature-icon">🍰</div>
+        <h3>פינוקים ביתיים</h3>
+        <p>עוגות, שוקולדים, ממתקים ושתייה חמה — הדברים הקטנים שמזכירים בית ומביאים חיוך</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🍫</div>
+        <div class="feature-icon">🥜</div>
         <h3>חטיפים ופיצוחים</h3>
-        <p>חטיפים, פיצוחים, שתייה חמה וממתקים — פינוקים שמביאים חיוך ועונג שבת לכל לוחם</p>
+        <p>חטיפים, פיצוחים, שקדים וגרעינים — כל מה שצריך כדי שהשבת בבסיס תרגיש אחרת</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🕯️</div>
-        <h3>אווירה שבתית</h3>
-        <p>נרות, יין לקידוש ואווירה חמה — כדי שכל שבת בבסיס או במשימה תהיה שבת של עונג ושמחה</p>
+        <div class="feature-icon">🏠</div>
+        <h3>אווירה ביתית</h3>
+        <p>קומזיץ, שירה, תאורה חמה ואווירת שבת — שהלוחמים ירגישו שיש מי שחושב עליהם</p>
       </div>
     </div>
   </section>
