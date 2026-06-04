@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>קופת השבת של חטיבת חשמונאים</title>
+
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="קופת השבת של חטיבת חשמונאים">
+  <meta property="og:description" content="תרמו לקופת השבת — פינוקים ללוחמי חטיבת חשמונאים שסוגרים שבתות באימונים ובלחימה. כל תרומה מביאה חיוך לחיילים שלנו.">
+  <meta property="og:image" content="https://chashmonayim.org/images/og-kupat-shabbat.jpg">
+  <meta property="og:url" content="https://chashmonayim.org/kupat-shabbat.html">
+  <meta property="og:site_name" content="עמותת בוגרי וידידי החשמונאים">
+  <meta property="og:locale" content="he_IL">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="קופת השבת של חטיבת חשמונאים">
+  <meta name="twitter:description" content="תרמו לקופת השבת — פינוקים ללוחמי חטיבת חשמונאים שסוגרים שבתות באימונים ובלחימה.">
+  <meta name="twitter:image" content="https://chashmonayim.org/images/og-kupat-shabbat.jpg">
+
+  <meta name="description" content="קופת השבת של חטיבת חשמונאים — תרמו לפינוקים ללוחמים חרדים שסוגרים שבתות באימונים ובלחימה. עמותת בוגרי וידידי החשמונאים.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://chashmonayim.org/images/logo.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLNEH3K485"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DLNEH3K485');</script>
+
+  <style>
+    :root {
+      --primary: #1a2a5e;
+      --primary-light: #2a3d7a;
+      --gold: #c8a45c;
+      --gold-light: #d4b876;
+      --bg: #f5f3ef;
+      --text: #2d2d2d;
+      --text-light: #666;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(26,42,94,0.12);
+      --shadow-lg: 0 12px 48px rgba(26,42,94,0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      overflow-x: hidden;
+    }
+
+    /* ─── Top Bar ─── */
+    .top-bar {
+      background: var(--primary);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-bar a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.3s;
+    }
+    .top-bar a:hover { opacity: 0.8; }
+    .top-bar .logo-mini {
+      height: 32px;
+      width: auto;
+    }
+
+    /* ─── Hero Section ─── */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://chashmonayim.org/images/group-flags.jpg') center 35% / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26,42,94,0.55) 0%,
+        rgba(26,42,94,0.75) 50%,
+        rgba(26,42,94,0.92) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 24px 80px;
+      max-width: 800px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(200,164,92,0.15);
+      border: 1px solid rgba(200,164,92,0.4);
+      border-radius: 40px;
+      padding: 8px 24px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge img {
+      height: 36px;
+      width: auto;
+    }
+    .hero-badge span {
+      color: var(--gold);
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .hero .subtitle {
+      font-size: 22px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero .cta-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--primary);
+      font-size: 22px;
+      font-weight: 700;
+      padding: 18px 56px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 6px 30px rgba(200,164,92,0.4);
+      animation: pulse-glow 2.5s ease-in-out infinite;
+    }
+    .hero .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(200,164,92,0.6);
+      background: var(--gold-light);
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 6px 30px rgba(200,164,92,0.4); }
+      50% { box-shadow: 0 6px 40px rgba(200,164,92,0.7); }
+    }
+
+    /* ─── Scroll indicator ─── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      text-align: center;
+      animation: bounce 2s ease infinite;
+    }
+    .scroll-hint svg { display: block; margin: 6px auto 0; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── Story / About Section ─── */
+    .story {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .story h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .story .gold-line {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 32px;
+      border-radius: 2px;
+    }
+    .story p {
+      font-size: 19px;
+      line-height: 1.9;
+      color: var(--text);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .story .highlight {
+      background: linear-gradient(180deg, transparent 60%, rgba(200,164,92,0.25) 60%);
+      font-weight: 600;
+    }
+
+    /* ─── Photo Gallery ─── */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.4s;
+    }
+    .gallery img:hover { transform: scale(1.02); }
+
+    /* ─── Impact Numbers ─── */
+    .impact {
+      background: var(--primary);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .impact h2 {
+      color: var(--gold);
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .impact-grid {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .impact-item {
+      text-align: center;
+    }
+    .impact-num {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .impact-label {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      font-weight: 400;
+    }
+
+    /* ─── What we do section ─── */
+    .what-we-do {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .what-we-do h2 {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .what-we-do .gold-line {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 48px;
+      border-radius: 2px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-icon {
+      font-size: 44px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    /* ─── Donation Section ─── */
+    .donate-section {
+      padding: 80px 24px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg) 0%, #ede9e3 100%);
+    }
+    .donate-section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .donate-section .gold-line {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 20px;
+      border-radius: 2px;
+    }
+    .donate-section .donate-subtitle {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .donate-frame-wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 2px solid rgba(200,164,92,0.3);
+    }
+    .donate-frame-wrapper iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
+    .donate-note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .donate-note a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* ─── Quote Section ─── */
+    .quote-section {
+      background: var(--primary);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .quote-section blockquote {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 26px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .quote-section blockquote::before {
+      content: '״';
+      font-size: 60px;
+      color: var(--gold);
+      display: block;
+      line-height: 0.5;
+      margin-bottom: 16px;
+    }
+    .quote-author {
+      margin-top: 20px;
+      color: var(--gold);
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      background: #111;
+      color: rgba(255,255,255,0.6);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+    .footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Floating CTA ─── */
+    .floating-cta {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: var(--gold);
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      padding: 14px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 30px rgba(200,164,92,0.5);
+      transition: all 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .floating-cta.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .floating-cta:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 8px 40px rgba(200,164,92,0.7);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .hero { min-height: 75vh; }
+      .hero h1 { font-size: 34px; }
+      .hero .subtitle { font-size: 18px; }
+      .hero .cta-btn { font-size: 18px; padding: 14px 40px; }
+      .story h2, .what-we-do h2, .donate-section h2 { font-size: 28px; }
+      .story p { font-size: 17px; }
+      .gallery { grid-template-columns: 1fr; gap: 12px; }
+      .gallery img { height: 220px; }
+      .features { grid-template-columns: 1fr; gap: 16px; }
+      .impact-grid { gap: 32px; }
+      .impact-num { font-size: 40px; }
+      .quote-section blockquote { font-size: 20px; }
+      .donate-frame-wrapper iframe { height: 600px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 28px; }
+      .hero .subtitle { font-size: 16px; }
+      .impact-grid { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a href="https://chashmonayim.org">
+      <img src="https://chashmonayim.org/images/logo.png" alt="לוגו" class="logo-mini">
+      <span>עמותת בוגרי וידידי החשמונאים</span>
+    </a>
+    <a href="https://chashmonayim.org">← לאתר העמותה</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <img src="https://chashmonayim.org/images/logo.png" alt="סמל חשמונאים">
+        <span>עמותת בוגרי וידידי החשמונאים</span>
+      </div>
+      <h1>
+        <span class="gold">קופת השבת</span><br>
+        של חטיבת חשמונאים
+      </h1>
+      <p class="subtitle">
+        הלוחמים שלנו סוגרים שבתות בשטח — בואו נדאג<br>
+        שכל שבת תהיה להם חמה, מתוקה ומלאת אהבה
+      </p>
+      <a href="#donate" class="cta-btn">לתרומה ←</a>
+    </div>
+    <div class="scroll-hint">
+      גלול למטה
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="story">
+    <h2>למה קופת השבת?</h2>
+    <div class="gold-line"></div>
+    <p>
+      לוחמי חטיבת חשמונאים — חיילים חרדים שבחרו לשרת את המדינה — עוברים הכשרה קרבית מאומצת
+      ויוצאים למשימות מבצעיות מורכבות. <span class="highlight">בשבתות רבות הם נשארים בבסיס או בשטח</span>,
+      רחוק מהבית, מהמשפחה ומהשולחן המוכר.
+    </p>
+    <p>
+      <strong>קופת השבת</strong> נועדה להביא לכל לוחם שסוגר שבת את התחושה שלא שכחו אותו.
+      פינוקים חמים, מאכלי שבת, חטיפים ושוקו — <span class="highlight">כל תרומה הופכת שבת רגילה בבסיס לשבת שמרגישה כמו בית</span>.
+    </p>
+  </section>
+
+  <!-- Photo Gallery -->
+  <div class="gallery">
+    <img src="https://chashmonayim.org/images/outdoor-gathering.jpg" alt="לוחמי חשמונאים — מפגש פלוגתי">
+    <img src="https://chashmonayim.org/images/group-photo.jpg" alt="לוחמי חשמונאים — תמונה קבוצתית">
+  </div>
+
+  <!-- Impact Numbers -->
+  <section class="impact">
+    <h2>החשמונאים במספרים</h2>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num">400+</div>
+        <div class="impact-label">לוחמים פעילים בחטיבה</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">52</div>
+        <div class="impact-label">שבתות בשנה — רובן בשטח</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">100%</div>
+        <div class="impact-label">מהתרומה מגיעה ללוחמים</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Do -->
+  <section class="what-we-do">
+    <h2>מה התרומה שלכם מאפשרת?</h2>
+    <div class="gold-line"></div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🍰</div>
+        <h3>עוגות ופינוקים</h3>
+        <p>עוגות שבת, חטיפים, ממתקים ושתייה חמה — כדי שהשבת בבסיס תרגיש אחרת</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🕯️</div>
+        <h3>ציוד שבת</h3>
+        <p>נרות, יין לקידוש, חלות ולחמניות — כל מה שצריך לקבלת שבת מכובדת</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <h3>אירועים מיוחדים</h3>
+        <p>פינוקים מוגברים בחגים, ימי הולדת ואירועים מיוחדים — שהלוחמים ירגישו שיש מי שחושב עליהם</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="quote-section">
+    <blockquote>
+      כשאתה סוגר שבת רחוק מהבית, והפינוקים מגיעים — אתה מרגיש שיש עם שלם מאחוריך
+      <div class="quote-author">— לוחם בחטיבת חשמונאים</div>
+    </blockquote>
+  </section>
+
+  <!-- Donation Section -->
+  <section class="donate-section" id="donate">
+    <h2>תרמו עכשיו</h2>
+    <div class="gold-line"></div>
+    <p class="donate-subtitle">
+      כל סכום עושה הבדל. תרומה מאובטחת דרך מערכת גרין אינבויס.
+    </p>
+    <div class="donate-frame-wrapper">
+      <iframe
+        src="https://pages.greeninvoice.co.il/payments/links/17c2ad81-cfbd-4f65-8183-014587add775"
+        title="טופס תרומה — קופת השבת"
+        allow="payment"
+        loading="lazy">
+      </iframe>
+    </div>
+    <p class="donate-note">
+      התרומה מועברת ישירות ל<a href="https://chashmonayim.org">עמותת בוגרי וידידי החשמונאים</a> (ע״ר 580814234).
+      <br>ניתן לקבל קבלה לצורכי מס.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://chashmonayim.org">אתר העמותה</a>
+      <a href="https://chashmonaim.co.il/">אתר החטיבה</a>
+      <a href="https://bachativa.com/">עלון בחטיבה</a>
+      <a href="mailto:bachativa@gmail.com">צור קשר</a>
+    </div>
+    <div>
+      © 2026 עמותת ״בוגרי וידידי החשמונאים״ (ע״ר 580814234) | כל הזכויות שמורות.
+    </div>
+  </footer>
+
+  <!-- Floating CTA -->
+  <a href="#donate" class="floating-cta" id="floatingCta">תרמו לקופת השבת ←</a>
+
+  <script>
+    // Show floating CTA after scrolling past hero
+    const floatingCta = document.getElementById('floatingCta');
+    const hero = document.querySelector('.hero');
+    const donateSection = document.getElementById('donate');
+
+    window.addEventListener('scroll', () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      const donateTop = donateSection.getBoundingClientRect().top;
+      const windowH = window.innerHeight;
+
+      if (heroBottom < 0 && donateTop > windowH) {
+        floatingCta.classList.add('visible');
+      } else {
+        floatingCta.classList.remove('visible');
+      }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href="#donate"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        donateSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Animate numbers on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.impact-num').forEach(num => {
+            const target = num.textContent;
+            const isPlus = target.includes('+');
+            const isPercent = target.includes('%');
+            const value = parseInt(target);
+            let current = 0;
+            const step = Math.ceil(value / 40);
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= value) {
+                current = value;
+                clearInterval(timer);
+              }
+              num.textContent = current + (isPlus ? '+' : '') + (isPercent ? '%' : '');
+            }, 30);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const impactSection = document.querySelector('.impact');
+    if (impactSection) observer.observe(impactSection);
+  </script>
+
+</body>
+</html>
