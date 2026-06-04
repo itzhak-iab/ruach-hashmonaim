@@ -239,6 +239,7 @@
       transition: transform 0.4s;
     }
     .gallery img:hover { transform: scale(1.02); }
+    .gallery img.gallery-wide { grid-column: 1 / -1; height: 320px; }
 
     /* ─── Videos Section ─── */
     .videos-section {
@@ -275,56 +276,6 @@
       width: 100%;
       height: auto;
       display: block;
-    }
-
-    /* ─── What we do section ─── */
-    .what-we-do {
-      padding: 80px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .what-we-do h2 {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-    .what-we-do .gold-line {
-      width: 60px;
-      height: 3px;
-      background: var(--gold);
-      margin: 0 auto 48px;
-      border-radius: 2px;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-    }
-    .feature-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s;
-    }
-    .feature-card:hover { transform: translateY(-4px); }
-    .feature-icon {
-      font-size: 44px;
-      margin-bottom: 16px;
-    }
-    .feature-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-    .feature-card p {
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--text-light);
     }
 
     /* ─── Donation Section ─── */
@@ -464,12 +415,11 @@
       .hero h1 { font-size: 34px; }
       .hero .subtitle { font-size: 18px; }
       .hero .cta-btn { font-size: 18px; padding: 14px 40px; }
-      .story h2, .what-we-do h2, .donate-section h2 { font-size: 28px; }
+      .story h2, .donate-section h2 { font-size: 28px; }
       .story p { font-size: 17px; }
       .gallery { grid-template-columns: 1fr; gap: 12px; }
       .gallery img { height: 220px; }
       .videos-grid { grid-template-columns: 1fr; }
-      .features { grid-template-columns: 1fr; gap: 16px; }
       .quote-section blockquote { font-size: 20px; }
       .donate-frame-wrapper iframe { height: 600px; }
     }
@@ -537,6 +487,7 @@
     <img src="https://chashmonayim.org/images/kupat-group-blurred.jpg" alt="לוחמי חשמונאים — שבת בבסיס">
     <img src="https://chashmonayim.org/images/kupat-kumzitz.jpg" alt="קומזיץ שבת — לוחמי חשמונאים">
     <img src="https://chashmonayim.org/images/kupat-meal-tent.jpg" alt="ארוחת שבת באוהל">
+    <img src="https://chashmonayim.org/images/kupat-pinuk.jpg" alt="פינוק שבת — חבילה לחייל" class="gallery-wide">
   </div>
 
   <!-- Video Section -->
@@ -545,37 +496,49 @@
     <div class="gold-line"></div>
     <div class="videos-grid">
       <div class="video-wrapper">
-        <video controls playsinline preload="metadata" poster="https://chashmonayim.org/images/kupat-kumzitz.jpg">
+        <video controls playsinline preload="metadata">
           <source src="https://chashmonayim.org/videos/kupat-shabbat-1.mp4" type="video/mp4">
         </video>
       </div>
       <div class="video-wrapper">
-        <video controls playsinline preload="metadata" poster="https://chashmonayim.org/images/kupat-meal-tent.jpg">
+        <video controls playsinline preload="metadata">
           <source src="https://chashmonayim.org/videos/kupat-shabbat-2.mp4" type="video/mp4">
         </video>
       </div>
-    </div>
-  </section>
-
-  <!-- What We Do -->
-  <section class="what-we-do">
-    <h2>מה התרומה שלכם מאפשרת?</h2>
-    <div class="gold-line"></div>
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">🍰</div>
-        <h3>פינוקים ביתיים</h3>
-        <p>עוגות, שוקולדים, ממתקים ושתייה חמה — הדברים הקטנים שמזכירים בית ומביאים חיוך</p>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-3.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🥜</div>
-        <h3>חטיפים ופיצוחים</h3>
-        <p>חטיפים, פיצוחים, שקדים וגרעינים — כל מה שצריך כדי שהשבת בבסיס תרגיש אחרת</p>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-4.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏠</div>
-        <h3>אווירה ביתית</h3>
-        <p>קומזיץ, שירה, תאורה חמה ואווירת שבת — שהלוחמים ירגישו שיש מי שחושב עליהם</p>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-5.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-6.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-7.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-8.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="https://chashmonayim.org/videos/kupat-shabbat-9.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
@@ -593,7 +556,7 @@
     <h2>תרמו עכשיו</h2>
     <div class="gold-line"></div>
     <p class="donate-subtitle">
-      כל סכום עושה הבדל. תרומה מאובטחת דרך מערכת גרין אינבויס.
+      כל סכום עושה הבדל. תרומה מאובטחת.
     </p>
     <div class="donate-frame-wrapper">
       <iframe
