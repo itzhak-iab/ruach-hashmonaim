@@ -2001,6 +2001,32 @@
       transform: scale(1.05);
     }
 
+    /* ===== FOOTER SOCIAL (FACEBOOK) ===== */
+    .footer-social {
+      margin-top: 24px;
+      grid-column: 1 / -1;
+    }
+    .footer-fb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1877F2;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 16px rgba(24,119,242,0.35);
+    }
+    .footer-fb-btn:hover {
+      background: #166fe5;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(24,119,242,0.5);
+      color: #fff;
+    }
+
     /* ===== FOOTER LINKS: HOVER COLOR TRANSITION ===== */
     footer a,
     .footer-link {
@@ -3647,8 +3673,8 @@
                 <span class="en-only" style="font-weight:600;">Official Brigade Website</span>
               </span>
             </a>
-            <a href="https://www.facebook.com/profile.php?id=61590104134442" class="contact-social-link" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 20px; background:var(--light-gray); border-radius:12px; text-decoration:none; color:var(--dark); transition:all 0.3s;">
-              <span class="icon" style="font-size:1.5rem;">📘</span>
+            <a href="https://www.facebook.com/profile.php?id=61590104134442" class="contact-social-link" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 20px; background:#1877F2; border-radius:12px; text-decoration:none; color:#fff; transition:all 0.3s;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff" style="min-width:24px;"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               <span>
                 <span class="he-only" style="font-weight:600;">עמוד הפייסבוק שלנו</span>
                 <span class="en-only" style="font-weight:600;">Our Facebook Page</span>
@@ -3932,11 +3958,16 @@
           <span class="he-only">תקנון</span>
           <span class="en-only">Terms of Service</span>
         </a></li>
-        <li><a href="https://www.facebook.com/profile.php?id=61590104134442" target="_blank" rel="noopener">
-          <span class="he-only">פייסבוק</span>
-          <span class="en-only">Facebook</span>
-        </a></li>
       </ul>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/profile.php?id=61590104134442" target="_blank" rel="noopener" class="footer-fb-btn" title="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span>
+            <span class="he-only">עקבו אחרינו בפייסבוק</span>
+            <span class="en-only">Follow us on Facebook</span>
+          </span>
+        </a>
+      </div>
     </div>
     <div class="footer-bottom">
       <span style="margin-bottom:12px;">
