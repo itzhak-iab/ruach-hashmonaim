@@ -1632,11 +1632,8 @@ async function addPartner() {
   if (!imgSrc) { showToast('נא לבחור תמונה או להזין כתובת URL', 'warning'); return; }
 
   partners.push({ nameHe, nameEn, url, imgSrc, alt: alt || nameHe });
-  partnersChanged = true;
-  document.getElementById('savePartnersBtn').style.display = '';
-  renderPartners();
   closeModal();
-  showToast('שותף נוסף בהצלחה', 'success');
+  await savePartners();
 }
 
 function openEditPartnerModal(index) {
@@ -1702,19 +1699,14 @@ async function saveEditPartner(index) {
   partners[index].url = document.getElementById('pUrl').value.trim();
   partners[index].imgSrc = imgSrc;
   partners[index].alt = document.getElementById('pAlt').value.trim() || nameHe;
-  partnersChanged = true;
-  document.getElementById('savePartnersBtn').style.display = '';
-  renderPartners();
   closeModal();
-  showToast('שותף עודכן בהצלחה', 'success');
+  await savePartners();
 }
 
 function deletePartner(index) {
-  showConfirm('מחיקת שותף', `האם למחוק את "${partners[index].nameHe}"?`, () => {
+  showConfirm('מחיקת שותף', `האם למחוק את "${partners[index].nameHe}"?`, async () => {
     partners.splice(index, 1);
-    partnersChanged = true;
-    document.getElementById('savePartnersBtn').style.display = '';
-    renderPartners();
+    await savePartners();
     showToast('שותף נמחק', 'success');
   });
 }
