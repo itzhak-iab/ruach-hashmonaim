@@ -715,6 +715,9 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
         <span class="nav-icon">🏠</span> ראשי
       </div>
+      <div class="nav-item" data-page="campaigns" onclick="navigateTo('campaigns')">
+        <span class="nav-icon">📢</span> ניהול קמפיינים
+      </div>
       <div class="nav-item" data-page="partners" onclick="navigateTo('partners')">
         <span class="nav-icon">🤝</span> ניהול שותפים
       </div>
@@ -783,6 +786,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
             <h3>פעולות מהירות</h3>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="navigateTo('campaigns')">📢 ניהול קמפיינים</button>
             <button class="btn btn-primary btn-sm" onclick="navigateTo('partners')">🤝 ניהול שותפים</button>
             <button class="btn btn-primary btn-sm" onclick="navigateTo('bitaon')">📰 בטאון החטיבה</button>
             <button class="btn btn-outline btn-sm" onclick="navigateTo('content')">📝 עריכת תוכן</button>
@@ -801,6 +805,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
             <h3>Google Analytics</h3>
             <p>כדי לצפות בנתוני האנליטיקס כאן, ודא שהאתר מחובר ל-Google Analytics. ניתן לצפות בנתונים ישירות בעמוד האנליטיקס.</p>
             <button class="btn btn-outline btn-sm" onclick="navigateTo('analytics')">עבור לאנליטיקס</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPAIGNS PAGE -->
+      <div class="page-section" id="page-campaigns">
+        <div class="card">
+          <div class="card-header">
+            <h3>📢 קמפיינים פעילים</h3>
+            <button class="btn btn-primary btn-sm" onclick="openNewCampaignModal()">+ קמפיין חדש</button>
+          </div>
+          <div id="campaignsList" style="min-height:100px;">
+            <div style="text-align:center;padding:40px;color:#999;">טוען קמפיינים...</div>
           </div>
         </div>
       </div>
@@ -1350,7 +1367,7 @@ function navigateTo(page) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById(`page-${page}`).classList.add('active');
   document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
-  const titles = { dashboard: 'ראשי', partners: 'ניהול שותפים', bitaon: 'בטאון החטיבה', content: 'עריכת תוכן', seo: 'הגדרות SEO', analytics: 'אנליטיקס', settings: 'הגדרות' };
+  const titles = { dashboard: 'ראשי', campaigns: 'ניהול קמפיינים', partners: 'ניהול שותפים', bitaon: 'בטאון החטיבה', content: 'עריכת תוכן', seo: 'הגדרות SEO', analytics: 'אנליטיקס', settings: 'הגדרות' };
   document.getElementById('pageTitle').textContent = titles[page] || page;
   // Close sidebar on mobile
   document.getElementById('sidebar').classList.remove('open');
@@ -2959,6 +2976,303 @@ navigateTo = function(page) {
   _origNavigateTo2(page);
   if (page === 'bitaon') {
     loadBitaonData();
+  }
+};
+
+// ===== CAMPAIGNS MANAGEMENT =====
+let campaigns = [];
+
+function parseCampaigns() {
+  campaigns = [];
+  const regex = /<!-- Campaign \d+:.*?-->\s*<a href="([^"]*)" class="campaign-card fade-in([^"]*)">\s*<div class="campaign-img">\s*<img src="([^"]*)" alt="([^"]*)"[^>]*>\s*<span class="campaign-badge([^"]*)">(.*?)<\/span>\s*<\/div>\s*<div class="campaign-body">\s*<h3>\s*<span class="he-only">(.*?)<\/span>\s*<span class="en-only">(.*?)<\/span>\s*<\/h3>\s*<p>\s*<span class="he-only">(.*?)<\/span>\s*<span class="en-only">(.*?)<\/span>\s*<\/p>\s*<span class="campaign-cta">\s*<span class="he-only">(.*?)<\/span>\s*<span class="en-only">(.*?)<\/span>\s*<\/span>\s*<\/div>\s*<\/a>/gs;
+  let match;
+  while ((match = regex.exec(htmlContent)) !== null) {
+    campaigns.push({
+      url: match[1],
+      cardClass: match[2].trim(),
+      image: match[3],
+      imageAlt: match[4],
+      badgeClass: match[5].trim(),
+      badgeText: match[6].trim(),
+      titleHe: match[7].trim(),
+      titleEn: match[8].trim(),
+      descHe: match[9].trim(),
+      descEn: match[10].trim(),
+      ctaHe: match[11].trim(),
+      ctaEn: match[12].trim()
+    });
+  }
+  return campaigns;
+}
+
+function renderCampaigns() {
+  parseCampaigns();
+  const container = document.getElementById('campaignsList');
+  if (campaigns.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">אין קמפיינים. לחץ על "+ קמפיין חדש" כדי להוסיף.</div>';
+    return;
+  }
+  let html = '<div style="display:grid;gap:16px;">';
+  campaigns.forEach((c, i) => {
+    const isEnded = c.badgeText === 'הסתיים';
+    const statusColor = isEnded ? '#6b7280' : '#22c55e';
+    const statusText = isEnded ? 'הסתיים' : 'פעיל';
+    html += `
+      <div style="display:flex;align-items:center;gap:16px;padding:16px;background:#f9fafb;border-radius:12px;border:1px solid #e5e7eb;">
+        <img src="https://chashmonayim.org/${c.image}" alt="${c.imageAlt}" style="width:100px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <strong style="font-size:1.05rem;">${c.titleHe}</strong>
+            <span style="background:${statusColor};color:#fff;padding:2px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;">${statusText}</span>
+          </div>
+          <div style="color:#666;font-size:0.85rem;">${c.descHe}</div>
+          <div style="color:#999;font-size:0.75rem;margin-top:2px;">${c.url}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <button class="btn btn-outline btn-sm" onclick="editCampaign(${i})" title="ערוך">✏️</button>
+          <button class="btn btn-outline btn-sm" onclick="toggleCampaignStatus(${i})" title="${isEnded ? 'הפעל' : 'סמן כהסתיים'}">${isEnded ? '▶️' : '⏹️'}</button>
+          <button class="btn btn-outline btn-sm" onclick="deleteCampaign(${i})" title="מחק" style="color:#ef4444;">🗑️</button>
+        </div>
+      </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function buildCampaignHTML(c, index) {
+  const endedCard = c.badgeText === 'הסתיים' ? ' ended-card' : '';
+  const endedBadge = c.badgeText === 'הסתיים' ? ' ended' : '';
+  const imgStyle = c.image.includes('logo.png') ? ' style="object-fit: contain; background: #1a2a5e; padding: 24px;"' : '';
+  return `
+        <!-- Campaign ${index}: ${c.titleEn} -->
+        <a href="${c.url}" class="campaign-card fade-in${endedCard}">
+          <div class="campaign-img">
+            <img src="${c.image}" alt="${c.imageAlt}" loading="lazy"${imgStyle}>
+            <span class="campaign-badge${endedBadge}">${c.badgeText}</span>
+          </div>
+          <div class="campaign-body">
+            <h3>
+              <span class="he-only">${c.titleHe}</span>
+              <span class="en-only">${c.titleEn}</span>
+            </h3>
+            <p>
+              <span class="he-only">${c.descHe}</span>
+              <span class="en-only">${c.descEn}</span>
+            </p>
+            <span class="campaign-cta">
+              <span class="he-only">${c.ctaHe}</span>
+              <span class="en-only">${c.ctaEn}</span>
+            </span>
+          </div>
+        </a>`;
+}
+
+function rebuildCampaignsInHTML() {
+  const gridStart = htmlContent.indexOf('<div class="campaigns-grid">');
+  if (gridStart === -1) return false;
+  const gridContentStart = htmlContent.indexOf('>', gridStart) + 1;
+  const gridEnd = htmlContent.indexOf('</div>', htmlContent.indexOf('</a>', gridContentStart));
+  // Find the closing </div> that matches campaigns-grid
+  let depth = 0;
+  let pos = gridContentStart;
+  let closePos = -1;
+  // Simple: find last </a> then the next </div>
+  let lastA = htmlContent.lastIndexOf('</a>', htmlContent.indexOf('</div>\n    </section>', gridStart));
+  closePos = htmlContent.indexOf('\n', lastA + 5);
+
+  let newGrid = '\n';
+  campaigns.forEach((c, i) => {
+    newGrid += buildCampaignHTML(c, i + 1) + '\n';
+  });
+  newGrid += '\n      ';
+
+  // Replace content between campaigns-grid > and its closing </div>
+  const sectionEnd = htmlContent.indexOf('</div>\n    </section>', gridStart);
+  htmlContent = htmlContent.substring(0, gridContentStart) + newGrid + htmlContent.substring(sectionEnd);
+  return true;
+}
+
+async function saveCampaignsToGitHub() {
+  showLoading(true);
+  try {
+    if (!rebuildCampaignsInHTML()) {
+      throw new Error('לא נמצאה רשימת הקמפיינים בקוד');
+    }
+    await saveFileContent(htmlContent, 'Update campaigns via admin panel');
+    showToast('הקמפיינים עודכנו בהצלחה!', 'success');
+    renderCampaigns();
+  } catch (e) {
+    showToast('שגיאה בשמירה: ' + e.message, 'error');
+  }
+  showLoading(false);
+}
+
+function openNewCampaignModal() {
+  const html = `
+    <h3 style="margin-bottom:16px;">📢 קמפיין חדש</h3>
+    <div style="display:grid;gap:12px;">
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">כותרת (עברית) *</label>
+        <input class="form-input" id="cmpTitleHe" placeholder="למשל: קרן הסיוע ללוחם">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">כותרת (אנגלית)</label>
+        <input class="form-input" id="cmpTitleEn" placeholder="e.g. Soldier Support Fund">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תיאור קצר (עברית) *</label>
+        <input class="form-input" id="cmpDescHe" placeholder="תיאור של 1-2 שורות">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תיאור קצר (אנגלית)</label>
+        <input class="form-input" id="cmpDescEn" placeholder="Short description in English">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">קישור לדף הקמפיין *</label>
+        <input class="form-input" id="cmpUrl" placeholder="https://chashmonayim.org/campaign.html">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תמונה (נתיב יחסי מתוך images/)</label>
+        <input class="form-input" id="cmpImage" placeholder="images/campaign-image.jpg" value="images/logo.png">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">סטטוס</label>
+        <select class="form-input" id="cmpStatus">
+          <option value="פעיל">פעיל</option>
+          <option value="הסתיים">הסתיים</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-primary" onclick="saveNewCampaign()">💾 שמור קמפיין</button>
+        <button class="btn btn-outline" onclick="closeModal()">ביטול</button>
+      </div>
+    </div>`;
+  openModal(html);
+}
+
+async function saveNewCampaign() {
+  const titleHe = document.getElementById('cmpTitleHe').value.trim();
+  const titleEn = document.getElementById('cmpTitleEn').value.trim() || titleHe;
+  const descHe = document.getElementById('cmpDescHe').value.trim();
+  const descEn = document.getElementById('cmpDescEn').value.trim() || descHe;
+  const url = document.getElementById('cmpUrl').value.trim();
+  const image = document.getElementById('cmpImage').value.trim();
+  const status = document.getElementById('cmpStatus').value;
+
+  if (!titleHe || !descHe || !url) {
+    showToast('נא למלא את כל השדות המסומנים *', 'warning');
+    return;
+  }
+
+  const isEnded = status === 'הסתיים';
+  campaigns.push({
+    url: url,
+    cardClass: isEnded ? 'ended-card' : '',
+    image: image,
+    imageAlt: titleHe,
+    badgeClass: isEnded ? 'ended' : '',
+    badgeText: status,
+    titleHe: titleHe,
+    titleEn: titleEn,
+    descHe: descHe,
+    descEn: descEn,
+    ctaHe: isEnded ? 'לצפייה ←' : 'היו שותפים ←',
+    ctaEn: isEnded ? 'View ←' : 'Donate ←'
+  });
+
+  closeModal();
+  await saveCampaignsToGitHub();
+}
+
+function editCampaign(index) {
+  const c = campaigns[index];
+  const html = `
+    <h3 style="margin-bottom:16px;">✏️ עריכת קמפיין</h3>
+    <div style="display:grid;gap:12px;">
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">כותרת (עברית)</label>
+        <input class="form-input" id="editCmpTitleHe" value="${c.titleHe}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">כותרת (אנגלית)</label>
+        <input class="form-input" id="editCmpTitleEn" value="${c.titleEn}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תיאור (עברית)</label>
+        <input class="form-input" id="editCmpDescHe" value="${c.descHe}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תיאור (אנגלית)</label>
+        <input class="form-input" id="editCmpDescEn" value="${c.descEn}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">קישור</label>
+        <input class="form-input" id="editCmpUrl" value="${c.url}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">תמונה</label>
+        <input class="form-input" id="editCmpImage" value="${c.image}">
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">סטטוס</label>
+        <select class="form-input" id="editCmpStatus">
+          <option value="פעיל" ${c.badgeText === 'פעיל' ? 'selected' : ''}>פעיל</option>
+          <option value="הסתיים" ${c.badgeText === 'הסתיים' ? 'selected' : ''}>הסתיים</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn btn-primary" onclick="saveEditCampaign(${index})">💾 שמור</button>
+        <button class="btn btn-outline" onclick="closeModal()">ביטול</button>
+      </div>
+    </div>`;
+  openModal(html);
+}
+
+async function saveEditCampaign(index) {
+  const status = document.getElementById('editCmpStatus').value;
+  const isEnded = status === 'הסתיים';
+  campaigns[index] = {
+    url: document.getElementById('editCmpUrl').value.trim(),
+    cardClass: isEnded ? 'ended-card' : '',
+    image: document.getElementById('editCmpImage').value.trim(),
+    imageAlt: document.getElementById('editCmpTitleHe').value.trim(),
+    badgeClass: isEnded ? 'ended' : '',
+    badgeText: status,
+    titleHe: document.getElementById('editCmpTitleHe').value.trim(),
+    titleEn: document.getElementById('editCmpTitleEn').value.trim(),
+    descHe: document.getElementById('editCmpDescHe').value.trim(),
+    descEn: document.getElementById('editCmpDescEn').value.trim(),
+    ctaHe: isEnded ? 'לצפייה ←' : 'היו שותפים ←',
+    ctaEn: isEnded ? 'View ←' : 'Donate ←'
+  };
+  closeModal();
+  await saveCampaignsToGitHub();
+}
+
+async function toggleCampaignStatus(index) {
+  const c = campaigns[index];
+  const isEnded = c.badgeText === 'פעיל';
+  c.badgeText = isEnded ? 'הסתיים' : 'פעיל';
+  c.badgeClass = isEnded ? 'ended' : '';
+  c.cardClass = isEnded ? 'ended-card' : '';
+  c.ctaHe = isEnded ? 'לצפייה ←' : 'היו שותפים ←';
+  c.ctaEn = isEnded ? 'View ←' : 'Donate ←';
+  await saveCampaignsToGitHub();
+}
+
+async function deleteCampaign(index) {
+  showConfirm('מחיקת קמפיין', `למחוק את הקמפיין "${campaigns[index].titleHe}"?`, async () => {
+    campaigns.splice(index, 1);
+    await saveCampaignsToGitHub();
+  });
+}
+
+// Hook campaigns loading into navigation
+const _origNavigateTo3 = navigateTo;
+navigateTo = function(page) {
+  _origNavigateTo3(page);
+  if (page === 'campaigns') {
+    renderCampaigns();
   }
 };
 
