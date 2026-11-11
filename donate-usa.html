@@ -44,6 +44,13 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    body.he .en-only { display: none; }
+    body:not(.he) .he-only { display: none; }
+    body.he .note { border-left: 1px solid var(--border-color); border-right: 4px solid var(--gold); }
+    body.he .row .label, body.he .hero .eyebrow { letter-spacing: 0; }
+    .ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+    body.he .ltr { text-align: right; }
+
     body {
       font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--light-gray);
@@ -57,9 +64,28 @@
       border-bottom: 1px solid var(--border-color);
       padding: 12px 20px;
     }
-    .top-bar a {
+    .top-bar .inner {
       max-width: 720px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .lang-toggle {
+      flex: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--primary-dark);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .lang-toggle:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .top-bar a {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -217,98 +243,129 @@
 <body>
 
   <div class="top-bar">
-    <a href="https://chashmonayim.org/">
-      <img src="https://chashmonayim.org/images/logo.png" alt="Hashmonaim Association logo">
-      <span>Hashmonaim Association · עמותת החשמונאים</span>
-    </a>
+    <div class="inner">
+      <a class="home-link" href="https://chashmonayim.org/">
+        <img src="https://chashmonayim.org/images/logo.png" alt="Hashmonaim Association logo">
+        <span class="en-only">Hashmonaim Association</span><span class="he-only">עמותת החשמונאים</span>
+      </a>
+      <button class="lang-toggle" type="button" id="langToggle"><span class="en-only">עברית</span><span class="he-only">English</span></button>
+    </div>
   </div>
 
   <section class="hero">
-    <span class="eyebrow">Friends of Chashmonaim</span>
-    <h1>Donate from the USA</h1>
-    <p>Stand with the soldiers of the Chashmonaim Brigade. US donations are received through The Pathways Project.</p>
+    <span class="eyebrow"><span class="en-only">Friends of Chashmonaim</span><span class="he-only">ידידי החשמונאים</span></span>
+    <h1><span class="en-only">Donate from the USA</span><span class="he-only">תרומה מארה״ב</span></h1>
+    <p><span class="en-only">Stand with the soldiers of the Chashmonaim Brigade. US donations are received through The Pathways Project.</span><span class="he-only">היו שותפים ללוחמי חטיבת החשמונאים. תרומות מארה״ב מתקבלות דרך <span class="ltr">The Pathways Project</span>.</span></p>
   </section>
 
   <main>
 
     <section class="card">
-      <h2><span class="num">1</span> By check</h2>
+      <h2><span class="num">1</span> <span class="en-only">By check</span><span class="he-only">בצ׳ק</span></h2>
       <div class="row">
         <div>
-          <div class="label">Payable to</div>
-          <div class="value">The Pathways Project / Friends of Chashmonaim</div>
+          <div class="label"><span class="en-only">Payable to</span><span class="he-only">לפקודת</span></div>
+          <div class="value"><span class="ltr">The Pathways Project / Friends of Chashmonaim</span></div>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <h2><span class="num">2</span> By wire or ACH</h2>
+      <h2><span class="num">2</span> <span class="en-only">By wire or ACH</span><span class="he-only">בהעברה בנקאית (Wire / ACH)</span></h2>
       <div class="row">
         <div>
-          <div class="label">Account name</div>
-          <div class="value">The Pathways Project</div>
+          <div class="label"><span class="en-only">Account name</span><span class="he-only">שם החשבון</span></div>
+          <div class="value"><span class="ltr">The Pathways Project</span></div>
         </div>
-        <button class="copy" type="button" data-copy="The Pathways Project">Copy</button>
+        <button class="copy" type="button" data-copy="The Pathways Project"><span class="en-only">Copy</span><span class="he-only">העתקה</span></button>
       </div>
       <div class="row">
         <div>
-          <div class="label">Bank</div>
-          <div class="value">Chase Bank, Cedarhurst branch</div>
+          <div class="label"><span class="en-only">Bank</span><span class="he-only">בנק</span></div>
+          <div class="value"><span class="ltr">Chase Bank, Cedarhurst branch</span></div>
         </div>
       </div>
       <div class="row">
         <div>
-          <div class="label">ABA routing number</div>
-          <div class="value mono">021000021</div>
+          <div class="label"><span class="en-only">ABA routing number</span><span class="he-only">מספר ניתוב (ABA)</span></div>
+          <div class="value mono"><span class="ltr">021000021</span></div>
         </div>
-        <button class="copy" type="button" data-copy="021000021">Copy</button>
+        <button class="copy" type="button" data-copy="021000021"><span class="en-only">Copy</span><span class="he-only">העתקה</span></button>
       </div>
       <div class="row">
         <div>
-          <div class="label">Account number</div>
-          <div class="value mono">2908785701</div>
+          <div class="label"><span class="en-only">Account number</span><span class="he-only">מספר חשבון</span></div>
+          <div class="value mono"><span class="ltr">2908785701</span></div>
         </div>
-        <button class="copy" type="button" data-copy="2908785701">Copy</button>
+        <button class="copy" type="button" data-copy="2908785701"><span class="en-only">Copy</span><span class="he-only">העתקה</span></button>
       </div>
     </section>
 
     <section class="card">
-      <h2><span class="num">3</span> By Donor Advised Fund</h2>
+      <h2><span class="num">3</span> <span class="en-only">By Donor Advised Fund</span><span class="he-only">דרך Donor Advised Fund</span></h2>
       <div class="row">
         <div>
-          <div class="label">Recommend a grant to</div>
-          <div class="value">The Pathways Project</div>
+          <div class="label"><span class="en-only">Recommend a grant to</span><span class="he-only">מענק לטובת</span></div>
+          <div class="value"><span class="ltr">The Pathways Project</span></div>
         </div>
-        <button class="copy" type="button" data-copy="The Pathways Project">Copy</button>
+        <button class="copy" type="button" data-copy="The Pathways Project"><span class="en-only">Copy</span><span class="he-only">העתקה</span></button>
       </div>
       <div class="row">
         <div>
-          <div class="label">Fed ID (EIN)</div>
-          <div class="value mono">41-4982353</div>
+          <div class="label"><span class="en-only">Fed ID (EIN)</span><span class="he-only">מספר מזהה פדרלי (EIN)</span></div>
+          <div class="value mono"><span class="ltr">41-4982353</span></div>
         </div>
-        <button class="copy" type="button" data-copy="41-4982353">Copy</button>
+        <button class="copy" type="button" data-copy="41-4982353"><span class="en-only">Copy</span><span class="he-only">העתקה</span></button>
       </div>
     </section>
 
     <div class="note">
-      Questions about your gift? Reach us through the
-      <a href="https://chashmonayim.org/">Hashmonaim Association website</a>.
+      <span class="en-only">Questions about your gift? Reach us through the
+      <a class="home-link" href="https://chashmonayim.org/">Hashmonaim Association website</a>.</span>
+      <span class="he-only">שאלות על התרומה? אפשר לפנות אלינו דרך
+      <a class="home-link" href="https://chashmonayim.org/">אתר עמותת החשמונאים</a>.</span>
     </div>
 
-    <a class="back" href="https://chashmonayim.org/">← Back to chashmonayim.org</a>
+    <a class="back home-link" href="https://chashmonayim.org/"><span class="en-only">← Back to chashmonayim.org</span><span class="he-only">→ חזרה לאתר העמותה</span></a>
   </main>
 
-  <footer>Hashmonaim Association · עמותת החשמונאים</footer>
+  <footer><span class="en-only">Hashmonaim Association</span><span class="he-only">עמותת החשמונאים</span></footer>
 
   <script>
+    // Language: follows ?lang= from the main site, defaults to English
+    var lang = 'en';
+    try {
+      var q = new URLSearchParams(window.location.search).get('lang');
+      if (q === 'he' || q === 'en') lang = q;
+    } catch (e) {}
+
+    function applyLang() {
+      var he = lang === 'he';
+      document.body.classList.toggle('he', he);
+      document.documentElement.lang = he ? 'he' : 'en';
+      document.documentElement.dir = he ? 'rtl' : 'ltr';
+      document.title = he ? 'תרומה מארה״ב | עמותת החשמונאים' : 'Donate from the USA | Friends of Chashmonaim';
+      document.querySelectorAll('.home-link').forEach(function (a) {
+        a.href = 'https://chashmonayim.org/?lang=' + lang;
+      });
+      try { localStorage.setItem('siteLang', lang); } catch (e) {}
+    }
+    applyLang();
+
+    document.getElementById('langToggle').addEventListener('click', function () {
+      lang = lang === 'he' ? 'en' : 'he';
+      applyLang();
+    });
+
     document.querySelectorAll('.copy').forEach(function (btn) {
+      var label = btn.innerHTML;
       btn.addEventListener('click', function () {
         var text = btn.getAttribute('data-copy');
         var done = function () {
-          btn.textContent = 'Copied';
+          btn.textContent = lang === 'he' ? 'הועתק' : 'Copied';
           btn.classList.add('done');
           setTimeout(function () {
-            btn.textContent = 'Copy';
+            btn.innerHTML = label;
             btn.classList.remove('done');
           }, 1600);
         };
